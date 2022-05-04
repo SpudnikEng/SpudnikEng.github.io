@@ -12,11 +12,7 @@
 
     <style>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+
     </style>
 
     
@@ -24,11 +20,13 @@
     <link href="starter-template.css" rel="stylesheet">
   </head>
   <body>
-    
-<div class="col-lg-8 mx-auto p-3 py-md-5">
-  <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-    6740 Control Panel HOME
-  </header>
+    <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+    </header>
+<div class="container-lg bg-danger text-white">
+  <div class="row">
+    <div class="col"> </div>
+    <div class="col-8">
+  <h1 class="display-4">6740 Control Panel HOME</h1>
 
   <main>
     <img src="./assets/img/home.png" alt="HOME" usemap="#home">
@@ -36,18 +34,37 @@
       <area alt="Switch to DIGGER functions" title="Switch to DIGGER functions" href="digger.html" coords="563,81,636,158" shape="rect">
       <area alt="Switch to BOOM functions" title="Switch to BOOM functions" href="boom.html" coords="563,241,637,317" shape="rect">
       <area alt="Switch to TABLES functions" title="Switch to TABLES functions" href="tables.html" coords="2,161,77,237" shape="rect">
-      <area class="no-link" alt="Return to center (hold for 5 sec to set)" title="Return to center (hold for 5 sec to set)" href="#" coords="317,265,401,308" shape="rect">
-      <area class="no-link" alt="Saved PRESETs (Up to six for different conditions)" title="Saved PRESETs (Up to six for different conditions)" href="#" coords="80,431,562,481" shape="rect">
-      <area class="no-link" alt="Rear steering RIGHT" title="Rear steering RIGHT" href="#" coords="418,266 418,311 437,312 439,330 467,291 438,252 438,267 " shape="polygon">
+      <area title="Steering" coords="250,209,470,333" shape="rect" onclick="showText('steer');">
+      <area title="Saved PRESETs" coords="80,431,562,481" shape="rect" onclick="showText('presets');">
+      <area title="Digger" coords="80,44,239,235" shape="rect" onclick="showText('dig');">
     </map>
   </main>
-  <footer class="pt-5 my-5 text-muted border-top">
-    
-  </footer>
 </div>
+<div class="col"> </div>
+</div>
+<div class="row">
+  <div class="col"><br><br><br><br><br> </div>
+  <div class="col-8">
+    <div id="description">
+    Click or tap a screen area for more information.
+  </div>
+  </div>
+  <div class="col"> </div>
+  </div>
+</div>
+<footer class="pt-5 my-5 text-muted border-top">
+  <a href="https://media.spudnik.com/manuals/290097-6140-05.pdf#page=13">6140 Manual - page 13</a>
+</footer>
+<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
 
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function showText(desc_id){
+  document.getElementById('description').innerHTML = document.getElementById(desc_id).innerHTML;
+}
+</script>
+<div id="steer" class="d-none"><dl><dt>Steering</dt><dd>Steer rear wheels with left/right arrows. Tap CTR to re-center. Hold CTR for 5 sec to re-set the center.</dd></dl></div>
+<div id="dig" class="d-none"><dl><dt>Digger</dt><dd>Digger description.</dd></dl></div>
+<div id="presets" class="d-none"><dl><dt>Pre-sets</dt><dd>Up to six sets of preset values can be saved so you can quickly switch between different settings.</dd></dl></div>
 
       
   </body>
