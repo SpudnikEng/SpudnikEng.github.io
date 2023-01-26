@@ -359,9 +359,10 @@
     if(sn.trim().length>0) window.open("https://www.spudnik.com/search?keyword="+sn);
   }
   function hideShow(evt){
+    var tid = (typeof(evt)=='string')?evt:evt.currentTarget.targetId;
     var tlaDivs = document.body.querySelectorAll(".TLA");
     tlaDivs.forEach((e) => {
-      if(e.id == evt.currentTarget.targetId){
+      if(e.id == tid){
         e.classList.add('show');
         e.classList.remove('hide');
       }
@@ -377,5 +378,7 @@
     element.addEventListener('click',hideShow, false);
     element.targetId = element.href.split('#')[1];
   });
+  //show segment specified in url
+  if(document.baseURI.indexOf('#')>0) hideShow(document.baseURI.split('#')[1]);
 </script>
 </html>
