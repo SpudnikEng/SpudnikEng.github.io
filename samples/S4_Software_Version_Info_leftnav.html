@@ -155,7 +155,7 @@
       <ul>
         <li><a class="linkButton" href="https://media.spudnik.com/dealer_reference/03_Service/Quick%20Start%20Guides/QS-80XX%20Planter%20(Updated%20Version%202022).pdf" target="_blank">80XX Quick Start Guide</a></li>
         <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Planter (S4A) IO Chart</a></li>
-        <li>Machine specific info: <input type="text" id="snum" name="snum" placeholder="Enter serial number"> <button onclick="snumLookup();">Go</button></li>
+        <li>Machine specific info: <input type="text" id="S4Asn" name="snum" placeholder="Enter serial number"> <button onclick="snumLookup('S4Asn');">Go</button></li>
       </ul>
       
       <h4>Current Version 2.07 (Aug 2022 NY)</h4>
@@ -256,7 +256,7 @@
       <ul>
         <li><a class="linkButton" href="S4G_ConfigOptions.pdf" target="_blank">Harvester (S4G) Configuration Options</a></li>
         <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Harvester (S4G) IO Chart</a></li>
-        <li>Machine specific info: <input type="text" id="snum" name="snum" placeholder="Enter serial number"> <button onclick="snumLookup();">Go</button></li>
+        <li>Machine specific info: <input type="text" id="S4Gsn" name="snum" placeholder="Enter serial number"> <button onclick="snumLookup('S4Gsn');">Go</button></li>
       </ul>
       <h4>Current Version 2.27 (2022-09-15 CC)</h4>
       <ul>
@@ -271,7 +271,7 @@
           <p>SNs of machines where installed: 6740-55-xxxx, 6740-55-xxxx</p>
         </div>
       </details>
-      <br>
+      <br><hr><br>
       <details>
         <summary>Previous Versions</summary>
           <p>Version 2.26 (2022-08-19 CC)</p>
@@ -354,8 +354,8 @@
   </div>
 </body>
 <script>
-  function snumLookup(){
-    var sn = document.getElementById('snum').value;
+  function snumLookup(id){
+    var sn = document.getElementById(id).value;
     if(sn.trim().length>0) window.open("https://www.spudnik.com/search?keyword="+sn);
   }
   function hideShow(evt){
