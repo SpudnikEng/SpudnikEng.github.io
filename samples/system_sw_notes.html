@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spudnik S4 System Software Info</title>
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 1000px;
+        }
+
+        .sidenav {
+          width: 20%;
+          max-width: 250px;
+          position: fixed;
+          z-index: 1;
+          top: 20px;
+          left: 10px;
+          background: #eee;
+          overflow-x: hidden;
+          padding: 8px 0;
+        }
+
+        .sidenav a {
+          padding: 4px 6px 4px 8px;
+          text-decoration: none;
+          font-size: 14px;
+          color: #2196F3;
+          display: block;
+        }
+
+        .sidenav a:hover {
+          color: #064579;
+        }
+
+        .main {
+          margin-left: 20%; /* Same width as the sidebar + left position in px */
+          font-size: 14px;
+          padding: 0px 10px;
+        }
+
+        summary {
+          font-weight: bolder;
+          cursor: pointer;
+        }
+
+        .smaller {
+          font-size: smaller;
+          font-weight: lighter;
+        }
+        div details {
+          font-weight: lighter;
+          margin-left: 20px;
+        }
+        div details summary{
+          margin-top: -10px;
+        }
+        details div {
+          margin-bottom: 10px;
+        }
+        .borders {
+          border-block: 1px solid black;
+        }
+        button {
+	        background-color: #636463;
+	        border: none;
+	        color: white;
+	        padding: 4px 16px;
+	        text-align: center;
+	        text-decoration: none;
+	        display: inline-block;
+	        font-size: 14px;
+	        transition-duration: 0.4s;
+	        border-radius: 8px;
+          }
+
+        button:hover {
+        	background-color: silver;
+        	color: white;
+          }
+        
+        button:active {
+        	background-color: silver;
+        	box-shadow: 0 2px #666;
+        	transform: translateY(1px);
+          }
+
+        h2 {
+          font-size: 1.2em;
+          margin-left: 7px;
+        }
+
+        h3 {
+          font-size: larger;
+          font-weight: bolder;
+        }
+
+        h4 {
+          font-weight: bolder;
+        }
+
+        .hide {
+          display: none;
+        }
+
+        .show {
+          display: block;
+        }
+        .logo {
+          padding: 5px 15px;
+        }
+    </style>
+</head>
+
+<body class="vscode-body vscode-light">
+  <div class="sidenav">
+    <img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxMTY2IDMwNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTE2NiAzMDY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRUMxQzI0O30KCS5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRUMxQzI0O30KPC9zdHlsZT4KPGc+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuNSwyMjkuNWMxMS4zLDEuOCwyMS4yLDMuMiwyOS43LDRjOC41LDAuOCwxNiwxLjIsMjIuNywxLjJjMTAuNiwwLDE3LjgtMC43LDIxLjYtMi4xCgkJYzMuOC0xLjQsNS43LTMuOCw1LjctNy40YzAtMi40LTAuNi00LjItMS45LTUuM2MtMS4zLTEuMS0zLjQtMS42LTYuMy0xLjZjLTQuMiwwLTguOCwwLjEtMTMuNywwLjJjLTEuMywwLTIuMiwwLTIuNSwwCgkJYy0xNi44LDAtMjguNS0yLjYtMzUuMS03LjdjLTYuNi01LjEtMTAtMTMuOC0xMC0yNi4xYzAtOS40LDEuNi0xOC44LDQuOS0yOGMzLjItOS4yLDcuNi0xNi45LDEzLTIyLjljNS4yLTUuOCwxMi41LTkuOSwyMi4xLTEyLjUKCQljOS41LTIuNiwyMy0zLjgsNDAuNS0zLjhjMTEuMiwwLDIyLjksMC41LDM1LjEsMS42YzEyLjEsMS4xLDI0LjUsMi43LDM3LjIsNC45bC0xMSw0Ny40Yy04LjItMS44LTE1LjktMy4yLTIzLjEtNC4yCgkJYy03LjItMC45LTEzLjgtMS40LTIwLTEuNGMtMTQsMC0yMy41LDAuOC0yOC43LDIuNGMtNS4xLDEuNi03LjcsNC4zLTcuNyw4LjFjMCwyLjQsMC43LDQuMSwyLjIsNWMxLjQsMC45LDUuMywxLjMsMTEuNywxLjNoMjEuNAoJCWMxMi42LDAsMjEuNywyLjQsMjcuNCw3LjJjNS43LDQuOCw4LjYsMTIuNCw4LjYsMjIuOGMwLDkuOC0xLjQsMTguNy00LjEsMjYuOWMtMi43LDguMi02LjUsMTQuOC0xMS40LDE5LjkKCQljLTUuNCw1LjgtMTIuNiwxMC0yMS43LDEyLjZjLTkuMSwyLjYtMjAuOSwzLjktMzUuNSwzLjljLTEyLjgsMC0yNS45LTAuNy0zOS4yLTJjLTEzLjMtMS4zLTI2LjgtMy4zLTQwLjUtNS45TDMxLjUsMjI5LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTgyLjEsMjcxLjFsMzUuNC0xNDkuNGgxMDMuM2MxMS44LDAsMjAuNSwyLjksMjYuMSw4LjhjNS42LDUuOSw4LjQsMTUsOC40LDI3LjRjMCw4LjYtMC45LDE3LjMtMi42LDI2LjMKCQljLTEuNyw4LjktNCwxNi41LTYuOCwyMi44Yy01LjIsMTEuNS0xMS42LDE5LjYtMTkuMiwyNC4xYy03LjYsNC42LTE4LjksNi44LTMzLjgsNi44aC00Ni42bC03LjgsMzMuMkgxODIuMXogTTI1NS4xLDIwMC43aDE3LjUKCQljOC44LDAsMTUuNC0xLjgsMTkuNy01LjVjNC4zLTMuNyw2LjUtOS4zLDYuNS0xNi43YzAtNC0xLjEtNi45LTMuNC04LjhjLTIuMy0xLjktNS44LTIuOC0xMC41LTIuOGgtMjEuN0wyNTUuMSwyMDAuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zODUuMiwxMjEuN2g1Ni4zbC0yMi4xLDkzYy0wLjUsMi4yLTAuOSw0LTEuMiw1LjZjLTAuMywxLjYtMC40LDIuOS0wLjQsMy44YzAsMy41LDAuOSw2LjIsMi43LDgKCQljMS44LDEuOCw0LjYsMi43LDguMiwyLjdjNC43LDAsOC41LTEuNSwxMS40LTQuNmMyLjktMy4xLDUuMS04LDYuNi0xNC42bDIyLjEtOTMuOGg1Ni41bC0yMi41LDk0LjJjLTMuMiwxMy43LTYuMSwyMy40LTguNywyOS4xCgkJYy0yLjYsNS43LTUuOCwxMC4yLTkuNiwxMy43Yy02LjQsNS43LTE0LjYsOS45LTI0LjcsMTIuNmMtMTAuMSwyLjctMjIuNyw0LjEtMzcuOSw0LjFjLTIyLjMsMC0zOC4zLTIuOC00OC4yLTguNAoJCWMtOS45LTUuNi0xNC44LTE0LjYtMTQuOC0yN2MwLTMuMSwwLjMtNi42LDAuOS0xMC40YzAuNi0zLjgsMS43LTguOCwzLjItMTUuM0wzODUuMiwxMjEuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MTMuNSwyNzEuMWwzNS40LTE0OS40aDg1YzYuOCwwLDEyLjcsMC4yLDE3LjgsMC43YzUuMSwwLjUsOC44LDEuMSwxMSwxLjljOCwzLDEzLjcsNy42LDE3LjIsMTMuNwoJCWMzLjUsNi4yLDUuMiwxNC44LDUuMiwyNmMwLDQuNS0wLjMsOS40LTEsMTQuOWMtMC43LDUuNS0xLjYsMTEuNC0yLjksMTcuN2MtMi4xLDEwLjEtNC42LDE5LjItNy40LDI3LjFjLTIuOCw4LTUuNywxNC40LTguOSwxOS4zCgkJYy00LjIsNi43LTguOCwxMi4yLTEzLjgsMTYuMmMtNSw0LjEtMTAuNSw3LTE2LjYsOC43Yy00LjEsMS4xLTguMywxLjktMTIuNywyLjVjLTQuNCwwLjUtOS4zLDAuOC0xNC43LDAuOGMtMS41LDAtMy42LDAtNi40LTAuMQoJCWMtMi44LTAuMS00LjktMC4xLTYuMy0wLjFINTEzLjV6IE01NzkuNSwyMjkuN2gxMGM2LjksMCwxMi4yLTAuNiwxNS44LTEuN2MzLjYtMS4xLDYuNS0zLjEsOC43LTUuN2MzLjMtNC4zLDYuMS05LjgsOC4zLTE2LjYKCQljMi4yLTYuOCwzLjMtMTMuMywzLjMtMTkuM2MwLTYuMi0xLjMtMTAuNC0zLjgtMTIuN2MtMi42LTIuMy03LjYtMy40LTE1LTMuNGgtMTNMNTc5LjUsMjI5Ljd6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjgyLjYsMjcxLjFMNzE4LDEyMS43aDYyLjlsOS41LDY0LjZjMC4yLDEuMywwLjUsNC4xLDEsOC4zYzAuNSw0LjIsMS4yLDkuOSwyLjEsMTdjMS02LjEsMi42LTEzLjgsNC44LTIzLjEKCQljMC40LTEuNiwwLjYtMi43LDAuOC0zLjRsMTUuMS02My40aDU1LjFsLTM1LjUsMTQ5LjRoLTYyLjNMNzYwLDIxMy44Yy0wLjYtMi45LTEuMy02LjUtMi0xMC44Yy0wLjgtNC4yLTEuNi04LjctMi40LTEzLjUKCQljLTEsNy4xLTIuNywxNS40LTUsMjQuOHYwLjNsLTEzLjcsNTYuNUg2ODIuNnoiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04NTguMiwyNzEuMWwzNS40LTE0OS40aDU3LjFsLTM1LjUsMTQ5LjRIODU4LjJ6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNOTM5LjQsMjcxLjFsMzUuNC0xNDkuNGg1NS42bC04LjksMzguN2MtMC45LDMuNy0xLjgsNy40LTIuNywxMC45Yy0xLDMuNi0yLDcuMi0zLjIsMTAuOQoJCWMyLjctNC44LDYuMS05LjgsMTAtMTUuMmMwLjYtMC44LDEtMS4zLDEuMi0xLjdsMzEtNDMuN2g2OS4zbC02NC41LDc5LjRsMjYuOSw3MEgxMDI4bC0xNC4yLTQzYy0wLjItMC41LTAuNS0xLjUtMS0zCgkJYy0xLjYtNS0yLjktOS41LTMuOS0xMy4zYy0wLjUsMy4zLTEsNi4zLTEuNSw5LjJjLTAuNiwyLjktMS4yLDUuNy0xLjksOC41bC05LjcsNDEuNUg5MzkuNHoiLz4KPC9nPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik03MSw0Mi41Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNjgsNDIuNWg4MjVjLTQuOCw2LjQtNy43LDExLjktOC44LDE2LjFjLTIuNCw4LjktMC45LDE1LjgsMC4xLDE5LjZjMS45LDcuMyw3LjcsMTQuOSw3LjcsMTQuOUg1My42TDY4LDQyLjV6CgkJIi8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTc4LjUsNDMuN2MwLDAsMy45LDQuNiw2LjQsMTAuNWMzLDcuMSwyLjIsMTYuNiwwLjksMjQuMWMtMS4zLDcuMi03LjksMTUuNS03LjksMTUuNUgxMTMybDEzLTUwLjJIOTc4LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTczLjgsNjguM2MwLTIxLjEtMTcuMS0zOC4yLTM4LjItMzguMmMtMjEuMSwwLTM4LjIsMTcuMS0zOC4yLDM4LjJzMTcuMSwzOC4yLDM4LjIsMzguMgoJCUM5NTYuNywxMDYuNSw5NzMuOCw4OS40LDk3My44LDY4LjN6Ii8+CjwvZz4KPC9zdmc+Cg==" alt="SPUDNIK">
+    <a href="#Overview">Overview</a>
+    <h2>S4</h2>
+    <a href="#S4_input">S4 inputs</a>
+    <a href="#S4_output">S4 outputs</a>
+    <a href="#S4_system">System level</a>
+    <h2>Other</h2>
+    <a href="#cx1">CX1</a>
+    <a href="#cx3">CX3</a>
+    <a href="#v700">V700 screen</a>
+    <!-- <a href="#S4M">more</a>
+    <a href="#SCU">Core Software</a> -->
+  </div>
+  
+  <div class="main">
+    <div id="Overview" class="TLA show">
+      <h1>Spudnik S4 System level</h1>
+      <p>This is for engineers to document the different changes they have made to internal software on devices or System level S4 changes.</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+      <p>For internal use only.</p>
+    </div>
+
+    <div id="S4_input" class="TLA hide">
+      <h3>S4 Inputs</h3>
+      <!-- <p>Maintained by Nathan Yost, 208-239-5792, <a href="mailto:nathan.yost@spudnik.com">nathan.yost@spudnik.com</a></p> -->
+      <h4>Resources</h4>
+      <ul>
+        <li><a class="linkButton" href="https://media.spudnik.com/dealer_reference/03_Service/Quick%20Start%20Guides/QS-80XX%20Planter%20(Updated%20Version%202022).pdf" target="_blank">80XX Quick Start Guide</a></li>
+        <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Planter IO Chart</a></li>
+        <li>Machine specific info: <input type="text" id="S4Asn" name="snum" placeholder="Enter serial number"> <button onclick="snumLookup('S4Asn');">Go</button></li>
+      </ul>
+      
+      <h4>Current Version 2.07 (Aug 2022 NY)</h4>
+      <ul>
+        <li>(fix) skip detection for expansion cards</li>
+      </ul>
+      <details>
+        <summary>Previous Versions</summary>
+      <p>Version 2.06 (2022 NY)</p>
+      <ul>
+        <li>(fix) Versions prior to this version will cause inputs to behave slightly different if using the new Rev 6 S4 version. Please update to this version or later if installing a Rev 6 S4 board</li>
+        <li>(fix) Versions 1.66 - 2.02 should be updated to this version to fix issues with skip detection. Service bulletin sent out</li>
+        <li>(Added) New configuration for planters that have scales on the potato Hopper. When enabled will display weight on home screen</li>
+        <li>(Added) New feature that you can input a Raven GPS system into the Radar GPS Speed input when the box is checked in the home settings.</li>
+        <li>(fix) Fixed Presets to function like before."No pause needed to switch between presets"</li>
+        <li>(Added) Hidden row feature for physical row along with ghost row</li>
+      </ul>
+      <p>Version 2.02 (2021 NY)</p>
+      <ul>
+        <li>(Added) New configuration for planters with cup drives in series rather than in parallel</li>
+        <li>(Added) New feature that you can set a test ground speed from the display to run functions without actually driving</li>
+      </ul>
+      </details>
+    </div>
+
+    <div id="S4_output" class="TLA hide">
+      <h3>S4 output</h3>
+      <!-- <p>Maintained by Jack Yorgesen, 208-684-2702, <a href="mailto:jack.yorgesen@spudnik.com">jack.yorgesen@spudnik.com</a></p> -->
+      <h4>Resources</h4>
+      <ul>
+        <li><a class="linkButton" href="https://media.spudnik.com/dealer_reference/03_Service/Quick%20Start%20Guides/QS-1872%20CX1.pdf" target="_blank">1872 Quick Start Guide</a></li>
+        <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Evenflow IO Chart</a></li>
+        <li>Machine specific info: <input type="text" id="S4Asn" name="snum" placeholder="Enter serial number"> <button onclick="snumLookup('S4Asn');">Go</button></li>
+      </ul>
+      <h4>Current Version 1.18 (Aug 2022)</h4>
+      <ul>
+        <li>(Added) Smoother discharge belt operation with the addition of one input, older machines still function without input</li>
+      </ul>
+      <br><hr><br>
+      <details>
+        <summary>Previous Versions</summary>
+        <p>Version 1.18 (Aug 2022)</p>
+        <ul>
+          <li>(fix) 6 S4 board</li>
+          <li>(fix) Versions 1.66 - 2.02</li>
+        </ul>
+        <p>Version 1.15 (Aug 2020)</p>
+        <ul>
+          <li>(fix) 6 S4 board</li>
+          <li>(fix) Versions 1.66 - 2.02</li>
+      </details>
+    </div>
+
+    <div id="S4_system" class="TLA hide">
+      <h3>S4 system</h3>
+      <!-- <p>Maintained by Chad Cole, 208-239-5789, <a href="mailto:chad.cole@spudnik.com">chad.cole@spudnik.com</a></p> -->
+      <h4>Resources</h4>
+      <ul>
+        <li><a class="linkButton" href="S4G_ConfigOptions.pdf" target="_blank">Harvester (S4G) Configuration Options</a></li>
+        <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Harvester (S4G) IO Chart</a></li>
+        <li>Machine specific info: <input type="text" id="S4Gsn" name="snum" placeholder="Enter serial number"> <button onclick="snumLookup('S4Gsn');">Go</button></li>
+      </ul>
+      <h4>Current Version 2.27 (2022-09-15 CC)</h4>
+      <ul>
+        <li>(Fixed) 6740 Standard and indep digger nose - remove power down to setpoint in auto mode. Float down only in auto mode.</li>
+      </ul>
+      <details>
+        <summary>Current version detail...</summary>
+        <div class="borders">
+          <p>Known issues: none</p>
+          <p>Untested options: change should only affect standard and independent digger nose options on the 6740.</p>
+          <p>Detailed functional changes: digger down control changed from power down to float down to set point when in auto mode</p>
+          <p>SNs of machines where installed: 6740-55-xxxx, 6740-55-xxxx</p>
+        </div>
+      </details>
+      <br><hr><br>
+      <details>
+        <summary>Previous Versions</summary>
+        <p>Version 2.26 (2022-08-19 CC)</p>
+        <ul>
+          <li>(Fixed) Removed extra "TRANSFER" button sometimes displayed on TABLES page</li>
+          <li>(Fixed) Range scale computation for Angle/Gap/Height for MS Pro table</li>
+          <li>(Fixed) Hide PWM setpoints for hydraulic rear cross and elevator chain for 6740</li>
+          <li>(Fixed) Add condition to turn off side elevator table chain when PTO speed is below target speed</li>
+          <li>(Fixed) Update display to include boom speed on SPEEDS and BOOM pages</li>
+          <li>(Fixed) Removed speed display for shakers, only PWM input is needed</li>
+        </ul>
+        <details>
+          <summary>Version detail...</summary>
+          <div class="borders">
+          <p>Known issues: none</p>
+          <p>Untested options: This release has only been tested on the 6740.</p>
+          <p>Detailed functional changes: this update is mostly display cleanup. Removed extra Transfer button that sometimes displayed on the TABLES page. Changed computations for MS Pro table to make it more consistent. holding tank changes 
+            replaced s4g_piler_spd with s4g_tank_boom_spd globally for consistency; changed the holding tank floor control to be dependent on boom chain speed instead of piler chain speed. (I compared this with the code for the Airsep harvesters, and this change makes it consistent with the Airsep code.)</p>
+          <p>SNs of machines where installed: 6740-55-xxxx, 6740-55-xxxx</p>
+          </div>
+        </details>
+        <br>
+        <p>Version 2.25 (2022-07-25 CC)</p>
+        <ul>
+          <li>(Fixed) PWM issue for Professional MS table on 6740 - Segment Roller REV button didn't work reliably; changed PWM value for REV to match AUTO (forward) value.</li>
+        </ul>
+        <p>Version 2.24 (2022-07-12 CC)</p>
+        <ul>
+          <li>(Fixed) Joystick bug/memory issue</li>
+        </ul>
+      </details>
+    </div>
+
+    <div id="cx1" class="TLA hide">
+      <h3>CX1</h3>
+      <!-- <p>Maintained by jack Yorgesen, (208) 684-2702, <a href="mailto:jack.yorgesen@spudnik.com">jack.yorgesen@spudnik.com</a></p> -->
+      <h4>Resources</h4>
+      <ul>
+        <li><a class="linkButton" href="https://media.spudnik.com/dealer_reference/03_Service/Control%20System%20Manuals/Piler%20Remote%20Kar-Tech%20Manual%20450795,%20450599,%20450817.pdf" target="_blank">Piler Remote Manual </a></li>
+        <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Piler IO Chart</a></li>
+        <li>Machine specific info: <input type="text" id="S4Hsn" name="snumH" placeholder="Enter serial number"> <button onclick="snumLookup('S4Hsn');">Go</button></li>
+      </ul>
+      <h4>Current Version 2.58 (2021) Jack Yorgesen</h4>
+      <ul>
+        <li>(Added) Version for the new piler remote, backwards compatible with old remote</li>
+      </ul>
+      <details>
+        <summary>Current version detail...</summary>
+        <div class="borders">
+          <p>Known issues: none</p>
+        </div>
+      </details>
+      <br><hr><br>
+      <details>
+        <summary>Previous Versions</summary>
+        <p>Version 1.55 (2020) Jack Yorgesen</p>
+        <ul>
+          <li>(Changed) Service bulletin to increase swing speed</li>
+        </ul>
+        <details>
+          <summary>Version detail...</summary>
+          <div class="borders">
+          <p>Known issues: none</p>
+          </div>
+        </details>
+        <br>
+        <p>Version 1.54 (2020) Devin Vollmer</p>
+        <ul>
+          <li>(Changed) Service bulletin to fix remote messages.</li>
+        </ul>
+        <p>Version 1.11 (2017) Devin Vollmer</p>
+        <ul>
+          <li>(Changed)</li>
+        </ul>
+      </details>
+    </div>
+
+    <div id="cx3" class="TLA hide">
+      <h3>CX3</h3>
+      <!-- <p>Maintained by jack Yorgesen, (208) 684-2702, <a href="mailto:jack.yorgesen@spudnik.com">jack.yorgesen@spudnik.com</a></p> -->
+      <h4>Resources</h4>
+      <ul>
+        <li><a class="linkButton" href="https://media.spudnik.com/dealer_reference/03_Service/Quick%20Start%20Guides/QS-994%20AirSep%20Eliminator%20(2022).pdf" target="_blank">Air Sep Eliminator (S4I) Quick Start</a></li> 
+        <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Air Sep Eliminator IO Chart</a></li>
+        <li>Machine specific info: <input type="text" id="S4Isn" name="snumI" placeholder="Enter serial number"> <button onclick="snumLookup('S4Isn');">Go</button></li>
+      </ul>
+    </div>
+
+    <div id="v700" class="TLA hide">
+      <h3>V700 Screen</h3>
+      <!-- <p>Maintained by jack Yorgesen, (208) 684-2702, <a href="mailto:jack.yorgesen@spudnik.com">jack.yorgesen@spudnik.com</a></p> -->
+      <h4>Resources</h4>
+      <ul>
+        <li><a class="linkButton" href="S4G_ConfigOptions.pdf" target="_blank">Custom Eliminator Configuration Options</a></li> <!-- change this href later -->
+        <li><a class="linkButton" href="#" onclick="alert('Coming soon')" target="_blank">Custom Eliminator IO Chart</a></li>
+        <li>Machine specific info: <input type="text" id="S4Lsn" name="snumL" placeholder="Enter serial number"> <button onclick="snumLookup('S4Lsn');">Go</button></li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+<script>
+  function snumLookup(id){
+    var sn = document.getElementById(id).value;
+    if(sn.trim().length>0) window.open("https://www.spudnik.com/search?keyword="+sn);
+  }
+  function hideShow(evt){
+    var tid = (typeof(evt)=='string')?evt:evt.currentTarget.targetId;
+    var tlaDivs = document.body.querySelectorAll(".TLA");
+    tlaDivs.forEach((e) => {
+      if(e.id == tid){
+        e.classList.add('show');
+        e.classList.remove('hide');
+      }
+      else
+      {
+        e.classList.remove('show');
+        e.classList.add('hide');
+      }
+    });
+  }
+  anchorList = document.body.querySelectorAll(".sidenav a");
+  anchorList.forEach(element => {
+    element.addEventListener('click',hideShow, false);
+    element.targetId = element.href.split('#')[1];
+  });
+  //show segment specified in url
+  if(document.baseURI.indexOf('#')>0) hideShow(document.baseURI.split('#')[1]);
+</script>
+</html>
