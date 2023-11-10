@@ -99,6 +99,7 @@
 
         h2 {
           font-size: 1.2em;
+          margin-left: 7px;
           font-weight: bolder;
         }
 
@@ -151,10 +152,12 @@
     <h2>Planting</h2>
     <a href="#S4A">Planter (804x, 806x, 8080, 8210)</a>
     <a href="#S4K">Folding Planter (83xx)</a>
+    <a href="#S4N">Belt Planter (89xx)</a>
     <h2>Harvesting</h2>
     <a href="#S4D">Windrower (6142, 6160, 6180)</a>
     <a href="#S4C">Air Sep Harvester (6621, 6631)</a>
-    <a href="#S4G">Standard Harvester (574x, 66x0)</a>
+    <a href="#S4P">Standard Harvester (6740)</a>
+    <a href="#S4G">Legacy Harvester (574x, 66x0)</a>
     <a href="#S4B">Beet Harvester (30x0, 3120)</a>
     <a href="#S4M">Spinach Harvester (BBL-1000)</a>
     <h2>Processing</h2>
@@ -171,19 +174,27 @@
     <div id="Overview" class="TLA show">
       <h1>Spudnik S4 Release Version Info</h1>
       <p>Select a product line from the left navigator for software release information.</p>
-      <p>Resources for each product line are also included.</p>
+      <!--p>Resources for each product line are also included.</p-->
     </div>
 <div id="S4A" class="TLA hide"><br><br>
-<h1>Potato Planter (S4A)</h1>
-<h2>Model Numbers: 804x, 806x, 8080, 8210</h2>
-<h2>Maintained by: Nathan Yost</h2>
-<h2>Phone: (208)239-5792</h2>
-<h2>email: nathan.yost@spudnik.com</h2>
-<h3>Version 2.07 – (Aug 2022) Nathan Yost</h3>
+<h1>Potato Planter (S4A) - Models: 804x, 806x, 8080, 8210</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a> / <a href="mailto:ervin.martinez@spudnik.com">Ervin Martinez  &#x2709;</a>, <a href="tel:208-239-5700">208-239-5700 x5849  &#x260f;</a></p>
+<h2>Stable release 2.11 – (Mar 2023) <!--Jack Yorgesen--></h2>
+<ul>
+<li>(fix) Adjusted Chem relays to come on when in Run, working position enabled, and speed is seen above 0.4MPH</li>
+</ul>
+<h2>Previous Versions</h2>
+<h3>Version 2.08 (Feb 2023) <!--Jack Yorgesen--></h3>
+<ul>
+<li>(fix) New skip detection (NOTE: Set Max potato Size to 100 for best skip detection results)</li>
+<li>(Added) Depth control bump up and down</li>
+<li>(Added) Paired cup configuration which is 2 rows driven by one motor.</li>
+</ul>
+<h3>Version 2.07 – (Aug 2022) <!--Nathan Yost--></h3>
 <ul>
 <li>(fix) skip detection for expansion cards</li>
 </ul>
-<h3>Version 2.06 – (2022) Nathan Yost</h3>
+<h3>Version 2.06 (2022) <!--Nathan Yost--></h3>
 <ul>
 <li>(fix) Versions prior to this version will cause inputs to behave slightly different if using the new Rev 6 S4 version. Please update to this version or later if installing a Rev 6 S4 board</li>
 <li>(fix) Versions 1.66 - 2.02 should be updated to this version to fix issues with skip detection. Service bulletin sent out</li>
@@ -192,160 +203,140 @@
 <li>(fix) Fixed Presets to function like before."No pause needed to switch between presets"</li>
 <li>(Added) Hidden row feature for physical row along with ghost row</li>
 </ul>
-<h3>Version 2.02 – (2021) Nathan Yost</h3>
+<h3>Version 2.02 (2021) <!--Nathan Yost--></h3>
 <ul>
 <li>(Added) New configuration for planters with cup drives in series rather than in parallel</li>
 <li>(Added) New feature that you can set a test ground speed from the display to run functions without actually driving</li>
 </ul>
-<h3>Version 2.01 – (2021) Nathan Yost</h3>
+<h3>Version 2.01 (2021) <!--Nathan Yost--></h3>
 <ul>
 <li>(Added) Added hidden row feature in configuration for deere section control</li>
 <li>(Changed) bumped up to major version 2 because sw is ready for new hw rev boards</li>
 </ul>
-<h3>Version 1.68 – (2020) Jack Yorgesen</h3>
+<h3>Version 1.68 (2020) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Added) Added in hill pro functionality</li>
 <li>(fixed) Issues arose with skip detection. Reverted back to the same as 1.63 which functions properly.</li>
 </ul>
-<h3>Version 1.66 – (2020) Nathan Yost</h3>
+<!--
+### Version 1.66 – (2020) Nathan Yost
+- (Changed) Added start row and end row buttons when toolbar is enabled. The behavior is the same as when the fertilizer is enabled
+- (Changed) added another hydraulic shaker control when configuration individual row and hydraulic shaker is selected. Used to be one. This is done to match a machine with this configuration.
+
+
+### Version 1.63 – (2018) Devin Vollmer
+- (Fixed) Issues with output communication and pid.
+
+### Version 1.61 – (2018) Devin Vollmer 
+- (Fixed) Issues with mechanical feed bowl sensors. 
+- (Fixed) Issues with FRAM memory write interrupts which caused
+  corrupted configuration values. 
+
+### Version 1.58 – (2017) Devin Vollmer 
+- (Changed) Fixed password screen for chemical fertilizer.
+
+### Version 1.57 – (2017) Devin Vollmer
+-   (Changed) Fixed expansion code version.
+
+### Version 1.56 – (2017) Devin Vollmer 
+-   (Changed) Skip Detection calculation update to improve accuracy 
+-   (Added) ISO GPS Speed 
+-   (Fixed) FIFO Buffer handling in CAN driver, fixes dropping CCI 
+-   (Added) Dropped CCI handling to keep planter running until CCI comes back online 
+-   (Changed) CCI pool transfer to transfer only if pool version has changed 
+-   (Added) Calibration factor for seed spacing independent from wheel size 
+-   (Fixed) Dry fert calibration 
+
+### Version 1.33 – 1.47 (2017) Devin Vollmer
+
+### Version 1.31 – (2016) Jared Wadsworth 
+-   (Fixed) Issue with skip detection on 8210. 
+-   (Changed) Refined hiller controls. 
+
+### Version 1.30 - (2016) Jared Wadsworth 
+-   (Added) Alarm to fertilizer drive. 
+-   (Changed) Refined split cup drive. 
+-   (Changed) Skip alarm sounds. 
+
+### Version 1.28 - (2016) Jared Wadsworth 
+-   (Changed) Fertilizer controls. 
+
+### Version 1.25 - (2016) Jared Wadsworth 
+-   (Fixed) Addressed settings issue with Fertilizer controls. 
+-   (Added) Support for standard planter section control. 
+
+### Version 1.21 - (2016) Jared Wadsworth 
+-   Initial 2015 software release, upgrade to newest version. 
+
+### Version 1.04-1.09 - (2016) Jared Wadsworth 
+-   Transitional software, upgrade to newest version! 
+
+### Version 1.03 - (2015) Keith Mecham 
+-   Prototype software, upgrade to newest version! 
+--></div><div id="S4B" class="TLA hide"><br><br>
+<h1>Beet Harvester (S4B) Models: 3060, 3080, 3120</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:cameron.neff@spudnik.com">Cameron Neff  &#x2709;</a>, <a href="208-239-5738">208-239-5738  &#x260f;</a> / <a href="mailto:ervin.martinez@spudnik.com">Ervin Martinez  &#x2709;</a>, <a href="tel:208-239-5700">208-239-5700 x5849  &#x260f;</a></p>
+<h2>Stable release 2.02 (3 Oct 2023) <!--Cameron Neff--></h2>
 <ul>
-<li>(Changed) Added start row and end row buttons when toolbar is enabled. The behavior is the same as when the fertilizer is enabled</li>
-<li>(Changed) added another hydraulic shaker control when configuration individual row and hydraulic shaker is selected. Used to be one. This is done to match a machine with this configuration.</li>
+<li>(Added) Ability to control the boom on/off or speed from the screen and joystick.</li>
+<li>(Changed) The load sense calculation includes the tractor pressure, and adjusts based on difference.</li>
 </ul>
-<h3>Version 1.63 – (2018) Devin Vollmer</h3>
-<ul>
-<li>(Fixed) Issues with output communication and pid.</li>
-</ul>
-<h3>Version 1.61 – (2018) Devin Vollmer</h3>
-<ul>
-<li>(Fixed) Issues with mechanical feed bowl sensors. </li>
-<li>(Fixed) Issues with FRAM memory write interrupts which caused
-  corrupted configuration values. </li>
-</ul>
-<h3>Version 1.58 – (2017) Devin Vollmer</h3>
-<ul>
-<li>(Changed) Fixed password screen for chemical fertilizer.</li>
-</ul>
-<h3>Version 1.57 – (2017) Devin Vollmer</h3>
-<ul>
-<li>(Changed) Fixed expansion code version.</li>
-</ul>
-<h3>Version 1.56 – (2017) Devin Vollmer</h3>
-<ul>
-<li>(Changed) Skip Detection calculation update to improve accuracy </li>
-<li>(Added) ISO GPS Speed </li>
-<li>(Fixed) FIFO Buffer handling in CAN driver, fixes dropping CCI </li>
-<li>(Added) Dropped CCI handling to keep planter running until CCI comes back online </li>
-<li>(Changed) CCI pool transfer to transfer only if pool version has changed </li>
-<li>(Added) Calibration factor for seed spacing independent from wheel size </li>
-<li>(Fixed) Dry fert calibration </li>
-</ul>
-<h3>Version 1.33 – 1.47 (2017) Devin Vollmer</h3>
-<h3>Version 1.31 – (2016) Jared Wadsworth</h3>
-<ul>
-<li>(Fixed) Issue with skip detection on 8210. </li>
-<li>(Changed) Refined hiller controls. </li>
-</ul>
-<h3>Version 1.30 - (2016) Jared Wadsworth</h3>
-<ul>
-<li>(Added) Alarm to fertilizer drive. </li>
-<li>(Changed) Refined split cup drive. </li>
-<li>(Changed) Skip alarm sounds. </li>
-</ul>
-<h3>Version 1.28 - (2016) Jared Wadsworth</h3>
-<ul>
-<li>(Changed) Fertilizer controls. </li>
-</ul>
-<h3>Version 1.25 - (2016) Jared Wadsworth</h3>
-<ul>
-<li>(Fixed) Addressed settings issue with Fertilizer controls. </li>
-<li>(Added) Support for standard planter section control. </li>
-</ul>
-<h3>Version 1.21 - (2016) Jared Wadsworth</h3>
-<ul>
-<li>Initial 2015 software release, upgrade to newest version. </li>
-</ul>
-<h3>Version 1.04-1.09 - (2016) Jared Wadsworth</h3>
-<ul>
-<li>Transitional software, upgrade to newest version! </li>
-</ul>
-<h3>Version 1.03 - (2015) Keith Mecham</h3>
-<ul>
-<li>Prototype software, upgrade to newest version! </li>
-</ul></div><div id="S4B" class="TLA hide"><br><br>
-<h1>Beet Harvester (S4B)</h1>
-<h2>Model Numbers: 3060, 3080, 3120</h2>
-<h2>Maintained by: Cameron Neff</h2>
-<h2>Phone: (208)239-5738</h2>
-<h2>email: cameron.neff@spudnik.com</h2>
-<h3>Version 2.01 - (2021-Oct-26) Cameron Neff</h3>
+<h2>Previous Versions</h2>
+<h3>Version 2.01 (26 Oct 2021) <!--Cameron Neff--></h3>
 <ul>
 <li>(Added) Adjustment for the rear leveling speed when row finder leveling is enabled.</li>
 <li>(Changed) The leveling delay time was reduced when row finder auto is enabled. </li>
 </ul>
-<h3>Version 1.55 - (2020-Oct-22) Cameron Neff</h3>
+<h3>Version 1.55 (22 Oct 2020) <!--Cameron Neff--></h3>
 <ul>
 <li>(Changed) Complete rework of the user interface for the 3120.</li>
 <li>(Changed) Simplified and improved controls for the 3120.</li>
 </ul>
-<h3>Version 1.29 - (2016-Nov-12 13:26) Cameron Neff</h3>
+<!--
+### Version 1.29 - (2016-Nov-12 13:26) Cameron Neff 
+-   (Changed) Timing of the paddle shaft and hydraulic puller wheels to be based off the Digger Auto button press again. 
+### Version 1.28 - (2016-Nov-9 12:26) Cameron Neff 
+-   (Fixed) Machine running time not being recorded properly. 
+-   (Changed) Increased ranges for row finder steering. 
+### Version 1.27 - (2016-Nov-4 14:48) Cameron Neff 
+-   (Added) New user modes for row finder and drawbar control. 
+-   (Added) Alarm for axial roller over-pressure states. 
+-   (Added) Controls to manually lift the hopper fill elevator. 
+-   (Removed) Check box for machine row finder leveling mode. 
+-   (Changed) Starting trigger for paddle shaft and hydraulic puller wheels is PTO and elevator. Before the trigger was the digger auto button. 
+### Version 1.26 - (2016-Oct-30 10:12) Cameron Neff 
+-   (Changed) Increased speed at which digger auto lowers and raises the drawbar. 
+-   (Changed) Reduced delay for paddle shaft and hydraulic puller wheel start-up times. 
+-   (Changed) Minimized row finder ground detection value. (For shallow digging depths) 
+-   (Changed) Limited upper range of tank fill ultrasonic sensor calculation.
+### Version 1.25 - (2016-Oct-24 15:59) Cameron Neff 
+-   (Added) Button to enter the row finder sensor minimums and center points. 
+-   (Added) Check box to enable machine leveling based on the row finder positions. 
+-   (Fixed) Row finder targets for each of the presets not working correctly. 
+### Version 1.24 - (2016-Oct-20 10:38) Cameron Neff 
+-   (Fixed) Spiral axial rollers turning off when switching between modes. Only smooth rollers stop and change direction. 
+-   (Changed) Delayed row finder leveling control for about 10 seconds after the machine Digger Auto button has been released. 
+-   (Changed) Row finder auto will not allow drawbar steering unless both sensors are within a specific window (l/r and up/dn). If one of the sensors goes out of range the steering won’t move. 
+-   (Changed) Digger Auto dependency of some of the non-intake drive functions. 
+### Version 1.23 - (2016-Oct-14 11:13) Cameron Neff 
+-   (Changed) Using the drawbar up and down button while in dig mode will adjust the row finder depth set point and not take it out of auto. 
+-   (Changed) The speed input for the turbine is now in RPM and not %. The controller will now try and maintain that speed set point. 
+-   (Added) Built in a pressure hysteresis into the boom drive. 
+-   (Added) Machine Digger Auto button on the dash and joystick that is used for putting the machine into and out of the ground. 
+### Version 1.22 - (2016-Oct-11 17:20) Cameron Neff 
+-   (Changed) Start-up timing to fix the axial rollers starting too soon. 
+### Version 1.11 – (2015) Cameron Neff 
+-   Prototype testing software for 2015 3060 machine. 
+--></div><div id="S4C" class="TLA hide"><br><br>
+<h1>Air Sep Harvester (S4C) - Models: 6621 (2 row), 6631 (3 row)</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:cameron.neff@spudnik.com">Cameron Neff  &#x2709;</a>, <a href="208-239-5738">208-239-5738  &#x260f;</a> / <a href="mailto:chad.cole@spudnik.com">Chad Cole  &#x2709;</a>, <a href="tel:208-239-5789">208-239-5789  &#x260f;</a></p>
+<h2>Stable release 2.10 (16 May 2023) <!--Nathan Yost--></h2>
 <ul>
-<li>(Changed) Timing of the paddle shaft and hydraulic puller wheels to be based off the Digger Auto button press again. </li>
+<li>Summary of changes:</li>
+<li>(Feature) First Release with John Deere Electric Motor configuration added.</li>
 </ul>
-<h3>Version 1.28 - (2016-Nov-9 12:26) Cameron Neff</h3>
-<ul>
-<li>(Fixed) Machine running time not being recorded properly. </li>
-<li>(Changed) Increased ranges for row finder steering. </li>
-</ul>
-<h3>Version 1.27 - (2016-Nov-4 14:48) Cameron Neff</h3>
-<ul>
-<li>(Added) New user modes for row finder and drawbar control. </li>
-<li>(Added) Alarm for axial roller over-pressure states. </li>
-<li>(Added) Controls to manually lift the hopper fill elevator. </li>
-<li>(Removed) Check box for machine row finder leveling mode. </li>
-<li>(Changed) Starting trigger for paddle shaft and hydraulic puller wheels is PTO and elevator. Before the trigger was the digger auto button. </li>
-</ul>
-<h3>Version 1.26 - (2016-Oct-30 10:12) Cameron Neff</h3>
-<ul>
-<li>(Changed) Increased speed at which digger auto lowers and raises the drawbar. </li>
-<li>(Changed) Reduced delay for paddle shaft and hydraulic puller wheel start-up times. </li>
-<li>(Changed) Minimized row finder ground detection value. (For shallow digging depths) </li>
-<li>(Changed) Limited upper range of tank fill ultrasonic sensor calculation.</li>
-</ul>
-<h3>Version 1.25 - (2016-Oct-24 15:59) Cameron Neff</h3>
-<ul>
-<li>(Added) Button to enter the row finder sensor minimums and center points. </li>
-<li>(Added) Check box to enable machine leveling based on the row finder positions. </li>
-<li>(Fixed) Row finder targets for each of the presets not working correctly. </li>
-</ul>
-<h3>Version 1.24 - (2016-Oct-20 10:38) Cameron Neff</h3>
-<ul>
-<li>(Fixed) Spiral axial rollers turning off when switching between modes. Only smooth rollers stop and change direction. </li>
-<li>(Changed) Delayed row finder leveling control for about 10 seconds after the machine Digger Auto button has been released. </li>
-<li>(Changed) Row finder auto will not allow drawbar steering unless both sensors are within a specific window (l/r and up/dn). If one of the sensors goes out of range the steering won’t move. </li>
-<li>(Changed) Digger Auto dependency of some of the non-intake drive functions. </li>
-</ul>
-<h3>Version 1.23 - (2016-Oct-14 11:13) Cameron Neff</h3>
-<ul>
-<li>(Changed) Using the drawbar up and down button while in dig mode will adjust the row finder depth set point and not take it out of auto. </li>
-<li>(Changed) The speed input for the turbine is now in RPM and not %. The controller will now try and maintain that speed set point. </li>
-<li>(Added) Built in a pressure hysteresis into the boom drive. </li>
-<li>(Added) Machine Digger Auto button on the dash and joystick that is used for putting the machine into and out of the ground. </li>
-</ul>
-<h3>Version 1.22 - (2016-Oct-11 17:20) Cameron Neff</h3>
-<ul>
-<li>(Changed) Start-up timing to fix the axial rollers starting too soon. </li>
-</ul>
-<h3>Version 1.11 – (2015) Cameron Neff</h3>
-<ul>
-<li>Prototype testing software for 2015 3060 machine. </li>
-</ul></div><div id="S4C" class="TLA hide"><br><br>
-<h1>Air Sep Harvester (S4C)</h1>
-<h2>Model Numbers: 6621, 6631</h2>
-<h2>Maintained by: Cameron Neff</h2>
-<h2>Phone: (208)239-5738</h2>
-<h2>email: cameron.neff@spudnik.com</h2>
-<h3>Version 2.08 - (29-Aug-2022) Cameron Neff</h3>
+<h2>Previous Versions</h2>
+<h3>Version 2.08 (29 Aug 2022) <!--Cameron Neff--></h3>
 <ul>
 <li>(Changed) Behavior of the non-swinging holding tank.  Only down movement when emptying, and force down after so long of emptying.  Piler only moves up when filling.</li>
 <li>(Added) Additional alarms for right hand side secondary, trash conveyor, and holding tank piler chain.</li>
@@ -353,19 +344,19 @@
 <li>(Changed) Swinging holding tank piler chain control is now in fpm not RPM.</li>
 <li>(Changed) Control of upper and lower simple separator roller speed. </li>
 </ul>
-<h3>Version 2.07 - (29-Sep-2021) Cameron Neff</h3>
+<h3>Version 2.07 (29 Sep 2021) <!--Cameron Neff--></h3>
 <ul>
 <li>(Fixed) Holding tank piler behavior when chain stops.</li>
 <li>(Fixed) Rollerstar side elevator table drive test PWM.</li>
 <li>(Changed) Auto machine leveling while not in digging mode.</li>
 </ul>
-<h3>Version 2.06 - (17-Sep-2021) Cameron Neff</h3>
+<h3>Version 2.06 (17 Sep 2021) <!--Cameron Neff--></h3>
 <ul>
 <li>(Changed) Holding tank piler and floor behavior when unloading.</li>
 <li>(Changed) Removed manual inputs for Professional side elevator clod roller minimums, leveling, and holding tank.</li>
 <li>(Changed) Airsep grid angle graph.</li>
 </ul>
-<h3>Version 2.05 - (8-Sep-2021) Cameron Neff</h3>
+<h3>Version 2.05 (8 Sep 2021) <!--Cameron Neff--></h3>
 <ul>
 <li>(Changed) Holding tank piler chain control independent of the side elevator.</li>
 <li>(Changed) Holding tank piler and floor behavior when unloading.</li>
@@ -375,12 +366,12 @@
 <li>(Added) All boom controls for the swinging holding tank have user configurable maximums.</li>
 <li>(Changed) Boom and holding tank piler chain speed readings switched.</li>
 </ul>
-<h3>Version 2.04 – (2021-Aug-16) Cameron Neff</h3>
+<h3>Version 2.04 (16 Aug 2021) <!--Cameron Neff--></h3>
 <ul>
 <li>(Fixed) Boom swing not working with the joystick.</li>
 <li>(Changed) Updated the software for the inputs to fix incorrect analog calculations.</li>
 </ul>
-<h3>Version 2.03 – (2021-Jul-20) Cameron Neff</h3>
+<h3>Version 2.03 (20 Jul 2021) <!--Cameron Neff--></h3>
 <ul>
 <li>(Fixed) Selected machine number now shows up in the information screen.</li>
 <li>(Added) Included some error checking for some of the items saved in FRAM, and changed how some of are retrieved.</li>
@@ -390,7 +381,7 @@
 <li>(Changed) Modified the code used to calculate some of the holding tank sensors.</li>
 <li>(Changed) Updated some of the configuration screen data.</li>
 </ul>
-<h3>Version 2.02 – (2021-Jun-10) Jason Steffen</h3>
+<h3>Version 2.02 (10 Jun 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Added) Adjustable min gap and min height settings for transport mode</li>
 <li>(Fixed) Going below minimum blower speed will now disengage the clutch again</li>
@@ -402,16 +393,16 @@
 <li>(Added) The boom piler chain can now be ran in test mode without "RUN" being activated.</li>
 <li>(Added) A positive and negative configuration for the grid shaker so the pot can be installed away from rock conveyor</li>
 </ul>
-<h3>Version 2.01 – (2021-May-17) Jason Steffen</h3>
+<h3>Version 2.01 (17 May 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Added) Teach Level button in Axle Settings</li>
-<li>(Added) Control to start the piler drive independantly</li>
+<li>(Added) Control to start the piler drive independently</li>
 <li>(Changed) Several minor display changes to improve ease of use</li>
 <li>(Fixed) Home screen settings are now fully configurable</li>
 <li>(Added) Professional Multisep display to the configurable controls</li>
 <li>(Added) Control to set the maximum speed the piler can rise</li>
 </ul>
-<h3>Version 1.36 – (2019-Aug-19) Nick Huskinson</h3>
+<h3>Version 1.36 (19 Aug 2019) <!--Nick Huskinson--></h3>
 <ul>
 <li>(Added) Telescoping boom option</li>
 <li>(Changed) Replaced pressure switch with a transducer for Wheel Assist</li>
@@ -420,97 +411,78 @@
 <li>(Fixed) Start and stop hydraulic primary when clutch is turned on</li>
 <li>(Changed) Allowed PTO sensor to be ignored when PTO Speeds is set to 0</li>
 </ul>
-<h3>Version 1.35 – (2018-Jul-18) Nick Huskinson</h3>
-<ul>
-<li>(Added) Slip clutch functionality to the hydraulic primary drive system.</li>
-</ul>
-<h3>Version 1.34 – (2017-Aug-23) Nick Huskinson</h3>
-<ul>
-<li>(Fixed) Enabled the rear cross and side elevator alarm for mechanically driven chains</li>
-<li>(Changed) Increased how often the rear cross alarm will beep</li>
-</ul>
-<h3>Version 1.33 – (2017-Jul-15) Nick Huskinson</h3>
-<ul>
-<li>(Added) Controls for hydraulic primary chains</li>
-<li>(Fixed) Made the holding tank piler dependent on the Run button</li>
-<li>(Changed) Adjusted Digger nose compensation for 6621 to keep nose parallel to the ground</li>
-<li>(Added) Roller Star Table as a config option </li>
-<li>(Added) automatic adjustment to the professional multisep tables</li>
-</ul>
-<h3>Version 1.32 – (2016-Oct-14 15:25) Cameron Neff</h3>
-<ul>
-<li>(Changed) Drives are now simultaneously started using ramp-up instead of a timed sequence. </li>
-<li>(Changed) Elevator table shut off time quicker. </li>
-</ul>
-<h3>Version 1.31 – (2016-Oct-7 16:29) Cameron Neff</h3>
-<ul>
-<li>(Fixed) Auto leveling issues when one cylinder is either completely retracted or extended. </li>
-<li>(Fixed) Prevents differences in the leveling cylinders from being more than 33(6621) or 40(6631) as displayed on the VT screen. </li>
-<li>(Fixed) Reversed outputs for the elevator table gap adjustment. </li>
-<li>(Fixed) Sensor reading for the elevator table gap. </li>
-<li>(Changed) 2015 holding tank should always lowering the fill elevator when folding the boom. </li>
-<li>(Removed) Math for the leveling compensation that was added in 1.30. </li>
-</ul>
-<h3>Version 1.23 – (2016-Aug-23) Cameron Neff</h3>
-<ul>
-<li>(Changed) Decreased upper simple-sep drive start-up delay time. </li>
-</ul>
-<h3>Version 1.22 – (2016-Aug-18) Cameron Neff</h3>
-<ul>
-<li>(Added) New diagnostic and settings screens. </li>
-<li>(Added) functioning preset buttons. </li>
-<li>(Changed) Machine configuration menu. </li>
-<li>(Fixed) Joystick remapping functionality. </li>
-</ul>
-<h3>Version 1.11 – (2016-Jun-9) Cameron Neff</h3>
-<ul>
-<li>(Changed) Elevator table drive control change. Early 2016 harvesters. </li>
-</ul>
-<h3>Version 1.10 – (2015-Dec-11) Cameron Neff</h3>
-<ul>
-<li>(Changed) Contains control modifications for improved machine behavior. Final 2015 update.</li>
-</ul></div><div id="S4D" class="TLA hide"><br><br>
+<!--
+Version 1.35 (2018-Jul-18) Nick Huskinson
+(Added) Slip clutch functionality to the hydraulic primary drive system.
+Version 1.34 (2017-Aug-23) Nick Huskinson
+(Fixed) Enabled the rear cross and side elevator alarm for mechanically driven chains
+(Changed) Increased how often the rear cross alarm will beep
+Version 1.33 (2017-Jul-15) Nick Huskinson
+(Added) Controls for hydraulic primary chains
+(Fixed) Made the holding tank piler dependent on the Run button
+(Changed) Adjusted Digger nose compensation for 6621 to keep nose parallel to the ground
+(Added) Roller Star Table as a config option
+(Added) automatic adjustment to the professional multisep tables
+Version 1.32 – (2016-Oct-14 15:25) Cameron Neff
+(Changed) Drives are now simultaneously started using ramp-up instead of a timed sequence.
+(Changed) Elevator table shut off time quicker.
+Version 1.31 – (2016-Oct-7 16:29) Cameron Neff
+(Fixed) Auto leveling issues when one cylinder is either completely retracted or extended.
+(Fixed) Prevents differences in the leveling cylinders from being more than 33(6621) or 40(6631) as displayed on the VT screen.
+(Fixed) Reversed outputs for the elevator table gap adjustment.
+(Fixed) Sensor reading for the elevator table gap.
+(Changed) 2015 holding tank should always lowering the fill elevator when folding the boom.
+(Removed) Math for the leveling compensation that was added in 1.30.
+Version 1.23 – (2016-Aug-23) Cameron Neff
+(Changed) Decreased upper simple-sep drive start-up delay time.
+Version 1.22 – (2016-Aug-18) Cameron Neff
+(Added) New diagnostic and settings screens.
+(Added) functioning preset buttons.
+(Changed) Machine configuration menu.
+(Fixed) Joystick remapping functionality.
+Version 1.11 – (2016-Jun-9) Cameron Neff
+(Changed) Elevator table drive control change. Early 2016 harvesters.
+Version 1.10 – (2015-Dec-11) Cameron Neff
+(Changed) Contains control modifications for improved machine behavior. Final 2015 update.
+--></div><div id="S4D" class="TLA hide"><br><br>
 <h1>Potato Windrower (S4D) - Models: 6142 (4 row) / 6160 (6 row) / 6180 (8 row folding)</h1>
-<p>Maintained by: Chad Cole, (208)239-5789, <a href="mailto:chad.cole@spudnik.com">chad.cole@spudnik.com</a></p>
-<h2>Version 2.06 (10 Apr 2023)</h2>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:ervin.martinez@spudnik.com">Ervin Martinez  &#x2709;</a>, <a href="tel:208-239-5700">208-239-5700 x5849  &#x260f;</a> / <a href="mailto:chad.cole@spudnik.com">Chad Cole  &#x2709;</a>, <a href="tel:208-239-5789">208-239-5789  &#x260f;</a></p>
+<h2>Stable release 2.06 (10 Apr 2023)</h2>
 <ul>
-<li>Product team review - 6 Apr 2023, 6142-55-27, Hiram Knapp, Chad Cole, Ben Cory, Anthony Porter, Jordan Egan</li>
-<li>Configuration: implement steering, RH dual discharge, 3rd coulter, depth wheels, stripper kit, speed sensors, third discharge</li>
-<li>Major features that still need to tested: terra-float, vine packer, wheel assist, 6180 specific features (Will test in assembly as machines with these configs come up. <b>Do not use with legacy 6180s.</b>)</li>
+<li><strong>NOTES:</strong> no configuration options changed in this update if updating from 1.14 or later. Do not install on 6180s with SNs prior to 6180-55-29. This is the last version that will include support for 5640 windrowers. Use this version or older for 5640s.</li>
+<li><strong>WARNING:</strong> <em>Do not install on 6180s with SNs prior to 6180-55-29.</em></li>
 <li>Summary of changes:<ul>
-<li>(Fixed) Compute operating hours for display on S4 board</li>
+<li>(Fixed) Compute machine run hours for display on S4 board</li>
 <li>(Fixed) Start/End Row functionality - some functions were not working</li>
 <li>(Fixed) Correct joystick map code for non-working joystick assignments</li>
 <li>(Fixed) Removed R/L setpoint button press handling; not needed</li>
 <li>(Changed) CX3 text changes for clarity</li>
 <li>(Changed) S4 Config menu updated to hide options that don't apply</li>
-<li>(Added) Misc 6180 specific updates - wing fold and rear cross</li>
+<li>(Changed) 6180 rear cross/folding logic to match redesigned rear cross beginning with 6180-55-29. Do not use on machines with earlier serial numbers.</li>
+<li>(Changed) Removed unused Left 3rd Coulter option from configuration. "3rd Coulter" option is used whether it's on the left, right, or both. Machines manufactured before 2017 that have a left 3rd Coulter option should use version 2.04 or earlier.</li>
 </ul>
 </li>
 </ul>
 <h2>Previous Versions</h2>
-<h3>Version 2.04 - (2022 Sep 9) Chad Cole</h3>
+<h3>Version 2.04 (9 Sep 2022) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) Start of row/setpoint issue with 6160 double discharge</li>
 </ul>
-<h3>Version 2.03 - (2021 Sep  24) Chad Cole</h3>
+<h3>Version 2.03 (24 Sep2021) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) CX3 bug that prevented long press on button in position 5 from working</li>
 </ul>
-<h3>Version 2.02 - (2021 Aug 25) Chad Cole</h3>
+<h3>Version 2.02 (25 Aug 2021) <!--Chad Cole--></h3>
 <ul>
 <li>(Added) CX3 code for LCD screen brightness if light sensor is missing</li>
 </ul>
-<h3>Version 1.14 - (2020) Nick Huskinson</h3>
+<h3>Version 1.14 (2020) <!--Nick Huskinson--></h3>
 <ul>
 <li>Last release prior to updates for S4 boards v6 (Use for all v4 or older boards)</li>
 </ul></div><div id="S4E" class="TLA hide"><br><br>
-<h1>Crop Cart (S4E)</h1>
-<h2>Model Numbers: 4820, 4835</h2>
-<h2>Maintained by: Cameron Neff</h2>
-<h2>Phone: (208)239-5738</h2>
-<h2>email: cameron.neff@spudnik.com</h2>
-<h3>Version 2.02 – (2021-Oct-1) Cameron Neff</h3>
+<h1>Crop Cart (S4E) - Models: 4820, 4835</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:cameron.neff@spudnik.com">Cameron Neff  &#x2709;</a>, <a href="208-239-5738">208-239-5738  &#x260f;</a> / <a href="mailto:ervin.martinez@spudnik.com">Ervin Martinez  &#x2709;</a>, <a href="tel:208-239-5700">208-239-5700 x5849  &#x260f;</a></p>
+<h2>Stable release 2.02 (1 Oct 2021) <!--Cameron Neff--></h2>
 <ul>
 <li>(Added) Software update for use with the rev6 S4 control boards.</li>
 <li>(Added) Self-Hydraulic carts can turn the main belt on/off from a button on the joystick.</li>
@@ -519,97 +491,76 @@
 <li>(Changed) Compost spreader max PWM control value.</li>
 <li>(Removed) Spreader roller control from CX3 when the auger configuration is selected.</li>
 </ul>
-<h3>Version 1.20 – (2019-Jan-31) Cameron Neff</h3>
+<h2>Previous Versions</h2>
+<h3>Version 1.20 (31 Jan 2019)  <!--Cameron Neff--></h3>
 <ul>
 <li>(Changed) Modified the controller and switchbox software to communicate according to the ISO standard.</li>
-<li>(Changed) General functionality updates to the seed loader control.</li>
 </ul>
-<h3>Version 1.18 – (2018-Feb-2) Cameron Neff</h3>
-<ul>
-<li>(Added) Controls for Hawe proportional hydraulic valves.</li>
-<li>(Fixed) Joystick response issues.</li>
-<li>(Added) Controls for seed loader extension direction.</li>
-<li>(Changed) General functionality updates.</li>
-</ul>
-<h3>Version 1.15 – (2017-Jul-18) Cameron Neff</h3>
-<ul>
-<li>(Added) Control of extra tip-out on some potato booms.</li>
-<li>(Changed) Minimum main belt pressure setting and default.</li>
-</ul>
-<h3>Version 1.13 – (2017-Apr-28) Cameron Neff</h3>
-<ul>
-<li>(Added) Electronic controls for prototype seed loader attachment. </li>
-<li>(Added) Choose boom type from the CX3. </li>
-</ul>
-<h3>Version 1.12 – (2017-Mar-14) Cameron Neff</h3>
-<ul>
-<li>(Added) Software for adding Joystick and joystick remapping. </li>
-<li>(Added) Control for new non-variable main drive motors. </li>
-<li>(Changed) Main belt reverse warning and switch. </li>
-</ul>
-<h3>Version 1.10 – (2016-Sep-16) Cameron Neff</h3>
-<ul>
-<li>(Added) Electronic controls for 4820 with auto folding boom door open and close. </li>
-</ul>
-<h3>Version 1.09 – (2016-Jul-12) Cameron Neff</h3>
-<ul>
-<li>(Added) Update for grain auger option and hopper sensor. </li>
-</ul>
-<h3>Version 1.08 – (2016-Jun-14) Cameron Neff</h3>
-<ul>
-<li>(Added) Software update for 4820 and 4835 with variable main belt drive. </li>
-<li>(Added) Controls for telescoping boom option. </li>
-<li>(Added) Includes CX3 function remapping. </li>
-<li>(Changed) Machine configuration menu removed from CX3 and added to main S4. </li>
-</ul>
-<h3>Version 1.03 – (2015-Oct-21) Cameron Neff</h3>
+<!--
+-   (Changed) General functionality updates to the seed loader control.
+### Version 1.18 (2 Feb 2018)  Cameron Neff
+-   (Added) Controls for Hawe proportional hydraulic valves.
+-   (Fixed) Joystick response issues.
+-   (Added) Controls for seed loader extension direction.
+-   (Changed) General functionality updates.
+### Version 1.15 (2017-Jul-18)  Cameron Neff
+-   (Added) Control of extra tip-out on some potato booms.
+-   (Changed) Minimum main belt pressure setting and default.
+### Version 1.13 (2017-Apr-28)  Cameron Neff
+-   (Added) Electronic controls for prototype seed loader attachment. 
+-   (Added) Choose boom type from the CX3. 
+### Version 1.12 (2017-Mar-14)  Cameron Neff
+-   (Added) Software for adding Joystick and joystick remapping. 
+-   (Added) Control for new non-variable main drive motors. 
+-   (Changed) Main belt reverse warning and switch. 
+### Version 1.10 (2016-Sep-16)  Cameron Neff
+-   (Added) Electronic controls for 4820 with auto folding boom door open and close. 
+### Version 1.09 (2016-Jul-12)  Cameron Neff
+-   (Added) Update for grain auger option and hopper sensor. 
+### Version 1.08 (2016-Jun-14)  Cameron Neff
+-   (Added) Software update for 4820 and 4835 with variable main belt drive. 
+-   (Added) Controls for telescoping boom option. 
+-   (Added) Includes CX3 function remapping. 
+-   (Changed) Machine configuration menu removed from CX3 and added to main S4. 
+-->
+<h3>Version 1.03 (2015-Oct-21)  <!--Cameron Neff--></h3>
 <ul>
 <li>Software version for early manufactured 4835 machines with 3-spd main belt drive. </li>
 </ul></div><div id="S4F" class="TLA hide"><br><br>
 <h1>Evenflow 1872 (S4F)</h1>
-<h2>Maintained by: Jack Yorgesen</h2>
-<h2>Phone: (208)684-2702</h2>
-<h2>email: jack.yorgesen@spudnik.com</h2>
-<h3>Version 2.21 – (2022) Jack Yorgesen</h3>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a>, <a href="208-239-5792">208-239-5792  &#x260f;</a> / <a href="mailto:ryan.wasden@spudnik.com">Ryan Wasden  &#x2709;</a>, <a href="tel:208-239-xxxx">208-239-xxxx  &#x260f;</a></p>
+<h2>Stable release 2.21 (2022) <!--Jack Yorgesen--></h2>
 <ul>
 <li>(Changed) Version for 1860 style boom with breakaway bars and overhead ultrasonic sensors</li>
 </ul>
-<h3>Version 1.18 – (2020) Jack Yorgesen</h3>
+<h2>Previous Versions</h2>
+<h3>Version 1.18 – (2020) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Fixed) CX1 E-stop works on all pages now</li>
 <li>(Added) Smoother discharge belt operation with the addition of one input, older machines still function without input</li>
 </ul>
-<h3>Version 1.13 – (2019) Devin Vollmer</h3>
+<!--
+### Version 1.13 – (2019) Devin Vollmer
+-   (Added) Function for Drop point at bottom of the tub to stop trying to go down.
+-   (Changed) Pid Parameters for boom control to be smoother. 
+### Version 1.12 – (2019) Devin Vollmer
+-   (Added) Function for min boom down for shutting discharge off 
+### Version 1.11 – (2018) Devin Vollmer
+-   (Added) Pid control for bottom discharge belt to get belt running better.  
+### Version 1.05 – (2016) Keith Mecham
+-   (Changed)
+### Version 1.02 – (2015) Keith Mecham
+-   (Changed)
+--></div><div id="S4G" class="TLA hide"><br><br>
+<h1>Legacy Potato Harvester (S4G) - Models: 5740, 5744, 5746, 6630, 6640</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:chad.cole@spudnik.com">Chad Cole  &#x2709;</a>, <a href="tel:208-239-5789">208-239-5789  &#x260f;</a> / <a href="mailto:cameron.neff@spudnik.com">Cameron Neff  &#x2709;</a>, <a href="tel:208-239-5738">208-239-5738  &#x260f;</a></p>
+<h2>Stable release 2.27 (15 Sep 2022)</h2>
 <ul>
-<li>(Added) Function for Drop point at bottom of the tub to stop trying to go down.</li>
-<li>(Changed) Pid Parameters for boom control to be smoother. </li>
-</ul>
-<h3>Version 1.12 – (2019) Devin Vollmer</h3>
-<ul>
-<li>(Added) Function for min boom down for shutting discharge off </li>
-</ul>
-<h3>Version 1.11 – (2018) Devin Vollmer</h3>
-<ul>
-<li>(Added) Pid control for bottom discharge belt to get belt running better.  </li>
-</ul>
-<h3>Version 1.05 – (2016) Keith Mecham</h3>
-<ul>
-<li>(Changed)</li>
-</ul>
-<h3>Version 1.02 – (2015) Keith Mecham</h3>
-<ul>
-<li>(Changed)</li>
-</ul></div><div id="S4G" class="TLA hide"><br><br>
-<h1>Potato Harvester (S4G)</h1>
-<h2>Models: 5740, 5744, 5746, 6630, 6640, 6740</h2>
-<h2>Maintained by: Chad Cole</h2>
-<h2>Phone: (208)239-5789</h2>
-<h2>email: chad.cole@spudnik.com</h2>
-<h3>Version 2.27 - (2022-09-15) Chad Cole</h3>
-<ul>
+<li><strong>NOTE:</strong> For <strong>6740 only</strong>, version 2.27 has been superceded by S4P 2.0x</li>
 <li>(Fixed) 6740 Standard and indep digger nose - remove power down to setpoint in auto mode. Float down only in auto mode.</li>
 </ul>
-<h3>Version 2.26 - (2022-08-19) Chad Cole</h3>
+<h2>Previous Versions</h2>
+<h3>Version 2.26 (19 Aug 2022) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) Removed extra "TRANSFER" button sometimes displayed on TABLES page</li>
 <li>(Fixed) Range scale computation for Angle/Gap/Height for MS Pro table</li>
@@ -618,43 +569,43 @@
 <li>(Fixed) Update display to include boom speed on SPEEDS and BOOM pages</li>
 <li>(Fixed) Removed speed display for shakers, only PWM input is needed</li>
 </ul>
-<h3>Version 2.25 - (2022-07-25) Chad Cole</h3>
+<h3>Version 2.25 (25 Jul 2022) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) PWM issue for Professional MS table on 6740 - Segment Roller REV button didn't work reliably; changed PWM value for REV to match AUTO (forward) value.</li>
 </ul>
-<h3>Version 2.24 - (2022-07-12) Chad Cole</h3>
+<h3>Version 2.24 (12 Jul 2022) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) Joystick bug/memory issue</li>
 </ul>
-<h3>Version 2.22 - (2022-06-24) Chad Cole</h3>
+<h3>Version 2.22 (24 Jun 2022) <!--Chad Cole--></h3>
 <ul>
 <li>Use 2.24 with joystick; 2.22 may not boot up with joystick connected</li>
 <li>(Added) Primary Chain speed to Speed page</li>
 <li>(Modified) Table display for StarSep and Finger tables - removed unneeded PWM setting</li>
 <li>(Fixed) Position of Start of Row settings page to fix truncated left side of page</li>
 </ul>
-<h3>Version 2.21 - (2022-04-05) Chad Cole</h3>
+<h3>Version 2.21 (5 Apr 2022) <!--Chad Cole--></h3>
 <ul>
 <li>Use 2.24 with joystick; 2.21 may not boot up with joystick connected</li>
 <li>(Added) Auto and Transport buttons for 6740 STARSEP side elevator table (previously a manual control)</li>
 </ul>
-<h3>Version 2.20 - (2022-03-25) Chad Cole</h3>
+<h3>Version 2.20 (25 Mar 2022) <!--Chad Cole--></h3>
 <ul>
 <li>Use 2.24 with joystick; 2.20 may not boot up with joystick connected</li>
 <li>(Added) 6740 Boom and Piler speed set points (%) on Boom and Speeds pages</li>
 </ul>
-<h3>Version 2.19 - (2022-03-22) Chad Cole</h3>
+<h3>Version 2.19 (22 Mar 2022) <!--Chad Cole--></h3>
 <ul>
 <li>(Added) 6740 StarSep table adjustments</li>
 <li>(Added) Primary chain speed display on home page</li>
 </ul>
-<h3>Version 2.18 - (2022-03-14) Chad Cole</h3>
+<h3>Version 2.18 (14 Mar 2022) <!--Chad Cole--></h3>
 <ul>
 <li>(Added) 6740 Outside Depth Wheels option</li>
 <li>(Fixed) Finger table speed control</li>
 <li>(Fixed) Minor code cleanup</li>
 </ul>
-<h3>Version 2.17 - (2022-02-18) Chad Cole</h3>
+<h3>Version 2.17 (18 Feb 2022) <!--Chad Cole--></h3>
 <ul>
 <li>(Changed) Prof MS table rollers - speed controls switched to straight PWM</li>
 <li>(Fixed) Boom fold issue when folding with joystick</li>
@@ -662,44 +613,41 @@
 <li>(Fixed) Independent Digger nose setpoint entry</li>
 <li>(Added) StarSep Elev Table</li>
 </ul>
-<h3>Version 2.16 - (2021-08-25) Chad Cole</h3>
+<h3>Version 2.16 (25 Aug 2021) <!--Chad Cole--></h3>
 <ul>
 <li>(Added) Functionality for swinging holding tank</li>
 </ul>
-<h3>Version 2.14 - (2021-08-09) Chad Cole</h3>
+<h3>Version 2.14 (9 Aug 2021) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) Prof MS transfer mode not working for 6640</li>
-</ul>
-<h3>Version 2.13 - (2021-08-09) Chad Cole</h3>
-<ul>
 <li>(Fixed) Some values not saved to memory</li>
 <li>(Fixed) Elevator controls</li>
 <li>(Fixed) Spreader roller computation</li>
 </ul>
-<h3>Version 2.10 - (2021-07-14) Chad Cole</h3>
+<h3>Version 2.10 (14 Jul 2021) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) Alarm cutoffs for 5744 Pintle System option now trigger correctly.</li>
 </ul>
-<h3>Version 2.09 - (2021-06-30) Chad Cole</h3>
+<h3>Version 2.09 (30 Jun 2021) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) Error in PinDef IO for DIGGER_L_FLOAT. This was inadvertently disabled. It's enabled in this version.</li>
 </ul>
-<h3>Version 2.08 - (2021-06-28) Chad Cole</h3>
+<h3>Version 2.08 (28 Jun 2021) <!--Chad Cole--></h3>
 <ul>
 <li>(Fixed) Boom fold controls now display correctly on the 6640.</li>
 </ul>
-<h3>Version 2.07 - (2021-06-22) Jason Steffen</h3>
+<h3>Version 2.07 (2021-06-22) <!--Jason Steffen--></h3>
 <ul>
 <li>(Fixed) Independent spreader controls are now working on the 6740.</li>
 <li>(Changed) Clod roller ratio speed can now go up to 200% on the elev. table.</li>
 </ul>
-<h3>Version 2.06 - (2021-05-18) Jason Steffen</h3>
+<h3>Version 2.06 (18 May 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Changed) Min height and gap elev. multisep settings now only affects transport mode.</li>
 <li>(Added) Aux wheel pressure diagnostic input to axle tab when aux wheel config is selected.</li>
 <li>(Fixed) Bar graphs on pintle belt tab now function correctly.  Previously always showed at 0.</li>
 </ul>
-<h3>Version 2.05 - (2021-05-012) Jason Steffen</h3>
+<h3>Version 2.05 (12 May 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Changed) FWMS controls to completely match the Elev table multisep controls</li>
 <li>(Fixed) Initial start speeds on the Elev and FWMS segment and clod drive</li>
@@ -708,30 +656,27 @@
 <li>(Changed) The swinging boom piler will now only be able to move up when the holding tank floor is not moving</li>
 <li>(Changed) Pinch is now the default mode on the FWMS and elev tables and transfer can be activated which is reverse of what it was.</li>
 </ul>
-<h3>Version 2.04 - (2021-05-04) Jason Steffen</h3>
+<h3>Version 2.04 (4 May 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Changed) Elev table multi-sep controls to a percentage to match the FWMS.</li>
 <li>(Fixed) Clod ratio controls on the 66X0 models.</li>
 </ul>
-<h3>Version 2.03 - (2021-04-26) Jason Steffen</h3>
+<h3>Version 2.03 (26 Apr 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Fixed) Tested and tuned the min height and gap settings on elevator table multisep</li>
 <li>(Fixed) Errant displays that shouldn't show up with certain configurations</li>
 <li>(Fixed) Auto digger nose adjust is stopped during manual control</li>
 <li>(Added) Controls to run the piler independently. </li>
 </ul>
-<h3>Version 2.02 - (2021-03-22) Jason Steffen</h3>
+<h3>Version 2.02 (22 Mar 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Fixed) Hump adjustment interference safety on the 6740M/L </li>
 <li>(Fixed) Errant displays that shouldn't show up with certain configurations</li>
 <li>(Added) Adjustable minimum settings for gap and height on the multisep</li>
-</ul>
-<h3>Version 2.01 - (2021-03-22) Jason Steffen</h3>
-<ul>
 <li>(Added) Adjustable Max settings for the joystick boom controls</li>
 <li>(Added) Hump adjustment interference safety on the 6740M/L </li>
 </ul>
-<h3>Version 1.28 - (2021-03-15) Jason Steffen</h3>
+<h3>Version 1.28 (15 Mar 2021) <!--Jason Steffen--></h3>
 <ul>
 <li>(Added) Controls for support wheel</li>
 <li>(Added) Clod Control ratio based on segment speed</li>
@@ -740,172 +685,151 @@
 <li>(Changed) Wheel Drive GUI</li>
 <li>(Fixed) Boom speeds for hawe valves</li>
 </ul>
-<h3>Version 1.26 - (2018-02-28) Nick Huskinson</h3>
-<ul>
-<li>(Changed) Display button appearance </li>
-<li>(Added) Slip detection for rear pintle belts </li>
-<li>(Added) Hydraulic primary behaves like a slip clutch </li>
-<li>(Added) 5766 option made available </li>
-<li>(Added) Support for HAWE valves </li>
-<li>(Added) Wheel drive </li>
-<li>(Added) Software version displayed on the display </li>
-<li>(Fixed) Shear rollers adjust range when button is pressed </li>
-<li>(Changed) Hydraulic Primary pressure setting sets slip 
-  pressure </li>
-<li>(Fixed) Disable pintle alarm when no elevator pintle table 
-  present on 5744 </li>
-<li>(Changed) Only load new object pool when a new version is
-  detected </li>
-<li>(Changed) Oil cooler reverses every 30 minutes the PTO runs</li>
-</ul>
-<h3>Version 1.25 - (2017-07-15) Nick Huskinson</h3>
-<ul>
-<li>(Security) Holding tank piler needs harvester run to be enabled to move</li>
-<li>(Changed) removed auto dig depth button and added controls to go to preset depth and follow it</li>
-<li>(Added) Independent control for digger nose</li>
-<li>(Added) Ability to name/rename the preset buttons</li>
-<li>(Changed) All automatic movement is dependent on the harvester run button</li>
-<li>(Changed) Mechanical shakers can be adjusted when PTO is not running</li>
-<li>(Added) Terra float to start/end of row</li>
-<li>(Changed) Seperated the start/end of row pages</li>
-<li>(Changed) Coulter sync is now persistent across power cycles</li>
-<li>(Added) Elevator table multisep controls for 5744</li>
-<li>(Fixed) CCI not loading S4 controls</li>
-<li>(Added) Electronic slowdown capability for proportionaly controlled booms</li>
-</ul>
-<h3>Version 1.24 - (unreleased) Nick Huskinson</h3>
-<ul>
-<li>(Fixed) Changed control for Piler in holding tank </li>
-<li>(Added) Diagnostics </li>
-<li>(Added) Presets </li>
-<li>(Fixed) Adjusted Ridge Relief to with an accumulator pressure of 180 psi </li>
-<li>(Changed) Changed position sensors to calibrate as the function is used </li>
-<li>(Changed) Ridge Relief must be set to 0 twice to set it to 0 now </li>
-</ul>
-<h3>Version 1.23 - (2016-09-12) Nick Huskinson</h3>
-<ul>
-<li>(Added) Alarms added to the pintle system </li>
-<li>(Added) Alarm toggle added to hydraulic rear cross and elevator controls </li>
-<li>(Changed) Terra Float drive made dependent on PTO running </li>
-<li>(Fixed) Intake Chain pressure dependencies increased 400psi </li>
-<li>(Added) Aux wheel up/down added to start/end row </li>
-<li>(Changed) Boom alarm to a double beep every 5 seconds </li>
-</ul>
-<h3>Version 1.22 – (2016) Nick Huskinson</h3>
-<ul>
-<li>(Added) 5746 controls added - (Fixed) Updated CCOC </li>
-<li>(Removed) Removed options for joystick buttons that were not available </li>
-<li>(Fixed) Added stripper kit and synced coulter control to joystick </li>
-<li>(Added) Individual drive override added to Auto buttons, when held </li>
-<li>(Added) AUTO buttons added to user interface to allow for test functionality </li>
-<li>(Fixed) Update the Aux Wheel with pressure control from the CCI </li>
-<li>(Added) Enabled the Digger Hump to be calibrated </li>
-</ul>
-<h3>Version 1.21 – (2016) Nick Huskinson</h3>
-<ul>
-<li>(Fixed) Joystick customized controls persistent across power cycles </li>
-<li>(Fixed) Mechanical shaker and secondary shaker controls updated </li>
-<li>(Added) Sensor Calibration added </li>
-<li>(Fixed) Full width multi-sep controls and labels adjusted </li>
-<li>(Fixed) Terra float controls updated to use ridge relief </li>
-</ul>
-<h3>Version 1.20 – (2016) Nick Huskinson</h3>
-<ul>
-<li>Initial release for 2016 Season </li>
-</ul>
-<h3>Version 1.06 – (2015) Cameron Neff</h3>
-<ul>
-<li>Factory testing only, update to new software </li>
-</ul>
-<h3>Version 1.03 – (2015) Cameron Neff - 2015 test software</h3></div><div id="S4H" class="TLA hide"><br><br>
-<h1>Pilers (S4H)</h1>
-<h2>Model Numbers: 880</h2>
-<h2>Maintained by: Jack Yorgesen</h2>
-<h2>Phone: (208)684-2702</h2>
-<h2>email: jack.yorgesen@spudnik.com</h2>
-<h3>Version 2.62 – (2022) Jack Yorgesen</h3>
+<!--
+### Version 1.26 (28 Feb 2018) Nick Huskinson
+- (Changed) Display button appearance 
+- (Added) Slip detection for rear pintle belts 
+- (Added) Hydraulic primary behaves like a slip clutch 
+- (Added) 5766 option made available 
+- (Added) Support for HAWE valves 
+- (Added) Wheel drive 
+- (Added) Software version displayed on the display 
+- (Fixed) Shear rollers adjust range when button is pressed 
+- (Changed) Hydraulic Primary pressure setting sets slip 
+  pressure 
+- (Fixed) Disable pintle alarm when no elevator pintle table 
+  present on 5744 
+- (Changed) Only load new object pool when a new version is
+  detected 
+- (Changed) Oil cooler reverses every 30 minutes the PTO runs
+### Version 1.25 (15 Jul 2017) Nick Huskinson
+-   (Security) Holding tank piler needs harvester run to be enabled to move
+-   (Changed) removed auto dig depth button and added controls to go to preset depth and follow it
+-   (Added) Independent control for digger nose
+-   (Added) Ability to name/rename the preset buttons
+-   (Changed) All automatic movement is dependent on the harvester run button
+-   (Changed) Mechanical shakers can be adjusted when PTO is not running
+-   (Added) Terra float to start/end of row
+-   (Changed) Seperated the start/end of row pages
+-   (Changed) Coulter sync is now persistent across power cycles
+-    (Added) Elevator table multisep controls for 5744
+-    (Fixed) CCI not loading S4 controls
+-    (Added) Electronic slowdown capability for proportionaly controlled booms
+### Version 1.23 (12 Sep 2016) Nick Huskinson
+-   (Added) Alarms added to the pintle system 
+-   (Added) Alarm toggle added to hydraulic rear cross and elevator controls 
+-   (Changed) Terra Float drive made dependent on PTO running 
+-   (Fixed) Intake Chain pressure dependencies increased 400psi 
+-   (Added) Aux wheel up/down added to start/end row 
+-   (Changed) Boom alarm to a double beep every 5 seconds 
+### Version 1.22 – (2016) Nick Huskinson
+-   (Added) 5746 controls added (Fixed) Updated CCOC 
+-   (Removed) Removed options for joystick buttons that were not available 
+-   (Fixed) Added stripper kit and synced coulter control to joystick 
+-   (Added) Individual drive override added to Auto buttons, when held 
+-   (Added) AUTO buttons added to user interface to allow for test functionality 
+-   (Fixed) Update the Aux Wheel with pressure control from the CCI 
+-   (Added) Enabled the Digger Hump to be calibrated 
+### Version 1.21 – (2016) Nick Huskinson
+-   (Fixed) Joystick customized controls persistent across power cycles 
+-   (Fixed) Mechanical shaker and secondary shaker controls updated 
+-   (Added) Sensor Calibration added 
+-   (Fixed) Full width multi-sep controls and labels adjusted 
+-   (Fixed) Terra float controls updated to use ridge relief 
+### Version 1.20 – (2016) Nick Huskinson
+-   Initial release for 2016 Season 
+### Version 1.06 – (2015) Cameron Neff--></div><div id="S4H" class="TLA hide"><br><br>
+<h1>Pilers (S4H) - Models: 880</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a>, <a href="208-239-5792">208-239-5792  &#x260f;</a> / <a href="mailto:ryan.wasden@spudnik.com">Ryan Wasden  &#x2709;</a>, <a href="tel:208-239-xxxx">208-239-xxxx  &#x260f;</a></p>
+<h2>Stable release 2.02 2.62 – (2022) <!--Jack Yorgesen--></h2>
 <ul>
 <li>(Added) Configuration for joystick remote to be compatible with older V1000 VFD's</li>
 </ul>
-<h3>Version 2.58 – (2021) Jack Yorgesen</h3>
+<h2>Previous Versions</h2>
+<h3>Version 2.58 – (2021) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Added) Version for the new piler remote, backwards compatible with old remote</li>
 </ul>
-<h3>Version 1.55 – (2020) Jack Yorgesen</h3>
+<h3>Version 1.55 – (2020) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Changed) Service bulletin to increase swing speed</li>
 </ul>
-<h3>Version 1.54 – (2020) Devin Vollmer</h3>
-<ul>
-<li>(Changed) Service bulletin to fix remote messages.</li>
-</ul>
-<h3>Version 1.11 – (2017) Devin Vollmer</h3>
-<ul>
-<li>(Changed)</li>
-</ul>
-<h3>Version 1.09 –</h3>
-<ul>
-<li>(Changed)</li>
-</ul></div><div id="S4I" class="TLA hide"><br><br>
-<h1>Air Sep Eliminator (S4I)</h1>
-<h2>Model Numbers: 994, 991</h2>
-<h2>Maintained by: Jack Yorgesen</h2>
-<h2>Phone: (208)684-2702</h2>
-<h2>email: jack.yorgesen@spudnik.com</h2>
-<h2>994 LED keypad versions</h2>
-<h3>Version 3.50 - (2022) Jack Yorgesen (Only use on LED keypad versions)</h3>
+<!--
+### Version 1.54 – (2020) Devin Vollmer
+-   (Changed) Service bulletin to fix remote messages.
+### Version 1.11 – (2017) Devin Vollmer
+-   (Changed)
+### Version 1.09 – 
+-   (Changed)
+--></div><div id="S4I" class="TLA hide"><br><br>
+<h1>Air Sep Eliminator (S4I) - Models: 994, 991</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a>, <a href="208-239-5792">208-239-5792  &#x260f;</a> / <a href="mailto:ryan.wasden@spudnik.com">Ryan Wasden  &#x2709;</a>, <a href="tel:208-239-xxxx">208-239-xxxx  &#x260f;</a></p>
+<h2>994 LED keypad versions (Only use on LED keypad versions)</h2>
+<h3>Version 3.50 - (2022) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Added) CANBUS Device version to work with keypads, dials, and V700 screen</li>
 <li>(Changed) Rear Cross now does not change directions based on Interlock plug, instead machine will check the interlock on the direction side it is going to</li>
 </ul>
-<h2>994 with switches 2019-2021</h2>
-<h3>Version 2.02 – (2021) Jack Yorgesen (Do not use on 2018 or 2017 model)</h3>
+<h2>994 with switches 2019-2021 (Do not use on 2018 or 2017 model)</h2>
+<h3>Version 2.02 – (2021) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Added) dirt cross and rock cross speed adjustability in the settings page, start at 30% for each and adjust from there</li>
 <li>(Fixed) fan speed decrease now matches fan speed increase, also now increments by 10 instead of 5 </li>
 <li>(Changed) Clod rolls now never fault out the machine, Segments move the product so they will fault it out if there's an issue</li>
 <li>(Changed) Various slight speed increases to cylinder functions like table up</li>
 </ul>
-<h3>Version 1.33 – (2019) Devin Vollmer (Do not use on 2018 or 2017 model)</h3>
+<h2>994 2019 version (Do not use on 2018 or 2017 model)</h2>
+<h3>Version 1.33 – (2019) <!--Devin Vollmer--></h3>
 <ul>
 <li>(New Model) 994 fall 2019 machines do not use on 2018 machines.</li>
 </ul>
-<h2>994 2018 version</h2>
-<h3>Version 0.33 – (2018) Devin Vollmer (Do not use on 2019 or 2017 model)</h3>
+<h2>994 2018 version (Do not use on 2019 or 2017 model)</h2>
+<h3>Version 0.33 – (2018) <!--Devin Vollmer--></h3>
 <ul>
 <li>(2018)(Fixed) Fixed clod roller pid so when moving gap rollers will not stop. </li>
 </ul>
-<h2>994 2017 version</h2>
-<h3>Version 1.25 – (2017) Devin Vollmer (Do not use on 2019 or 2018 model)</h3>
+<h2>994 2017 version (Do not use on 2019 or 2018 model)</h2>
+<h3>Version 1.25 – (2017) <!--Devin Vollmer--></h3>
 <ul>
 <li>(2017) First model year of 994 (this is single blower for airsep model). </li>
 </ul>
 <h2>991 Software</h2>
-<h3>Version 1.11 – (2022) Jack Yorgesen</h3>
+<h3>Version 1.11 – (2022) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Changed) 991 rewritten to be compatible with newer rev. 6 S4 boards, this version will work with older boards as well    (rev. 6 S4 version)</li>
 </ul>
-<h3>Version 1.08 – (2017) Devin Vollmer</h3>
+<h3>Version 1.08 – (2017) <!--Devin Vollmer--></h3>
 <ul>
 <li>(Changed) Last version of 991 Eliminator do not use on 994 machines only 991 or small frame 994 without hawe valves.</li>
 </ul>
-<h3>Version 1.07 – 1.02</h3>
+<!--
+### Version 1.07 – 1.02
+-   Initial versions
+--></div><div id="S4K" class="TLA hide"><br><br>
+<h1>Folding Planter (S4K) - Models: 83xx</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a>, <a href="208-239-5792">208-239-5792  &#x260f;</a> / <a href="mailto:ervin.martinez@spudnik.com">Ervin Martinez  &#x2709;</a>, <a href="tel:208-239-5700">208-239-5700 x5849  &#x260f;</a></p>
+<h2>Stable release 2.12 (March 2023) <!--Nathan Yost--></h2>
 <ul>
-<li>Initial versions</li>
-</ul></div><div id="S4K" class="TLA hide"><br><br>
-<h1>Folding Planter (S4k)</h1>
-<h2>Model Numbers: 83xx</h2>
-<h2>Maintained by: Nathan Yost</h2>
-<h2>Phone: (208)239-5792</h2>
-<h2>email: nathan.yost@spudnik.com</h2>
-<h1>Before you load on new software please contact Nathan Yost to help you make sure it is setup properly.</h1>
-<h3>Version 2.07 – (Febuary 2023) Nathan Yost</h3>
+<li><strong>WARNING:</strong> <em>Do not install on machines manufactured before 2019. See version history below.</em></li>
+<li>(fix) feedchain max off and max on time was double the actual time. Example 2 seconds was actually 4 seconds. This was fixed to match actual time</li>
+<li>(fix) error with alarms stuck on for when specific rows are disabled. This is fixed so that alarms only occur on enabled rows</li>
+<li>(feature) Added in feature to retract disks when folding wing down. This addresses an issue where the disc bled out and unfolded and when the wing was unfolded it hit the row units</li>
+<li>(fix) Shakers weren't able to run unless feedbowls are enabled. This is now fixed so you can run shakers anytime the cup drive is on.</li>
+<li>(improvement) Hopper would fold up at times when potatoes in sensor deadband. This is better but not fixed yet.</li>
+<li>(fix) Wheel drive oil cooler not running fan a proper cooling speed for temperature</li>
+<li>(fix) Added in new skip detection software that seems to be reliable.</li>
+<li>(fix) disable the hour and acre counters while using test ground speed mode</li>
+<li>(fix) Hidden row feature had a bug where it was always stuck on. It is now fixed to shut off encoder speed when all rows are off</li>
+<li>(fix) For 8308 fixed frame feature added the functionality to chase the setpoint of the wing depth while planting because wings would get pushed up while planting and entering a row.</li>
+</ul>
+<h2>Previous Versions</h2>
+<h3>Version 2.07 (Febuary 2023) <!--Nathan Yost--></h3>
 <ul>
 <li>(feature) Added a fixed frame configuration for 8308 where Angle sensors are added to the wings which allows it to always unfold to the same position and act as a rigid 8 row frame while planting. </li>
 <li>(fix) There was a bug that made it so the rows didn't show up if the screen got power cycled or disconnected and the S4 didn't. This should be fixed so the rows always populate</li>
 <li>(Change) Cleaned up the Virtual Terminal calibration page to simplify the wing calibration process. All wing calibrations are found in the "Enter Wing Sensor Calibration" page. You can set your fixed frame by holding down the "Hold to Set Fixed Frame" button in Depth control settings. Sensor calibration will only change in this page when previously it would change at any time it when out of it's range.</li>
 </ul>
-<h3>Version 2.06 – (August 2022) Nathan Yost</h3>
+<h3>Version 2.06 (August 2022) <!--Nathan Yost--></h3>
 <ul>
 <li>(fix) Skip detection issues where row 7-9 had more skips.</li>
 <li>(fix) Fixed issue with floating toolbar.</li>
@@ -914,14 +838,14 @@
 <li>(Fix) Auto Leveling Feature to run more smoothly.</li>
 <li>(Fix) Hopper Lifting up because potatoes were in the deadband of sensor.</li>
 </ul>
-<h3>Version 2.04 – (Apr 2022) Nathan Yost</h3>
+<h3>Version 2.04 (Apr 2022) <!--Nathan Yost--></h3>
 <ul>
 <li>(Added) Wing level safety that will stop the wing from tilting too far that it would hit the mainframe while planting.</li>
 <li>(Feature) Added configuration for floating toolbar</li>
 <li>(Feature) Added filtering to depth control sensors that improves the planters ability to plant in dust.</li>
 <li>(Fix) Update to this version or later if you have a new Rev 6 S4 board</li>
 </ul>
-<h3>Version 2.03 – (2021) Nathan Yost</h3>
+<h3>Version 2.03 (2021) <!--Nathan Yost--></h3>
 <ul>
 <li>(fix) Hidden Row Config</li>
 <li>(Feature) Added return to level functionality with a pop up screen after planting and working position is left that allows you to stop autoleveling is desired.</li>
@@ -929,13 +853,13 @@
 <li>(Feature) In depth control settings you can set the max level the wing can lower from the main frame in percentage</li>
 <li>(change) Changed the tilt depth control from a PID control to a speed and deadband control.</li>
 </ul>
-<h3>Version 2.02 – (2020) Nathan Yost</h3>
+<h3>Version 2.02 (2020) <!--Nathan Yost--></h3>
 <ul>
 <li>(fix) Fixed typo in code for 8308 which broke skip detection on rows 7 and 8</li>
 <li>(added) hidden row configuration that is for deere section control(outputs the cup speed of any cup section that is active)</li>
 <li>(update) updated to new version of s4x which supports new hw rev 3</li>
 </ul>
-<h3>Version 2.01 – (2020) Nathan Yost</h3>
+<h3>Version 2.01 (2020) <!--Nathan Yost--></h3>
 <ul>
 <li>(fix) Fixed Boost for Wheel assist</li>
 <li>(add) Added a button for manual override of wheel speed</li>
@@ -946,77 +870,104 @@
 <li>(fix) Removed the auto leveling when in synq mode. I did this so the wing never moves unless you are pressing a button</li>
 <li>(fix) Bumped up the value allowed to set equal to the frame because 8 row wings can go so much lower and so needs to be able to set the main frame level at a higher wing percentage</li>
 </ul>
-<h3>Version 1.17 – (2020) Nathan Yost</h3>
+<h3>Version 1.17 (2020) <!--Nathan Yost--></h3>
 <ul>
 <li>Fixed typo in code for 8 row planter and fixed some breaking functionality on 8 row planter.</li>
 </ul>
-<h3>Version 1.09 – (2019) Devin Vollmer (Do not use on 2018 or 2017 model)</h3>
+<h3>Version 1.09 (2019) <strong>Warning: Do not use on 2018 or 2017 model</strong> <!--Devin Vollmer--></h3>
 <ul>
 <li>(Stable Release) 8312 2019 planting season version. </li>
 </ul></div><div id="S4L" class="TLA hide"><br><br>
-<h1>Custom Eliminator (S4L)</h1>
-<h2>Model Numbers: 990, 970</h2>
-<h2>Maintained by: Jack Yorgesen</h2>
-<h2>Phone: (208)684-2702</h2>
-<h2>email: jack.yorgesen@spudnik.com</h2>
-<h3>Version 2.06 – (2021) Jack Yorgesen</h3>
+<h1>Custom Eliminator (S4L) - Models: 990, 970</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a>, <a href="208-239-5792">208-239-5792  &#x260f;</a> / <a href="mailto:ryan.wasden@spudnik.com">Ryan Wasden  &#x2709;</a>, <a href="tel:208-239-xxxx">208-239-xxxx  &#x260f;</a></p>
+<h2>Stable release 2.06 – (2021) <!--Jack Yorgesen--></h2>
 <ul>
 <li>(New Model) 970 Configuration option</li>
 <li>(Added) Diagnostic speed setpoints S1 and S2 above actuals</li>
 <li>(Added) Parker hydraulic motor configuration option, most machines have danfoss</li>
 </ul>
-<h3>Version 00.05 – (2020) Jack Yorgesen</h3>
+<h2>Previous Versions</h2>
+<h3>Version 00.05 – (2020) <!--Jack Yorgesen--></h3>
 <ul>
 <li>(Changed) Faster Spiral roll speed updating </li>
 </ul>
-<h3>Version 00.03 – (2018) Devin Vollmer</h3>
+<h3>Version 00.03 – (2018) <!--Devin Vollmer--></h3>
 <ul>
 <li>(2018) First model year of 990 </li>
 </ul></div><div id="S4M" class="TLA hide"><br><br>
-<h1>Spinach Harvester (S4M)</h1>
-<h2>Model Numbers: BBL-1000</h2>
-<h2>Maintained by: Nathan Yost</h2>
-<h2>Phone: (208)239-5792</h2>
-<h2>email: nathan.yost@spudnik.com</h2>
-<h3>Version 1.04 – (Aug 2022) Nathan Yost</h3>
+<h1>Spinach Harvester (S4M) - Models: BBL-1000</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a>, <a href="208-239-5792">208-239-5792  &#x260f;</a> / <a href="mailto:ervin.martinez@spudnik.com">Ervin Martinez  &#x2709;</a>, <a href="tel:208-239-5700">208-239-5700 x5849  &#x260f;</a></p>
+<h2>Stable release 2.01 (Aug 2023) <!--Nathan Yost--></h2>
+<ul>
+<li>(feature) Added in a pop up for when infeed belt isn't able to maintain set speed</li>
+<li>(Change) Updated diagnostics to better look and feel and matches Spudnik Standard</li>
+<li>(fix) Bug where Joystick Run button would get misaligned with Hydac Screen run button</li>
+<li>(feature) Added in an indicator for Elevator Up and Shield down requirements to swing the elevator</li>
+</ul>
+<h2>Previous Versions</h2>
+<h3>Version 1.04 (Aug 2022) <!--Nathan Yost--></h3>
 <ul>
 <li>(feature) Added in Reject per minute display with alarm</li>
 <li>(feature) Added the mach config to display instead of S4 controller</li>
 <li>(feature) Added feature to retract bin transition  when swinging boom in. This is used to help avoid damage to right hand hydraulic box.</li>
 </ul>
-<h3>Version 1.03 – (2022) Nathan Yost</h3>
+<h3>Version 1.03 (2022) <!--Nathan Yost--></h3>
 <ul>
 <li>(Stable Release) for Tote Machine</li>
 </ul>
-<h3>Version 1.02 – Nathan Yost</h3>
+<h3>Version 1.02 <!--Nathan Yost--></h3>
 <ul>
 <li>(Stable Release) for Bin Machine</li>
 </ul></div><div id="S4N" class="TLA hide"><br><br>
-<h1>Belt Planter (S4N)</h1>
-<h2>Model Numbers: 89XX</h2>
-<h2>Maintained by: Nathan Yost</h2>
-<h2>Phone: (208)239-5792</h2>
-<h2>email: nathan.yost@spudnik.com</h2>
-<h3>Version 2.01 – (Feb 2023) Nathan Yost</h3>
+<h1>Belt Planter (S4N) - Models: 89XX</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:nathan.yost@spudnik.com">Nathan Yost  &#x2709;</a>, <a href="208-239-5792">208-239-5792  &#x260f;</a> / <a href="mailto:ervin.martinez@spudnik.com">Ervin Martinez  &#x2709;</a>, <a href="tel:208-239-5700">208-239-5700 x5849  &#x260f;</a></p>
+<h2>Stable release 2.01 – (Feb 2023) <!--Nathan Yost--></h2>
 <ul>
 <li>(fix) Fixed Auto Adjust Feature</li>
 <li>(fix) Fixed Weight control Feature</li>
 <li>(improve) Improved Virtual terminal display to be more user friendly</li>
 <li>(feature) New feature for staggering feed belts and chain to help with surging in planting belt.</li>
 </ul>
-<h3>Version 1.02 – Nathan Yost</h3>
+<h2>Previous Versions</h2>
+<h3>Version 1.02 <!--Nathan Yost--></h3>
 <ul>
 <li>First Release ran in 2022 Planting Season</li>
+</ul></div><div id="S4P" class="TLA hide"><br><br>
+<h1>6740 Potato Harvester (S4P)</h1>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineers: <a href="mailto:chad.cole@spudnik.com">Chad Cole  &#x2709;</a>, <a href="tel:208-239-5789">208-239-5789  &#x260f;</a> / <a href="mailto:cameron.neff@spudnik.com">Cameron Neff  &#x2709;</a>, <a href="tel:208-239-5738">208-239-5738  &#x260f;</a></p>
+<h2>Stable release 2.02 (28 Aug 2023)</h2>
+<ul>
+<li>Fixed digger hump computation to avoid clearing minimum range setting.</li>
+<li>Fixed boom fold setting for swinging holding tank.</li>
+</ul>
+<h2>Previous Versions</h2>
+<h3>Version 2.01 (17 Aug 2023) <!--Chad Cole--></h3>
+<ul>
+<li>Fixed telescoping boom out control not working.</li>
+<li>Fixed hydraulic side elevator and rear cross controls not working.</li>
+</ul>
+<h3>Version 2.00 (3 Aug 2023) <!--Chad Cole--></h3>
+<ul>
+<li>Initial release of 6740 specific software. This separates 6740 software from the older S4G branch that supports multiple models. When updating to this version from an S4G version, you will need to reconfigure the S4 settings since options that don't apply have been removed. Significant changes from S4G 2.27 include the following:<ul>
+<li>S4 configuration options simplified and updated. Switching between 6xx0/574x harvester software (S4G) and 6740 specific hardware (S4P) requires redoing the S4 configuration to specify the relevant options.</li>
+<li>Simplified and cleaned up code. All code not relevant to 6740 operation was removed and some changes made to potential errors. Program memory requirements reduced by 15%.</li>
+<li>Professional multi-sep table behavior updated. When changing clod roller from clean to transfer mode, if the clod roller is below the minimum limits, the roller automatically moves to the minimum setting and then turns on instead of just stopping.</li>
+<li>Miscellaneous CCI screen fixes.</li>
+<li>Modified load sense functionality for better performance.</li>
+<li>Wheel drive fixes - including wheel drive disengage if PTO speed is less than the minimum setting.</li>
+<li>Outside depth wheel control changed labels to reflect depth control instead of depth wheel height.</li>
+<li>Updates to input/output signals included on diagnostics screens.</li>
+<li>Update oil cooler control code (self-hydraulics option) to compute time on/off correctly.</li>
+</ul>
+</li>
 </ul></div><div id="SCU" class="TLA hide"><br><br>
 <h1>Core Software (SCU)</h1>
-<h2>Maintained by: Cameron Neff</h2>
-<h2>Phone: (208)239-5738</h2>
-<h2>email: cameron.neff@spudnik.com</h2>
-<h3>Version 1.02 - (2016-Mar-7) Cameron Neff</h3>
+<p>Service/Support: <a href="tel:208-239-5788">208-239-5788  &#x260f;</a>; Engineer: <a href="mailto:cameron.neff@spudnik.com">Cameron Neff  &#x2709;</a>, <a href="208-239-5738">208-239-5738  &#x260f;</a></p>
+<h3>Version 1.02 (7 Mar 2016) <!--Cameron Neff--></h3>
 <ul>
 <li>Only use this version to backdate from the newer update packages to the older updates. </li>
 </ul>
-<h3>Version 1.01 – (2016-Mar-7) Cameron Neff</h3>
+<h3>Version 1.01 (7 Mar 2016) <!--Cameron Neff--></h3>
 <ul>
 <li>Use this version to prepare the controller for newer update packages. (S4A 1.05 +)(S4B 1.20 +)(S4C 1.20 +)(S4G 1.20 +) </li>
 </ul></div></body>
