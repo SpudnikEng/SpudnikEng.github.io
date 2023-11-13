@@ -1,0 +1,290 @@
+<html><head>
+<style>
+@charset "windows-1252";
+body { font-family: Arial, sans-serif; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px; text-align: left; border-bottom: 1px solid rgb(221, 221, 221); }
+th { background-color: rgb(76, 175, 80); color: white; }
+tr:nth-child(2n) { background-color: rgb(242, 242, 242); }
+tr:hover { background-color: rgb(221, 221, 221); }
+select { margin: 10px 0px; }
+
+/* Updated CSS for sticky table header */
+thead {
+    position: sticky;
+    top: 0;
+    background-color: rgb(76, 175, 80);
+    z-index: 10;
+}
+/* Modal styling */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAE4CAMAAABCLlV9AAADAFBMVEUAAAAAAFUAAKoAAP8AJAAAJFUAJKoAJP8ASQAASVUASaoASf8AbQAAbVUAbaoAbf8AkgAAklUAkqoAkv8AtgAAtlUAtqoAtv8A2wAA21UA26oA2/8A/wAA/1UA/6oA//8kAAAkAFUkAKokAP8kJAAkJFUkJKokJP8kSQAkSVUkSaokSf8kbQAkbVUkbaokbf8kkgAkklUkkqokkv8ktgAktlUktqoktv8k2wAk21Uk26ok2/8k/wAk/1Uk/6ok//9JAABJAFVJAKpJAP9JJABJJFVJJKpJJP9JSQBJSVVJSapJSf9JbQBJbVVJbapJbf9JkgBJklVJkqpJkv9JtgBJtlVJtqpJtv9J2wBJ21VJ26pJ2/9J/wBJ/1VJ/6pJ//9tAABtAFVtAKptAP9tJABtJFVtJKptJP9tSQBtSVVtSaptSf9tbQBtbVVtbaptbf9tkgBtklVtkqptkv9ttgBttlVttqpttv9t2wBt21Vt26pt2/9t/wBt/1Vt/6pt//+SAACSAFWSAKqSAP+SJACSJFWSJKqSJP+SSQCSSVWSSaqSSf+SbQCSbVWSbaqSbf+SkgCSklWSkqqSkv+StgCStlWStqqStv+S2wCS21WS26qS2/+S/wCS/1WS/6qS//+2AAC2AFW2AKq2AP+2JAC2JFW2JKq2JP+2SQC2SVW2Saq2Sf+2bQC2bVW2baq2bf+2kgC2klW2kqq2kv+2tgC2tlW2tqq2tv+22wC221W226q22/+2/wC2/1W2/6q2///bAADbAFXbAKrbAP/bJADbJFXbJKrbJP/bSQDbSVXbSarbSf/bbQDbbVXbbarbbf/bkgDbklXbkqrbkv/btgDbtlXbtqrbtv/b2wDb21Xb26rb2//b/wDb/1Xb/6rb////AAD/AFX/AKr/AP//JAD/JFX/JKr/JP//SQD/SVX/Sar/Sf//bQD/bVX/bar/bf//kgD/klX/kqr/kv//tgD/tlX/tqr/tv//2wD/21X/26r/2////wD//1X//6r////qm24uAAABAHRSTlP//////////////////////////////////////////////////////////////////////////////////////////////////////wD/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////jbUatgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAAd0SU1FB+cLDRUNHPltK88AACAASURBVHic7X0tbyw71q5BwPyMAo40G8x/aJCRYrDBvL+gQUiAI90N5tKABneDvNL2lYIDeqR3wJCACjhkgz7SbDDkghwpBjmgR0qDQ17wkoC6Xv6qZZeruj67q2eyStXVXV9dZfvx42WvtUyKD5mVkGM/wIeE8pEhM5OPDJmZfGTIzOQjQ2YmHxkyM/nIkJlJxwyRUupNLvG+ouZHuTPv/mT/ptIxQxhhsKGE+ISXhPzkj+fkpnKNUGcTwj7ypJV0zBBqMoQRQstbEJ/WKnN4fIk6l+gsqRzZK4LqfxGElrnJKHcHVS6Lmit53YHZS2eE6OS4UOnroCBLtDyr3XFK3JmceGEo39qKMNl+h7OfkS/6X3Ue4wNYaM3+E5B+CIEMIU/uFi6leQoHfo+9tIuoG8LmDt+Wmq8qP4TMRTpHrkn3/5qL9OOQC8IoOTe7HIfkKo04izkkJ+4fBOncoisRUmY/0xh8tDvy8kApj7XImU5yKI2uBv3G/V5ZCM4541pcwQ0bPpLjCrYvh4jcV1oWIRxqelpBiHB/lndPJI8QqJ/8E/ACwY1W6kioOHugcZioJ6UMmPUVfvmH5SppGPHC7M776FJU3npzCIc/Mk1gu9Upz6rpU1563u2/EEKY9JWQ+YdXYUtZIkMo+eXuwAhRhVHarXkCvx/SXhYyI/Bp96FWKbwje8K1R18O4VAO9MUSs3UVIU4eq3y/V0qEwNc88Q85an9buVYn8MMipAT/NflcRAjR4gujboxghLhXdInTl0O4TgxIG4nTpMIhTlQZ6Z5GHiG0bDgFGBTVRoSAd78+LEJ4WeZ1+tJKhmTUH1eVPW5u5vp1nv2+vhwC6XBtSm0bhKjMoykdvlk8Qpi+w+fwH/JUo84UjwMjBBXJa2ADXxyE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"></p>
+  </div>
+
+</div>
+<table border="1"><thead>
+<tr><th colspan="10">
+<span style="font-size:larger; font-weight:bold;">6740 (S4P) I/O Chart</span> &nbsp; 
+<select id="functionFilter" onchange="filterRows()">
+	<option value="">Select a Function</option>
+	<option value="Coulters">Coulters</option>
+	<option value="Digger Nose">Digger Nose</option>
+	<option value="Electronic LS">Electronic LS</option>
+	<option value="Hump Adjust">Hump Adjust</option>
+</select>
+ &nbsp; 
+<select id="sigFilter" onchange="filterSig()">
+	<option value="">Select I/O</option>
+	<option value="IN1">IN1</option>
+	<option value="IN2">IN2</option>
+	<option value="IN3">IN3</option>
+	<option value="IN4">IN4</option>
+	<option value="X1IN">X1IN</option>
+	<option value="OUT1">OUT1</option>
+	<option value="OUT2">OUT2</option>
+	<option value="OUT3">OUT3</option>
+	<option value="X1OUT">X1OUT</option>
+</select>
+ &nbsp; <button onclick="sigFilter.selectedIndex=0;filterSig();functionFilter.selectedIndex=0;filterRows();">Reset</button> &nbsp; <button id="myBtn">I/O Pins</button>
+</th>
+<tr><th>Pin name</th><th>LED/INP</th><th>Signal</th><th>12V</th><th>GND</th><th>Type</th><th>Range</th><th>Sensor</th><th>Function</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>DIGGER_R_A</td><td>T1</td><td>OUT1:1</td><td>OUT1:2</td><td></td><td>PWM</td><td></td><td></td><td>Digger Nose</td><td>Extends digger nose cylinders</td></tr>
+<tr><td>DIGGER_R_B</td><td>T2</td><td>OUT1:3</td><td>OUT1:2</td><td></td><td>PWM</td><td></td><td></td><td>Digger Nose</td><td>Retracts digger nose cylinders</td></tr>
+<tr><td>DIGGER_L_A</td><td>T3</td><td>OUT1:4</td><td>OUT1:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>DIGGER_L_B</td><td>T4</td><td>OUT1:6</td><td>OUT1:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>DIGGER_R_FLOAT</td><td>T5</td><td>OUT1:7</td><td>OUT1:8</td><td></td><td>PWM</td><td></td><td></td><td>Digger Nose</td><td>Opens rod side of digger nose cylinders to tank and allows cylinders to extend freely</td></tr>
+<tr><td>INTAKE CHAIN FWD</td><td>T6</td><td>OUT1:9</td><td>OUT1:8</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>DIGGER_L_FLOAT</td><td>T7</td><td>OUT1:10</td><td>OUT1:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>INTAKE CHAIN REV</td><td>T8</td><td>OUT1:12</td><td>OUT1:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>HUMP_A</td><td>T9</td><td>OUT1:13</td><td>OUT1:14</td><td></td><td>PWM</td><td></td><td>Hawe</td><td>Hump Adjust</td><td>Extends hump adjust cylinders</td></tr>
+<tr><td>HUMP_B</td><td>T10</td><td>OUT1:15</td><td>OUT1:14</td><td></td><td>PWM</td><td></td><td>Hawe</td><td>Hump Adjust</td><td>Retracts hump adjust cylinders</td></tr>
+<tr><td>COULTER_DRIVE_R_A</td><td>T11</td><td>OUT1:16</td><td>OUT1:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>COULTER_DRIVE_L_A</td><td>T12</td><td>OUT1:18</td><td>OUT1:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>COULTER_R_A</td><td>T13</td><td>OUT1:19</td><td>OUT1:20</td><td></td><td>PWM</td><td></td><td></td><td>Coulters</td><td>Extends RH Coulter cylinders</td></tr>
+<tr><td>COULTER_R_B</td><td>T14</td><td>OUT1:21</td><td>OUT1:20</td><td></td><td>PWM</td><td></td><td></td><td>Coulters</td><td>Retracts RH Coulter cylinders</td></tr>
+<tr><td>COULTER_L_A</td><td>T15</td><td>OUT1:22</td><td>OUT1:23</td><td></td><td>PWM</td><td></td><td></td><td>Coulters</td><td>Extends LH Coulter cylinders</td></tr>
+<tr><td>COULTER_L_B</td><td>T16</td><td>OUT1:24</td><td>OUT1:23</td><td></td><td>PWM</td><td></td><td></td><td>Coulters</td><td>Retracts LH Coulter cylinders</td></tr>
+<tr><td>STEERING A</td><td>T17</td><td>OUT2:1</td><td>OUT2:2</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>STEERING B</td><td>T18</td><td>OUT2:3</td><td>OUT2:2</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>LEVEL_R_A</td><td>T19</td><td>OUT2:4</td><td>OUT2:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>LEVEL_R_B</td><td>T20</td><td>OUT2:6</td><td>OUT2:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>LEVEL_L_A</td><td>T21</td><td>OUT2:7</td><td>OUT2:8</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>LEVEL_L_B</td><td>T22</td><td>OUT2:9</td><td>OUT2:8</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>INNER BOOM A</td><td>T23</td><td>OUT2:10</td><td>OUT2:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>INNER BOOM B</td><td>T24</td><td>OUT2:12</td><td>OUT2:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>OUTER BOOM A</td><td>T25</td><td>OUT2:13</td><td>OUT2:14</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>OUTER BOOM B</td><td>T26</td><td>OUT2:15</td><td>OUT2:14</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>BOOM SWING A</td><td>T27</td><td>OUT2:16</td><td>OUT2:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>BOOM SWING B</td><td>T28</td><td>OUT2:18</td><td>OUT2:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>AUX WHEEL A</td><td>T29</td><td>OUT2:19</td><td>OUT2:20</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>AUX WHEEL B</td><td>T30</td><td>OUT2:21</td><td>OUT2:20</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>AUX WHEEL FLOAT A</td><td>T31</td><td>OUT2:22</td><td>OUT2:23</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>AUX WHEEL FLOAT B</td><td>T32</td><td>OUT2:24</td><td>OUT2:23</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PRIM_SHKR_R</td><td>T33</td><td>OUT3:1</td><td>OUT3:2</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PRIM_SHKR_L</td><td>T34</td><td>OUT3:3</td><td>OUT3:2</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>SECONDARY SHAKER</td><td>T35</td><td>OUT3:4</td><td>OUT3:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>BOOM DRIVE</td><td>T36</td><td>OUT3:6</td><td>OUT3:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>LS CONTROL SIGNAL</td><td>T37</td><td>OUT3:7</td><td>OUT3:8</td><td></td><td>PWM</td><td>30-100</td><td></td><td>Electronic LS</td><td>Controls load sense pressure signal to tractor</td></tr>
+<tr><td>BOOM TEL A</td><td>T38</td><td>OUT3:9</td><td>OUT3:8</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>BOOM TEL B</td><td>T39</td><td>OUT3:10</td><td>OUT3:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>FRONT STRIPPER A</td><td>T40</td><td>OUT3:12</td><td>OUT3:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>FRONT STRIPPER B</td><td>T41</td><td>OUT3:13</td><td>OUT3:14</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>T42</td><td>OUT3:15</td><td>OUT3:14</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>T43</td><td>OUT3:16</td><td>OUT3:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>T44</td><td>OUT3:18</td><td>OUT3:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>T45</td><td>OUT3:19</td><td>OUT3:20</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>T46</td><td>OUT3:21</td><td>OUT3:20</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>STRIPPER KIT A</td><td>T47</td><td>OUT3:22</td><td>OUT3:23</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>STRIPPER KIT B</td><td>T48</td><td>OUT3:24</td><td>OUT3:23</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE ANGLE A</td><td>X1T1</td><td>X1OUT:1</td><td>X1OUT:2</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE ANGLE B</td><td>X1T2</td><td>X1OUT:3</td><td>X1OUT:2</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE SPACE A</td><td>X1T3</td><td>X1OUT:4</td><td>X1OUT:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE SPACE B</td><td>X1T4</td><td>X1OUT:6</td><td>X1OUT:5</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE HEIGHT A</td><td>X1T5</td><td>X1OUT:7</td><td>X1OUT:8</td><td></td><td>Toggle</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE HEIGHT B</td><td>X1T6</td><td>X1OUT:9</td><td>X1OUT:8</td><td></td><td>Toggle</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE DRIVE</td><td>X1T7</td><td>X1OUT:10</td><td>X1OUT:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE REVERSE</td><td>X1T8</td><td>X1OUT:12</td><td>X1OUT:11</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PINCH DRIVE</td><td>X1T9</td><td>X1OUT:13</td><td>X1OUT:14</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PINCH REVERSE</td><td>X1T10</td><td>X1OUT:15</td><td>X1OUT:14</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PINCH SPEED</td><td>X1T11</td><td>X1OUT:16</td><td>X1OUT:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1T12</td><td>X1OUT:18</td><td>X1OUT:17</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1T13</td><td>X1OUT:19</td><td>X1OUT:20</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1T14</td><td>X1OUT:21</td><td>X1OUT:20</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>SPREADER DRIVE</td><td>X1T15</td><td>X1OUT:22</td><td>X1OUT:23</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>SPREADER REVERSE</td><td>X1T16</td><td>X1OUT:24</td><td>X1OUT:23</td><td></td><td>PWM</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE ANGLE POT</td><td>X1A1</td><td>X1IN:12</td><td>X1IN:1</td><td>X1IN:9</td><td>Curr</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE SPACE POT</td><td>X1A2</td><td>X1IN:13</td><td>X1IN:1</td><td>X1IN:9</td><td>Curr</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE HEIGHT POT</td><td>X1A3</td><td>X1IN:14</td><td>X1IN:1</td><td>X1IN:9</td><td>Curr</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>MAIN ROLLER PRESSURE</td><td>X1A4</td><td>X1IN:15</td><td>X1IN:1</td><td>X1IN:9</td><td>Curr</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>MAIN ROLLER SPEED</td><td>X1A5</td><td>X1IN:4</td><td>X1IN:1</td><td>X1IN:9</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>ELEV MS INCLINATION</td><td>X1A6</td><td>X1IN:16</td><td>X1IN:2</td><td>X1IN:10</td><td>Curr</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PINCH DRIVE PRESSURE</td><td>X1A7</td><td>X1IN:5</td><td>X1IN:2</td><td>X1IN:10</td><td>Curr</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PINCH DRIVE SPEED </td><td>X1A8</td><td>X1IN:17</td><td>X1IN:2</td><td>X1IN:10</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1A9</td><td>X1IN:6</td><td>X1IN:2</td><td>X1IN:10</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TABLE LS</td><td>X1A10</td><td>X1IN:18</td><td>X1IN:2</td><td>X1IN:10</td><td>Curr</td><td></td><td>603960</td><td>Electronic LS</td><td>Load sense signal from Table valve assembly (Option: MultiSep Table)</td></tr>
+<tr><td>SPREADER DRIVE SPEED</td><td>X1A11</td><td>X1IN:7</td><td>X1IN:3</td><td>X1IN:11</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1A12</td><td>X1IN:19</td><td>X1IN:3</td><td>X1IN:11</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1A13</td><td>X1IN:8</td><td>X1IN:3</td><td>X1IN:11</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1A14</td><td>X1IN:20</td><td>X1IN:3</td><td>X1IN:11</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1A15</td><td>X1IN:21</td><td>X1IN:3</td><td>X1IN:11</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>X1A16</td><td>X1IN:22</td><td>X1IN:3</td><td>X1IN:11</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PTO SPEED</td><td>D1</td><td>IN1:8</td><td>IN1:6</td><td>IN1:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PRIMARY_R_SPEED</td><td>D2</td><td>IN1:9</td><td>IN1:6</td><td>IN1:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>PRIMARY_L_SPEED</td><td>D3</td><td>IN1:10</td><td>IN1:6</td><td>IN1:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>SECONDARY_R_SPEED</td><td>D4</td><td>IN1:3</td><td>IN1:6</td><td>IN1:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>SECONDARY_L_SPEED</td><td>D5</td><td>IN1:11</td><td>IN1:6</td><td>IN1:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>VINE SPEED</td><td>D6</td><td>IN1:4</td><td>IN1:7</td><td>IN1:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>BOOM SPEED</td><td>D7</td><td>IN1:12</td><td>IN1:7</td><td>IN1:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>GROUND SPEED</td><td>D8</td><td>IN1:5</td><td>IN1:7</td><td>IN1:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>SIDE ELEVATOR SPEED</td><td>D9</td><td>IN1:13</td><td>IN1:7</td><td>IN1:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>REAR CROSS SPEED</td><td>D10</td><td>IN1:14</td><td>IN1:7</td><td>IN1:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D11</td><td>IN2:8</td><td>IN2:6</td><td>IN2:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D12</td><td>IN2:9</td><td>IN2:6</td><td>IN2:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D13</td><td>IN2:10</td><td>IN2:6</td><td>IN2:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D14</td><td>IN2:3</td><td>IN2:6</td><td>IN2:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D15</td><td>IN2:11</td><td>IN2:6</td><td>IN2:1</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D16</td><td>IN2:4</td><td>IN2:7</td><td>IN2:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D17</td><td>IN2:12</td><td>IN2:7</td><td>IN2:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>D18</td><td>IN2:5</td><td>IN2:7</td><td>IN2:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>WHEEL_SPD_RH_A</td><td>D19</td><td>IN2:13</td><td>IN2:7</td><td>IN2:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>WHEEL_SPD_RH_B</td><td>D20</td><td>IN2:14</td><td>IN2:7</td><td>IN2:2</td><td>Freq</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>DIGGER_NOSE_L_POS</td><td>A1</td><td>IN3:12</td><td>IN3:1</td><td>IN3:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>DIGGER_NOSE_R_POS</td><td>A2</td><td>IN3:13</td><td>IN3:1</td><td>IN3:9</td><td>Curr</td><td>4-20mA</td><td></td><td>Digger Nose</td><td>Distance that RH cylinder is stroked</td></tr>
+<tr><td>DIGGER HUMP POT</td><td>A3</td><td>IN3:14</td><td>IN3:1</td><td>IN3:9</td><td>Curr</td><td>4-20mA</td><td>403166</td><td>Hum Adjust</td><td>Angle of digger nose hump adjust</td></tr>
+<tr><td>STEERING POT</td><td>A4</td><td>IN3:15</td><td>IN3:1</td><td>IN3:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>AXLE_LEVEL_L_POS</td><td>A5</td><td>IN3:4</td><td>IN3:1</td><td>IN3:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>AXLE_LEVEL_R_POS</td><td>A6</td><td>IN3:16</td><td>IN3:2</td><td>IN3:10</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>INCLINE (MACHINE)</td><td>A7</td><td>IN3:5</td><td>IN3:2</td><td>IN3:10</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>COOLER TEMP 1</td><td>A8</td><td>IN3:17</td><td>IN3:2</td><td>IN3:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A9</td><td>IN3:6</td><td>IN3:2</td><td>IN3:9</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>HUMP_L_POT</td><td>A10</td><td>IN3:18</td><td>IN3:2</td><td>IN3:10</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>BOOM PRESSURE</td><td>A11</td><td>IN3:7</td><td>IN3:3</td><td></td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A12</td><td>IN3:19</td><td>IN3:3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A13</td><td>IN3:8</td><td>IN3:3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>TRACTOR_PRS_LS</td><td>A14</td><td>IN3:20</td><td>IN3:2</td><td>IN3:10</td><td>Curr</td><td>4-20mA</td><td>603960</td><td>Electronic LS</td><td>Tractor pump output pressure</td></tr>
+<tr><td>DIGGERNOSE_L_PRS</td><td>A15</td><td>IN3:21</td><td>IN3:2</td><td>IN3:10</td><td>Curr</td><td>4-20mA</td><td>603960</td><td>Electronic LS</td><td>Retracting pressure of digger nose cylinders (Option: Gauge Wheel)</td></tr>
+<tr><td>DIGGERNOSE_R_PRS</td><td>A16</td><td>IN3:22</td><td>IN3:3</td><td>IN3:11</td><td>Curr</td><td>4-20mA</td><td>603960</td><td>Electronic LS</td><td>Extending pressure of digger nose cylinders (Option: Gauge Wheel)</td></tr>
+<tr><td>INTAKE CHAIN REV PRS</td><td>A17</td><td>IN4:12</td><td>IN4:1</td><td>IN4:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>INTAKE CHAIN FWD PRS</td><td>A18</td><td>IN4:13</td><td>IN4:1</td><td>IN4:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>AUX SUPPORT WHEEL PRS</td><td>A19</td><td>IN4:14</td><td>IN4:1</td><td>IN4:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>INTAKE CHAIN DIFF PRS</td><td>A20</td><td>IN4:15</td><td>IN4:1</td><td>IN4:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>BOOM POS</td><td>A21</td><td>IN4:4</td><td>IN4:1</td><td>IN4:9</td><td>Curr</td><td>4-20mA</td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A22</td><td>IN4:16</td><td>IN4:2</td><td>IN4:10</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A23</td><td>IN4:5</td><td>IN4:2</td><td>IN4:10</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A24</td><td>IN4:17</td><td>IN4:2</td><td>IN4:9</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A25</td><td>IN4:6</td><td>IN4:2</td><td>IN4:9</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A26</td><td>IN4:18</td><td>IN4:2</td><td>IN4:10</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A27</td><td>IN4:7</td><td>IN4:3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>not used</td><td>A28</td><td>IN4:19</td><td>IN4:3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>BOOM LS</td><td>A29</td><td>IN4:8</td><td>IN4:1</td><td>IN4:9</td><td>Curr</td><td>4-20mA</td><td>603960</td><td>Electronic LS</td><td>Load sense signal from Boom valve assembly</td></tr>
+<tr><td>Valve Assembly RH LS</td><td>A30</td><td>IN4:20</td><td>IN4:2</td><td>IN4:10</td><td>Curr</td><td>4-20mA</td><td>603960</td><td>Electronic LS</td><td>Load sense signal from RH valve assembly</td></tr>
+<tr><td>Valve Assembly LH LS</td><td>A31</td><td>IN4:21</td><td>IN4:2</td><td>IN4:10</td><td>Curr</td><td>4-20mA</td><td>603960</td><td>Electronic LS</td><td>Load sense signal from LH valve assembly</td></tr>
+<tr><td>not used</td><td>A32</td><td>IN4:22</td><td>IN4:3</td><td>IN4:11</td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table>
+<script>
+function filterRows() {
+    // Get the selected function from the dropdown
+    var selectedFunction = document.getElementById('functionFilter').value;
+    
+    // Get all the rows from the table
+    var rows = document.querySelectorAll('table tr');
+    
+    // Loop over the rows and hide those that don't match the selected function
+    for (var i = 1; i < rows.length; i++) {
+        var functionCell = rows[i].querySelectorAll('td')[8]; // Function is the 8th column
+        if (functionCell) {
+            // If selectedFunction is empty, or it matches the row's function, show it
+            if (selectedFunction === '' || functionCell.textContent === selectedFunction) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+}
+function filterSig() {
+	var filter = document.getElementById('sigFilter').value.toUpperCase();
+	var table = document.getElementsByTagName('table')[0];
+	var tr = table.getElementsByTagName('tr');
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName('td')[2]; // Index 2 for the Sig column
+		if (td) { 
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().startsWith(filter)) {
+				tr[i].style.display = '';
+			} else {
+				tr[i].style.display = 'none'; 
+			} 
+		}
+	}
+} 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+</body></html>
