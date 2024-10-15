@@ -188,6 +188,16 @@
 			background-position: center;
 		}
 
+		button.plusSign {
+			background-image: url('plus_sign_20.png');
+			background-position: center;
+		}
+
+		button.minusSign {
+			background-image: url('minus_sign_20.png');
+			background-position: center;
+		}
+
 		button.arrowFwd {
 			background-image: url('arrow_fwd_20.png');
 			background-position: center;
@@ -598,44 +608,42 @@
 					</tr>
 					<tr>
 						<td class="controlL2">
-							<div>Intake</div>
+							<div><img src="tableControlsCleaningMode.png"></div>
 							<table>
 								<tr>
-									<td>
-										<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
-												min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
-										</div>
-									</td>
-									<td><button>+2</button><br>
-										<input class="spInput" value="64"><br>
-										<button>-2</button>
-									</td>
-									<td>
-										<button class="arrowUp"></button><br>
-										<button>AUTO</button><br>
-										<button class="arrowDown"></button><br>
-									</td>
+									<td>Roller Gap</td>
+									<td>Roller Height</td>
+									<td>Table Angle</td>
+									<td></td>
+									<td>Clod Roller</td>
+									<td>Segment Roller</td>
 								</tr>
-							</table>
-						</td>
-						<td class="controlL2">
-							<div>Primary</div>
-							<table>
 								<tr>
-									<td>
-										<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
-												min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
-										</div>
+									<td><button class="plusSign"></button></td>
+									<td><button class="plusSign"></button></td>
+									<td><button class="plusSign"></button></td>
+									<td></td>
+									<td><button class="arrowRev"></button></td>
+									<td><button class="arrowRev"></button></td>
+								</tr>
+								<tr>
+									<td><input class="spInput" value="24"></td>
+									<td><input class="spInput" value="32"></td>
+									<td><input class="spInput" value="68"></td>
+									<td></td>
+									<td><input class="spInput" value="124"></td>
+									<td><input class="spInput" value="132"></td>
+								</tr>
+								<tr>
+									<td><button class="minusSign"></button></td>
+									<td><button class="minusSign"></button></td>
+									<td><button class="minusSign"></button></td>
+									<td></td>
+									<td colspan="2">
+										<button class="active" style="border-radius: 10px 0 0 10px;">CLEAN</button>
+										<button class="" style="border-radius: 0 10px 10px 0;">TRANSPORT</button>
 									</td>
-									<td><button>+2</button><br>
-										<input class="spInput" value="36"><br>
-										<button>-2</button>
-									</td>
-									<td>
-										<button class="arrowUp"></button><br>
-										<button>AUTO</button><br>
-										<button class="arrowDown"></button><br>
-									</td>
+									
 								</tr>
 							</table>
 						</td>
@@ -648,93 +656,31 @@
 					</tr>
 					<tr>
 						<td class="controlL2">
-							<div>Intake</div>
+							<div><img src="BoomWithLabels.png"></div>
 							<table>
 								<tr>
-									<td>
-										<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
-												min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
-										</div>
-									</td>
-									<td><button>+2</button><br>
-										<input class="spInput" value="64"><br>
-										<button>-2</button>
-									</td>
-									<td>
-										<button class="arrowUp"></button><br>
-										<button>AUTO</button><br>
-										<button class="arrowDown"></button><br>
-									</td>
+									<td><button class="arrowUp"></button></td>
+									<td><button class="arrowUp"></button></td>
+									<td><button class="arrowRev"></button></td>
+									<td>Boom<br>Swing</td>
+									<td><button class="arrowFwd"></button></td>
+									<td><button class="arrowUp"></button></td>
 								</tr>
-							</table>
-						</td>
-						<td class="controlL2">
-							<div>Primary</div>
-							<table>
 								<tr>
-									<td>
-										<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
-												min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
-										</div>
-									</td>
-									<td><button>+2</button><br>
-										<input class="spInput" value="36"><br>
-										<button>-2</button>
-									</td>
-									<td>
-										<button class="arrowUp"></button><br>
-										<button>AUTO</button><br>
-										<button class="arrowDown"></button><br>
-									</td>
+									<td>Outer boom</td>
+									<td>Inner Boom</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>Boom Fold</td>
 								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				<table class="controlL1 hide" id="boom">
-					<tr>
-						<th class="controlHead" colspan="2">Boom</th>
-					</tr>
-					<tr>
-						<td class="controlL2">
-							<div>Intake</div>
-							<table>
 								<tr>
-									<td>
-										<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
-												min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
-										</div>
-									</td>
-									<td><button>+2</button><br>
-										<input class="spInput" value="64"><br>
-										<button>-2</button>
-									</td>
-									<td>
-										<button class="arrowUp"></button><br>
-										<button>AUTO</button><br>
-										<button class="arrowDown"></button><br>
-									</td>
-								</tr>
-							</table>
-						</td>
-						<td class="controlL2">
-							<div>Primary</div>
-							<table>
-								<tr>
-									<td>
-										<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
-												min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
-										</div>
-									</td>
-									<td><button>+2</button><br>
-										<input class="spInput" value="36"><br>
-										<button>-2</button>
-									</td>
-									<td>
-										<button class="arrowUp"></button><br>
-										<button>AUTO</button><br>
-										<button class="arrowDown"></button><br>
-									</td>
+									<td><button class="arrowDown"></button></td>
+									<td><button class="arrowDown"></button></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td><button class="arrowDown"></button></td>
 								</tr>
 							</table>
 						</td>
