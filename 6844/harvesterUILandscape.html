@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Harvester Landscape Demo</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body,
+		html {
+			height: 100%;
+			font-family: Arial, sans-serif;
+			background-color: #333;
+			color: #fff;
+		}
+
+		.container {
+			width: 1280px;
+			height: 800px;
+			margin: 0 auto;
+		}
+
+		.video {
+			margin: 0px;
+			width: 600px;
+			height: 100%;
+		}
+
+		.container-side {
+			width: 200px;
+			height: 100%;
+			margin: 0 0 0 1080;
+			display: grid;
+			grid-template-rows: auto 1fr auto;
+			grid-template-columns: 200px 1fr 200px;
+			gap: 10px;
+		}
+
+		.container-bottom {
+			width: 100%;
+			height: 980px;
+			margin: 0;
+			display: grid;
+			grid-template-rows: auto;
+			grid-template-columns: auto 120px;
+			gap: 10px;
+		}
+
+		.header {
+			grid-column: 1 / 4;
+			display: flex;
+			justify-content: space-around;
+			background-color: #555;
+			padding: 10px;
+		}
+
+		.status {
+			background-color: #555;
+			padding: 20px;
+		}
+
+		.status h3 {
+			margin-bottom: 10px;
+		}
+
+		.status ul {
+			list-style: none;
+		}
+
+		.status li {
+			margin: 10px 0;
+			display: flex;
+			align-items: center;
+		}
+
+		.dot {
+			height: 15px;
+			width: 15px;
+			background-color: #bbb;
+			border-radius: 50%;
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.green {
+			background-color: green;
+		}
+
+		.main {
+			grid-column: 2 / 3;
+			background-color: #555;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		#status-messages {
+			background-color: #fff;
+			color: #000;
+			width: 90%;
+			text-align: center;
+			padding: 10px;
+			margin: 10px;
+		}
+
+		.info-panel {
+			background-color: #555;
+			padding: 20px;
+		}
+
+		.display-area {
+			grid-column: 1;
+			background-color: #555;
+		}
+
+		.function-buttons {
+			grid-column: 2;
+			background-color: #555;
+			text-align: center;
+			color: black;
+		}
+
+		.spInput {
+			height: 80px;
+			width: 94px;
+			text-align: right;
+			font-size: 32px;
+			font-weight: bold;
+			padding: 10px;
+			margin: 10px 0;
+		}
+
+		.meterContainer {
+			width: 55px;
+		}
+
+		button {
+			height: 90px;
+			width: 94px;
+			padding: 5px;
+			margin: 4px 2px;
+			font-size: 22px;
+			font-weight: bold;
+			background-color: #7A7A7A;
+			border: none;
+			color: white;
+			cursor: pointer;
+			border-radius: 12px;
+			/* Rounded corners */
+			box-shadow: 0 5px #4e4f50;
+			/* Shadow for a 3D effect */
+			transition: all 0.2s;
+		}
+
+		button:active {
+			box-shadow: 0 2px #72BB53;
+			/* Reduce shadow on click */
+			transform: translateY(3px);
+			/* Push button down */
+			background-color: #72BB53;
+		}
+
+		.button-run,
+		.button-run-active {
+			width: 194px;
+			border: none;
+			color: black;
+		}
+
+		.button-run {
+			background-color: #C0C0C0;
+			box-shadow: 0 5px #4e4f50;
+			/* Shadow for a 3D effect */
+		}
+
+		.button-run-active,
+		.button-active {
+			box-shadow: 0 2px #72BB53;
+			background-color: #72BB53;
+		}
+
+		button.arrowUp {
+			background-image: url('arrow_up_20.png');
+			background-position: center;
+		}
+
+		button.arrowDown {
+			background-image: url('arrow_down_20.png');
+			background-position: center;
+		}
+
+		button.camera {
+			background-image: url('videocam.png');
+			background-position: center;
+		}
+
+		button.camera span {
+			position: relative;
+			left: -5px;
+		}
+
+		div.function-buttons p {
+			margin: 15px 5px 5px;
+			color: white;
+			font-size: 22px;
+			font-weight: bold;
+		}
+
+		td img {
+			width: 100%;
+			height: auto;
+		}
+
+		#placeholder {
+			height: 595px;
+		}
+
+		.hide {
+			display: none;
+		}
+
+		table {
+			width: 100%;
+			height: auto;
+		}
+
+		meter {
+			/* for Firefox: Change default appearance */
+			-moz-appearance: none;
+
+			width: 150px;
+			height: 80px;
+			margin: 40px 0;
+			position: relative;
+			left: -50px;
+
+			/*  tilt the meter to display vertically */
+			transform: rotate(90deg);
+		}
+
+		/*  add style to change the look and feel */
+		meter::-webkit-meter-bar {
+			background: #eeeeee;
+			border-radius: 2px;
+		}
+
+		.controlHead {
+			padding: 5px; 
+			background-color: darkgreen; 
+			font-size: larger;
+		}
+
+		.controlL1 {
+			margin:5px 50px; 
+			width: auto;
+		}
+
+		.controlL2 {
+			text-align: center;
+			padding: 2px;
+			font-size: large;
+			background-color: black;
+		}
+
+		.logo {
+          padding: 5px 15px;
+		  width: 250px;
+		  height: auto;
+        }
+	</style>
+	<script>
+		function changeColorTimed(button) {
+			const originalColor = button.style.backgroundColor;
+			button.style.backgroundColor = '#72BB53';
+			setTimeout(() => {
+				button.style.backgroundColor = originalColor;
+			}, 3000);
+		}
+
+		function toggleRUN(button) {
+			if (button.classList.contains('button-run')) {
+				button.classList.remove('button-run');
+				button.classList.add('button-run-active');
+				document.getElementById("status-messages").innerText = "RUN enabled";
+			} else {
+				button.classList.remove('button-run-active');
+				button.classList.add('button-run');
+				document.getElementById("status-messages").innerText = "RUN disabled";
+			}
+		}
+
+		function togglePreset(button) {
+			document.getElementById("preset1").classList.remove('button-active');
+			document.getElementById("preset2").classList.remove('button-active');
+			document.getElementById("preset3").classList.remove('button-active');
+			button.classList.add('button-active');
+		}
+
+		function toggleCamera(elem) {
+			document.getElementById("cameraAll").classList.add('hide');
+			document.getElementById("btnCameraAll").classList.remove('button-active');
+			document.getElementById("camera1").classList.add('hide');
+			document.getElementById("btnCamera1").classList.remove('button-active');
+			document.getElementById("camera2").classList.add('hide');
+			document.getElementById("btnCamera2").classList.remove('button-active');
+			document.getElementById("camera3").classList.add('hide');
+			document.getElementById("btnCamera3").classList.remove('button-active');
+			document.getElementById("camera4").classList.add('hide');
+			document.getElementById("btnCamera4").classList.remove('button-active');
+			document.getElementById(elem).classList.remove('hide');
+			document.getElementById("btn"+elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
+		}
+
+		function toggleControl(elem) {
+			document.getElementById("harvester").classList.add('hide');
+			document.getElementById("digger").classList.add('hide');
+			document.getElementById("btnDigger").classList.remove('button-active');
+			document.getElementById("chains").classList.add('hide');
+			document.getElementById("btnChains").classList.remove('button-active');
+			document.getElementById("table").classList.add('hide');
+			document.getElementById("btnTable").classList.remove('button-active');
+			document.getElementById("boom").classList.add('hide');
+			document.getElementById("btnBoom").classList.remove('button-active');
+			document.getElementById(elem).classList.remove('hide');
+			document.getElementById("btn"+elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
+		}
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="video">
+			<table id="cameraAll">
+				<tr>
+					<td><img src="vid1opt.gif"></td>
+					<td><img src="vid2opt.gif"></td>
+				</tr>
+				<tr>
+					<td><img src="vid2opt.gif"></td>
+					<td><img src="vid1opt.gif"></td>
+				</tr>
+			</table>
+			<table id="camera1" class="hide">
+				<tr>
+					<td><img src="vid1opt.gif"></td>
+				</tr>
+			</table>
+			<table id="camera2" class="hide">
+				<tr>
+					<td><img src="vid2opt.gif"></td>
+				</tr>
+			</table>
+			<table id="camera3" class="hide">
+				<tr>
+					<td><img src="vid1opt.gif"></td>
+				</tr>
+			</table>
+			<table id="camera4" class="hide">
+				<tr>
+					<td><img src="vid2opt.gif"></td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</body>
+
+</html>

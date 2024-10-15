@@ -28,7 +28,7 @@
 
 		.container-top {
 			width: 100%;
-			height: 300px;
+			height: 280px;
 			margin: 0;
 			display: grid;
 			grid-template-rows: auto 1fr auto;
@@ -38,7 +38,7 @@
 
 		.container-bottom {
 			width: 100%;
-			height: 980px;
+			height: 1000px;
 			margin: 0;
 			display: grid;
 			grid-template-rows: auto;
@@ -108,13 +108,9 @@
 			padding: 20px;
 		}
 
-		.display-area {
-			grid-column: 1;
-			background-color: #555;
-		}
-
-		.function-buttons {
+		#control-buttons {
 			grid-column: 2;
+			grid-row: 1;
 			background-color: #555;
 			text-align: center;
 			color: black;
@@ -127,7 +123,7 @@
 			font-size: 32px;
 			font-weight: bold;
 			padding: 10px;
-			margin: 10px 0;
+			margin: 5px 0;
 		}
 
 		.meterContainer {
@@ -135,13 +131,14 @@
 		}
 
 		button {
-			height: 90px;
+			height: 80px;
 			width: 94px;
 			padding: 5px;
 			margin: 4px 2px;
 			font-size: 22px;
 			font-weight: bold;
 			background-color: #7A7A7A;
+			background-repeat: no-repeat;
 			border: none;
 			color: white;
 			cursor: pointer;
@@ -164,12 +161,14 @@
 		.button-run-active {
 			width: 194px;
 			border: none;
-			color: black;
+			background-image: url('run_28.png');
+			background-position: center;
 		}
 
 		.button-run {
 			background-color: #C0C0C0;
 			box-shadow: 0 5px #4e4f50;
+			background-image: url('run_28_blk.png');
 			/* Shadow for a 3D effect */
 		}
 
@@ -189,17 +188,37 @@
 			background-position: center;
 		}
 
+		button.arrowFwd {
+			background-image: url('arrow_fwd_20.png');
+			background-position: center;
+		}
+
+		button.arrowRev {
+			background-image: url('arrow_rev_20.png');
+			background-position: center;
+		}
+
 		button.camera {
 			background-image: url('videocam.png');
 			background-position: center;
 		}
 
-		button.camera span {
-			position: relative;
-			left: -5px;
+		button.settings {
+			background-image: url('settings_20.png');
+			background-position: center;
 		}
 
-		div.function-buttons p {
+		button.rowStart {
+			background-image: url('rowStart_20.png');
+			background-position: center;
+		}
+
+		button.rowEnd {
+			background-image: url('rowEnd_20.png');
+			background-position: center;
+		}
+
+		#control-buttons p {
 			margin: 15px 5px 5px;
 			color: white;
 			font-size: 22px;
@@ -211,8 +230,15 @@
 			height: auto;
 		}
 
-		#placeholder {
-			height: 595px;
+		#cameraFeed {
+			grid-row: 2;
+			grid-column: span 2;
+		}
+
+		#control-body {
+			width: 665px;
+			grid-column: 1;
+			grid-row: 1;
 		}
 
 		.hide {
@@ -224,7 +250,12 @@
 			height: auto;
 		}
 
-		meter {
+		.meter-horizontal {
+			width: 300px;
+			height: 60px;
+		}
+
+		.meter-vertical {
 			/* for Firefox: Change default appearance */
 			-moz-appearance: none;
 
@@ -245,14 +276,14 @@
 		}
 
 		.controlHead {
-			padding: 5px; 
-			background-color: darkgreen; 
+			padding: 5px;
+			background-color: darkgreen;
 			font-size: larger;
 		}
 
 		.controlL1 {
-			margin:5px 50px; 
-			width: auto;
+			margin: 0;
+			width: 100%;
 		}
 
 		.controlL2 {
@@ -263,10 +294,10 @@
 		}
 
 		.logo {
-          padding: 5px 15px;
-		  width: 250px;
-		  height: auto;
-        }
+			padding: 5px 15px;
+			width: 250px;
+			height: auto;
+		}
 	</style>
 	<script>
 		function changeColorTimed(button) {
@@ -298,17 +329,11 @@
 
 		function toggleCamera(elem) {
 			document.getElementById("cameraAll").classList.add('hide');
-			document.getElementById("btnCameraAll").classList.remove('button-active');
 			document.getElementById("camera1").classList.add('hide');
-			document.getElementById("btnCamera1").classList.remove('button-active');
 			document.getElementById("camera2").classList.add('hide');
-			document.getElementById("btnCamera2").classList.remove('button-active');
 			document.getElementById("camera3").classList.add('hide');
-			document.getElementById("btnCamera3").classList.remove('button-active');
 			document.getElementById("camera4").classList.add('hide');
-			document.getElementById("btnCamera4").classList.remove('button-active');
 			document.getElementById(elem).classList.remove('hide');
-			document.getElementById("btn"+elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
 		}
 
 		function toggleControl(elem) {
@@ -321,8 +346,10 @@
 			document.getElementById("btnTable").classList.remove('button-active');
 			document.getElementById("boom").classList.add('hide');
 			document.getElementById("btnBoom").classList.remove('button-active');
+			document.getElementById("axle").classList.add('hide');
+			document.getElementById("btnAxle").classList.remove('button-active');
 			document.getElementById(elem).classList.remove('hide');
-			document.getElementById("btn"+elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
+			document.getElementById("btn" + elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
 		}
 	</script>
 </head>
@@ -331,11 +358,13 @@
 	<div class="container">
 		<div class="container-top">
 			<div class="header">
-				<button onclick="changeColorTimed(this)">Start Row</button>
-				<button onclick="changeColorTimed(this)">End Row</button>
-				<button class="button-run" onclick="toggleRUN(this)">RUN</button>
-				<button>Settings</button>
-				<img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxMTY2IDMwNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTE2NiAzMDY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRUMxQzI0O30KCS5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRUMxQzI0O30KPC9zdHlsZT4KPGc+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuNSwyMjkuNWMxMS4zLDEuOCwyMS4yLDMuMiwyOS43LDRjOC41LDAuOCwxNiwxLjIsMjIuNywxLjJjMTAuNiwwLDE3LjgtMC43LDIxLjYtMi4xCgkJYzMuOC0xLjQsNS43LTMuOCw1LjctNy40YzAtMi40LTAuNi00LjItMS45LTUuM2MtMS4zLTEuMS0zLjQtMS42LTYuMy0xLjZjLTQuMiwwLTguOCwwLjEtMTMuNywwLjJjLTEuMywwLTIuMiwwLTIuNSwwCgkJYy0xNi44LDAtMjguNS0yLjYtMzUuMS03LjdjLTYuNi01LjEtMTAtMTMuOC0xMC0yNi4xYzAtOS40LDEuNi0xOC44LDQuOS0yOGMzLjItOS4yLDcuNi0xNi45LDEzLTIyLjljNS4yLTUuOCwxMi41LTkuOSwyMi4xLTEyLjUKCQljOS41LTIuNiwyMy0zLjgsNDAuNS0zLjhjMTEuMiwwLDIyLjksMC41LDM1LjEsMS42YzEyLjEsMS4xLDI0LjUsMi43LDM3LjIsNC45bC0xMSw0Ny40Yy04LjItMS44LTE1LjktMy4yLTIzLjEtNC4yCgkJYy03LjItMC45LTEzLjgtMS40LTIwLTEuNGMtMTQsMC0yMy41LDAuOC0yOC43LDIuNGMtNS4xLDEuNi03LjcsNC4zLTcuNyw4LjFjMCwyLjQsMC43LDQuMSwyLjIsNWMxLjQsMC45LDUuMywxLjMsMTEuNywxLjNoMjEuNAoJCWMxMi42LDAsMjEuNywyLjQsMjcuNCw3LjJjNS43LDQuOCw4LjYsMTIuNCw4LjYsMjIuOGMwLDkuOC0xLjQsMTguNy00LjEsMjYuOWMtMi43LDguMi02LjUsMTQuOC0xMS40LDE5LjkKCQljLTUuNCw1LjgtMTIuNiwxMC0yMS43LDEyLjZjLTkuMSwyLjYtMjAuOSwzLjktMzUuNSwzLjljLTEyLjgsMC0yNS45LTAuNy0zOS4yLTJjLTEzLjMtMS4zLTI2LjgtMy4zLTQwLjUtNS45TDMxLjUsMjI5LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTgyLjEsMjcxLjFsMzUuNC0xNDkuNGgxMDMuM2MxMS44LDAsMjAuNSwyLjksMjYuMSw4LjhjNS42LDUuOSw4LjQsMTUsOC40LDI3LjRjMCw4LjYtMC45LDE3LjMtMi42LDI2LjMKCQljLTEuNyw4LjktNCwxNi41LTYuOCwyMi44Yy01LjIsMTEuNS0xMS42LDE5LjYtMTkuMiwyNC4xYy03LjYsNC42LTE4LjksNi44LTMzLjgsNi44aC00Ni42bC03LjgsMzMuMkgxODIuMXogTTI1NS4xLDIwMC43aDE3LjUKCQljOC44LDAsMTUuNC0xLjgsMTkuNy01LjVjNC4zLTMuNyw2LjUtOS4zLDYuNS0xNi43YzAtNC0xLjEtNi45LTMuNC04LjhjLTIuMy0xLjktNS44LTIuOC0xMC41LTIuOGgtMjEuN0wyNTUuMSwyMDAuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zODUuMiwxMjEuN2g1Ni4zbC0yMi4xLDkzYy0wLjUsMi4yLTAuOSw0LTEuMiw1LjZjLTAuMywxLjYtMC40LDIuOS0wLjQsMy44YzAsMy41LDAuOSw2LjIsMi43LDgKCQljMS44LDEuOCw0LjYsMi43LDguMiwyLjdjNC43LDAsOC41LTEuNSwxMS40LTQuNmMyLjktMy4xLDUuMS04LDYuNi0xNC42bDIyLjEtOTMuOGg1Ni41bC0yMi41LDk0LjJjLTMuMiwxMy43LTYuMSwyMy40LTguNywyOS4xCgkJYy0yLjYsNS43LTUuOCwxMC4yLTkuNiwxMy43Yy02LjQsNS43LTE0LjYsOS45LTI0LjcsMTIuNmMtMTAuMSwyLjctMjIuNyw0LjEtMzcuOSw0LjFjLTIyLjMsMC0zOC4zLTIuOC00OC4yLTguNAoJCWMtOS45LTUuNi0xNC44LTE0LjYtMTQuOC0yN2MwLTMuMSwwLjMtNi42LDAuOS0xMC40YzAuNi0zLjgsMS43LTguOCwzLjItMTUuM0wzODUuMiwxMjEuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MTMuNSwyNzEuMWwzNS40LTE0OS40aDg1YzYuOCwwLDEyLjcsMC4yLDE3LjgsMC43YzUuMSwwLjUsOC44LDEuMSwxMSwxLjljOCwzLDEzLjcsNy42LDE3LjIsMTMuNwoJCWMzLjUsNi4yLDUuMiwxNC44LDUuMiwyNmMwLDQuNS0wLjMsOS40LTEsMTQuOWMtMC43LDUuNS0xLjYsMTEuNC0yLjksMTcuN2MtMi4xLDEwLjEtNC42LDE5LjItNy40LDI3LjFjLTIuOCw4LTUuNywxNC40LTguOSwxOS4zCgkJYy00LjIsNi43LTguOCwxMi4yLTEzLjgsMTYuMmMtNSw0LjEtMTAuNSw3LTE2LjYsOC43Yy00LjEsMS4xLTguMywxLjktMTIuNywyLjVjLTQuNCwwLjUtOS4zLDAuOC0xNC43LDAuOGMtMS41LDAtMy42LDAtNi40LTAuMQoJCWMtMi44LTAuMS00LjktMC4xLTYuMy0wLjFINTEzLjV6IE01NzkuNSwyMjkuN2gxMGM2LjksMCwxMi4yLTAuNiwxNS44LTEuN2MzLjYtMS4xLDYuNS0zLjEsOC43LTUuN2MzLjMtNC4zLDYuMS05LjgsOC4zLTE2LjYKCQljMi4yLTYuOCwzLjMtMTMuMywzLjMtMTkuM2MwLTYuMi0xLjMtMTAuNC0zLjgtMTIuN2MtMi42LTIuMy03LjYtMy40LTE1LTMuNGgtMTNMNTc5LjUsMjI5Ljd6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjgyLjYsMjcxLjFMNzE4LDEyMS43aDYyLjlsOS41LDY0LjZjMC4yLDEuMywwLjUsNC4xLDEsOC4zYzAuNSw0LjIsMS4yLDkuOSwyLjEsMTdjMS02LjEsMi42LTEzLjgsNC44LTIzLjEKCQljMC40LTEuNiwwLjYtMi43LDAuOC0zLjRsMTUuMS02My40aDU1LjFsLTM1LjUsMTQ5LjRoLTYyLjNMNzYwLDIxMy44Yy0wLjYtMi45LTEuMy02LjUtMi0xMC44Yy0wLjgtNC4yLTEuNi04LjctMi40LTEzLjUKCQljLTEsNy4xLTIuNywxNS40LTUsMjQuOHYwLjNsLTEzLjcsNTYuNUg2ODIuNnoiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04NTguMiwyNzEuMWwzNS40LTE0OS40aDU3LjFsLTM1LjUsMTQ5LjRIODU4LjJ6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNOTM5LjQsMjcxLjFsMzUuNC0xNDkuNGg1NS42bC04LjksMzguN2MtMC45LDMuNy0xLjgsNy40LTIuNywxMC45Yy0xLDMuNi0yLDcuMi0zLjIsMTAuOQoJCWMyLjctNC44LDYuMS05LjgsMTAtMTUuMmMwLjYtMC44LDEtMS4zLDEuMi0xLjdsMzEtNDMuN2g2OS4zbC02NC41LDc5LjRsMjYuOSw3MEgxMDI4bC0xNC4yLTQzYy0wLjItMC41LTAuNS0xLjUtMS0zCgkJYy0xLjYtNS0yLjktOS41LTMuOS0xMy4zYy0wLjUsMy4zLTEsNi4zLTEuNSw5LjJjLTAuNiwyLjktMS4yLDUuNy0xLjksOC41bC05LjcsNDEuNUg5MzkuNHoiLz4KPC9nPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik03MSw0Mi41Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNjgsNDIuNWg4MjVjLTQuOCw2LjQtNy43LDExLjktOC44LDE2LjFjLTIuNCw4LjktMC45LDE1LjgsMC4xLDE5LjZjMS45LDcuMyw3LjcsMTQuOSw3LjcsMTQuOUg1My42TDY4LDQyLjV6CgkJIi8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTc4LjUsNDMuN2MwLDAsMy45LDQuNiw2LjQsMTAuNWMzLDcuMSwyLjIsMTYuNiwwLjksMjQuMWMtMS4zLDcuMi03LjksMTUuNS03LjksMTUuNUgxMTMybDEzLTUwLjJIOTc4LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTczLjgsNjguM2MwLTIxLjEtMTcuMS0zOC4yLTM4LjItMzguMmMtMjEuMSwwLTM4LjIsMTcuMS0zOC4yLDM4LjJzMTcuMSwzOC4yLDM4LjIsMzguMgoJCUM5NTYuNywxMDYuNSw5NzMuOCw4OS40LDk3My44LDY4LjN6Ii8+CjwvZz4KPC9zdmc+Cg==" alt="SPUDNIK">
+				<button onclick="changeColorTimed(this)" class="rowStart"></button>
+				<button onclick="changeColorTimed(this)" class="rowEnd"></button>
+				<button class="button-run" onclick="toggleRUN(this)"></button>
+				<button class="settings"></button>
+				<img class="logo"
+					src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxMTY2IDMwNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTE2NiAzMDY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRUMxQzI0O30KCS5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRUMxQzI0O30KPC9zdHlsZT4KPGc+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuNSwyMjkuNWMxMS4zLDEuOCwyMS4yLDMuMiwyOS43LDRjOC41LDAuOCwxNiwxLjIsMjIuNywxLjJjMTAuNiwwLDE3LjgtMC43LDIxLjYtMi4xCgkJYzMuOC0xLjQsNS43LTMuOCw1LjctNy40YzAtMi40LTAuNi00LjItMS45LTUuM2MtMS4zLTEuMS0zLjQtMS42LTYuMy0xLjZjLTQuMiwwLTguOCwwLjEtMTMuNywwLjJjLTEuMywwLTIuMiwwLTIuNSwwCgkJYy0xNi44LDAtMjguNS0yLjYtMzUuMS03LjdjLTYuNi01LjEtMTAtMTMuOC0xMC0yNi4xYzAtOS40LDEuNi0xOC44LDQuOS0yOGMzLjItOS4yLDcuNi0xNi45LDEzLTIyLjljNS4yLTUuOCwxMi41LTkuOSwyMi4xLTEyLjUKCQljOS41LTIuNiwyMy0zLjgsNDAuNS0zLjhjMTEuMiwwLDIyLjksMC41LDM1LjEsMS42YzEyLjEsMS4xLDI0LjUsMi43LDM3LjIsNC45bC0xMSw0Ny40Yy04LjItMS44LTE1LjktMy4yLTIzLjEtNC4yCgkJYy03LjItMC45LTEzLjgtMS40LTIwLTEuNGMtMTQsMC0yMy41LDAuOC0yOC43LDIuNGMtNS4xLDEuNi03LjcsNC4zLTcuNyw4LjFjMCwyLjQsMC43LDQuMSwyLjIsNWMxLjQsMC45LDUuMywxLjMsMTEuNywxLjNoMjEuNAoJCWMxMi42LDAsMjEuNywyLjQsMjcuNCw3LjJjNS43LDQuOCw4LjYsMTIuNCw4LjYsMjIuOGMwLDkuOC0xLjQsMTguNy00LjEsMjYuOWMtMi43LDguMi02LjUsMTQuOC0xMS40LDE5LjkKCQljLTUuNCw1LjgtMTIuNiwxMC0yMS43LDEyLjZjLTkuMSwyLjYtMjAuOSwzLjktMzUuNSwzLjljLTEyLjgsMC0yNS45LTAuNy0zOS4yLTJjLTEzLjMtMS4zLTI2LjgtMy4zLTQwLjUtNS45TDMxLjUsMjI5LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTgyLjEsMjcxLjFsMzUuNC0xNDkuNGgxMDMuM2MxMS44LDAsMjAuNSwyLjksMjYuMSw4LjhjNS42LDUuOSw4LjQsMTUsOC40LDI3LjRjMCw4LjYtMC45LDE3LjMtMi42LDI2LjMKCQljLTEuNyw4LjktNCwxNi41LTYuOCwyMi44Yy01LjIsMTEuNS0xMS42LDE5LjYtMTkuMiwyNC4xYy03LjYsNC42LTE4LjksNi44LTMzLjgsNi44aC00Ni42bC03LjgsMzMuMkgxODIuMXogTTI1NS4xLDIwMC43aDE3LjUKCQljOC44LDAsMTUuNC0xLjgsMTkuNy01LjVjNC4zLTMuNyw2LjUtOS4zLDYuNS0xNi43YzAtNC0xLjEtNi45LTMuNC04LjhjLTIuMy0xLjktNS44LTIuOC0xMC41LTIuOGgtMjEuN0wyNTUuMSwyMDAuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zODUuMiwxMjEuN2g1Ni4zbC0yMi4xLDkzYy0wLjUsMi4yLTAuOSw0LTEuMiw1LjZjLTAuMywxLjYtMC40LDIuOS0wLjQsMy44YzAsMy41LDAuOSw2LjIsMi43LDgKCQljMS44LDEuOCw0LjYsMi43LDguMiwyLjdjNC43LDAsOC41LTEuNSwxMS40LTQuNmMyLjktMy4xLDUuMS04LDYuNi0xNC42bDIyLjEtOTMuOGg1Ni41bC0yMi41LDk0LjJjLTMuMiwxMy43LTYuMSwyMy40LTguNywyOS4xCgkJYy0yLjYsNS43LTUuOCwxMC4yLTkuNiwxMy43Yy02LjQsNS43LTE0LjYsOS45LTI0LjcsMTIuNmMtMTAuMSwyLjctMjIuNyw0LjEtMzcuOSw0LjFjLTIyLjMsMC0zOC4zLTIuOC00OC4yLTguNAoJCWMtOS45LTUuNi0xNC44LTE0LjYtMTQuOC0yN2MwLTMuMSwwLjMtNi42LDAuOS0xMC40YzAuNi0zLjgsMS43LTguOCwzLjItMTUuM0wzODUuMiwxMjEuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MTMuNSwyNzEuMWwzNS40LTE0OS40aDg1YzYuOCwwLDEyLjcsMC4yLDE3LjgsMC43YzUuMSwwLjUsOC44LDEuMSwxMSwxLjljOCwzLDEzLjcsNy42LDE3LjIsMTMuNwoJCWMzLjUsNi4yLDUuMiwxNC44LDUuMiwyNmMwLDQuNS0wLjMsOS40LTEsMTQuOWMtMC43LDUuNS0xLjYsMTEuNC0yLjksMTcuN2MtMi4xLDEwLjEtNC42LDE5LjItNy40LDI3LjFjLTIuOCw4LTUuNywxNC40LTguOSwxOS4zCgkJYy00LjIsNi43LTguOCwxMi4yLTEzLjgsMTYuMmMtNSw0LjEtMTAuNSw3LTE2LjYsOC43Yy00LjEsMS4xLTguMywxLjktMTIuNywyLjVjLTQuNCwwLjUtOS4zLDAuOC0xNC43LDAuOGMtMS41LDAtMy42LDAtNi40LTAuMQoJCWMtMi44LTAuMS00LjktMC4xLTYuMy0wLjFINTEzLjV6IE01NzkuNSwyMjkuN2gxMGM2LjksMCwxMi4yLTAuNiwxNS44LTEuN2MzLjYtMS4xLDYuNS0zLjEsOC43LTUuN2MzLjMtNC4zLDYuMS05LjgsOC4zLTE2LjYKCQljMi4yLTYuOCwzLjMtMTMuMywzLjMtMTkuM2MwLTYuMi0xLjMtMTAuNC0zLjgtMTIuN2MtMi42LTIuMy03LjYtMy40LTE1LTMuNGgtMTNMNTc5LjUsMjI5Ljd6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjgyLjYsMjcxLjFMNzE4LDEyMS43aDYyLjlsOS41LDY0LjZjMC4yLDEuMywwLjUsNC4xLDEsOC4zYzAuNSw0LjIsMS4yLDkuOSwyLjEsMTdjMS02LjEsMi42LTEzLjgsNC44LTIzLjEKCQljMC40LTEuNiwwLjYtMi43LDAuOC0zLjRsMTUuMS02My40aDU1LjFsLTM1LjUsMTQ5LjRoLTYyLjNMNzYwLDIxMy44Yy0wLjYtMi45LTEuMy02LjUtMi0xMC44Yy0wLjgtNC4yLTEuNi04LjctMi40LTEzLjUKCQljLTEsNy4xLTIuNywxNS40LTUsMjQuOHYwLjNsLTEzLjcsNTYuNUg2ODIuNnoiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04NTguMiwyNzEuMWwzNS40LTE0OS40aDU3LjFsLTM1LjUsMTQ5LjRIODU4LjJ6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNOTM5LjQsMjcxLjFsMzUuNC0xNDkuNGg1NS42bC04LjksMzguN2MtMC45LDMuNy0xLjgsNy40LTIuNywxMC45Yy0xLDMuNi0yLDcuMi0zLjIsMTAuOQoJCWMyLjctNC44LDYuMS05LjgsMTAtMTUuMmMwLjYtMC44LDEtMS4zLDEuMi0xLjdsMzEtNDMuN2g2OS4zbC02NC41LDc5LjRsMjYuOSw3MEgxMDI4bC0xNC4yLTQzYy0wLjItMC41LTAuNS0xLjUtMS0zCgkJYy0xLjYtNS0yLjktOS41LTMuOS0xMy4zYy0wLjUsMy4zLTEsNi4zLTEuNSw5LjJjLTAuNiwyLjktMS4yLDUuNy0xLjksOC41bC05LjcsNDEuNUg5MzkuNHoiLz4KPC9nPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik03MSw0Mi41Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNjgsNDIuNWg4MjVjLTQuOCw2LjQtNy43LDExLjktOC44LDE2LjFjLTIuNCw4LjktMC45LDE1LjgsMC4xLDE5LjZjMS45LDcuMyw3LjcsMTQuOSw3LjcsMTQuOUg1My42TDY4LDQyLjV6CgkJIi8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTc4LjUsNDMuN2MwLDAsMy45LDQuNiw2LjQsMTAuNWMzLDcuMSwyLjIsMTYuNiwwLjksMjQuMWMtMS4zLDcuMi03LjksMTUuNS03LjksMTUuNUgxMTMybDEzLTUwLjJIOTc4LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTczLjgsNjguM2MwLTIxLjEtMTcuMS0zOC4yLTM4LjItMzguMmMtMjEuMSwwLTM4LjIsMTcuMS0zOC4yLDM4LjJzMTcuMSwzOC4yLDM4LjIsMzguMgoJCUM5NTYuNywxMDYuNSw5NzMuOCw4OS40LDk3My44LDY4LjN6Ii8+CjwvZz4KPC9zdmc+Cg=="
+					alt="SPUDNIK">
 			</div>
 
 			<div class="status">
@@ -368,278 +397,444 @@
 			</div>
 		</div>
 		<div class="container-bottom">
-			<div class="display-area">
-				<div id="placeholder">
-					
-					<table class="controlL1" id="harvester">
-						<tr>
-							<td>
-								<img src="harvesterLabels.png" style="width: 100%;height: auto;margin-top: 80px;">
+			<div id="control-body">
 
-							</td>
-						</tr>
-					</table>
-
-					<table class="controlL1 hide" id="digger">
-						<tr>
-							<th class="controlHead" colspan="2">Digger</th>
-						</tr>
-						<tr>
-							<td class="controlL2">
-								<div>Depth Control</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='depth-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='64'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="64"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-							<td class="controlL2">
-								<div>Hump</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='hump-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='36'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="36"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td class="controlL2">
-								<div>Coulters</div>
-								<table>
-									<tr>
-										<td>
-											<div>Right</div>
-											<button class="arrowUp"></button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-										<td>
-											<div>Left</div>
-											<button class="arrowUp"></button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-										<td>
-											<br><br><br>
-											<button>Sync</button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-
-					<table class="controlL1 hide" id="chains">
-						<tr>
-							<th class="controlHead" colspan="2">Chains</th>
-						</tr>
-						<tr>
-							<td class="controlL2">
-								<div>Intake</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='depth-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='64'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="64"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-							<td class="controlL2">
-								<div>Primary</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='hump-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='36'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="36"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-
-					<table class="controlL1 hide" id="table">
-						<tr>
-							<th class="controlHead" colspan="2">Table</th>
-						</tr>
-						<tr>
-							<td class="controlL2">
-								<div>Intake</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='depth-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='64'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="64"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-							<td class="controlL2">
-								<div>Primary</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='hump-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='36'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="36"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-					
-					<table class="controlL1 hide" id="boom">
-						<tr>
-							<th class="controlHead" colspan="2">Boom</th>
-						</tr>
-						<tr>
-							<td class="controlL2">
-								<div>Intake</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='depth-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='64'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="64"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-							<td class="controlL2">
-								<div>Primary</div>
-								<table>
-									<tr>
-										<td>
-											<div class="meterContainer"><meter id='hump-meter' min='0' low='20'
-													high='50' max='100' optimum='60' value='36'></meter></div>
-										</td>
-										<td><button>+2</button><br>
-											<input class="spInput" value="36"><br>
-											<button>-2</button>
-										</td>
-										<td>
-											<button class="arrowUp"></button><br>
-											<button>AUTO</button><br>
-											<button class="arrowDown"></button><br>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-					
-				</div>
-				<table id="cameraAll">
+				<table class="controlL1" id="harvester">
 					<tr>
-						<td><img src="vid1opt.gif"></td>
-						<td><img src="vid2opt.gif"></td>
-					</tr>
-					<tr>
-						<td><img src="vid2opt.gif"></td>
-						<td><img src="vid1opt.gif"></td>
+						<td>
+							<img src="harvester_portrait.png" style="width: auto;height: 470px;margin: 5px 220px 0;">
+
+						</td>
 					</tr>
 				</table>
-				<table id="camera1" class="hide">
+
+				<table class="controlL1 hide" id="digger">
 					<tr>
-						<td><img src="vid1opt.gif"></td>
+						<th class="controlHead" colspan="2">Digger</th>
+					</tr>
+					<tr>
+						<td style="width: 50%" class="controlL2">
+							<div>Depth Control</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="64"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td class="controlL2">
+							<div>Hump</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="36"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div>Coulters</div>
+							<table>
+								<tr>
+									<td>
+										<div>Right</div>
+										<button class="arrowUp"></button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+									<td>
+										<button style="margin-top: 40px;">Sync</button>
+									</td>
+									<td>
+										<div>Left</div>
+										<button class="arrowUp"></button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td class="controlL2"></td>
 					</tr>
 				</table>
-				<table id="camera2" class="hide">
+
+				<table class="controlL1 hide" id="chains">
 					<tr>
-						<td><img src="vid2opt.gif"></td>
+						<th class="controlHead">Chains</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<table>
+								<tr>
+									<td colspan="4">
+										Mode:
+										<input type="radio" id="groundSpeed" name="chainMode" value="ground speed">
+										<label for="groundSpeed">Ground Speed</label>
+										<input type="radio" id="fixedSpeed" name="chainMode" value="fixed speed">
+										<label for="fixedSpeed">Fixed Speed</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Intake:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="intakeChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Primary:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="primaryChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Secondary:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="secondaryChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Rear Cross:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="rearCrossChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Side Elevator:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="sideElevatorChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Piler:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+
+									</td>
+									<td>
+										<span id="pilerChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 				</table>
-				<table id="camera3" class="hide">
+
+				<table class="controlL1 hide" id="table">
 					<tr>
-						<td><img src="vid1opt.gif"></td>
+						<th class="controlHead" colspan="2">Table</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div>Intake</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="64"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td class="controlL2">
+							<div>Primary</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="36"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 				</table>
-				<table id="camera4" class="hide">
+
+				<table class="controlL1 hide" id="boom">
 					<tr>
-						<td><img src="vid2opt.gif"></td>
+						<th class="controlHead" colspan="2">Boom</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div>Intake</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="64"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td class="controlL2">
+							<div>Primary</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="36"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table class="controlL1 hide" id="boom">
+					<tr>
+						<th class="controlHead" colspan="2">Boom</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div>Intake</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="64"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td class="controlL2">
+							<div>Primary</div>
+							<table>
+								<tr>
+									<td>
+										<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
+												min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
+										</div>
+									</td>
+									<td><button>+2</button><br>
+										<input class="spInput" value="36"><br>
+										<button>-2</button>
+									</td>
+									<td>
+										<button class="arrowUp"></button><br>
+										<button>AUTO</button><br>
+										<button class="arrowDown"></button><br>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+
+				<table class="controlL1 hide" id="axle">
+					<tr>
+						<th class="controlHead" colspan="2">Axle</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div>Steering</div>
+							<meter class="meter-horizontal" id='steering-meter' min='0' low='50' high='50' max='100'
+								optimum='50' value='50'></meter><br>
+							<button class="arrowRev" style="vertical-align: text-bottom;"></button>
+							<button style="vertical-align: text-bottom;font-size: 20px;">CENTER</button>
+							<button class="arrowFwd" style="vertical-align: text-bottom;"></button><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div style="display: grid; grid-template-areas: 'bleft head head head head head bright' 
+							'bleft lbar rbar blank1 arrUp blank2 bright' 'bleft lbar rbar arrL auto arrR bright' 'bleft lbar rbar blank3 arrDn blank4 bright';gap: 2px;">
+								<div style="grid-area: bleft;width: 80px;"></div>
+								<div style="grid-area: head; padding: 10px; margin: 0 30px;">
+									Machine Height/Roll
+								</div>
+								<div style="grid-area: bright;width: 80px;"></div>
+								<div style="grid-area: lbar; width: 40px; margin: 45px 20px;">
+									<meter class="meter-vertical" id='axle-left-meter' min='0' low='50' high='50'
+											max='100' optimum='50' value='50'></meter>
+								</div>
+								<div style="grid-area: rbar; width: 40px; margin: 45px 20px;">
+									<meter class="meter-vertical" id='axle-right-meter' min='0' low='50' high='50'
+											max='100' optimum='50' value='50'></meter>
+								</div>
+								<div style="grid-area: blank1; width: 105px;"></div>
+								<div style="grid-area: arrUp; width: 105px;">
+									<button class="arrowUp"></button>
+								</div>
+								<div style="grid-area: blank2; width: 105px;"></div>
+								<div style="grid-area: arrL; width: 105px;">
+									<button class="arrowRev"></button>
+								</div>
+								<div style="grid-area: auto; width: 105px;">
+									<button>AUTO</button>
+								</div>
+								<div style="grid-area: arrR; width: 105px;">
+									<button class="arrowFwd"></button>
+								</div>
+								<div style="grid-area: blank3; width: 105px;"></div>
+								<div style="grid-area: arrDn; width: 105px;margin-bottom: 10px;">
+									<button class="arrowDown"></button>
+								</div>
+								<div style="grid-area: blank4; width: 105px;"></div>
+							</div>
+						</td>
 					</tr>
 				</table>
 			</div>
-
-			<div class="function-buttons">
+			<div id="control-buttons">
 				<p>Controls</p>
 				<button id="btnDigger" onclick="toggleControl('digger')">Digger</button>
 				<button id="btnChains" onclick="toggleControl('chains')">Chains</button>
 				<button id="btnTable" onclick="toggleControl('table')">Table</button>
 				<button id="btnBoom" onclick="toggleControl('boom')">Boom</button>
-				<p>Cameras</p>
-				<button id="btnCameraAll" class="camera button-active" onclick="toggleCamera('cameraAll')"><span>all</span></button>
-				<button id="btnCamera1" class="camera" onclick="toggleCamera('camera1')"><span>1</span></button>
-				<button id="btnCamera2" class="camera" onclick="toggleCamera('camera2')"><span>2</span></button>
-				<button id="btnCamera3" class="camera" onclick="toggleCamera('camera3')"><span>3</span></button>
-				<button id="btnCamera4" class="camera" onclick="toggleCamera('camera4')"><span>4</span></button>
+				<button id="btnAxle" onclick="toggleControl('axle')">Axle</button>
+			</div>
+			<div id="cameraFeed">
+				<table id="cameraAll">
+					<tr>
+						<td onclick="toggleCamera('camera1')"><img src="vid1opt.gif"></td>
+						<td onclick="toggleCamera('camera2')"><img src="vid2opt.gif"></td>
+					</tr>
+					<tr>
+						<td onclick="toggleCamera('camera3')"><img src="vid2opt.gif"></td>
+						<td onclick="toggleCamera('camera4')"><img src="vid1opt.gif"></td>
+					</tr>
+				</table>
+				<table id="camera1" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img src="vid1opt.gif"></td>
+					</tr>
+				</table>
+				<table id="camera2" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img src="vid2opt.gif"></td>
+					</tr>
+				</table>
+				<table id="camera3" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img src="vid1opt.gif"></td>
+					</tr>
+				</table>
+				<table id="camera4" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img src="vid2opt.gif"></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
