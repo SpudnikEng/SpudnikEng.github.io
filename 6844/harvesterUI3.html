@@ -16,14 +16,22 @@
 		html {
 			height: 100%;
 			font-family: Arial, sans-serif;
-			background-color: #333;
+			background-color: #fff;
 			color: #fff;
 		}
 
-		.container {
-			width: 800px;
-			height: 1280px;
+		.container-portrait {
+			width: 800px !important;
+			height: 1280px !important;
 			margin: 0 auto;
+			background-color: #333;
+		}
+
+		.container-landscape {
+			width: 1280px !important;
+			height: 800px !important;
+			margin: 0 auto;
+			background-color: #333;
 		}
 
 		.container-top {
@@ -117,13 +125,13 @@
 		}
 
 		.spInput {
-			height: 80px;
+			height: 75px;
 			width: 94px;
 			text-align: right;
 			font-size: 32px;
 			font-weight: bold;
-			padding: 10px;
-			margin: 5px 0;
+			padding: 5px;
+			margin: 0;
 		}
 
 		.meterContainer {
@@ -131,7 +139,7 @@
 		}
 
 		button {
-			height: 80px;
+			height: 75px;
 			width: 94px;
 			padding: 5px;
 			margin: 4px 2px;
@@ -195,6 +203,16 @@
 
 		button.minusSign {
 			background-image: url('minus_sign_20.png');
+			background-position: center;
+		}
+
+		button.cleanMode {
+			background-image: url('counterclockwise_20.png');
+			background-position: center;
+		}
+
+		button.transportMode {
+			background-image: url('clockwise_20.png');
 			background-position: center;
 		}
 
@@ -319,6 +337,9 @@
 		}
 
 		function toggleRUN(button) {
+			var imgTags = document.getElementsByClassName('videoFeeds');
+			var newExt = '.gif';
+			var oldExt = '.png';
 			if (button.classList.contains('button-run')) {
 				button.classList.remove('button-run');
 				button.classList.add('button-run-active');
@@ -327,6 +348,12 @@
 				button.classList.remove('button-run-active');
 				button.classList.add('button-run');
 				document.getElementById("status-messages").innerText = "RUN disabled";
+				newExt = '.png';
+				oldExt = '.gif';
+			}
+			for (var i=0; i<imgTags.length; i++)
+			{
+				imgTags[i].src = imgTags[i].src.replace(oldExt,newExt);
 			}
 		}
 
@@ -365,7 +392,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container-portrait">
 		<div class="container-top">
 			<div class="header">
 				<button onclick="changeColorTimed(this)" class="rowStart"></button>
@@ -640,8 +667,8 @@
 									<td><button class="minusSign"></button></td>
 									<td></td>
 									<td colspan="2">
-										<button class="active" style="border-radius: 10px 0 0 10px;">CLEAN</button>
-										<button class="" style="border-radius: 0 10px 10px 0;">TRANSPORT</button>
+										<button class="active transportMode" style="border-radius: 10px 0 0 10px;"></button>
+										<button class="cleanMode" style="border-radius: 0 10px 10px 0;"></button>
 									</td>
 									
 								</tr>
@@ -753,32 +780,32 @@
 			<div id="cameraFeed">
 				<table id="cameraAll">
 					<tr>
-						<td onclick="toggleCamera('camera1')"><img src="vid1opt.gif"></td>
-						<td onclick="toggleCamera('camera2')"><img src="vid2opt.gif"></td>
+						<td onclick="toggleCamera('camera1')"><img class="videoFeeds" src="vid1opt.png"></td>
+						<td onclick="toggleCamera('camera2')"><img class="videoFeeds" src="vid2opt.png"></td>
 					</tr>
 					<tr>
-						<td onclick="toggleCamera('camera3')"><img src="vid2opt.gif"></td>
-						<td onclick="toggleCamera('camera4')"><img src="vid1opt.gif"></td>
+						<td onclick="toggleCamera('camera3')"><img class="videoFeeds" src="vid2opt.png"></td>
+						<td onclick="toggleCamera('camera4')"><img class="videoFeeds" src="vid1opt.png"></td>
 					</tr>
 				</table>
 				<table id="camera1" class="hide">
 					<tr>
-						<td onclick="toggleCamera('cameraAll')"><img src="vid1opt.gif"></td>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid1opt.gif"></td>
 					</tr>
 				</table>
 				<table id="camera2" class="hide">
 					<tr>
-						<td onclick="toggleCamera('cameraAll')"><img src="vid2opt.gif"></td>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid2opt.gif"></td>
 					</tr>
 				</table>
 				<table id="camera3" class="hide">
 					<tr>
-						<td onclick="toggleCamera('cameraAll')"><img src="vid1opt.gif"></td>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid1opt.gif"></td>
 					</tr>
 				</table>
 				<table id="camera4" class="hide">
 					<tr>
-						<td onclick="toggleCamera('cameraAll')"><img src="vid2opt.gif"></td>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid2opt.gif"></td>
 					</tr>
 				</table>
 			</div>
