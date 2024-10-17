@@ -2,374 +2,404 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Harvester Landscape Demo</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		body,
-		html {
-			height: 100%;
-			font-family: Arial, sans-serif;
-			background-color: #fff;
-			color: #fff;
-		}
-
-		.container {
-			width: 1280px !important;
-			height: 800px !important;
-			margin: 0 auto;
-			background-color: #333;
-		}
-
-		.video {
-			margin: 0px;
-			width: 600px;
-			height: 100%;
-		}
-
-		.container-side {
-			width: 200px;
-			height: 100%;
-			margin: 0 0 0 1080;
-			display: grid;
-			grid-template-rows: auto 1fr auto;
-			grid-template-columns: 200px 1fr 200px;
-			gap: 10px;
-		}
-
-		.container-bottom {
-			width: 100%;
-			height: 980px;
-			margin: 0;
-			display: grid;
-			grid-template-rows: auto;
-			grid-template-columns: auto 120px;
-			gap: 10px;
-		}
-
-		.header {
-			grid-column: 1 / 4;
-			display: flex;
-			justify-content: space-around;
-			background-color: #555;
-			padding: 10px;
-		}
-
-		.status {
-			background-color: #555;
-			padding: 20px;
-		}
-
-		.status h3 {
-			margin-bottom: 10px;
-		}
-
-		.status ul {
-			list-style: none;
-		}
-
-		.status li {
-			margin: 10px 0;
-			display: flex;
-			align-items: center;
-		}
-
-		.dot {
-			height: 15px;
-			width: 15px;
-			background-color: #bbb;
-			border-radius: 50%;
-			display: inline-block;
-			margin-right: 10px;
-		}
-
-		.green {
-			background-color: green;
-		}
-
-		.main {
-			grid-column: 2 / 3;
-			background-color: #555;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
-
-		#status-messages {
-			background-color: #fff;
-			color: #000;
-			width: 90%;
-			text-align: center;
-			padding: 10px;
-			margin: 10px;
-		}
-
-		.info-panel {
-			background-color: #555;
-			padding: 20px;
-		}
-
-		.display-area {
-			grid-column: 1;
-			background-color: #555;
-		}
-
-		.function-buttons {
-			grid-column: 2;
-			background-color: #555;
-			text-align: center;
-			color: black;
-		}
-
-		.spInput {
-			height: 80px;
-			width: 94px;
-			text-align: right;
-			font-size: 32px;
-			font-weight: bold;
-			padding: 10px;
-			margin: 10px 0;
-		}
-
-		.meterContainer {
-			width: 55px;
-		}
-
-		button {
-			height: 90px;
-			width: 94px;
-			padding: 5px;
-			margin: 4px 2px;
-			font-size: 22px;
-			font-weight: bold;
-			background-color: #7A7A7A;
-			border: none;
-			color: white;
-			cursor: pointer;
-			border-radius: 12px;
-			/* Rounded corners */
-			box-shadow: 0 5px #4e4f50;
-			/* Shadow for a 3D effect */
-			transition: all 0.2s;
-		}
-
-		button:active {
-			box-shadow: 0 2px #72BB53;
-			/* Reduce shadow on click */
-			transform: translateY(3px);
-			/* Push button down */
-			background-color: #72BB53;
-		}
-
-		.button-run,
-		.button-run-active {
-			width: 194px;
-			border: none;
-			color: black;
-		}
-
-		.button-run {
-			background-color: #C0C0C0;
-			box-shadow: 0 5px #4e4f50;
-			/* Shadow for a 3D effect */
-		}
-
-		.button-run-active,
-		.button-active {
-			box-shadow: 0 2px #72BB53;
-			background-color: #72BB53;
-		}
-
-		button.arrowUp {
-			background-image: url('arrow_up_20.png');
-			background-position: center;
-		}
-
-		button.arrowDown {
-			background-image: url('arrow_down_20.png');
-			background-position: center;
-		}
-
-		button.camera {
-			background-image: url('videocam.png');
-			background-position: center;
-		}
-
-		button.camera span {
-			position: relative;
-			left: -5px;
-		}
-
-		div.function-buttons p {
-			margin: 15px 5px 5px;
-			color: white;
-			font-size: 22px;
-			font-weight: bold;
-		}
-
-		td img {
-			width: 100%;
-			height: auto;
-		}
-
-		#placeholder {
-			height: 595px;
-		}
-
-		.hide {
-			display: none;
-		}
-
-		table {
-			width: 100%;
-			height: auto;
-		}
-
-		meter {
-			/* for Firefox: Change default appearance */
-			-moz-appearance: none;
-
-			width: 150px;
-			height: 80px;
-			margin: 40px 0;
-			position: relative;
-			left: -50px;
-
-			/*  tilt the meter to display vertically */
-			transform: rotate(90deg);
-		}
-
-		/*  add style to change the look and feel */
-		meter::-webkit-meter-bar {
-			background: #eeeeee;
-			border-radius: 2px;
-		}
-
-		.controlHead {
-			padding: 5px; 
-			background-color: darkgreen; 
-			font-size: larger;
-		}
-
-		.controlL1 {
-			margin:5px 50px; 
-			width: auto;
-		}
-
-		.controlL2 {
-			text-align: center;
-			padding: 2px;
-			font-size: large;
-			background-color: black;
-		}
-
-		.logo {
-          padding: 5px 15px;
-		  width: 250px;
-		  height: auto;
-        }
-	</style>
-	<script>
-		function changeColorTimed(button) {
-			const originalColor = button.style.backgroundColor;
-			button.style.backgroundColor = '#72BB53';
-			setTimeout(() => {
-				button.style.backgroundColor = originalColor;
-			}, 3000);
-		}
-
-		function toggleRUN(button) {
-			if (button.classList.contains('button-run')) {
-				button.classList.remove('button-run');
-				button.classList.add('button-run-active');
-				document.getElementById("status-messages").innerText = "RUN enabled";
-			} else {
-				button.classList.remove('button-run-active');
-				button.classList.add('button-run');
-				document.getElementById("status-messages").innerText = "RUN disabled";
-			}
-		}
-
-		function togglePreset(button) {
-			document.getElementById("preset1").classList.remove('button-active');
-			document.getElementById("preset2").classList.remove('button-active');
-			document.getElementById("preset3").classList.remove('button-active');
-			button.classList.add('button-active');
-		}
-
-		function toggleCamera(elem) {
-			document.getElementById("cameraAll").classList.add('hide');
-			document.getElementById("btnCameraAll").classList.remove('button-active');
-			document.getElementById("camera1").classList.add('hide');
-			document.getElementById("btnCamera1").classList.remove('button-active');
-			document.getElementById("camera2").classList.add('hide');
-			document.getElementById("btnCamera2").classList.remove('button-active');
-			document.getElementById("camera3").classList.add('hide');
-			document.getElementById("btnCamera3").classList.remove('button-active');
-			document.getElementById("camera4").classList.add('hide');
-			document.getElementById("btnCamera4").classList.remove('button-active');
-			document.getElementById(elem).classList.remove('hide');
-			document.getElementById("btn"+elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
-		}
-
-		function toggleControl(elem) {
-			document.getElementById("harvester").classList.add('hide');
-			document.getElementById("digger").classList.add('hide');
-			document.getElementById("btnDigger").classList.remove('button-active');
-			document.getElementById("chains").classList.add('hide');
-			document.getElementById("btnChains").classList.remove('button-active');
-			document.getElementById("table").classList.add('hide');
-			document.getElementById("btnTable").classList.remove('button-active');
-			document.getElementById("boom").classList.add('hide');
-			document.getElementById("btnBoom").classList.remove('button-active');
-			document.getElementById(elem).classList.remove('hide');
-			document.getElementById("btn"+elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
-		}
-	</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvester Interface</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-	<div class="container">
-		<div class="video">
-			<table id="cameraAll">
+    <div class="container-landscape">
+        <div class="container-l-video-run">
+            <div id="cameraFeed-l">
+				<table id="cameraAll">
+					<tr>
+						<td onclick="toggleCamera('camera1')"><img class="videoFeeds" src="vid1opt.png"></td>
+						<td onclick="toggleCamera('camera2')"><img class="videoFeeds" src="vid2opt.png"></td>
+					</tr>
+					<tr>
+						<td onclick="toggleCamera('camera3')"><img class="videoFeeds" src="vid2opt.png"></td>
+						<td onclick="toggleCamera('camera4')"><img class="videoFeeds" src="vid1opt.png"></td>
+					</tr>
+				</table>
+				<table id="camera1" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid1opt.gif"></td>
+					</tr>
+				</table>
+				<table id="camera2" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid2opt.gif"></td>
+					</tr>
+				</table>
+				<table id="camera3" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid1opt.gif"></td>
+					</tr>
+				</table>
+				<table id="camera4" class="hide">
+					<tr>
+						<td onclick="toggleCamera('cameraAll')"><img class="videoFeeds" src="vid2opt.gif"></td>
+					</tr>
+				</table>
+			</div>
+			
+			<table class="controlL1 hide" id="digger">
 				<tr>
-					<td><img src="vid1opt.gif"></td>
-					<td><img src="vid2opt.gif"></td>
+					<th class="controlHead" colspan="3">Digger</th>
 				</tr>
 				<tr>
-					<td><img src="vid2opt.gif"></td>
-					<td><img src="vid1opt.gif"></td>
+					<td style="width: 33%" class="controlL2">
+						<div>Depth Control</div>
+						<table>
+							<tr>
+								<td>
+									<div class="meterContainer"><meter class="meter-vertical" id='depth-meter'
+											min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
+									</div>
+								</td>
+								<td><button>+2</button><br>
+									<input class="spInput" value="64"><br>
+									<button>-2</button>
+								</td>
+								<td>
+									<button class="arrowUp"></button><br>
+									<button>AUTO</button><br>
+									<button class="arrowDown"></button><br>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td style="width: 33%" class="controlL2">
+						<div>Hump</div>
+						<table>
+							<tr>
+								<td>
+									<div class="meterContainer"><meter class="meter-vertical" id='hump-meter'
+											min='0' low='20' high='50' max='100' optimum='60' value='36'></meter>
+									</div>
+								</td>
+								<td><button>+2</button><br>
+									<input class="spInput" value="36"><br>
+									<button>-2</button>
+								</td>
+								<td>
+									<button class="arrowUp"></button><br>
+									<button>AUTO</button><br>
+									<button class="arrowDown"></button><br>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td class="controlL2">
+						<div>Coulters</div>
+						<table>
+							<tr>
+								<td>
+									<div>Right</div>
+									<button class="arrowUp"></button><br>
+									<button class="arrowDown"></button><br>
+								</td>
+								<td>
+									<button style="margin-top: 40px;">Sync</button>
+								</td>
+								<td>
+									<div>Left</div>
+									<button class="arrowUp"></button><br>
+									<button class="arrowDown"></button><br>
+								</td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 			</table>
-			<table id="camera1" class="hide">
-				<tr>
-					<td><img src="vid1opt.gif"></td>
-				</tr>
-			</table>
-			<table id="camera2" class="hide">
-				<tr>
-					<td><img src="vid2opt.gif"></td>
-				</tr>
-			</table>
-			<table id="camera3" class="hide">
-				<tr>
-					<td><img src="vid1opt.gif"></td>
-				</tr>
-			</table>
-			<table id="camera4" class="hide">
-				<tr>
-					<td><img src="vid2opt.gif"></td>
-				</tr>
-			</table>
-		</div>
 
-	</div>
+        </div>
+		<div class="container-l-status-controls">
+			<div class="header-l">
+                <button onclick="changeColorTimed(this)" class="rowStart"></button>
+                <button onclick="changeColorTimed(this)" class="rowEnd"></button>
+                <button class="button-run" onclick="toggleRUN(this)"></button>
+                <button class="settings"></button>
+            </div>
+			
+			<div id="control-body-l">
+				<table class="controlL1" id="harvesterX">
+					<tr>
+						<td>
+							<img src="harvester_portrait.png" style="width: auto;height: 470px;margin: 0 65px 0;">
+
+						</td>
+					</tr>
+				</table>
+
+				<table class="controlL1 hide" id="chains">
+					<tr>
+						<th class="controlHead">Chains</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<table>
+								<tr>
+									<td colspan="4">
+										Mode:
+										<input type="radio" id="groundSpeed" name="chainMode" value="ground speed">
+										<label for="groundSpeed">Ground Speed</label>
+										<input type="radio" id="fixedSpeed" name="chainMode" value="fixed speed">
+										<label for="fixedSpeed">Fixed Speed</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Intake:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="intakeChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Primary:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="primaryChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Secondary:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="secondaryChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Rear Cross:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="rearCrossChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Side Elevator:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+										<button>REV</button>
+									</td>
+									<td>
+										<span id="sideElevatorChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Piler:
+									</td>
+									<td><button>+2</button>
+										<input class="spInput" value="36">
+										<button>-2</button>
+									</td>
+									<td>
+
+									</td>
+									<td>
+										<span id="pilerChainSpeed">210 fpm</span>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+
+				<table class="controlL1 hide" id="table">
+					<tr>
+						<th class="controlHead" colspan="2">Table</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div><img src="tableControlsCleaningMode.png"></div>
+							<table>
+								<tr>
+									<td>Roller Gap</td>
+									<td>Roller Height</td>
+									<td>Table Angle</td>
+									<td></td>
+									<td>Clod Roller</td>
+									<td>Segment Roller</td>
+								</tr>
+								<tr>
+									<td><button class="plusSign"></button></td>
+									<td><button class="plusSign"></button></td>
+									<td><button class="plusSign"></button></td>
+									<td></td>
+									<td><button class="arrowRev"></button></td>
+									<td><button class="arrowRev"></button></td>
+								</tr>
+								<tr>
+									<td><input class="spInput" value="24"></td>
+									<td><input class="spInput" value="32"></td>
+									<td><input class="spInput" value="68"></td>
+									<td></td>
+									<td><input class="spInput" value="124"></td>
+									<td><input class="spInput" value="132"></td>
+								</tr>
+								<tr>
+									<td><button class="minusSign"></button></td>
+									<td><button class="minusSign"></button></td>
+									<td><button class="minusSign"></button></td>
+									<td></td>
+									<td colspan="2">
+										<button class="active transportMode" style="border-radius: 10px 0 0 10px;"></button>
+										<button class="cleanMode" style="border-radius: 0 10px 10px 0;"></button>
+									</td>
+									
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+
+				<table class="controlL1 hide" id="boom">
+					<tr>
+						<th class="controlHead" colspan="2">Boom</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div><img src="BoomWithLabels.png"></div>
+							<table>
+								<tr>
+									<td><button class="arrowUp"></button></td>
+									<td><button class="arrowUp"></button></td>
+									<td><button class="arrowRev"></button></td>
+									<td>Boom<br>Swing</td>
+									<td><button class="arrowFwd"></button></td>
+									<td><button class="arrowUp"></button></td>
+								</tr>
+								<tr>
+									<td>Outer boom</td>
+									<td>Inner Boom</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>Boom Fold</td>
+								</tr>
+								<tr>
+									<td><button class="arrowDown"></button></td>
+									<td><button class="arrowDown"></button></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td><button class="arrowDown"></button></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+
+				<table class="controlL1 hide" id="axle">
+					<tr>
+						<th class="controlHead" colspan="2">Axle</th>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div>Steering</div>
+							<meter class="meter-horizontal" id='steering-meter' min='0' low='50' high='50' max='100'
+								optimum='50' value='50'></meter><br>
+							<button class="arrowRev" style="vertical-align: text-bottom;"></button>
+							<button style="vertical-align: text-bottom;font-size: 20px;">CENTER</button>
+							<button class="arrowFwd" style="vertical-align: text-bottom;"></button><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td class="controlL2">
+							<div style="display: grid; grid-template-areas: 'bleft head head head head head bright' 
+							'bleft lbar rbar blank1 arrUp blank2 bright' 'bleft lbar rbar arrL auto arrR bright' 'bleft lbar rbar blank3 arrDn blank4 bright';gap: 2px;">
+								<div style="grid-area: bleft;width: 80px;"></div>
+								<div style="grid-area: head; padding: 10px; margin: 0 30px;">
+									Machine Height/Roll
+								</div>
+								<div style="grid-area: bright;width: 80px;"></div>
+								<div style="grid-area: lbar; width: 40px; margin: 45px 20px;">
+									<meter class="meter-vertical" id='axle-left-meter' min='0' low='50' high='50'
+											max='100' optimum='50' value='50'></meter>
+								</div>
+								<div style="grid-area: rbar; width: 40px; margin: 45px 20px;">
+									<meter class="meter-vertical" id='axle-right-meter' min='0' low='50' high='50'
+											max='100' optimum='50' value='50'></meter>
+								</div>
+								<div style="grid-area: blank1; width: 105px;"></div>
+								<div style="grid-area: arrUp; width: 105px;">
+									<button class="arrowUp"></button>
+								</div>
+								<div style="grid-area: blank2; width: 105px;"></div>
+								<div style="grid-area: arrL; width: 105px;">
+									<button class="arrowRev"></button>
+								</div>
+								<div style="grid-area: auto; width: 105px;">
+									<button>AUTO</button>
+								</div>
+								<div style="grid-area: arrR; width: 105px;">
+									<button class="arrowFwd"></button>
+								</div>
+								<div style="grid-area: blank3; width: 105px;"></div>
+								<div style="grid-area: arrDn; width: 105px;margin-bottom: 10px;">
+									<button class="arrowDown"></button>
+								</div>
+								<div style="grid-area: blank4; width: 105px;"></div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="control-buttons-l">
+				<p>Controls</p>
+				<button id="btnDigger" onclick="toggleControl('digger')">Digger</button>
+				<button id="btnChains" onclick="toggleControl('chains')">Chains</button>
+				<button id="btnTable" onclick="toggleControl('table')">Table</button>
+				<button id="btnBoom" onclick="toggleControl('boom')">Boom</button>
+				<button id="btnAxle" onclick="toggleControl('axle')">Axle</button>
+				<br><br><br><br><br><br>
+				<img id="logo-l"
+					src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxMTY2IDMwNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTE2NiAzMDY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRUMxQzI0O30KCS5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRUMxQzI0O30KPC9zdHlsZT4KPGc+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuNSwyMjkuNWMxMS4zLDEuOCwyMS4yLDMuMiwyOS43LDRjOC41LDAuOCwxNiwxLjIsMjIuNywxLjJjMTAuNiwwLDE3LjgtMC43LDIxLjYtMi4xCgkJYzMuOC0xLjQsNS43LTMuOCw1LjctNy40YzAtMi40LTAuNi00LjItMS45LTUuM2MtMS4zLTEuMS0zLjQtMS42LTYuMy0xLjZjLTQuMiwwLTguOCwwLjEtMTMuNywwLjJjLTEuMywwLTIuMiwwLTIuNSwwCgkJYy0xNi44LDAtMjguNS0yLjYtMzUuMS03LjdjLTYuNi01LjEtMTAtMTMuOC0xMC0yNi4xYzAtOS40LDEuNi0xOC44LDQuOS0yOGMzLjItOS4yLDcuNi0xNi45LDEzLTIyLjljNS4yLTUuOCwxMi41LTkuOSwyMi4xLTEyLjUKCQljOS41LTIuNiwyMy0zLjgsNDAuNS0zLjhjMTEuMiwwLDIyLjksMC41LDM1LjEsMS42YzEyLjEsMS4xLDI0LjUsMi43LDM3LjIsNC45bC0xMSw0Ny40Yy04LjItMS44LTE1LjktMy4yLTIzLjEtNC4yCgkJYy03LjItMC45LTEzLjgtMS40LTIwLTEuNGMtMTQsMC0yMy41LDAuOC0yOC43LDIuNGMtNS4xLDEuNi03LjcsNC4zLTcuNyw4LjFjMCwyLjQsMC43LDQuMSwyLjIsNWMxLjQsMC45LDUuMywxLjMsMTEuNywxLjNoMjEuNAoJCWMxMi42LDAsMjEuNywyLjQsMjcuNCw3LjJjNS43LDQuOCw4LjYsMTIuNCw4LjYsMjIuOGMwLDkuOC0xLjQsMTguNy00LjEsMjYuOWMtMi43LDguMi02LjUsMTQuOC0xMS40LDE5LjkKCQljLTUuNCw1LjgtMTIuNiwxMC0yMS43LDEyLjZjLTkuMSwyLjYtMjAuOSwzLjktMzUuNSwzLjljLTEyLjgsMC0yNS45LTAuNy0zOS4yLTJjLTEzLjMtMS4zLTI2LjgtMy4zLTQwLjUtNS45TDMxLjUsMjI5LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTgyLjEsMjcxLjFsMzUuNC0xNDkuNGgxMDMuM2MxMS44LDAsMjAuNSwyLjksMjYuMSw4LjhjNS42LDUuOSw4LjQsMTUsOC40LDI3LjRjMCw4LjYtMC45LDE3LjMtMi42LDI2LjMKCQljLTEuNyw4LjktNCwxNi41LTYuOCwyMi44Yy01LjIsMTEuNS0xMS42LDE5LjYtMTkuMiwyNC4xYy03LjYsNC42LTE4LjksNi44LTMzLjgsNi44aC00Ni42bC03LjgsMzMuMkgxODIuMXogTTI1NS4xLDIwMC43aDE3LjUKCQljOC44LDAsMTUuNC0xLjgsMTkuNy01LjVjNC4zLTMuNyw2LjUtOS4zLDYuNS0xNi43YzAtNC0xLjEtNi45LTMuNC04LjhjLTIuMy0xLjktNS44LTIuOC0xMC41LTIuOGgtMjEuN0wyNTUuMSwyMDAuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zODUuMiwxMjEuN2g1Ni4zbC0yMi4xLDkzYy0wLjUsMi4yLTAuOSw0LTEuMiw1LjZjLTAuMywxLjYtMC40LDIuOS0wLjQsMy44YzAsMy41LDAuOSw2LjIsMi43LDgKCQljMS44LDEuOCw0LjYsMi43LDguMiwyLjdjNC43LDAsOC41LTEuNSwxMS40LTQuNmMyLjktMy4xLDUuMS04LDYuNi0xNC42bDIyLjEtOTMuOGg1Ni41bC0yMi41LDk0LjJjLTMuMiwxMy43LTYuMSwyMy40LTguNywyOS4xCgkJYy0yLjYsNS43LTUuOCwxMC4yLTkuNiwxMy43Yy02LjQsNS43LTE0LjYsOS45LTI0LjcsMTIuNmMtMTAuMSwyLjctMjIuNyw0LjEtMzcuOSw0LjFjLTIyLjMsMC0zOC4zLTIuOC00OC4yLTguNAoJCWMtOS45LTUuNi0xNC44LTE0LjYtMTQuOC0yN2MwLTMuMSwwLjMtNi42LDAuOS0xMC40YzAuNi0zLjgsMS43LTguOCwzLjItMTUuM0wzODUuMiwxMjEuN3oiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MTMuNSwyNzEuMWwzNS40LTE0OS40aDg1YzYuOCwwLDEyLjcsMC4yLDE3LjgsMC43YzUuMSwwLjUsOC44LDEuMSwxMSwxLjljOCwzLDEzLjcsNy42LDE3LjIsMTMuNwoJCWMzLjUsNi4yLDUuMiwxNC44LDUuMiwyNmMwLDQuNS0wLjMsOS40LTEsMTQuOWMtMC43LDUuNS0xLjYsMTEuNC0yLjksMTcuN2MtMi4xLDEwLjEtNC42LDE5LjItNy40LDI3LjFjLTIuOCw4LTUuNywxNC40LTguOSwxOS4zCgkJYy00LjIsNi43LTguOCwxMi4yLTEzLjgsMTYuMmMtNSw0LjEtMTAuNSw3LTE2LjYsOC43Yy00LjEsMS4xLTguMywxLjktMTIuNywyLjVjLTQuNCwwLjUtOS4zLDAuOC0xNC43LDAuOGMtMS41LDAtMy42LDAtNi40LTAuMQoJCWMtMi44LTAuMS00LjktMC4xLTYuMy0wLjFINTEzLjV6IE01NzkuNSwyMjkuN2gxMGM2LjksMCwxMi4yLTAuNiwxNS44LTEuN2MzLjYtMS4xLDYuNS0zLjEsOC43LTUuN2MzLjMtNC4zLDYuMS05LjgsOC4zLTE2LjYKCQljMi4yLTYuOCwzLjMtMTMuMywzLjMtMTkuM2MwLTYuMi0xLjMtMTAuNC0zLjgtMTIuN2MtMi42LTIuMy03LjYtMy40LTE1LTMuNGgtMTNMNTc5LjUsMjI5Ljd6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjgyLjYsMjcxLjFMNzE4LDEyMS43aDYyLjlsOS41LDY0LjZjMC4yLDEuMywwLjUsNC4xLDEsOC4zYzAuNSw0LjIsMS4yLDkuOSwyLjEsMTdjMS02LjEsMi42LTEzLjgsNC44LTIzLjEKCQljMC40LTEuNiwwLjYtMi43LDAuOC0zLjRsMTUuMS02My40aDU1LjFsLTM1LjUsMTQ5LjRoLTYyLjNMNzYwLDIxMy44Yy0wLjYtMi45LTEuMy02LjUtMi0xMC44Yy0wLjgtNC4yLTEuNi04LjctMi40LTEzLjUKCQljLTEsNy4xLTIuNywxNS40LTUsMjQuOHYwLjNsLTEzLjcsNTYuNUg2ODIuNnoiLz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04NTguMiwyNzEuMWwzNS40LTE0OS40aDU3LjFsLTM1LjUsMTQ5LjRIODU4LjJ6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNOTM5LjQsMjcxLjFsMzUuNC0xNDkuNGg1NS42bC04LjksMzguN2MtMC45LDMuNy0xLjgsNy40LTIuNywxMC45Yy0xLDMuNi0yLDcuMi0zLjIsMTAuOQoJCWMyLjctNC44LDYuMS05LjgsMTAtMTUuMmMwLjYtMC44LDEtMS4zLDEuMi0xLjdsMzEtNDMuN2g2OS4zbC02NC41LDc5LjRsMjYuOSw3MEgxMDI4bC0xNC4yLTQzYy0wLjItMC41LTAuNS0xLjUtMS0zCgkJYy0xLjYtNS0yLjktOS41LTMuOS0xMy4zYy0wLjUsMy4zLTEsNi4zLTEuNSw5LjJjLTAuNiwyLjktMS4yLDUuNy0xLjksOC41bC05LjcsNDEuNUg5MzkuNHoiLz4KPC9nPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik03MSw0Mi41Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNjgsNDIuNWg4MjVjLTQuOCw2LjQtNy43LDExLjktOC44LDE2LjFjLTIuNCw4LjktMC45LDE1LjgsMC4xLDE5LjZjMS45LDcuMyw3LjcsMTQuOSw3LjcsMTQuOUg1My42TDY4LDQyLjV6CgkJIi8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTc4LjUsNDMuN2MwLDAsMy45LDQuNiw2LjQsMTAuNWMzLDcuMSwyLjIsMTYuNiwwLjksMjQuMWMtMS4zLDcuMi03LjksMTUuNS03LjksMTUuNUgxMTMybDEzLTUwLjJIOTc4LjV6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTczLjgsNjguM2MwLTIxLjEtMTcuMS0zOC4yLTM4LjItMzguMmMtMjEuMSwwLTM4LjIsMTcuMS0zOC4yLDM4LjJzMTcuMSwzOC4yLDM4LjIsMzguMgoJCUM5NTYuNywxMDYuNSw5NzMuOCw4OS40LDk3My44LDY4LjN6Ii8+CjwvZz4KPC9zdmc+Cg=="
+					alt="SPUDNIK">
+			</div>
+		</div>
+    </div>
+
+    <script src="scripts.js"></script>
 </body>
 
 </html>
