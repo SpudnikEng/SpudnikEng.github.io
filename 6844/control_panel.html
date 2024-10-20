@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persistent Layout</title>
+    <link rel="stylesheet" href="control_panel.css">
+</head>
+<body>
+    <div class="container">
+        <div class="master">
+            <div>Master</div>
+            
+        </div>
+        <div class="status">
+            <div class="status-col">Status 1</div>
+            <div class="status-col"><div>Status 2</div>
+                <button onclick="toggleOrientation()">Toggle Orientation</button>
+            </div>
+            <div class="status-col">Status 3</div>
+        </div>
+        <div class="controls">Controls</div>
+        <div class="video">
+            <div class="video-col">Video 1</div>
+            <div class="video-col"><img class="videoFeeds" src="vid1opt.png"></div>
+            <div class="video-col"><img class="videoFeeds" src="vid2opt.png"></div>
+            <div class="video-col"><img class="videoFeeds" src="vid2opt.png"></div>
+            <div class="video-col"><img class="videoFeeds" src="vid1opt.png"></div>
+        </div>
+    </div>
+    <script>
+        // Load the saved orientation when the page loads
+        window.onload = function() {
+            const savedOrientation = localStorage.getItem('orientation') || 'portrait';
+            const container = document.querySelector('.container');
+            container.classList.add(savedOrientation);
+        };
+
+        // Toggle the orientation and save the state
+        function toggleOrientation() {
+            const container = document.querySelector('.container');
+            if (container.classList.contains('portrait')) {
+                container.classList.remove('portrait');
+                container.classList.add('landscape');
+                localStorage.setItem('orientation', 'landscape');
+            } else {
+                container.classList.remove('landscape');
+                container.classList.add('portrait');
+                localStorage.setItem('orientation', 'portrait');
+            }
+        }
+    </script>
+</body>
+</html>
