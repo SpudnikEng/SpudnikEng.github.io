@@ -3,7 +3,49 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #FEF7FF;
+    font-family: Roboto, sans-serif;
+}
+
+h1, h2, h3, h4 {
+    text-align: center;
+    margin-top: 2px;
+}
+
+.meterContainer {
+	width: 55px;
+}
+.meter-horizontal {
+	width: 300px;
+	height: 60px;
+}
+.meter-vertical {
+	/* for Firefox: Change default appearance */
+	-moz-appearance: none;
+
+	width: 150px;
+	height: 80px;
+	margin: 40px 0;
+	position: relative;
+	left: -50px;
+
+	/*  tilt the meter to display vertically */
+	transform: rotate(90deg);
+}
+/*  add style to change the look and feel */
+meter::-webkit-meter-bar {
+	background: #eeeeee;
+	border-radius: 2px;
+}
+
+.spInput {
+	height: 60px;
+	width: 75px;
+	text-align: right;
+	font-size: 32px;
+	font-weight: bold;
+	padding: 5px;
+	margin: 0;
 }
 
 .videoFeeds {
@@ -11,16 +53,26 @@ body {
     height: 178px;
 }
 
-.container {
-    background-color: #333; /* Dark grey background */
-    color: white; /* Text color for contrast */
-    display: grid;
+.controlL1 {
+    width: 100%;
 }
+
+.container {
+    background-color: #322F35;
+    display: grid;
+    border: 2px solid #000;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: auto 140px;
+}
+
 /* Use nested selectors - all portrait specific styles go within this selection */
 .portrait {
     width: 800px;
     height: 1280px;
-    grid-template-rows: 105px 150px auto 180px;
+    grid-template-rows: 95px 160px auto 180px;
 
     .master {
         grid-row: 1;
@@ -47,8 +99,8 @@ body {
 .landscape {
     width: 1280px;
     height: 800px;
-    grid-template-columns: 187px auto auto;
-    grid-template-rows: 150px auto;
+    grid-template-columns: 190px 452px auto;
+    grid-template-rows: 185px auto;
 
     .master {
         grid-column: 2;
@@ -77,6 +129,267 @@ body {
 }
 
 .master, .status, .controls, .video {
-    border: 1px solid #000;
+    border: 2px solid #322F35;
     box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.info-panel {
+    margin-top: 15px;
+}
+
+.pri-button {
+    border-radius: 16px;
+    height: 70px; /*56dp*/
+    font-size: 20pt;
+    margin: 10px 5px;
+    box-shadow: 2px 2px;
+    border: none;
+    padding: 5px;
+    min-width: 110px;
+}
+
+.sec-button {
+    border-radius: 16px;
+    height: 60px; /*56dp*/
+    font-size: 16pt;
+    margin: 8px 4px;
+    box-shadow: 2px 2px;
+    border: none;
+    padding: 5px;
+    min-width: 100px;
+}
+
+.ter-button {
+    border-radius: 14px;
+    height: 50px; /*56dp*/
+    font-size: 16pt;
+    margin: 8px 4px;
+    box-shadow: 2px 2px;
+    border: none;
+    padding: 5px;
+    min-width: 80px;
+}
+
+.hide {
+	display: none;
+}
+
+.icon {
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 30px;
+    padding-left: 35px;
+}
+.icon-lg {
+    background-repeat: no-repeat;
+    background-size: 60px;
+}
+
+.inset-container {
+    border-style: inset;
+    border-radius: 20px;
+    padding: 0 15px;
+}
+
+.b-run {
+    background-image: url('icons/run_16_dk.png');
+}
+.b-rowStart {
+	background-image: url('icons/rowStart_16_lt.png');
+}
+.b-rowEnd {
+	background-image: url('icons/rowEnd_16_lt.png');
+}
+.b-settings {
+	background-image: url('icons/settings_16_lt.png');
+}
+.b-auto {
+    background-image: url('icons/auto_16_lt.png');
+}
+.b-link {
+    background-image: url('icons/link_16_lt.png');
+}
+.b-textOnly {
+    font-size: 25px;
+}
+
+.button-left {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: 0;
+}
+
+.button-right {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: 0;
+    position: relative;
+    left: -4px;
+}
+
+button.arrowUp {
+	background-image: url('arrow_up_20.png');
+	background-position: center;
+}
+button.arrowDown {
+	background-image: url('arrow_down_20.png');
+	background-position: center;
+}
+button.plusSign {
+	background-image: url('plus_sign_20.png');
+	background-position: center;
+}
+button.minusSign {
+	background-image: url('minus_sign_20.png');
+	background-position: center;
+}
+button.cleanMode {
+	background-image: url('counterclockwise_20.png');
+}
+button.transportMode {
+	background-image: url('clockwise_20.png');
+	background-position: center;
+}
+button.arrowFwd {
+	background-image: url('arrow_fwd_20.png');
+	background-position: center;
+}
+button.arrowRev {
+	background-image: url('arrow_rev_20.png');
+	background-position: center;
+}
+button.camera {
+	background-image: url('videocam.png');
+	background-position: center;
+}
+
+.button-run-active,
+.button-active {
+	box-shadow: 0 2px #72BB53;
+	background-color: #72BB53 !important;
+}
+
+#logo-spudnik {
+	padding: 0px;
+    margin: 10px 0 0 10px;
+	width: 165px;
+	height:auto;
+}
+
+/* colors */
+.pri {
+    background-color: #6750A4;
+    color: #FFFFFF;
+}
+.pri-em {
+    background-color: #EADDFF;
+    color: #4F378B;
+}
+.pri-bk {
+    background-color: #F3EDF7;
+}
+.sec {
+    background-color: #625B71;
+    color: #FFFFFF;
+}
+.sec-em {
+    background-color: #E8DEF8;
+    color: #4A4458;
+}
+.sec-bk {
+    background-color: #F7F2FA;
+}
+.ter {
+    background-color: #7D5260;
+    color: #FFFFFF;
+}
+.ter-em {
+    background-color: #FFD8E4;
+    color: #633B48;
+}
+.ter-bk {
+    background-color: white;
+}
+.err {
+    background-color: #B3261E;
+    color: #FFFFFF;
+}
+.err-em {
+    background-color: #F9DEDC;
+    color: #8C1D18;
+}
+
+.dot {
+	height: 15px;
+	width: 15px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.green {
+	background-color: green;
+}
+
+.status h1 {
+	margin-bottom: 10px;
+}
+
+.status ul {
+	list-style: none;
+}
+
+.status li {
+	margin: 10px 0;
+	display: flex;
+	align-items: center;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400; /* Normal weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: 700; /* Bold weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+button:active {
+	box-shadow: 0 2px #72BB53;
+	/* Reduce shadow on click */
+	transform: translateY(3px);
+	/* Push button down */
+	background-color: #72BB53;
+}
+
+#status-messages {
+	background-color: #fff;
+	color: #000;
+	width: 90%;
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
+    border: solid 1px black;
+}
+
+#presets {
+    text-align: center;
 }
