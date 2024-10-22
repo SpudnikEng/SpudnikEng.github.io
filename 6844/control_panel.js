@@ -88,3 +88,19 @@ function toggleControl(elem) {
     document.getElementById(elem).classList.remove('hide');
     document.getElementById("btn" + elem.charAt(0).toUpperCase() + elem.substr(1)).classList.add('button-active');
 }
+
+function openBottomSheet(elem) {
+    document.getElementById("vid1").classList.add('hide');
+    document.getElementById("vid2").classList.add('hide');
+    document.getElementById("vid3").classList.add('hide');
+    document.getElementById("vid4").classList.add('hide');
+    document.getElementById("vidAll").classList.add('hide');
+    document.getElementById(elem).classList.remove('hide');
+    const bottomSheet = document.getElementById('bottomSheet');
+    bottomSheet.classList.add('open');
+}
+
+function closeBottomSheet() {
+    const bottomSheet = document.getElementById('bottomSheet');
+    bottomSheet.classList.remove('open');
+}
