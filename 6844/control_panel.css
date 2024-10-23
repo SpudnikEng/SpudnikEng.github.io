@@ -57,9 +57,21 @@ meter::-webkit-meter-bar {
     overflow: hidden;
 }
 
-.controls {
+.controls-right {
     display: grid;
     grid-template-columns: auto 140px;
+}
+.controls-left {
+    display: grid;
+    grid-template-columns: 140px auto;
+    grid-template-rows: auto;
+    #control-body {
+        grid-column: 2;
+    }
+    #control-buttons {
+        grid-column: 1;
+        grid-row: 1;
+    }
 }
 
 /* Use nested selectors - all portrait specific styles go within this selection */
@@ -83,9 +95,9 @@ meter::-webkit-meter-bar {
     .status {
         grid-row: 2;
         display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: auto 425px auto;
     }
-    .controls {
+    #controls {
         grid-row: 3;
     }
     .video {
@@ -136,9 +148,9 @@ meter::-webkit-meter-bar {
         grid-column: 2;
         grid-row: 1;
         display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: 145px 425px auto;
     }
-    .controls {
+    #controls {
         grid-column: 2 / 4;
         grid-row: 2 / 4;
     }
@@ -166,7 +178,7 @@ meter::-webkit-meter-bar {
     }
 }
 
-.master, .status, .controls, .video {
+.master, .status, #controls, .video {
     border: 2px solid #322F35;
     box-sizing: border-box;
     border-radius: 5px;
@@ -227,11 +239,11 @@ meter::-webkit-meter-bar {
 .inset-container {
     border-style: inset;
     border-radius: 20px;
-    padding: 0 15px;
+    padding: 0 10px;
 }
 
 .b-run {
-    background-image: url('icons/run_16_dk.png');
+    background-image: url('icons/run_16_dk_v2.png');
     font-size: 30px;
     font-weight: bold;
 }
@@ -252,6 +264,15 @@ meter::-webkit-meter-bar {
 }
 .b-close {
     background-image: url('icons/cancel_16_lt.png');
+}
+.b-global {
+    background-image: url('icons/globe_16dp_lt.png');
+}
+.b-table {
+    background-image: url('icons/table_rows_narrow_16_lt.png');
+}
+.b-roller {
+    background-image: url('icons/roller_16_lt.png');
 }
 .b-textOnly {
     font-size: 25px;
@@ -372,11 +393,14 @@ button.camera {
 }
 
 .status h1 {
-	margin-bottom: 10px;
+	margin: 10px;
+    font-size: 26px;
 }
 
 .status ul {
 	list-style: none;
+    margin: 0 10px;
+    padding-left: 5px;
 }
 
 .status li {

@@ -31,23 +31,24 @@
                     RUN disabled, Preset 1 active
                 </div>
                 <div id="presets">
-                    <button id="preset1" class="button-active sec-button sec" onclick="togglePreset(this)">Preset 1</button>
-                    <button id="preset2" class="sec-button sec" onclick="togglePreset(this)">Preset 2</button>
-                    <button id="preset3" class="sec-button sec" onclick="togglePreset(this)">Preset 3</button>
+                    <button id="preset1" class="button-active sec-button sec b-global icon" onclick="togglePreset(this)">Preset 1</button>
+                    <button id="preset2" class="sec-button sec b-global icon" onclick="togglePreset(this)">Preset 2</button>
+                    <button id="preset3" class="sec-button sec b-global icon" onclick="togglePreset(this)">Preset 3</button>
                 </div>
             </div>
             <div class="status-col sec-bk inset-container">
                 <div class="info-panel">
-                    <div>Digger Nose: <span id="diggerNoseAngle">65</span>%</div>
+                    <div>Digger Nose: <span id="diggerNoseAngle">64</span>%</div>
+                    <div>Chain Mode: <span id="">Fixed</span></div>
                     <div>Main Chain: <span id="">322</span> fpm</div>
                     <div>Wrap Chain: <span id="">321</span> fpm</div>
-                    <div>Table mode: <span id="">Pinch</span></div>
+                    <div>Table Mode: <span id="">Pinch</span></div>
                     <div>Table Speed: <span id="">244</span> fpm</div>
                     <div>Boom Chain: <span id="boomChainSpd">324</span> fpm</div>
                 </div>
             </div>
         </div>
-        <div class="controls">
+        <div id="controls" class="controls-right">
             <div id="control-body" class="sec-bk inset-container">
                 
 				<table class="controlL1" id="digger">
@@ -239,7 +240,7 @@
 					<tr>
 						<td class="controlL2">
 							<div><img src="tableControlsCleaningMode.png"></div>
-							<div style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr auto; grid-template-rows: auto auto;">
+							<div style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr auto; grid-template-rows: auto auto auto;">
 								<div style="grid-column: 1;grid-row: 1 / 3;padding:0 10px;" class="ter-bk inset-container">
 									<h3>Roller<br>Gap</h3>
                                     <button class="ter-button ter plusSign"></button>
@@ -268,6 +269,11 @@
                                     <input class="spInput" value="132"><br>
                                     <button class="ter-button ter icon cleanMode green" style="margin-right: 0;width: 100px;border-bottom-right-radius: 0;border-top-right-radius: 0;">Pinch</button>
 									<button class="ter-button ter icon transportMode" style="margin-left: 0;position: relative;left: -4px;border-bottom-left-radius: 0;border-top-left-radius: 0;">Transport</button>
+                                </div>
+                                <div style="grid-column: 1 / 5;grid-row: 3;margin: 5px 95px; padding: 0 10px;" class="ter-bk inset-container">
+									<button class="ter-button ter icon b-roller green">Preset A</button>
+									<button class="ter-button ter icon b-roller">Preset B</button>
+                                    <button class="ter-button ter icon b-roller">Preset C</button>
                                 </div>
 							</div>
 						</td>
@@ -300,7 +306,7 @@
 									<button class="arrowRev ter-button ter icon-lg"></button>
                                     <button class="arrowFwd ter-button ter icon-lg"></button>
                                 </div>
-                                <div style="grid-column: 4;grid-row: 2;padding:0 10px;" class="ter-bk inset-container">
+                                <div style="grid-column: 4;grid-row: 2;padding:0 10px;width: 200px;" class="ter-bk inset-container">
                                     <h3>Boom Fold</h3>
 									<button class="arrowUp ter-button ter icon-lg"></button>
                                     <button class="arrowDown ter-button ter icon-lg"></button>
@@ -364,7 +370,7 @@
 				</table>
                 <br><br>
                 <button onclick="toggleOrientation()">Toggle Orientation</button>
-                
+                <button onclick="toggleLR()">Toggle L/R</button>
 			</div>
 			<div id="control-buttons" class="sec-bk inset-container">
 				<h2>Controls</h2>
@@ -377,10 +383,10 @@
 			</div>
         </div>
         <div class="video">
-            <div class="video-col"><img onclick="openBottomSheet('vid1')" class="videoFeeds" src="vid1opt.png"></div>
-            <div class="video-col"><img onclick="openBottomSheet('vid2')" class="videoFeeds" src="vid2opt.png"></div>
-            <div class="video-col"><img onclick="openBottomSheet('vid3')" class="videoFeeds" src="vid2opt.png"></div>
-            <div class="video-col"><img onclick="openBottomSheet('vid4')" class="videoFeeds" src="vid1opt.png"></div>
+            <div class="video-col"><img onclick="openBottomSheet('vid1')" class="videoFeeds" src="vid1optS.png"></div>
+            <div class="video-col"><img onclick="openBottomSheet('vid2')" class="videoFeeds" src="vid2optS.png"></div>
+            <div class="video-col"><img onclick="openBottomSheet('vid3')" class="videoFeeds" src="vid3optS.png"></div>
+            <div class="video-col"><img onclick="openBottomSheet('vid4')" class="videoFeeds" src="vid4optS.png"></div>
         </div>
 
         <div class="bottom-sheet" id="bottomSheet">
@@ -392,15 +398,15 @@
                 <button class="camera ter-button ter icon" onclick="openBottomSheet('vidAll')">All</button>
                 <span style="padding-left: 100px;"> </span>
                 <button class="b-close ter-button ter icon" onclick="closeBottomSheet()">Close</button>
-                <div id="vid1" class="hide"><img class="videoLarge" src="vid1opt.png"></div>
-                <div id="vid2" class="hide"><img class="videoLarge" src="vid2opt.png"></div>
-                <div id="vid3" class="hide"><img class="videoLarge" src="vid2opt.png"></div>
-                <div id="vid4" class="hide"><img class="videoLarge" src="vid1opt.png"></div>
+                <div id="vid1" class="hide"><img class="videoLarge" src="vid1optS.png"></div>
+                <div id="vid2" class="hide"><img class="videoLarge" src="vid2optS.png"></div>
+                <div id="vid3" class="hide"><img class="videoLarge" src="vid3optS.png"></div>
+                <div id="vid4" class="hide"><img class="videoLarge" src="vid4optS.png"></div>
                 <div id="vidAll" class="hide">
-                    <img class="videoMed" src="vid1opt.png">
-                    <img class="videoMed" src="vid2opt.png">
-                    <img class="videoMed" src="vid2opt.png">
-                    <img class="videoMed" src="vid1opt.png">
+                    <img class="videoMed" src="vid1optS.png">
+                    <img class="videoMed" src="vid2optS.png">
+                    <img class="videoMed" src="vid3optS.png">
+                    <img class="videoMed" src="vid4optS.png">
                 </div>
             </div>
         </div>

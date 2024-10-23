@@ -3,7 +3,24 @@
     const savedOrientation = localStorage.getItem('orientation') || 'portrait';
     const container = document.querySelector('.container');
     container.classList.add(savedOrientation);
+    const savedControlLR = localStorage.getItem('control-l-r') || 'controls-right';
+    const controls = document.getElementById('controls');
+    controls.classList.add(savedControlLR);
 };
+
+// Toggle left/right control buttons and save the state
+function toggleLR() {
+    const container = document.getElementById('controls');
+    if (container.classList.contains('controls-right')) {
+        container.classList.remove('controls-right');
+        container.classList.add('controls-left');
+        localStorage.setItem('control-l-r', 'controls-left');
+    } else {
+        container.classList.remove('controls-left');
+        container.classList.add('controls-right');
+        localStorage.setItem('control-l-r', 'controls-right');
+    }
+}
 
 // Toggle the orientation and save the state
 function toggleOrientation() {
@@ -29,8 +46,10 @@ function changeColorTimed(button) {
 
 function toggleRUN(button) {
     var imgTags = document.getElementsByClassName('videoFeeds');
-    var newExt = '.gif';
-    var oldExt = '.png';
+    var imgTagsM = document.getElementsByClassName('videoMed');
+    var imgTagsL = document.getElementsByClassName('videoLarge');
+    var newExt = 'V.gif';
+    var oldExt = 'S.png';
     if (button.classList.contains('button-run')) {
         button.classList.remove('button-run');
         button.classList.add('button-run-active');
@@ -39,11 +58,13 @@ function toggleRUN(button) {
         button.classList.remove('button-run-active');
         button.classList.add('button-run');
         document.getElementById("status-messages").innerText = "RUN disabled";
-        newExt = '.png';
-        oldExt = '.gif';
+        newExt = 'S.png';
+        oldExt = 'V.gif';
     }
     for (var i = 0; i < imgTags.length; i++) {
         imgTags[i].src = imgTags[i].src.replace(oldExt, newExt);
+        imgTagsM[i].src = imgTagsM[i].src.replace(oldExt, newExt);
+        imgTagsL[i].src = imgTagsL[i].src.replace(oldExt, newExt);
     }
 }
 
@@ -72,9 +93,7 @@ function toggleCamera(elem) {
 }
 
 function toggleControl(elem) {
-	if(document.getElementById("harvester")){
-	    document.getElementById("harvester").classList.add('hide');
-	}
+    closeBottomSheet();
     document.getElementById("digger").classList.add('hide');
     document.getElementById("btnDigger").classList.remove('button-active');
     document.getElementById("chains").classList.add('hide');
