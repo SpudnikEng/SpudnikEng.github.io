@@ -13,6 +13,13 @@ h1, h2, h3, h4 {
     margin-bottom: 2px;
 }
 
+.tableBorder {
+	border-collapse: collapse;
+}
+.tableBorder td {
+	border: 1px solid darkgray;
+}
+
 .meterContainer {
 	width: 55px;
 }
@@ -40,7 +47,7 @@ meter::-webkit-meter-bar {
 }
 
 .spInput {
-	height: 50%;
+	height: 45px;
 	width: 70px;
 	text-align: right;
 	font-size: 32px;
@@ -78,7 +85,7 @@ meter::-webkit-meter-bar {
 .portrait {
     width: 800px;
     height: 1280px;
-    grid-template-rows: 95px 1px auto 180px;
+    grid-template-rows: 95px auto 180px;
     .b-cameraAll {
         margin-top: 5px;
     }
@@ -92,16 +99,11 @@ meter::-webkit-meter-bar {
         text-align: right;
         padding: 6px;
     }
-    .status {
-        grid-row: 2;
-        display: grid;
-        grid-template-columns: auto 425px auto;
-    }
     #controls {
-        grid-row: 3;
+        grid-row: 2;
     }
     .video {
-        grid-row: 4;
+        grid-row: 3;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
@@ -114,9 +116,14 @@ meter::-webkit-meter-bar {
         height: 714px;
     }
     .videoMed {
-        width: 370px;
-        height: 352px;
+        width: 390px;
+        height: 340px;
     }
+	#vidAll {
+		position: relative;
+		left: 10px;
+		top: -510px;
+	}
     .controlL1 {
         width: 100%;
     }
@@ -221,6 +228,11 @@ meter::-webkit-meter-bar {
     min-width: 70px;
 }
 
+.right-column {
+	width: 100px;
+	float: right;
+}
+
 .hide {
 	display: none;
 }
@@ -314,11 +326,11 @@ meter::-webkit-meter-bar {
 }
 
 button.arrowUp {
-	background-image: url('arrow_up_20.png');
+	background-image: url('icons/arrow_up_20.png');
 	background-position: center;
 }
 button.arrowDown {
-	background-image: url('arrow_down_20.png');
+	background-image: url('icons/arrow_down_20.png');
 	background-position: center;
 }
 button.plusSign {
@@ -336,16 +348,20 @@ button.transportMode {
 	background-image: url('icons/clockwise_16.png');
 }
 button.arrowFwd {
-	background-image: url('arrow_fwd_20.png');
+	background-image: url('icons/arrow_fwd_20.png');
 	background-position: center;
 }
 button.arrowRev {
-	background-image: url('arrow_rev_20.png');
+	background-image: url('icons/arrow_rev_20.png');
 	background-position: center;
 }
 button.camera {
-	background-image: url('videocam.png');
+	background-image: url('icons/videocam.png');
 }
+button.cameraDk {
+	background-image: url('icons/videocam_16_dk.png');
+}
+
 
 .button-run-active,
 .button-active {
@@ -408,6 +424,9 @@ button.camera {
 .green {
 	background-color: green;
 }
+.yellow {
+	background-color: yellow;
+}
 
 .status h1 {
 	margin: 10px;
@@ -469,29 +488,6 @@ button:active {
     text-align: center;
 }
 
-.bottom-sheet {
-    position: absolute;
-    bottom: 0;
-    left: 10px;
-    width: 780px;
-    height: 785px;
-    background-color: #E6E0E9;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    border: lightgray 1px solid;
-    border-radius: 12px 12px 0 0;
-    transform: translateY(100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-}
-
-.sheet-content {
-    padding: 0 16px;
-}
-
-.bottom-sheet.open {
-    transform: translateY(0);
-}
-
 h2 {
 	font-size: 26px;
 }
@@ -499,8 +495,44 @@ h3 {
 	font-size: 22px;
 }
 th, .largeFont {
-	font-size: 20px;
+	font-size: 18px;
 }
 .centerText {
 	text-align: center;
 }
+
+/* Modal styles */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Ensure the modal is above all other elements */
+  }
+  
+  .modal-content {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	text-align: center;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Drop shadow for the modal */
+  }
+  
+  .modal h2 {
+	margin-top: 0;
+	margin-bottom: 15px;
+	font-size: 24px;
+  }
+  
+  .modal p {
+	margin-bottom: 20px;
+  }
+  
+  .modal button {
+	margin: 5px;
+  }

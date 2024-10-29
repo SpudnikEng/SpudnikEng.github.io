@@ -19,7 +19,6 @@
 			<button class="b-settings pri-button pri icon">Settings</button>
 			<button onclick="toggleRUN(this)" class="b-run pri-button pri-em icon">Run</button>
 		</div>
-		<div class="status"></div>
 		<div id="controls" class="controls-right">
 			<div id="control-body">
 
@@ -169,12 +168,8 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2">
-								<div style="height: 65px;"></div>
-							</td>
-						</tr>
 					</table>
+					<br>
 				</div>
 
 				<div class="controlL1 hide" id="chains">
@@ -195,213 +190,274 @@
 							<td class="largeFont">
 								Intake:
 							</td>
-							<td><button class="ter-button ter b-bumpUp" onclick="bumpSetpoint('chainIntSP','up')"></button>
-								<input class="spInput speedGround" id="chainIntSPFixed" value="110">
-								<input class="spInput speedFixed" id="chainIntSPGround" value="220">
-								<button class="ter-button ter b-bumpDown" onclick="bumpSetpoint('chainIntSP','dn')"></button>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainIntSP','up')"></button>
+								<input class="spInput speedGround" id="chainIntSPGround" value="110">
+								<input class="spInput speedFixed" id="chainIntSPFixed" value="220">
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainIntSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText">
 								<span id="chainIntActual">210 fpm</span>
 							</td>
 							<td class="centerText">
 								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
-							<button class="ter-button ter icon transportMode button-right">Rev</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
 							</td>
 							<td><button class="b-auto ter-button ter icon"
-								onclick="toggleButtonState(this)">Auto</button></td>
+									onclick="toggleButtonState(this)">Auto</button></td>
 						</tr>
 						<tr>
 							<td class="largeFont">
 								Primary:
 							</td>
-							<td><button class="ter-button ter b-bumpUp" onclick="bumpSetpoint('chainPriSP','up')"></button>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainPriSP','up')"></button>
 								<input class="spInput speedGround" id="chainPriSPGround" value="115">
 								<input class="spInput speedFixed" id="chainPriSPFixed" value="225">
-								<button class="ter-button ter b-bumpDown" onclick="bumpSetpoint('chainPriSP','dn')"></button>
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainPriSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText">
 								<span id="chainPriActual">211 fpm</span>
 							</td>
 							<td class="centerText">
 								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
-							<button class="ter-button ter icon transportMode button-right">Rev</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
 							</td>
 							<td><button class="b-auto ter-button ter icon"
-								onclick="toggleButtonState(this)">Auto</button></td>
+									onclick="toggleButtonState(this)">Auto</button></td>
+						</tr>
+						<tr>
+							<td class="largeFont">Vine:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainVineSP','up')"></button>
+								<input class="spInput speedGround" id="chainVineSPGround" value="125">
+								<input class="spInput speedFixed" id="chainVineSPFixed" value="235">
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainVineSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainVineActual">218 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
+							</td>
+							<td><button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button></td>
+						</tr>
+						<tr>
+							<td class="largeFont">Table:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainCleanTableSP','up')"></button>
+								<input class="spInput speedGround" id="chainCleanTableSPGround" value="130">
+								<input class="spInput speedFixed" id="chainCleanTableSPFixed" value="240">
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainCleanTableSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainCleanTableActual">220 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
+							</td>
+							<td><button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button></td>
+						</tr>
+						<tr>
+							<td class="largeFont">Rear Cr:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainRearCrossSP','up')"></button>
+								<input class="spInput speedGround" id="chainRearCrossSPGround" value="135">
+								<input class="spInput speedFixed" id="chainRearCrossSPFixed" value="245">
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainRearCrossSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainRearCrossActual">225 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
+							</td>
+							<td><button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button></td>
+						</tr>
+						<tr>
+							<td class="largeFont">Side Elev:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainSideElevSP','up')"></button>
+								<input class="spInput speedGround" id="chainSideElevSPGround" value="140">
+								<input class="spInput speedFixed" id="chainSideElevSPFixed" value="250">
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainSideElevSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainSideElevActual">230 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
+							</td>
+							<td><button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button></td>
+						</tr>
+						<tr>
+							<td class="largeFont">Piler:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainPilerSP','up')"></button>
+								<input class="spInput speedGround" id="chainPilerSPGround" value="145">
+								<input class="spInput speedFixed" id="chainPilerSPFixed" value="255">
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainPilerSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainPilerActual">235 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
+							</td>
+							<td><button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button></td>
+						</tr>
+						<tr>
+							<td class="largeFont">Bunker:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpSetpoint('chainHoldTankSP','up')"></button>
+								<input class="spInput speedGround" id="chainHoldTankSPGround" value="150">
+								<input class="spInput speedFixed" id="chainHoldTankSPFixed" value="260">
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpSetpoint('chainHoldTankSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainHoldTankActual">240 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left button-rev">Fwd</button>
+								<button class="ter-button ter icon transportMode button-right">Rev</button>
+							</td>
+							<td><button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button></td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<button id="chainModeGround" class="button-left ter-button ter b-textOnly">Ground
+									Speed</button>
+								<button id="chainModeFixed" class="button-right ter-button ter b-textOnly green">Fixed
+									Speed</button>
+							</td>
 						</tr>
 					</table>
-
-					<button id="chainModeGround" class="button-left ter-button ter b-textOnly">Ground Speed</button>
-					<button id="chainModeFixed" class="button-right ter-button ter b-textOnly green">Fixed Speed</button>
-
 					</td>
 					</tr>
 				</div>
 
-				<table class="controlL1 hide" id="table">
-					<tr>
-						<th class="controlHead" colspan="2">
-							<h2>Cleaning Table</h2>
-						</th>
-					</tr>
-					<tr>
-						<td>
-							<div><img src="tableControlsCleaningMode.png"></div>
-							<div
-								style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr auto; grid-template-rows: auto auto auto;">
-								<div style="grid-column: 1;grid-row: 1 / 3;padding:0 10px;"
-									class="ter-bk inset-container">
-									<h3>Roller<br>Gap</h3>
-									<button class="ter-button ter plusSign"></button>
-									<input class="spInput" value="24">
-									<button class="ter-button ter plusSign"></button>
-								</div>
-								<div style="grid-column: 2;grid-row: 1 / 3;padding:0 10px;"
-									class="ter-bk inset-container">
-									<h3>Roller<br>Height</h3>
-									<button class="ter-button ter plusSign"></button>
-									<input class="spInput" value="32">
-									<button class="ter-button ter minusSign"></button>
-								</div>
-								<div style="grid-column: 3;grid-row: 1 / 3;padding:0 10px;"
-									class="ter-bk inset-container">
-									<h3>Table<br>Angle</h3>
-									<button class="ter-button ter plusSign"></button>
-									<input class="spInput" value="68">
-									<button class="ter-button ter minusSign"></button>
-								</div>
-								<div style="grid-column: 4;grid-row: 1;padding: 10px;" class="ter-bk inset-container">
-									<h3>Segment Roller</h3>
-									<input class="spInput" value="124">
-									<button class="ter-button ter icon cleanMode">Reverse</button>
-								</div>
-								<div style="grid-column: 4;grid-row: 2;padding: 0 10px;" class="ter-bk inset-container">
-									<h3>Clod Roller</h3>
-									<input class="spInput" value="132"><br>
-									<button class="ter-button ter icon cleanMode green"
-										style="margin-right: 0;width: 100px;border-bottom-right-radius: 0;border-top-right-radius: 0;">Pinch</button>
-									<button class="ter-button ter icon transportMode"
-										style="margin-left: 0;position: relative;left: -4px;border-bottom-left-radius: 0;border-top-left-radius: 0;">Transport</button>
-								</div>
-								<div style="grid-column: 1 / 5;grid-row: 3;margin: 5px 95px; padding: 0 10px;"
-									class="ter-bk inset-container">
-									<button class="ter-button ter icon b-roller green">Preset A</button>
-									<button class="ter-button ter icon b-roller">Preset B</button>
-									<button class="ter-button ter icon b-roller">Preset C</button>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
-
-				<table class="controlL1 hide" id="boom">
-					<tr>
-						<th class="controlHead" colspan="2">
-							<h2>Boom</h2>
-						</th>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<div style="padding: 15px 10px;"><img src="BoomWithLabels.png"></div>
-							<div
-								style="width: 100%;display: grid;grid-template-columns: 1fr 1fr auto 1fr; grid-template-rows: auto auto;">
+				<div class="controlL1 hide" id="table">
+					<table class="controlL1 sec-bk inset-container">
+						<tr>
+							<th class="controlHead" colspan="2">
+								<h2>Cleaning Table</h2>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<div><img src="tableControlsCleaningMode.png"></div>
 								<div
-									style="grid-column: 3 / 5;grid-row: 1;padding:10px;font-size: 20px;font-weight: bold;">
-									Pile Height: <input class="spInput" value="4">
+									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr auto; grid-template-rows: auto auto auto;">
+									<div style="grid-column: 1;grid-row: 1 / 3;padding:0 10px;"
+										class="ter-bk inset-container">
+										<h3>Roller<br>Gap</h3>
+										<button class="ter-button ter plusSign"></button>
+										<input class="spInput" value="24">
+										<button class="ter-button ter plusSign"></button>
+									</div>
+									<div style="grid-column: 2;grid-row: 1 / 3;padding:0 10px;"
+										class="ter-bk inset-container">
+										<h3>Roller<br>Height</h3>
+										<button class="ter-button ter plusSign"></button>
+										<input class="spInput" value="32">
+										<button class="ter-button ter minusSign"></button>
+									</div>
+									<div style="grid-column: 3;grid-row: 1 / 3;padding:0 10px;"
+										class="ter-bk inset-container">
+										<h3>Table<br>Angle</h3>
+										<button class="ter-button ter plusSign"></button>
+										<input class="spInput" value="68">
+										<button class="ter-button ter minusSign"></button>
+									</div>
+									<div style="grid-column: 4;grid-row: 1;padding: 10px;"
+										class="ter-bk inset-container">
+										<h3>Segment Roller</h3>
+										<input class="spInput" value="124">
+										<button class="ter-button ter icon cleanMode">Reverse</button>
+									</div>
+									<div style="grid-column: 4;grid-row: 2;padding: 0 10px;"
+										class="ter-bk inset-container">
+										<h3>Clod Roller</h3>
+										<input class="spInput" value="132"><br>
+										<button class="ter-button ter icon cleanMode green"
+											style="margin-right: 0;width: 100px;border-bottom-right-radius: 0;border-top-right-radius: 0;">Pinch</button>
+										<button class="ter-button ter icon transportMode"
+											style="margin-left: 0;position: relative;left: -4px;border-bottom-left-radius: 0;border-top-left-radius: 0;">Transport</button>
+									</div>
+									<div style="grid-column: 1 / 5;grid-row: 3;margin: 5px 95px; padding: 0 10px;"
+										class="ter-bk inset-container">
+										<button class="ter-button ter icon b-roller green">Preset A</button>
+										<button class="ter-button ter icon b-roller">Preset B</button>
+										<button class="ter-button ter icon b-roller">Preset C</button>
+									</div>
 								</div>
-								<div style="grid-column: 1;grid-row: 2;padding:0 10px;" class="ter-bk inset-container">
-									<h3>Outer Boom</h3>
-									<button class="arrowUp ter-button ter icon-lg"></button>
-									<button class="arrowDown ter-button ter icon-lg"></button>
-								</div>
-								<div style="grid-column: 2;grid-row: 2;padding:0 10px;" class="ter-bk inset-container">
-									<h3>Inner Boom</h3>
-									<button class="arrowUp ter-button ter icon-lg"></button>
-									<button class="arrowDown ter-button ter icon-lg"></button>
-								</div>
-								<div style="grid-column: 3;grid-row: 2;padding:0 10px;" class="ter-bk inset-container">
-									<h3>Boom Swing</h3>
-									<button class="arrowRev ter-button ter icon-lg"></button>
-									<button class="arrowFwd ter-button ter icon-lg"></button>
-								</div>
-								<div style="grid-column: 4;grid-row: 2;padding:0 10px;width: 200px;"
-									class="ter-bk inset-container">
-									<h3>Boom Fold</h3>
-									<button class="arrowUp ter-button ter icon-lg"></button>
-									<button class="arrowDown ter-button ter icon-lg"></button>
-									<ul class="status" style="border: none;padding: 5px;font-weight: bold;">
-										<li><span class="dot green"></span>Unfolded</li>
-									</ul>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
+							</td>
+						</tr>
+					</table>
+				</div>
 
-				<table class="controlL1 hide" id="axle" style="padding: 10px 100px;">
-					<tr>
-						<th class="controlHead" colspan="2">
-							<h2>Axle</h2>
-						</th>
-					</tr>
-					<tr>
-						<td class="controlL2 ter-bk inset-container" style="text-align: center;">
-							<div>
-								<h3>Steering</h3>
-							</div>
-							<meter class="meter-horizontal" id='steering-meter' min='0' low='50' high='50' max='100'
-								optimum='50' value='50'></meter><br>
-							<button class="arrowRev ter-button ter icon-lg"
-								style="vertical-align: text-bottom;"></button>
-							<button class=" ter-button ter b-textOnly"
-								style="vertical-align: text-bottom;font-size: 20px;">CENTER</button>
-							<button class="arrowFwd ter-button ter icon-lg"
-								style="vertical-align: text-bottom;"></button><br><br>
-						</td>
-					</tr>
-					<tr>
-						<td class="controlL2 ter-bk inset-container" style="text-align: center;">
-							<div
-								style="display: grid; grid-template-columns: 50px 50px auto auto auto;grid-template-rows: auto auto auto auto;">
-								<div style="grid-row: 1; grid-column: 1 / 6; padding: 10px; margin: 0 30px;">
-									<h3>Machine Height/Roll</h3>
+				<div class="controlL1 hide" id="boom">
+					<table class="controlL1 sec-bk inset-container">
+						<tr>
+							<th class="controlHead" colspan="2">
+								<h2>Boom</h2>
+							</th>
+						</tr>
+						<tr>
+							<td style="text-align: center;">
+								<div style="padding: 15px 10px;"><img src="BoomWithLabels.png"></div>
+								<div
+									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr auto 1fr; grid-template-rows: auto auto;">
+									<div
+										style="grid-column: 3 / 5;grid-row: 1;padding:10px;font-size: 20px;font-weight: bold;">
+										Pile Height: <input class="spInput" value="4">
+									</div>
+									<div style="grid-column: 1;grid-row: 2;padding:0 10px;"
+										class="ter-bk inset-container">
+										<h3>Outer Boom</h3>
+										<button class="arrowUp ter-button ter icon-lg"></button>
+										<button class="arrowDown ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-column: 2;grid-row: 2;padding:0 10px;"
+										class="ter-bk inset-container">
+										<h3>Inner Boom</h3>
+										<button class="arrowUp ter-button ter icon-lg"></button>
+										<button class="arrowDown ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-column: 3;grid-row: 2;padding:0 10px;"
+										class="ter-bk inset-container">
+										<h3>Boom Swing</h3>
+										<button class="arrowRev ter-button ter icon-lg"></button>
+										<button class="arrowFwd ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-column: 4;grid-row: 2;padding:0 10px;width: 200px;"
+										class="ter-bk inset-container">
+										<h3>Boom Fold</h3>
+										<button class="arrowUp ter-button ter icon-lg"></button>
+										<button class="arrowDown ter-button ter icon-lg"></button>
+										<ul class="status" style="border: none;padding: 5px;font-weight: bold;">
+											<li><span class="dot green"></span>Unfolded</li>
+										</ul>
+									</div>
 								</div>
-								<div style="grid-row: 2 / 5; grid-column: 1;">
-									<h4>Left</h4>
-									<meter class="meter-vertical" id='axle-left-meter' min='0' low='50' high='50'
-										max='100' optimum='50' value='50'></meter>
-								</div>
-								<div style="grid-row: 2 / 5; grid-column: 2;">
-									<h4>Right</h4>
-									<meter class="meter-vertical" id='axle-right-meter' min='0' low='50' high='50'
-										max='100' optimum='50' value='50'></meter>
-								</div>
-								<div style="grid-row: 2; grid-column: 4;">
-									<button class="arrowUp ter-button ter icon-lg"></button>
-								</div>
-								<div style="grid-row: 3; grid-column: 3;">
-									<button class="arrowRev ter-button ter icon-lg"></button>
-								</div>
-								<div style="grid-row: 3; grid-column: 4;">
-									<button class="b-auto ter-button ter icon"
-										onclick="toggleButtonState(this)">Auto</button>
-								</div>
-								<div style="grid-row: 3; grid-column: 5;">
-									<button class="arrowFwd ter-button ter icon-lg"></button>
-								</div>
-								<div style="grid-row: 4; grid-column: 4;">
-									<button class="arrowDown ter-button ter icon-lg"></button>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+
 				<br>
-				<button class="hide" onclick="toggleOrientation()">Toggle Orientation</button>
-				<button class="hide" onclick="toggleLR()">Toggle L/R</button>
+				<!--<button class="hide" onclick="toggleOrientation()">Toggle Orientation</button>
+				<button class="hide" onclick="toggleLR()">Toggle L/R</button> -->
 			</div>
 			<div id="control-buttons">
-				<div class="sec-bk inset-container">
+				<div id="selectControl" class="sec-bk inset-container right-column">
 					<h2>Controls</h2>
 					<button id="btnDigger" onclick="toggleControl('digger')"
 						class="sec-button sec button-active">Dig/Axle</button>
@@ -410,17 +466,18 @@
 					<button id="btnBoom" onclick="toggleControl('boom')" class="sec-button sec">Boom</button>
 					<button id="btnAxle" onclick="toggleControl('axle')" class="sec-button sec hide">Axle</button>
 				</div>
-				<div class="sec-bk inset-container">
+				<div id="globalPresets" class="sec-bk inset-container right-column">
 					<h2>Global Presets</h2>
 					<div id="presets">
 						<button id="preset1" class="button-active sec-button sec" onclick="togglePreset(this)">Preset
 							1</button>
 						<button id="preset2" class="sec-button sec" onclick="togglePreset(this)">Preset 2</button>
 						<button id="preset3" class="sec-button sec" onclick="togglePreset(this)">Preset 3</button>
-						<button id="presetSave" class="sec-button sec-em" onclick="">Save</button>
+						<button id="presetSave" class="sec-button sec-em"
+							onclick="openModal('saveModal');">Save</button>
 					</div>
 				</div>
-				<div class="sec-bk inset-container">
+				<div id="tablePresets" class="sec-bk inset-container right-column">
 					<h2>Table Presets</h2>
 					<div id="presets">
 						<button id="tbpreset1" class="button-active sec-button sec" onclick="togglePreset(this)">Preset
@@ -432,35 +489,89 @@
 					<button class="hide" onclick="openBottomSheet('vidAll')"
 						class="sec-button sec camera icon b-cameraAll">All</button>
 				</div>
-			</div>
-		</div>
-		<div class="video">
-			<div class="video-col"><img onclick="openBottomSheet('vid1')" class="videoFeeds" src="vid1optS.png"></div>
-			<div class="video-col"><img onclick="openBottomSheet('vid2')" class="videoFeeds" src="vid2optS.png"></div>
-			<div class="video-col"><img onclick="openBottomSheet('vid3')" class="videoFeeds" src="vid3optS.png"></div>
-			<div class="video-col"><img onclick="openBottomSheet('vid4')" class="videoFeeds" src="vid4optS.png"></div>
-		</div>
+				<div id="showStatus" class="sec-bk inset-container hide" style="width: 390px;">
+					<table class="tableBorder" style="height: 310px; width: 390px;">
+						<tbody>
+							<tr>
+								<th class="controlHead" colspan="4">
+									<h2>Operating Status</h2>
+								</th>
+							</tr>
+							<tr>
+								<td class="green">Depth Control:</td>
+								<td>64%</td>
+								<td class="green">Hump:</td>
+								<td>36%</td>
+							</tr>
+							<tr>
+								<td class="green">Intake:</td>
+								<td>220 fpm</td>
+								<td class="green">Primary:</td>
+								<td>225 fpm</td>
+							</tr>
+							<tr>
+								<td class="green">Secondary:</td>
+								<td> 235 fpm</td>
+								<td class="green">Vine:</td>
+								<td> 240 fpm</td>
 
-		<div class="bottom-sheet" id="bottomSheet">
-			<div class="sheet-content">Camera:
-				<button class="camera ter-button ter icon" onclick="openBottomSheet('vid1')">One</button>
-				<button class="camera ter-button ter icon" onclick="openBottomSheet('vid2')">Two</button>
-				<button class="camera ter-button ter icon" onclick="openBottomSheet('vid3')">Three</button>
-				<button class="camera ter-button ter icon" onclick="openBottomSheet('vid4')">Four</button>
-				<button class="camera ter-button ter icon" onclick="openBottomSheet('vidAll')">All</button>
-				<span style="padding-left: 100px;"> </span>
-				<button class="b-close ter-button ter icon" onclick="closeBottomSheet()">Close</button>
-				<div id="vid1" class="hide"><img class="videoLarge" src="vid1optS.png"></div>
-				<div id="vid2" class="hide"><img class="videoLarge" src="vid2optS.png"></div>
-				<div id="vid3" class="hide"><img class="videoLarge" src="vid3optS.png"></div>
-				<div id="vid4" class="hide"><img class="videoLarge" src="vid4optS.png"></div>
-				<div id="vidAll" class="hide">
-					<img class="videoMed" src="vid1optS.png">
-					<img class="videoMed" src="vid2optS.png">
-					<img class="videoMed" src="vid3optS.png">
-					<img class="videoMed" src="vid4optS.png">
+							</tr>
+							<tr>
+								<td class="green">Table:</td>
+								<td> 124 rpm</td>
+								<td>Rear Cross:</td>
+								<td> 245 fpm</td>
+							</tr>
+							<tr>
+								<td class="yellow">Side Elev:</td>
+								<td> 250 fpm</td>
+								<td class="green">Piler:</td>
+								<td> 255 fpm</td>
+							</tr>
+							<tr>
+								<td class="green">Holding Tank:</td>
+								<td> 260 fpm</td>
+								<td>Boom:</td>
+								<td> 240 fpm</td>
+							</tr>
+							<tr>
+								<td class="green">Axle Height R:</td>
+								<td>42%</td>
+								<td class="green">Axle Height L:</td>
+								<td>42%</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<br><br>
 				</div>
 			</div>
+		</div>
+		<button id="statusCameraMode" onclick="enableCameraMode('vidAll');" class="b-cameraAll cameraDk pri-button pri-em icon"
+			style="position: relative;left:2px;top:-260px;width: 205px;">
+			Camera Mode</button>
+		<div id="smallVideos" class="video">
+			<div class="video-col"><img onclick="openBottomSheet('vid1')" class="videoFeeds" src="vid1optS.png">
+			</div>
+			<div class="video-col"><img onclick="openBottomSheet('vid2')" class="videoFeeds" src="vid2optS.png">
+			</div>
+			<div class="video-col"><img onclick="openBottomSheet('vid3')" class="videoFeeds" src="vid3optS.png">
+			</div>
+			<div class="video-col"><img onclick="openBottomSheet('vid4')" class="videoFeeds" src="vid4optS.png">
+			</div>
+		</div>
+		<div id="displayVideoMode" class="hide">
+			<div id="vid1" class="hide"><img class="videoLarge" src="vid1optS.png"></div>
+			<div id="vid2" class="hide"><img class="videoLarge" src="vid2optS.png"></div>
+			<div id="vid3" class="hide"><img class="videoLarge" src="vid3optS.png"></div>
+			<div id="vid4" class="hide"><img class="videoLarge" src="vid4optS.png"></div>
+			<div id="vidAll" class="hide">
+				<img class="videoMed" src="vid1optS.png">
+				<img class="videoMed" src="vid2optS.png">
+				<img class="videoMed" src="vid3optS.png">
+				<img class="videoMed" src="vid4optS.png">
+			</div>
+			<p>TESTING VIDEO</p>
 		</div>
 	</div>
 
