@@ -573,6 +573,69 @@
 			</div>
 			<p>TESTING VIDEO</p>
 		</div>
+		<div id="saveModal" class="modal hide">
+			<div class="modal-content">
+			  <h2>Save Preset 1</h2>
+			  <p style="width: 375px;">Save the following settings to Preset 1? (changes highlighted in green)</p>
+			  <table class="tableBorder" style="height: 310px; width: 390px;">
+				<tbody>
+					<tr>
+						<th class="controlHead" colspan="4">
+							<h2>Operating Status</h2>
+						</th>
+					</tr>
+					<tr>
+						<td class="greenx">Depth Control:</td>
+						<td>64%</td>
+						<td class="greenx">Hump:</td>
+						<td>36%</td>
+					</tr>
+					<tr>
+						<td class="greenx">Intake:</td>
+						<td>220 fpm</td>
+						<td class="greenx">Primary:</td>
+						<td>225 fpm</td>
+					</tr>
+					<tr>
+						<td>Secondary:</td>
+						<td class="green"> 235 fpm</td>
+						<td class="greenx">Vine:</td>
+						<td> 240 fpm</td>
+
+					</tr>
+					<tr>
+						<td>Table:</td>
+						<td class="green"> 124 rpm</td>
+						<td>Rear Cross:</td>
+						<td> 245 fpm</td>
+					</tr>
+					<tr>
+						<td class="xyellow">Side Elev:</td>
+						<td> 250 fpm</td>
+						<td class="xgreen">Piler:</td>
+						<td> 255 fpm</td>
+					</tr>
+					<tr>
+						<td class="xgreen">Holding Tank:</td>
+						<td> 260 fpm</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="greenx">Axle Height R:</td>
+						<td class="green">42%</td>
+						<td class="greenx">Axle Height L:</td>
+						<td class="green">42%</td>
+					</tr>
+
+				</tbody>
+			</table>
+			<br>
+			  <button id="saveChanges" class="sec-button sec-em" onclick="closeModal('saveModal')">Save</button>
+			  <button id="saveCancel" class="sec-button sec-em" onclick="closeModal('saveModal')">Cancel</button>
+			</div>
+		  </div>
+		</div>
 	</div>
 
 	<script src="control_panel_v2.js"></script>

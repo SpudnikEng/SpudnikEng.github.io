@@ -186,7 +186,8 @@ function disableCameraMode() {
 }
 
 function openModal(modalId) {
-  document.getElementById(modalId).style.display = "flex";
+	console.log(modalId);
+	document.getElementById(modalId).style.display = "flex";
 }
 
 function closeModal(modalId) {
