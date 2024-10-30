@@ -143,6 +143,10 @@ function enableCameraMode(elem) {
 	document.getElementById("showStatus").classList.remove("hide");
 	document.getElementById("displayVideoMode").classList.remove("hide");
 	document.getElementById("vidAll").classList.remove("hide");
+  document.getElementById("btnDigger").classList.remove("button-active");
+  document.getElementById("btnChains").classList.remove("button-active");
+  document.getElementById("btnTable").classList.remove("button-active");
+  document.getElementById("btnBoom").classList.remove("button-active");
   }
 
 function toggleControl(elem) {
