@@ -1,12 +1,5 @@
 // Load the saved orientation when the page loads
 window.onload = function () {
-  const savedOrientation = localStorage.getItem("orientation") || "portrait";
-  const container = document.querySelector(".container");
-  container.classList.add(savedOrientation);
-  const savedControlLR =
-    localStorage.getItem("control-l-r") || "controls-right";
-  const controls = document.getElementById("controls");
-  controls.classList.add(savedControlLR);
   hideShowGroundSpeedSP();
 };
 
@@ -47,34 +40,6 @@ function hideShowGroundSpeedSP() {
   }
   for (var i = 0; i < collHide.length; i++) {
     collHide[i].classList.add("hide");
-  }
-}
-
-// Toggle left/right control buttons and save the state
-function toggleLR() {
-  const container = document.getElementById("controls");
-  if (container.classList.contains("controls-right")) {
-    container.classList.remove("controls-right");
-    container.classList.add("controls-left");
-    localStorage.setItem("control-l-r", "controls-left");
-  } else {
-    container.classList.remove("controls-left");
-    container.classList.add("controls-right");
-    localStorage.setItem("control-l-r", "controls-right");
-  }
-}
-
-// Toggle the orientation and save the state
-function toggleOrientation() {
-  const container = document.querySelector(".container");
-  if (container.classList.contains("portrait")) {
-    container.classList.remove("portrait");
-    container.classList.add("landscape");
-    localStorage.setItem("orientation", "landscape");
-  } else {
-    container.classList.remove("landscape");
-    container.classList.add("portrait");
-    localStorage.setItem("orientation", "portrait");
   }
 }
 
@@ -144,37 +109,41 @@ function toggleCamera(elem) {
   document.getElementById(elem).classList.remove("hide");
 }
 
+function deselectControlButtons() {
+  document.getElementById("btnDigger").classList.remove("button-active");
+  document.getElementById("btnChains").classList.remove("button-active");
+  document.getElementById("btnTable").classList.remove("button-active");
+  document.getElementById("btnBoom").classList.remove("button-active");
+}
+
+function hideControls() {
+  document.getElementById("digger").classList.add("hide");
+  document.getElementById("chains").classList.add("hide");
+  document.getElementById("table").classList.add("hide");
+  document.getElementById("boom").classList.add("hide");
+}
+
 function enableCameraMode(elem) {
-	document.getElementById("statusCameraMode").classList.add("hide");
+  hideControls();
+  deselectControlButtons();
+  document.getElementById("control-buttons").style.width = "330px";
+  document.getElementById("controls").style.height = "505px";
+	document.getElementById("btnHome").classList.add("button-active");
 	document.getElementById("smallVideos").classList.remove('video');
 	document.getElementById("smallVideos").classList.add("hide");
-	document.getElementById("control-body").classList.add("hide");
 	document.getElementById("presetSave").classList.add("hide");
 	document.getElementById("tbpresetSave").classList.add("hide");
-	document.getElementById("controls").classList.remove("controls-right");
 	document.getElementById("showStatus").classList.remove("hide");
 	document.getElementById("displayVideoMode").classList.remove("hide");
 	document.getElementById("vidAll").classList.remove("hide");
-  document.getElementById("btnDigger").classList.remove("button-active");
-  document.getElementById("btnChains").classList.remove("button-active");
-  document.getElementById("btnTable").classList.remove("button-active");
-  document.getElementById("btnBoom").classList.remove("button-active");
-  }
+}
 
-function toggleControl(elem) {
+function toggleControl(id) {
   disableCameraMode();
-  document.getElementById("digger").classList.add("hide");
-  document.getElementById("btnDigger").classList.remove("button-active");
-  document.getElementById("chains").classList.add("hide");
-  document.getElementById("btnChains").classList.remove("button-active");
-  document.getElementById("table").classList.add("hide");
-  document.getElementById("btnTable").classList.remove("button-active");
-  document.getElementById("boom").classList.add("hide");
-  document.getElementById("btnBoom").classList.remove("button-active");
-  document.getElementById(elem).classList.remove("hide");
-  document
-    .getElementById("btn" + elem.charAt(0).toUpperCase() + elem.substr(1))
-    .classList.add("button-active");
+  hideControls();
+  deselectControlButtons();
+  document.getElementById(id).classList.add("button-active");
+  document.getElementById(id.toLowerCase().substr(3)).classList.remove('hide');
 }
 
 function openBottomSheet(elem) {
@@ -189,13 +158,13 @@ function openBottomSheet(elem) {
 }
 
 function disableCameraMode() {
-	document.getElementById("statusCameraMode").classList.remove("hide");
+  document.getElementById("control-buttons").style.width = "100px";
+  document.getElementById("controls").style.height = "auto";
+	document.getElementById("btnHome").classList.remove("button-active");
 	document.getElementById("smallVideos").classList.add('video');
 	document.getElementById("smallVideos").classList.remove("hide");
-	document.getElementById("control-body").classList.remove("hide");
 	document.getElementById("presetSave").classList.remove("hide");
 	document.getElementById("tbpresetSave").classList.remove("hide");
-	document.getElementById("controls").classList.add("controls-right");
 	document.getElementById("showStatus").classList.add("hide");
 	document.getElementById("displayVideoMode").classList.add("hide");
 	document.getElementById("vidAll").classList.add("hide");
