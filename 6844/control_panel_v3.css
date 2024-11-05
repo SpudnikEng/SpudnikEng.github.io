@@ -49,11 +49,11 @@ meter::-webkit-meter-bar {
 
 .spInput {
 	height: 45px;
-	width: 70px;
+	width: 55px;
 	text-align: right;
 	font-size: 32px;
 	font-weight: bold;
-	padding: 5px;
+	padding: 0 5px;
 	margin: 0 0 0 2px;
 }
 
@@ -198,12 +198,15 @@ meter::-webkit-meter-bar {
 }
 
 .cell-padding-small {
-    padding: 20px;
+    padding: 10px;
 }
 
+.addSpaceBelow {
+    padding-bottom: 5px;
+}
 
 .hide {
-	display: none;
+	display: none !important;
 }
 
 .icon {
@@ -283,6 +286,7 @@ meter::-webkit-meter-bar {
 }
 .b-textOnly {
     font-size: 25px;
+    min-width: 50px;
 }
 
 .button-left {
@@ -340,6 +344,41 @@ button.cameraDk {
 	background-image: url('icons/videocam_16_dk.png');
 }
 
+.inpPercent, .inpChain {
+    position: relative;
+    display: inline-block;
+}
+
+.inpPercent .spInput {
+    text-align: right;
+    padding-right: 25px;
+    padding-left: 10px;
+}
+.inpChain .spInput {
+    text-align: right;
+    padding-right: 30px;
+}
+  
+.inpPercent::after {
+    content: "%";
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-45%);
+    pointer-events: none;
+    color: #666;
+    font-size: 25px;
+}
+.inpChain::after {
+    content: "fpm";
+    position: absolute;
+    right: 3px;
+    top: 56%;
+    transform: translateY(-45%);
+    pointer-events: none;
+    color: #666;
+    font-size: 15px;
+} 
 
 .button-run-active,
 .button-active {

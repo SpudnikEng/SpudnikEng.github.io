@@ -43,10 +43,10 @@
 												</div>
 											</td>
 											<td><button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint()">+2</button><br>
-												<input class="spInput" value="64"><br>
+													onclick="bumpSetpoint('depthControlSP', 2)">+2</button><br>
+													<div class="inpPercent"><input class="spInput" id="depthControlSP" value="64"></div><br>
 												<button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint()">-2</button><br>
+													onclick="bumpSetpoint('depthControlSP', -2)">-2</button><br>
 											</td>
 											<td>
 												<button class="arrowUp ter-button ter icon-lg"></button><br>
@@ -71,10 +71,10 @@
 												</div>
 											</td>
 											<td><button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint()">+2</button><br>
-												<input class="spInput" value="36"><br>
+													onclick="bumpSetpoint('humpControl', 2)">+2</button><br>
+													<div class="inpPercent"><input class="spInput" id="humpControl" value="36"></div><br>
 												<button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint()">-2</button><br>
+													onclick="bumpSetpoint('humpControl', -2)">-2</button><br>
 											</td>
 											<td>
 												<button class="arrowUp ter-button ter icon-lg"></button><br>
@@ -128,17 +128,25 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="cell-border-right cell-border-bottom cell-padding-small>
-								<div style="width: 285px;margin: 10px;" class="">
-									<h3>Primary Shakers</h3>
-									
-								</div>
+							<td class="cell-border-right cell-border-bottom centerText cell-padding-small">
+									<h3 class="addSpaceBelow">Primary Shakers</h3>
+									<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('primaryShaker',5)">+5</button>
+								<div class="inpPercent"><input class="spInput" id="primaryShaker" value="45"></div>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('primaryShaker',-5)">-5</button>
+								<button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button>
 							</td>
-							<td class="cell-border-bottom cell-padding-small">
-								<div style="width: 285px;margin: 10px;" class="">
-									<h3>Secondary Shakers</h3>
-									
-								</div>
+							<td class="cell-border-bottom centerText cell-padding-small">
+								<h3 class="addSpaceBelow">Secondary Shakers</h3>
+									<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('secondaryShaker',5)">+5</button>
+									<div class="inpPercent"><input class="spInput" id="secondaryShaker" value="45"></div>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('secondaryShaker',-5)">-5</button>
+								<button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button>
 							</td>
 						</tr>
 						<tr>
@@ -181,7 +189,7 @@
 					<br>
 				</div>
 
-				<div class="controlL1 hide" id="chains">
+				<div class="controlL1 hide cell-padding-small" id="chains">
 					<table style="width: 100%; font-weight: bold;" class="controlL1">
 						<tr>
 							<th class="controlHead" colspan="5">
@@ -199,11 +207,11 @@
 								Intake:
 							</td>
 							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainIntSP','up')"></button>
-								<input class="spInput speedGround" id="chainIntSPGround" value="110">
-								<input class="spInput speedFixed" id="chainIntSPFixed" value="220">
+									onclick="bumpChainSetpoint('chainIntSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainIntSPGround" value="110"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainIntSPFixed" value="220"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainIntSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainIntSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText">
 								<span id="chainIntActual">210 fpm</span>
@@ -219,11 +227,11 @@
 								Primary:
 							</td>
 							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainPriSP','up')"></button>
-								<input class="spInput speedGround" id="chainPriSPGround" value="115">
-								<input class="spInput speedFixed" id="chainPriSPFixed" value="225">
+									onclick="bumpChainSetpoint('chainPriSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainPriSPGround" value="115"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainPriSPFixed" value="225"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainPriSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainPriSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText">
 								<span id="chainPriActual">211 fpm</span>
@@ -235,13 +243,13 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont">Secondary:</td>
+							<td class="largeFont">Secondary/Vine:</td>
 							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainVineSP','up')"></button>
-								<input class="spInput speedGround" id="chainVineSPGround" value="125">
-								<input class="spInput speedFixed" id="chainVineSPFixed" value="235">
+									onclick="bumpChainSetpoint('chainVineSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainVineSPGround" value="125"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainVineSPFixed" value="235"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainVineSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainVineSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText"><span id="chainVineActual">218 fpm</span></td>
 							<td class="centerText">
@@ -251,15 +259,15 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont">Table:</td>
+							<td class="largeFont">Segment Roller:</td>
 							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainCleanTableSP','up')"></button>
-								<input class="spInput speedGround" id="chainCleanTableSPGround" value="130">
-								<input class="spInput speedFixed" id="chainCleanTableSPFixed" value="240">
+									onclick="bumpChainSetpoint('chainSegmentSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainSegmentSPGround" value="130"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainSegmentSPFixed" value="240"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainCleanTableSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainSegmentSP','dn')"></button>
 							</td>
-							<td class="largeFont centerText"><span id="chainCleanTableActual">220 fpm</span></td>
+							<td class="largeFont centerText"><span id="chainSegmentActual">220 fpm</span></td>
 							<td class="centerText">
 								<button class="ter-button ter icon cleanMode button-left" onclick="disableButton('tableFwd')">Rev</button>
 								<button class="ter-button ter icon transportMode button-right button-rev" 
@@ -267,13 +275,45 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont">Rear Cr:</td>
+							<td class="largeFont">Clod Roller:</td>
 							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainRearCrossSP','up')"></button>
-								<input class="spInput speedGround" id="chainRearCrossSPGround" value="135">
-								<input class="spInput speedFixed" id="chainRearCrossSPFixed" value="245">
+									onclick="bumpChainSetpoint('chainClodSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainClodSPGround" value="130"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainClodSPFixed" value="240"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainRearCrossSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainClodSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainClodActual">220 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left" onclick="disableButton('tableFwd')">Rev</button>
+								<button class="ter-button ter icon transportMode button-right button-rev" 
+									id="tableFwd" onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont">Spreader Roller:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainSpreaderSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainSpreaderSPGround" value="130"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainSpreaderSPFixed" value="240"></div>
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainSpreaderSP','dn')"></button>
+							</td>
+							<td class="largeFont centerText"><span id="chainSpreaderActual">220 fpm</span></td>
+							<td class="centerText">
+								<button class="ter-button ter icon cleanMode button-left" onclick="disableButton('tableFwd')">Rev</button>
+								<button class="ter-button ter icon transportMode button-right button-rev" 
+									id="tableFwd" onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont">Rear Cross:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainRearCrossSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainRearCrossSPGround" value="135"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainRearCrossSPFixed" value="245"></div>
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainRearCrossSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText"><span id="chainRearCrossActual">225 fpm</span></td>
 							<td class="centerText">
@@ -283,13 +323,13 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont">Side Elev:</td>
+							<td class="largeFont">Side Elevevator:</td>
 							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainSideElevSP','up')"></button>
-								<input class="spInput speedGround" id="chainSideElevSPGround" value="140">
-								<input class="spInput speedFixed" id="chainSideElevSPFixed" value="250">
+									onclick="bumpChainSetpoint('chainSideElevSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainSideElevSPGround" value="140"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainSideElevSPFixed" value="250"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainSideElevSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainSideElevSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText"><span id="chainSideElevActual">230 fpm</span></td>
 							<td class="centerText">
@@ -301,11 +341,11 @@
 						<tr>
 							<td class="largeFont">Piler:</td>
 							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainPilerSP','up')"></button>
-								<input class="spInput speedGround" id="chainPilerSPGround" value="145">
-								<input class="spInput speedFixed" id="chainPilerSPFixed" value="255">
+									onclick="bumpChainSetpoint('chainPilerSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainPilerSPGround" value="145"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainPilerSPFixed" value="255"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainPilerSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainPilerSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText"><span id="chainPilerActual">235 fpm</span></td>
 							<td class="centerText">
@@ -315,13 +355,13 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont">Bunker:</td>
-							<td><button class="ter-button ter b-bumpUp"
-									onclick="bumpSetpoint('chainHoldTankSP','up')"></button>
-								<input class="spInput speedGround" id="chainHoldTankSPGround" value="150">
-								<input class="spInput speedFixed" id="chainHoldTankSPFixed" value="260">
+							<td class="largeFont">Holding Tank:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainHoldTankSP','up')"></button>
+									<div class="inpPercent speedGround"><input class="spInput" id="chainHoldTankSPGround" value="150"></div>
+									<div class="inpChain speedFixed"><input class="spInput" id="chainHoldTankSPFixed" value="260"></div>
 								<button class="ter-button ter b-bumpDown"
-									onclick="bumpSetpoint('chainHoldTankSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainHoldTankSP','dn')"></button>
 							</td>
 							<td class="largeFont centerText"><span id="chainHoldTankActual">240 fpm</span></td>
 							<td class="centerText">
@@ -331,11 +371,47 @@
 							</td>
 						</tr>
 						<tr>
+							<td class="largeFont">Adjust all:</td>
+							<td><button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpointAll('up')"></button>
+									<span>&nbsp;ALL SPEEDS&nbsp;</span>
+								<button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpointAll('dn')"></button>
+							</td>
+							<td class="largeFont centerText"></td>
+							<td class="centerText"></td>
+						</tr>
+						<tr>
 							<td colspan="4"><br>
-								<button id="chainModeGround" class="button-left ter-button ter b-textOnly">Ground
+								<button onclick="setChainMode('Ground')" id="chainModeGround" class="button-left ter-button ter b-textOnly">Ground
 									Speed</button>
-								<button id="chainModeFixed" class="button-right ter-button ter b-textOnly green">Fixed
+								<button onclick="setChainMode('Fixed')" id="chainModeFixed" class="button-right ter-button ter b-textOnly green">Fixed
 									Speed</button>
+							</td>
+						</tr>
+					</table>
+					<br>
+					<table>
+						<tr>
+							<td class="cell-border-right cell-border-bottom centerText cell-padding-small">
+									<h3 class="addSpaceBelow">Primary Shakers</h3>
+									<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('primaryShaker',5);bumpSetpoint('primaryShaker2',5);">+5</button>
+								<div class="inpPercent"><input class="spInput" id="primaryShaker2" value="45"></div>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('primaryShaker',-5);bumpSetpoint('primaryShaker2',-5);">-5</button>
+								<button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button>
+							</td>
+							<td class="cell-border-bottom centerText cell-padding-small">
+								<h3 class="addSpaceBelow">Secondary Shakers</h3>
+									<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('secondaryShaker',5);bumpSetpoint('secondaryShaker2',5);">+5</button>
+									<div class="inpPercent"><input class="spInput" id="secondaryShaker2" value="45"></div>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpSetpoint('secondaryShaker',-5);bumpSetpoint('secondaryShaker2',-5);">-5</button>
+								<button class="b-auto ter-button ter icon"
+									onclick="toggleButtonState(this)">Auto</button>
 							</td>
 						</tr>
 					</table>

@@ -1,13 +1,12 @@
 // Load the saved orientation when the page loads
 window.onload = function () {
   hideShowGroundSpeedSP();
-};
+}
 
-function bumpSetpoint(setPointItm, direction) {
+function bumpChainSetpoint(setPointItm, direction) {
   const chainModeGroundEnabled = document
     .getElementById("chainModeGround")
     .classList.contains("green");
-  console.log(chainModeGroundEnabled);
   if (chainModeGroundEnabled) {
     setPointElem = document.getElementById(setPointItm + "Ground");
   } else {
@@ -21,6 +20,29 @@ function bumpSetpoint(setPointItm, direction) {
     setPointElem.value = currentValue + 10;
   } else {
     setPointElem.value = currentValue - 10;
+  }
+}
+
+function bumpChainSetpointAll(direction) {
+  bumpChainSetpoint('chainIntSP', direction);
+  bumpChainSetpoint('chainPriSP', direction);
+  bumpChainSetpoint('chainVineSP', direction);
+  bumpChainSetpoint('chainSegmentSP', direction);
+  bumpChainSetpoint('chainClodSP', direction);
+  bumpChainSetpoint('chainSpreaderSP', direction);
+  bumpChainSetpoint('chainRearCrossSP', direction);
+  bumpChainSetpoint('chainSideElevSP', direction);
+  bumpChainSetpoint('chainPilerSP', direction);
+  bumpChainSetpoint('chainHoldTankSP', direction);
+}
+
+function bumpSetpoint(id, inc) {
+  let setPointElem = document.getElementById(id);
+  let currentValue = parseInt(setPointElem.value);
+  if (isNaN(currentValue) || (currentValue < Math.abs(inc))) {
+    //do nothing
+  } else {
+    setPointElem.value = currentValue + inc;
   }
 }
 
@@ -41,6 +63,19 @@ function hideShowGroundSpeedSP() {
   for (var i = 0; i < collHide.length; i++) {
     collHide[i].classList.add("hide");
   }
+}
+
+function setChainMode(mode) {
+  if(mode=="Ground"){
+    document.getElementById("chainModeGround").classList.add('green');
+    document.getElementById("chainModeFixed").classList.remove('green');
+  }
+  else
+  {
+    document.getElementById("chainModeFixed").classList.add('green');
+    document.getElementById("chainModeGround").classList.remove('green');
+  }
+  hideShowGroundSpeedSP();
 }
 
 function changeColorTimed(button) {
