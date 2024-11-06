@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Bar with Colors</title>
+    <style>
+        .horizontal-bar {
+            display: flex;
+            width: 140px;
+            height: 60px;
+            position: relative;
+        }
+        .green {
+            width: 90px;
+            height: 100%;
+            background-color: green;
+        }
+        .yellow {
+            width: 25px;
+            height: 100%;
+            background-color: yellow;
+        }
+        .red {
+            width: 25px;
+            height: 100%;
+            background-color: red;
+        }
+        .black-bar {
+            position: absolute;
+            top: -10px;
+            bottom: -10px;
+            width: 2px;
+            background-color: black;
+            left: 127px;
+        }
+    </style>
+</head>
+<body>
+    <div class="horizontal-bar">
+        <div class="green"></div>
+        <div class="yellow"></div>
+        <div class="red"></div>
+    </div>
+</body>
+</html>
