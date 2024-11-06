@@ -23,6 +23,19 @@ function bumpChainSetpoint(setPointItm, direction) {
   }
 }
 
+function bumpRollerSetpoint(setPointItm, direction) {
+  setPointElem = document.getElementById(setPointItm);
+  let currentValue = parseInt(setPointElem.value);
+  if (isNaN(currentValue) || currentValue < 10) {
+    currentValue = 10;
+  }
+  if (direction == "up") {
+    setPointElem.value = currentValue + 10;
+  } else {
+    setPointElem.value = currentValue - 10;
+  }
+}
+
 function bumpChainSetpointAll(direction) {
   bumpChainSetpoint('chainIntSP', direction);
   bumpChainSetpoint('chainPriSP', direction);

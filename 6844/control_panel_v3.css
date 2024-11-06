@@ -47,6 +47,10 @@ meter::-webkit-meter-bar {
 	border-radius: 2px;
 }
 
+.darkBlueText {
+    color: blue;
+}
+
 .spInput {
 	height: 45px;
 	width: 55px;
@@ -344,7 +348,7 @@ button.cameraDk {
 	background-image: url('icons/videocam_16_dk.png');
 }
 
-.inpPercent, .inpChain {
+.inpPercent, .inpChain, .inpRPM {
     position: relative;
     display: inline-block;
 }
@@ -354,11 +358,22 @@ button.cameraDk {
     padding-right: 25px;
     padding-left: 10px;
 }
-.inpChain .spInput {
+.inpChain .spInput, .inpRPM .spInput {
     text-align: right;
     padding-right: 30px;
 }
-  
+
+.inpRPM::after {
+    content: "rpm";
+    position: absolute;
+    right: 3px;
+    top: 56%;
+    transform: translateY(-45%);
+    pointer-events: none;
+    color: #666;
+    font-size: 15px;
+}
+
 .inpPercent::after {
     content: "%";
     position: absolute;
@@ -385,6 +400,22 @@ button.cameraDk {
 	background-color: #4D9920 !important;
 }
 
+.speedDisplay {
+    background-color: whitesmoke;
+    text-align: right;
+    padding-right: 5px;
+
+    .dot {
+        float: left;
+        margin: 4px 0 0 4px;
+    }
+}
+
+.speedLabel {
+    font-weight: bold;
+    padding-left: 5px;
+}
+
 /* colors */
 .pri {
     background-color: #666666;
@@ -400,7 +431,7 @@ button.cameraDk {
     background-color: #F3EDF7;
 }
 .sec {
-    background-color: #625B71;
+    background-color: #808080;
     color: #FFFFFF;
 }
 .sec-em {
