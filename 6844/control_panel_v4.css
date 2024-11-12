@@ -5,6 +5,8 @@ body {
     align-items: center;
     background-color: black;
     font-family: Roboto, sans-serif;
+	transform: scale(0.8);
+	transform-origin: center top;
 }
 
 h1, h2, h3, h4 {
@@ -143,9 +145,9 @@ meter::-webkit-meter-bar {
 }
 .dash-horizontal-bar .black-bar {
 	position: absolute;
-	top: -5px;
-	bottom: -5px;
-	width: 2px;
+	top: -2px;
+	bottom: -2px;
+	width: 4px;
 	background-color: black;
 	left: 80px;
 }
@@ -162,18 +164,38 @@ meter::-webkit-meter-bar {
 	float: left;
 }
 
+.preset-label {
+	font-weight: bold;
+	border-right: none !important;
+}
+
+.border-left-none {
+	border-left: none !important;
+}
+
+.border-right-none {
+	border-right: none !important;
+}
+
 .darkBlueText {
     color: blue;
 }
 
 .spInput {
 	height: 45px;
-	width: 55px;
+	width: 52px;
 	text-align: right;
 	font-size: 32px;
 	font-weight: bold;
 	padding: 0 5px;
 	margin: 0 0 0 2px;
+}
+
+.syncBars {
+	position: absolute;
+	left: 103px;
+	width: 135px;
+	height: 15px;
 }
 
 .container {
@@ -494,6 +516,9 @@ button.cameraDk {
     pointer-events: none;
     color: #666;
     font-size: 25px;
+}
+.inpPercent2::after {
+    right: 15px;
 }
 .inpChain::after {
     content: "fpm";

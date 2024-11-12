@@ -130,10 +130,21 @@ function toggleRUN(button) {
 }
 
 function toggleButtonState(button) {
+  const elements = document.querySelectorAll('.syncBars');
   if (button.classList.contains("button-active")) {
     button.classList.remove("button-active");
+    if(button.id == 'coulterSync') {
+      elements.forEach((element) => {
+        element.classList.add('hide');
+      });
+    }
   } else {
     button.classList.add("button-active");
+    if(button.id == 'coulterSync') {
+      elements.forEach((element) => {
+        element.classList.remove('hide');
+      });
+    }
   }
 }
 
@@ -142,9 +153,15 @@ function disableButton(btnId) {
 }
 
 function togglePreset(button) {
-  document.getElementById("preset1").classList.remove("button-active");
-  document.getElementById("preset2").classList.remove("button-active");
-  document.getElementById("preset3").classList.remove("button-active");
+  if(button.id.includes('tb')) {
+    document.getElementById("tbpreset1").classList.remove("button-active");
+    document.getElementById("tbpreset2").classList.remove("button-active");
+    document.getElementById("tbpreset3").classList.remove("button-active");
+  } else {
+    document.getElementById("preset1").classList.remove("button-active");
+    document.getElementById("preset2").classList.remove("button-active");
+    document.getElementById("preset3").classList.remove("button-active");
+  }
   button.classList.add("button-active");
 }
 
@@ -225,6 +242,7 @@ function closeModal(modalId) {
 	document.getElementById(modalId).style.display = "none";
 }
 
+/*
 function assignClickListeners(){
 	document.getElementById("secondaryShakerSlider").addEventListener("click", function () {
 		this.classList.toggle("slider-active");
@@ -233,3 +251,4 @@ function assignClickListeners(){
 		this.classList.toggle("slider-active");
 	});
 }
+*/
