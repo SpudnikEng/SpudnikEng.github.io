@@ -1,7 +1,7 @@
 // Load the saved orientation when the page loads
 window.onload = function () {
   hideShowGroundSpeedSP();
-}
+};
 
 function bumpChainSetpoint(setPointItm, direction) {
   const chainModeGroundEnabled = document
@@ -37,22 +37,22 @@ function bumpRollerSetpoint(setPointItm, direction) {
 }
 
 function bumpChainSetpointAll(direction) {
-  bumpChainSetpoint('chainIntSP', direction);
-  bumpChainSetpoint('chainPriSP', direction);
-  bumpChainSetpoint('chainVineSP', direction);
-  bumpChainSetpoint('chainSegmentSP', direction);
-  bumpChainSetpoint('chainClodSP', direction);
-  bumpChainSetpoint('chainSpreaderSP', direction);
-  bumpChainSetpoint('chainRearCrossSP', direction);
-  bumpChainSetpoint('chainSideElevSP', direction);
-  bumpChainSetpoint('chainPilerSP', direction);
-  bumpChainSetpoint('chainHoldTankSP', direction);
+  bumpChainSetpoint("chainIntSP", direction);
+  bumpChainSetpoint("chainPriSP", direction);
+  bumpChainSetpoint("chainVineSP", direction);
+  bumpChainSetpoint("chainSegmentSP", direction);
+  bumpChainSetpoint("chainClodSP", direction);
+  bumpChainSetpoint("chainSpreaderSP", direction);
+  bumpChainSetpoint("chainRearCrossSP", direction);
+  bumpChainSetpoint("chainSideElevSP", direction);
+  bumpChainSetpoint("chainPilerSP", direction);
+  bumpChainSetpoint("chainHoldTankSP", direction);
 }
 
 function bumpSetpoint(id, inc) {
   let setPointElem = document.getElementById(id);
   let currentValue = parseInt(setPointElem.value);
-  if (isNaN(currentValue) || (currentValue < Math.abs(inc))) {
+  if (isNaN(currentValue) || currentValue < Math.abs(inc)) {
     //do nothing
   } else {
     setPointElem.value = currentValue + inc;
@@ -79,14 +79,12 @@ function hideShowGroundSpeedSP() {
 }
 
 function setChainMode(mode) {
-  if(mode=="Ground"){
-    document.getElementById("chainModeGround").classList.add('green');
-    document.getElementById("chainModeFixed").classList.remove('green');
-  }
-  else
-  {
-    document.getElementById("chainModeFixed").classList.add('green');
-    document.getElementById("chainModeGround").classList.remove('green');
+  if (mode == "Ground") {
+    document.getElementById("chainModeGround").classList.add("green");
+    document.getElementById("chainModeFixed").classList.remove("green");
+  } else {
+    document.getElementById("chainModeFixed").classList.add("green");
+    document.getElementById("chainModeGround").classList.remove("green");
   }
   hideShowGroundSpeedSP();
 }
@@ -99,29 +97,44 @@ function changeColorTimed(button) {
   }, 3000);
 }
 
-function toggleRUN(button) {
-  var imgTags = document.getElementsByClassName("videoFeeds");
-  var imgTagsM = document.getElementsByClassName("videoMed");
-  var imgTagsL = document.getElementsByClassName("videoLarge");
+function toggleRUN() {
+  button = document.getElementById("run-button");
   var newExt = "V.gif";
   var oldExt = "S.png";
+  const chainsTableSpeeds = document.querySelectorAll(".chains-speed");
+  const chainsTableOverride = document.querySelectorAll(".chains-override");
   if (button.classList.contains("button-run")) {
     button.classList.remove("button-run");
     button.classList.add("button-run-active");
-	document.getElementById('intakeFwd').classList.remove("button-active");
-	document.getElementById('primaryFwd').classList.remove("button-active");
-	document.getElementById('vineFwd').classList.remove("button-active");
-	document.getElementById('tableFwd').classList.remove("button-active");
-	document.getElementById('rearcrossFwd').classList.remove("button-active");
-	document.getElementById('sideelevatorFwd').classList.remove("button-active");
-	document.getElementById('pilerFwd').classList.remove("button-active");
-	document.getElementById('bunkerFwd').classList.remove("button-active");
+    document.getElementById("intakeFwd").classList.remove("button-active");
+    document.getElementById("primaryFwd").classList.remove("button-active");
+    document.getElementById("vineFwd").classList.remove("button-active");
+    document.getElementById("tableFwd").classList.remove("button-active");
+    document.getElementById("rearcrossFwd").classList.remove("button-active");
+    document.getElementById("sideelevatorFwd").classList.remove("button-active");
+    document.getElementById("pilerFwd").classList.remove("button-active");
+    document.getElementById("bunkerFwd").classList.remove("button-active");
+    chainsTableSpeeds.forEach((element) => {
+      element.classList.remove("hide");
+    });
+    chainsTableOverride.forEach((element) => {
+      element.classList.add("hide");
+    });
   } else {
+    chainsTableSpeeds.forEach((element) => {
+      element.classList.add("hide");
+    });
+    chainsTableOverride.forEach((element) => {
+      element.classList.remove("hide");
+    });
     button.classList.remove("button-run-active");
     button.classList.add("button-run");
     newExt = "S.png";
     oldExt = "V.gif";
   }
+  var imgTags = document.getElementsByClassName("videoFeeds");
+  var imgTagsM = document.getElementsByClassName("videoMed");
+  var imgTagsL = document.getElementsByClassName("videoLarge");
   for (var i = 0; i < imgTags.length; i++) {
     imgTags[i].src = imgTags[i].src.replace(oldExt, newExt);
     imgTagsM[i].src = imgTagsM[i].src.replace(oldExt, newExt);
@@ -130,30 +143,30 @@ function toggleRUN(button) {
 }
 
 function toggleButtonState(button) {
-  const elements = document.querySelectorAll('.syncBars');
+  const elements = document.querySelectorAll(".syncBars");
   if (button.classList.contains("button-active")) {
     button.classList.remove("button-active");
-    if(button.id == 'coulterSync') {
+    if (button.id == "coulterSync") {
       elements.forEach((element) => {
-        element.classList.add('hide');
+        element.classList.add("hide");
       });
     }
   } else {
     button.classList.add("button-active");
-    if(button.id == 'coulterSync') {
+    if (button.id == "coulterSync") {
       elements.forEach((element) => {
-        element.classList.remove('hide');
+        element.classList.remove("hide");
       });
     }
   }
 }
 
 function disableButton(btnId) {
-	document.getElementById(btnId).classList.remove("button-active");
+  document.getElementById(btnId).classList.remove("button-active");
 }
 
 function togglePreset(button) {
-  if(button.id.includes('tb')) {
+  if (button.id.includes("tb")) {
     document.getElementById("tbpreset1").classList.remove("button-active");
     document.getElementById("tbpreset2").classList.remove("button-active");
     document.getElementById("tbpreset3").classList.remove("button-active");
@@ -177,10 +190,10 @@ function hideControlBody() {
 }
 
 function hideAllControls() {
-	document.getElementById("digger").classList.add("hide");
-	document.getElementById("chains").classList.add("hide");
-	document.getElementById("table").classList.add("hide");
-	document.getElementById("boom").classList.add("hide");
+  document.getElementById("digger").classList.add("hide");
+  document.getElementById("chains").classList.add("hide");
+  document.getElementById("table").classList.add("hide");
+  document.getElementById("boom").classList.add("hide");
 }
 
 function showHomePage(elem) {
@@ -188,38 +201,38 @@ function showHomePage(elem) {
   deselectControlButtons();
   document.getElementById("controls").style.height = "505px";
   document.getElementById("preset-buttons").style.float = "left";
-	document.getElementById("btnHome").classList.add("button-active");
-	document.getElementById("smallVideos").classList.remove('video');
-	document.getElementById("smallVideos").classList.add("hide");
-	document.getElementById("presetSave").classList.add("hide");
-	document.getElementById("tbpresetSave").classList.add("hide");
-	document.getElementById("showStatus").classList.remove("hide");
-	document.getElementById("shakerControl").classList.remove("hide");
-	document.getElementById("displayVideoMode").classList.remove("hide");
-	document.getElementById("vidAll").classList.remove("hide");
+  document.getElementById("btnHome").classList.add("button-active");
+  document.getElementById("smallVideos").classList.remove("video");
+  document.getElementById("smallVideos").classList.add("hide");
+  document.getElementById("presetSave").classList.add("hide");
+  document.getElementById("tbpresetSave").classList.add("hide");
+  document.getElementById("showStatus").classList.remove("hide");
+  document.getElementById("shakerControl").classList.remove("hide");
+  document.getElementById("displayVideoMode").classList.remove("hide");
+  document.getElementById("vidAll").classList.remove("hide");
 }
 
 function hideHomePage() {
-	document.getElementById("controls").style.height = "auto";
-	document.getElementById("preset-buttons").style.float = "right";
-	  document.getElementById("btnHome").classList.remove("button-active");
-	  document.getElementById("smallVideos").classList.add('video');
-	  document.getElementById("smallVideos").classList.remove("hide");
-	  document.getElementById("presetSave").classList.remove("hide");
-	  document.getElementById("tbpresetSave").classList.remove("hide");
-	  document.getElementById("control-body").classList.remove("hide");
-	  document.getElementById("showStatus").classList.add("hide");
-	  document.getElementById("shakerControl").classList.add("hide");
-	  document.getElementById("displayVideoMode").classList.add("hide");
-	  document.getElementById("vidAll").classList.add("hide");
-  }
+  document.getElementById("controls").style.height = "auto";
+  document.getElementById("preset-buttons").style.float = "right";
+  document.getElementById("btnHome").classList.remove("button-active");
+  document.getElementById("smallVideos").classList.add("video");
+  document.getElementById("smallVideos").classList.remove("hide");
+  document.getElementById("presetSave").classList.remove("hide");
+  document.getElementById("tbpresetSave").classList.remove("hide");
+  document.getElementById("control-body").classList.remove("hide");
+  document.getElementById("showStatus").classList.add("hide");
+  document.getElementById("shakerControl").classList.add("hide");
+  document.getElementById("displayVideoMode").classList.add("hide");
+  document.getElementById("vidAll").classList.add("hide");
+}
 
 function toggleControl(id) {
   hideHomePage();
   hideAllControls();
   deselectControlButtons();
   document.getElementById(id).classList.add("button-active");
-  document.getElementById(id.toLowerCase().substr(3)).classList.remove('hide');
+  document.getElementById(id.toLowerCase().substr(3)).classList.remove("hide");
 }
 
 function openBottomSheet(elem) {
@@ -234,12 +247,12 @@ function openBottomSheet(elem) {
 }
 
 function openModal(modalId) {
-	console.log(modalId);
-	document.getElementById(modalId).style.display = "flex";
+  console.log(modalId);
+  document.getElementById(modalId).style.display = "flex";
 }
 
 function closeModal(modalId) {
-	document.getElementById(modalId).style.display = "none";
+  document.getElementById(modalId).style.display = "none";
 }
 
 /*
