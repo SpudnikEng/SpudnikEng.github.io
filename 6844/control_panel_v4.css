@@ -52,7 +52,7 @@ meter::-webkit-meter-bar {
 #showStatus {
 	width: 555px;
 	float: left;
-	padding: 10px;
+	padding: 5px 0 0 10px;
 }
 
 .dash-small {
@@ -218,10 +218,10 @@ meter::-webkit-meter-bar {
 }
 
 #logo-spudnik {
-	width: 225px;
+	width: 220px;
 	height: auto;
 	float: left;
-	margin: 8px 7px 0 7px;
+	margin: 10px 7px 0 7px;
 }
 
 .master {
@@ -378,8 +378,8 @@ meter::-webkit-meter-bar {
 .b-run {
     font-size: 35px;
     font-weight: bold;
-    max-width: 155px;
-    width: 155px;
+    max-width: 160px;
+    width: 160px;
 }
 .b-rowStart {
 	background-image: url('icons/rowStart_16_lt.png');
