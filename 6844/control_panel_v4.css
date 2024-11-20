@@ -178,7 +178,7 @@ meter::-webkit-meter-bar {
 	height: 45px;
 	width: 52px;
 	text-align: right;
-	font-size: 32px;
+	font-size: 30px;
 	font-weight: bold;
 	padding: 0 5px;
 	margin: 0 0 0 2px;
@@ -382,34 +382,34 @@ meter::-webkit-meter-bar {
     width: 160px;
 }
 .b-rowStart {
-	background-image: url('icons/rowStart_16_lt.png');
+	background-image: url('./icons/rowStart_16_lt.png');
 }
 .b-rowEnd {
-	background-image: url('icons/rowEnd_16_lt.png');
+	background-image: url('./icons/rowEnd_16_lt.png');
 }
 .b-settings {
-	background-image: url('icons/settings_16_lt.png');
+	background-image: url('./icons/settings_16_lt.png');
 }
 .b-auto {
-    background-image: url('icons/auto_16_lt.png');
+    background-image: url('./icons/auto_16_lt.png');
 }
 .b-link {
-    background-image: url('icons/link_16_lt.png');
+    background-image: url('./icons/link_16_lt.png');
 }
 .b-close {
-    background-image: url('icons/cancel_16_lt.png');
+    background-image: url('./icons/cancel_16_lt.png');
 }
 .b-global {
-    background-image: url('icons/globe_16dp_lt.png');
+    background-image: url('./icons/globe_16dp_lt.png');
 }
 .b-table {
-    background-image: url('icons/table_rows_narrow_16_lt.png');
+    background-image: url('./icons/table_rows_narrow_16_lt.png');
 }
 .b-roller {
-    background-image: url('icons/roller_16_lt.png');
+    background-image: url('./icons/roller_16_lt.png');
 }
 .b-diagnostics {
-    background-image: url('icons/troubleshoot_16_lt.png');
+    background-image: url('./icons/troubleshoot_16_lt.png');
 }
 .b-textOnly {
     font-size: 25px;
@@ -435,40 +435,40 @@ meter::-webkit-meter-bar {
 }
 
 button.arrowUp {
-	background-image: url('icons/arrow_up_20.png');
+	background-image: url('./icons/arrow_up_20.png');
 	background-position: center;
 }
 button.arrowDown {
-	background-image: url('icons/arrow_down_20.png');
+	background-image: url('./icons/arrow_down_20.png');
 	background-position: center;
 }
 button.plusSign {
-	background-image: url('icons/plus_sign_16.png');
+	background-image: url('./icons/plus_sign_16.png');
 	background-position: center;
 }
 button.minusSign {
-	background-image: url('icons/minus_sign_16.png');
+	background-image: url('./icons/minus_sign_16.png');
 	background-position: center;
 }
 button.cleanMode {
-	background-image: url('icons/counterclockwise_16.png');
+	background-image: url('./icons/counterclockwise_16.png');
 }
 button.transportMode {
-	background-image: url('icons/clockwise_16.png');
+	background-image: url('./icons/clockwise_16.png');
 }
 button.arrowFwd {
-	background-image: url('icons/arrow_fwd_20.png');
+	background-image: url('./icons/arrow_fwd_20.png');
 	background-position: center;
 }
 button.arrowRev {
-	background-image: url('icons/arrow_rev_20.png');
+	background-image: url('./icons/arrow_rev_20.png');
 	background-position: center;
 }
 button.camera {
-	background-image: url('icons/videocam_16_lt.png');
+	background-image: url('./icons/videocam_16_lt.png');
 }
 button.cameraDk {
-	background-image: url('icons/videocam_16_dk.png');
+	background-image: url('./icons/videocam_16_dk.png');
 }
 
 .inpPercent, .inpChain, .inpRPM {
