@@ -60,31 +60,18 @@ function bumpSetpoint(id, inc) {
 }
 
 function hideShowGroundSpeedSP() {
-  var chainModeStatus = document.getElementById("chainModeGround");
-  var collHide, collShow;
-  if (chainModeStatus.classList.contains("green")) {
-    //remove hide class from all inputs with speedGround and add to all inputs with speedFixed
-    collHide = document.getElementsByClassName("speedFixed");
-    collShow = document.getElementsByClassName("speedGround");
+  if (document.querySelector('.groundMode').classList.contains('green')) {
+    toggleObjectClass("speedFixed", "speedGround", "hide");
   } else {
-    collShow = document.getElementsByClassName("speedFixed");
-    collHide = document.getElementsByClassName("speedGround");
-  }
-  for (var i = 0; i < collShow.length; i++) {
-    collShow[i].classList.remove("hide");
-  }
-  for (var i = 0; i < collHide.length; i++) {
-    collHide[i].classList.add("hide");
+    toggleObjectClass("speedGround", "speedFixed", "hide");
   }
 }
 
 function setChainMode(mode) {
   if (mode == "Ground") {
-    document.getElementById("chainModeGround").classList.add("green");
-    document.getElementById("chainModeFixed").classList.remove("green");
+    toggleObjectClass("groundMode", "fixedMode", "green");
   } else {
-    document.getElementById("chainModeFixed").classList.add("green");
-    document.getElementById("chainModeGround").classList.remove("green");
+    toggleObjectClass("fixedMode", "groundMode", "green");
   }
   hideShowGroundSpeedSP();
 }
@@ -101,8 +88,6 @@ function toggleRUN() {
   button = document.getElementById("run-button");
   var newExt = "V.gif";
   var oldExt = "S.png";
-  const chainsTableSpeeds = document.querySelectorAll(".chains-speed");
-  const chainsTableOverride = document.querySelectorAll(".chains-override");
   if (button.classList.contains("button-run")) {
     button.classList.remove("button-run");
     button.classList.add("button-run-active");
@@ -114,19 +99,9 @@ function toggleRUN() {
     document.getElementById("sideelevatorFwd").classList.remove("button-active");
     document.getElementById("pilerFwd").classList.remove("button-active");
     document.getElementById("bunkerFwd").classList.remove("button-active");
-    chainsTableSpeeds.forEach((element) => {
-      element.classList.remove("hide");
-    });
-    chainsTableOverride.forEach((element) => {
-      element.classList.add("hide");
-    });
+    toggleObjectClass("chains-override", "chains-speed", "hide");
   } else {
-    chainsTableSpeeds.forEach((element) => {
-      element.classList.add("hide");
-    });
-    chainsTableOverride.forEach((element) => {
-      element.classList.remove("hide");
-    });
+    toggleObjectClass("chains-speed", "chains-override", "hide");
     button.classList.remove("button-run-active");
     button.classList.add("button-run");
     newExt = "S.png";
@@ -143,20 +118,34 @@ function toggleRUN() {
 }
 
 function toggleButtonState(button) {
-  const elements = document.querySelectorAll(".syncBars");
   if (button.classList.contains("button-active")) {
     button.classList.remove("button-active");
     if (button.id == "coulterSync") {
-      elements.forEach((element) => {
+      document.querySelectorAll(".syncBars").forEach(element => {
         element.classList.add("hide");
       });
+      console.log(`${button.id} disable sync`);
+    }
+    if (button.id == "depthWheelsSync") {
+      document.querySelectorAll(".syncBarsDepthWheels").forEach(element => {
+        element.classList.add("hide");
+      });
+      console.log(`${button.id} disable sync`);
     }
   } else {
     button.classList.add("button-active");
+    console.log(`${button.id} enable sync`);
     if (button.id == "coulterSync") {
-      elements.forEach((element) => {
+      document.querySelectorAll(".syncBars").forEach(element => {
         element.classList.remove("hide");
       });
+      console.log(`${button.id} enable sync`);
+    }
+    if (button.id == "depthWheelsSync") {
+      document.querySelectorAll(".syncBarsDepthWheels").forEach(element => {
+        element.classList.remove("hide");
+      });
+      console.log(`${button.id} enable sync`);
     }
   }
 }
@@ -236,6 +225,8 @@ function toggleControl(id) {
 }
 
 function openBottomSheet(elem) {
+  // TO-DO remove this? Not sure what the image behavior should be...
+  return;
   document.getElementById("vid1").classList.add("hide");
   document.getElementById("vid2").classList.add("hide");
   document.getElementById("vid3").classList.add("hide");
@@ -244,6 +235,15 @@ function openBottomSheet(elem) {
   document.getElementById(elem).classList.remove("hide");
   const bottomSheet = document.getElementById("bottomSheet");
   bottomSheet.classList.add("open");
+}
+
+function toggleObjectClass(activeButtonClass, inactiveButtonClass, targetClass) {
+  document.querySelectorAll("."+activeButtonClass).forEach((element) => {
+    element.classList.add(targetClass);
+  });
+  document.querySelectorAll("."+inactiveButtonClass).forEach((element) => {
+    element.classList.remove(targetClass);
+  });
 }
 
 function openModal(modalId) {
@@ -255,13 +255,28 @@ function closeModal(modalId) {
   document.getElementById(modalId).style.display = "none";
 }
 
-/*
+
 function assignClickListeners(){
-	document.getElementById("secondaryShakerSlider").addEventListener("click", function () {
-		this.classList.toggle("slider-active");
+	document.querySelectorAll(".cleanMode").forEach(element => {
+    element.addEventListener('click', () => toggleObjectClass("cleanMode", "transportMode", "green"));
 	});
-	document.getElementById("primaryShakerSlider").addEventListener("click", function () {
-		this.classList.toggle("slider-active");
+  document.querySelectorAll(".transportMode").forEach(element => {
+    element.addEventListener('click', () => toggleObjectClass("transportMode", "cleanMode", "green"));
 	});
+  document.querySelectorAll(".fixedMode").forEach(element => {
+    element.addEventListener('click', () => setChainMode('Fixed'));
+	});
+  document.querySelectorAll(".groundMode").forEach(element => {
+    element.addEventListener('click', () => setChainMode('Ground'));
+	});
+
+  document.getElementById('smallVideos').addEventListener('click', () => showHomePage());
+  document.getElementById('btnHome').addEventListener('click', () => showHomePage());
+	// document.getElementById("secondaryShakerSlider").addEventListener("click", function () {
+	// 	this.classList.toggle("slider-active");
+	// });
+	// document.getElementById("primaryShakerSlider").addEventListener("click", function () {
+	// 	this.classList.toggle("slider-active");
+	// });
 }
-*/
+

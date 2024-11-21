@@ -184,7 +184,7 @@ meter::-webkit-meter-bar {
 	margin: 0 0 0 2px;
 }
 
-.syncBars {
+.syncBars, .syncBarsDepthWheels {
 	position: absolute;
 	left: 103px;
 	width: 135px;
@@ -450,10 +450,10 @@ button.minusSign {
 	background-image: url('./icons/minus_sign_16.png');
 	background-position: center;
 }
-button.cleanMode {
+button.cleanMode, button.counterClockwise {
 	background-image: url('./icons/counterclockwise_16.png');
 }
-button.transportMode {
+button.transportMode, button.clockwise {
 	background-image: url('./icons/clockwise_16.png');
 }
 button.arrowFwd {
@@ -487,7 +487,7 @@ button.cameraDk {
 }
 
 .inpRPM::after {
-    content: "rpm";
+    content: "RPM";
     position: absolute;
     right: 3px;
     top: 56%;
@@ -786,7 +786,7 @@ th, .largeFont {
 	background-image: none !important;
 	padding: 5px;
 	position: relative;
-	left: -4px;
+	left: -1px;
 	top: -1px;
 }
 

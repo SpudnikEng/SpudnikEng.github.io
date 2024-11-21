@@ -93,7 +93,7 @@
 								style="vertical-align: top;">
 								<div style="width: 285px;margin: 0 0 0 20px;" class="">
 									<div class="hide ter syncBars" style="top: 426px;"></div>
-									<div class="hide ter syncBars" style="top: 518px;"></div>
+									<div class="hide ter syncBars" style="top: 509px;"></div>
 									<h3>Coulters</h3>
 									<table>
 										<tr>
@@ -118,8 +118,8 @@
 							</td>
 							<td valign="top" rowspan="2" class="cell-border-bottom cell-padding-small">
 								<div style="width: 285px;margin: 0 0 0 20px;" class="">
-									<div class="hide ter syncBars" style="top: 426px;"></div>
-									<div class="hide ter syncBars" style="top: 518px;"></div>
+									<div class="hide ter syncBarsDepthWheels" style="top: 426px; left: 445px;"></div>
+									<div class="hide ter syncBarsDepthWheels" style="top: 509px; left: 445px;"></div>
 									<h3>Depth Wheels</h3>
 									<table>
 										<tr>
@@ -129,7 +129,7 @@
 												<button class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 											<td>
-												<button id="coulterSync" style="margin-top: 23px;"
+												<button id="depthWheelsSync" style="margin-top: 23px;"
 													class="b-link ter-button ter icon"
 													onclick="toggleButtonState(this)">Sync</button><br>
 											</td>
@@ -296,15 +296,15 @@
 								<span id="chainIntPSI">1223 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainIntActual">210 fpm</span>
+								<span id="chainIntActual">210 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainIntTarget" class="darkBlueText">220 fpm</span>
+								<span id="chainIntTarget" class="darkBlueText">220 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('intakeFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="intakeFwd"
+								<button class="ter-button ter icon clockwise button-right button-rev" id="intakeFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -325,15 +325,15 @@
 								<span id="chainPriPSI">1229 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainPriActual">211 fpm</span>
+								<span id="chainPriActual">211 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainPriTarget" class="darkBlueText">225 fpm</span>
+								<span id="chainPriTarget" class="darkBlueText">225 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('primaryFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev"
+								<button class="ter-button ter icon clockwise button-right button-rev"
 									id="primaryFwd" onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -352,15 +352,15 @@
 								<span id="chainVinePSI">1160 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainVineActual">218 fpm</span>
+								<span id="chainVineActual">218 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainVineTarget" class="darkBlueText">235 fpm</span>
+								<span id="chainVineTarget" class="darkBlueText">235 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('vineFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="vineFwd"
+								<button class="ter-button ter icon clockwise button-right button-rev" id="vineFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -376,15 +376,15 @@
 								<span id="chainSegmentPSI">1179 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSegmentActual">220 fpm</span>
+								<span id="chainSegmentActual">220 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSegmentTarget" class="darkBlueText">240 fpm</span>
+								<span id="chainSegmentTarget" class="darkBlueText">240 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
-									onclick="disableButton('tableFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="tableFwd"
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('segmentFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="segmentFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -400,15 +400,15 @@
 								<span id="chainClodPSI">1179 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainClodActual">220 fpm</span>
+								<span id="chainClodActual">220 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainClodTarget" class="darkBlueText">240 fpm</span><br>
+								<span id="chainClodTarget" class="darkBlueText">240 FPM</span><br>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
-									onclick="disableButton('tableFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="tableFwd"
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('clodFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="clodFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -424,15 +424,15 @@
 								<span id="chainSpreaderPSI">1179 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSpreaderActual">220 fpm</span>
+								<span id="chainSpreaderActual">220 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSpreaderTarget" class="darkBlueText">230 fpm</span>
+								<span id="chainSpreaderTarget" class="darkBlueText">230 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
-									onclick="disableButton('tableFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="tableFwd"
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('spreaderFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="spreaderFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -451,15 +451,15 @@
 								<span id="chainRearCrossPSI">1025 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainRearCrossActual">225 fpm</span>
+								<span id="chainRearCrossActual">225 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainRearCrossTarget" class="darkBlueText">245 rpm</span>
+								<span id="chainRearCrossTarget" class="darkBlueText">245 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('rearcrossFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev"
+								<button class="ter-button ter icon clockwise button-right button-rev"
 									id="rearcrossFwd" onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -475,18 +475,18 @@
 									onclick="bumpChainSetpoint('chainSideElevSP','dn')"></button>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-psi">
-								<span id="chainSideElevPSI">1220 fpm</span>
+								<span id="chainSideElevPSI">1220 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSideElevActual">230 fpm</span>
+								<span id="chainSideElevActual">230 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSideElevTarget" class="darkBlueText">250 rpm</span>
+								<span id="chainSideElevTarget" class="darkBlueText">250 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('sideelevatorFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev"
+								<button class="ter-button ter icon clockwise button-right button-rev"
 									id="sideelevatorFwd" onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -505,15 +505,15 @@
 								<span id="chainPilerPSI">1135 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainPilerActual">235 fpm</span>
+								<span id="chainPilerActual">235 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainPilerTarget" class="darkBlueText">255 rpm</span>
+								<span id="chainPilerTarget" class="darkBlueText">255 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('pilerFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="pilerFwd"
+								<button class="ter-button ter icon clockwise button-right button-rev" id="pilerFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -532,15 +532,15 @@
 								<span id="chainHoldTankPSI">1140 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainHoldTankActual">240 fpm</span>
+								<span id="chainHoldTankActual">240 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainHoldTankTarget" class="darkBlueText">260 rpm</span>
+								<span id="chainHoldTankTarget" class="darkBlueText">260 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('bunkerFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="bunkerFwd"
+								<button class="ter-button ter icon clockwise button-right button-rev" id="bunkerFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -553,15 +553,12 @@
 								<button class="ter-button ter b-bumpDown" onclick="bumpChainSetpointAll('dn')"></button>
 							</td>
 							<td colspan="5" style="padding-right: 15px;" class="largeFont centerText">Ground Speed: 2.5
-								mph = 226 fpm</td>
+								mph = 226 FPM</td>
 						</tr>
 						<tr>
 							<td style="padding: 25px 0;" colspan="5" class="cell-border-bottom">
-								<button onclick="setChainMode('Ground')" id="chainModeGround"
-									class="button-left ter-button ter b-textOnly">Ground
-									Speed</button>
-								<button onclick="setChainMode('Fixed')" id="chainModeFixed"
-									class="button-right ter-button ter b-textOnly green">Fixed
+								<button class="button-left ter-button groundMode ter b-textOnly">Ground Speed</button>
+								<button class="button-right ter-button fixedMode ter b-textOnly green">Fixed
 									Speed</button>
 								<button onclick="openModal('setSpeedRange')" id="setGroundSpeedRange"
 									style="float: right; margin-right: 20px;" class="ter-button ter b-textOnly">Set
@@ -636,7 +633,7 @@
 										<button class="ter-button ter icon cleanMode green"
 											style="margin-right: 0;width: 100px;border-bottom-right-radius: 0;border-top-right-radius: 0;">Pinch</button>
 										<button class="ter-button ter icon transportMode"
-											style="margin-left: 0;position: relative;left: -4px;border-bottom-left-radius: 0;border-top-left-radius: 0;">Transport</button>
+											style="margin-left: 0;position: relative;left: -1px;border-bottom-left-radius: 0;border-top-left-radius: 0;">Transport</button>
 									</div>
 								</div>
 							</td>
@@ -660,13 +657,13 @@
 							</td>
 							<td class="largeFont centerText cell-border-bottom">
 								<span id="chainSegmentPSI">1179 PSI</span><br>
-								<span id="chainSegmentActual">220 fpm</span><br>
-								<span id="chainSegmentTarget" class="darkBlueText">240 fpm</span>
+								<span id="chainSegmentActual">220 FPM</span><br>
+								<span id="chainSegmentTarget" class="darkBlueText">240 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('tableFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="tableFwd"
+								<button class="ter-button ter icon clockwise button-right button-rev" id="tableFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -680,13 +677,13 @@
 							</td>
 							<td class="largeFont centerText cell-border-bottom">
 								<span id="chainClodPSI">1179 PSI</span><br>
-								<span id="chainClodActual">220 fpm</span><br>
-								<span id="chainClodTarget" class="darkBlueText">240 fpm</span><br>
+								<span id="chainClodActual">220 FPM</span><br>
+								<span id="chainClodTarget" class="darkBlueText">240 FPM</span><br>
 							</td>
 							<td class="centerText cell-border-bottom">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('tableFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="tableFwd"
+								<button class="ter-button ter icon clockwise button-right button-rev" id="tableFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -700,13 +697,13 @@
 							</td>
 							<td class="largeFont centerText cell-border-bottom">
 								<span id="chainSpreaderPSI">1179 PSI</span><br>
-								<span id="chainSpreaderActual">220 fpm</span><br>
-								<span id="chainSpreaderTarget" class="darkBlueText">230 fpm</span>
+								<span id="chainSpreaderActual">220 FPM</span><br>
+								<span id="chainSpreaderTarget" class="darkBlueText">230 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom">
-								<button class="ter-button ter icon cleanMode button-left"
+								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('tableFwd')">Rev</button>
-								<button class="ter-button ter icon transportMode button-right button-rev" id="tableFwd"
+								<button class="ter-button ter icon clockwise button-right button-rev" id="tableFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
@@ -786,7 +783,7 @@
 			</div>
 			<div id="control-buttons">
 				<div id="selectControl" class="border1px">
-					<button id="btnHome" onclick="showHomePage();" class="sec-button sec button-active">Home</button>
+					<button id="btnHome" class="sec-button sec button-active">Home</button>
 					<button id="btnDigger" onclick="toggleControl('btnDigger')" class="sec-button sec">Digger/
 						Axle</button>
 					<button id="btnChains" onclick="toggleControl('btnChains')" class="sec-button sec">Chains</button>
@@ -858,7 +855,7 @@
 					</div>
 					<div id="dash-intake" class="border1px dash-comp-margin centerText dash-tall">
 						<h4>Intake Chain</h4>
-						<p class="dash-number">205 FPM</p>
+						<p class="dash-number"><span class="chains-override">0</span><span class="chains-speed">205</span> FPM</p>
 						<div class="dash-number">1280 psi</div>
 						<div class="meterContainer"><meter class="meter-horizontal" id='dash-temp-meter' min='0'
 								low='10' high='40' max='3500' optimum='3000' value='1280'></meter>
@@ -867,15 +864,15 @@
 					<br>
 					<div id="dash-empty" class="dash-comp-margin centerText dash-tall">
 						<p class="dash-label-small">Chain Mode:</p>
-						<button class="dash-button-left ter cleanMode">Ground</button>
-						<button class="dash-button-right ter transportMode green">Fixed</button>
+						<button class="dash-button-left groundMode ter">Ground</button>
+						<button class="dash-button-right fixedMode ter green">Fixed</button>
 						<p class="dash-label-small">Clod Roller Mode:</p>
 						<button class="dash-button-left ter cleanMode green">Pinch</button>
 						<button class="dash-button-right ter transportMode">Trans.</button>
 					</div>
 					<div id="dash-table" class="border1px dash-comp-margin centerText dash-tall">
 						<h4>Cleaning Table</h4>
-						<p class="dash-number">245 FPM</p>
+						<p class="dash-number"><span class="chains-override">0</span><span class="chains-speed">245</span> FPM</p>
 						<div class="dash-number">1320 psi</div>
 						<div class="meterContainer"><meter class="meter-horizontal" id='dash-table-meter' min='0'
 								low='10' high='40' max='3500' optimum='3000' value='1320'></meter>
@@ -904,10 +901,10 @@
 			<div id="vid3" class="hide"><img class="videoLarge" src="./vid3optS.png"></div>
 			<div id="vid4" class="hide"><img class="videoLarge" src="./vid4optS.png"></div>
 			<div id="vidAll" class="hide">
-				<img class="videoMed" src="./vid1optS.png">
-				<img class="videoMed" src="./vid2optS.png">
-				<img class="videoMed" src="./vid3optS.png">
-				<img class="videoMed" src="./vid4optS.png">
+				<img class="videoMed" id="topLeft" src="./vid1optS.png">
+				<img class="videoMed" id="topRight" src="./vid2optS.png">
+				<img class="videoMed" id="bottomLeft" src="./vid3optS.png">
+				<img class="videoMed" id="bottomRight" src="./vid4optS.png">
 			</div>
 		</div>
 
@@ -1014,7 +1011,7 @@
 	<script>
 		toggleRUN();
 		showHomePage();
-		// assignClickListeners();
+		assignClickListeners();
 	</script>
 </body>
 
