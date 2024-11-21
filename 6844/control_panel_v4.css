@@ -9,6 +9,17 @@ body {
 	transform-origin: center top; */
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+  
+
 h1, h2, h3, h4 {
     text-align: center;
     margin-top: 2px;
@@ -248,6 +259,13 @@ meter::-webkit-meter-bar {
 	left: 10px;
 	top: -510px;
 }
+#videoGridView {
+	position: relative;
+	left: 680px;
+	top: -710px;
+	width: 90px;
+	height: 60px;
+}
 .controlL1 {
 	width: 100%;
 }
@@ -434,6 +452,11 @@ meter::-webkit-meter-bar {
 	width: 79px;
 }
 
+button.gridView {
+	background-image: url('./icons/grid_view_20_lt.png');
+	background-position: center;
+}
+
 button.arrowUp {
 	background-image: url('./icons/arrow_up_20.png');
 	background-position: center;
@@ -511,14 +534,14 @@ button.cameraDk {
     right: 15px;
 }
 .inpChain::after {
-    content: "fpm";
+    content: "FPM";
     position: absolute;
     right: 3px;
     top: 56%;
     transform: translateY(-45%);
     pointer-events: none;
     color: #666;
-    font-size: 15px;
+    font-size: 13px;
 } 
 
 .button-run-active,

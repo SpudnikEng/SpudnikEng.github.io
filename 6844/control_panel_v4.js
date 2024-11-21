@@ -4,10 +4,7 @@ window.onload = function () {
 };
 
 function bumpChainSetpoint(setPointItm, direction) {
-  const chainModeGroundEnabled = document
-    .getElementById("chainModeGround")
-    .classList.contains("green");
-  if (chainModeGroundEnabled) {
+   if (document.querySelector('.groundMode').classList.contains('green')) {
     setPointElem = document.getElementById(setPointItm + "Ground");
   } else {
     setPointElem = document.getElementById(setPointItm + "Fixed");
@@ -25,24 +22,25 @@ function bumpChainSetpoint(setPointItm, direction) {
 
 function bumpRollerSetpoint(setPointItm, direction) {
   setPointElem = document.getElementById(setPointItm);
+  setPointElem2 = document.getElementById(setPointItm+'2');
   let currentValue = parseInt(setPointElem.value);
   if (isNaN(currentValue) || currentValue < 10) {
     currentValue = 10;
   }
   if (direction == "up") {
     setPointElem.value = currentValue + 10;
+    setPointElem2.value = currentValue + 10;
   } else {
     setPointElem.value = currentValue - 10;
+    setPointElem2.value = currentValue - 10;
   }
 }
 
 function bumpChainSetpointAll(direction) {
+  //chains only; no change to clod/spreader/segment roller speeds
   bumpChainSetpoint("chainIntSP", direction);
   bumpChainSetpoint("chainPriSP", direction);
   bumpChainSetpoint("chainVineSP", direction);
-  bumpChainSetpoint("chainSegmentSP", direction);
-  bumpChainSetpoint("chainClodSP", direction);
-  bumpChainSetpoint("chainSpreaderSP", direction);
   bumpChainSetpoint("chainRearCrossSP", direction);
   bumpChainSetpoint("chainSideElevSP", direction);
   bumpChainSetpoint("chainPilerSP", direction);
@@ -52,7 +50,7 @@ function bumpChainSetpointAll(direction) {
 function bumpSetpoint(id, inc) {
   let setPointElem = document.getElementById(id);
   let currentValue = parseInt(setPointElem.value);
-  if (isNaN(currentValue) || currentValue < Math.abs(inc)) {
+  if (isNaN(currentValue) || ((currentValue <= Math.abs(inc)) && (inc < 0))) {
     //do nothing
   } else {
     setPointElem.value = currentValue + inc;
@@ -94,7 +92,9 @@ function toggleRUN() {
     document.getElementById("intakeFwd").classList.remove("button-active");
     document.getElementById("primaryFwd").classList.remove("button-active");
     document.getElementById("vineFwd").classList.remove("button-active");
-    document.getElementById("tableFwd").classList.remove("button-active");
+    document.getElementById("clodFwd").classList.remove("button-active");
+    document.getElementById("segmentFwd").classList.remove("button-active");
+    document.getElementById("spreaderFwd").classList.remove("button-active");
     document.getElementById("rearcrossFwd").classList.remove("button-active");
     document.getElementById("sideelevatorFwd").classList.remove("button-active");
     document.getElementById("pilerFwd").classList.remove("button-active");
@@ -124,28 +124,23 @@ function toggleButtonState(button) {
       document.querySelectorAll(".syncBars").forEach(element => {
         element.classList.add("hide");
       });
-      console.log(`${button.id} disable sync`);
     }
     if (button.id == "depthWheelsSync") {
       document.querySelectorAll(".syncBarsDepthWheels").forEach(element => {
         element.classList.add("hide");
       });
-      console.log(`${button.id} disable sync`);
     }
   } else {
     button.classList.add("button-active");
-    console.log(`${button.id} enable sync`);
     if (button.id == "coulterSync") {
       document.querySelectorAll(".syncBars").forEach(element => {
         element.classList.remove("hide");
       });
-      console.log(`${button.id} enable sync`);
     }
     if (button.id == "depthWheelsSync") {
       document.querySelectorAll(".syncBarsDepthWheels").forEach(element => {
         element.classList.remove("hide");
       });
-      console.log(`${button.id} enable sync`);
     }
   }
 }
@@ -246,6 +241,26 @@ function toggleObjectClass(activeButtonClass, inactiveButtonClass, targetClass) 
   });
 }
 
+function toggleHomeVideos(objectId) {
+  console.log(objectId);
+  if(objectId == 'videoGridView') {
+    document.querySelectorAll(".videoHome").forEach((element) => {
+      element.classList.remove("hide");
+      element.classList.remove("videoLarge");
+      element.classList.add("videoMed");
+    });
+    document.getElementById('videoGridView').classList.add('hide');
+  } else {
+    document.querySelectorAll(".videoHome").forEach((element) => {
+      element.classList.add("hide");
+    });
+    document.getElementById(objectId).classList.remove('videoMed');
+    document.getElementById(objectId).classList.add('videoLarge');
+    document.getElementById(objectId).classList.remove('hide');
+    document.getElementById('videoGridView').classList.remove('hide');
+  }
+}
+
 function openModal(modalId) {
   console.log(modalId);
   document.getElementById(modalId).style.display = "flex";
@@ -270,13 +285,12 @@ function assignClickListeners(){
     element.addEventListener('click', () => setChainMode('Ground'));
 	});
 
+  document.querySelectorAll(".videoHome").forEach(element => {
+    element.addEventListener('click', () => toggleHomeVideos(element.id));
+	});
+
+  document.getElementById('videoGridView').addEventListener('click', () => toggleHomeVideos('videoGridView'));
   document.getElementById('smallVideos').addEventListener('click', () => showHomePage());
   document.getElementById('btnHome').addEventListener('click', () => showHomePage());
-	// document.getElementById("secondaryShakerSlider").addEventListener("click", function () {
-	// 	this.classList.toggle("slider-active");
-	// });
-	// document.getElementById("primaryShakerSlider").addEventListener("click", function () {
-	// 	this.classList.toggle("slider-active");
-	// });
 }
 
