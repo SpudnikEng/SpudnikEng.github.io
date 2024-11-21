@@ -43,7 +43,7 @@
 											</td>
 											<td><button class="ter-button ter b-textOnly"
 													onclick="bumpSetpoint('depthControlSP', 5)">+5</button><br>
-												<div class="inpPercent"><input class="spInput" id="depthControlSP"
+												<div class="inpPercent"><input type="number" class="spInput" id="depthControlSP"
 														value="64"></div><br>
 												<button class="ter-button ter b-textOnly"
 													onclick="bumpSetpoint('depthControlSP', -5)">-5</button><br>
@@ -72,7 +72,7 @@
 											</td>
 											<td><button class="ter-button ter b-textOnly"
 													onclick="bumpSetpoint('humpControl', 5)">+5</button><br>
-												<div class="inpPercent"><input class="spInput" id="humpControl"
+												<div class="inpPercent"><input type="number" class="spInput" id="humpControl"
 														value="36"></div><br>
 												<button class="ter-button ter b-textOnly"
 													onclick="bumpSetpoint('humpControl', -5)">-5</button><br>
@@ -146,7 +146,7 @@
 											class="centerText">
 											<button class="ter-button ter b-textOnly"
 												onclick="bumpSetpoint('axleLeft', 5)">+5</button><br>
-											<div class="inpPercent"><input class="spInput" id="axleLeft" value="46">
+											<div class="inpPercent"><input type="number" class="spInput" id="axleLeft" value="46">
 											</div>
 											<br>
 											<button class="ter-button ter b-textOnly"
@@ -169,7 +169,7 @@
 											class="centerText">
 											<button class="ter-button ter b-textOnly"
 												onclick="bumpSetpoint('axleLeft', 5)">+5</button><br>
-											<div class="inpPercent"><input class="spInput" id="axleLeft" value="46">
+											<div class="inpPercent"><input type="number" class="spInput" id="axleLeft" value="46">
 											</div>
 											<br>
 											<button class="ter-button ter b-textOnly"
@@ -219,7 +219,7 @@
 										class="centerText">
 										<button class="ter-button ter b-textOnly"
 											onclick="bumpSetpoint('axleLeft', 5)">+5</button><br>
-										<div class="inpPercent"><input class="spInput" id="axleLeft" value="46"></div>
+										<div class="inpPercent"><input type="number" class="spInput" id="axleLeft" value="46"></div>
 										<br>
 										<button class="ter-button ter b-textOnly"
 											onclick="bumpSetpoint('axleLeft', -5)">-5</button>
@@ -234,7 +234,7 @@
 										class="centerText">
 										<button class="ter-button ter b-textOnly"
 											onclick="bumpSetpoint('axleRight', 5)">+5</button><br>
-										<div class="inpPercent"><input class="spInput" id="axleRight" value="46"></div>
+										<div class="inpPercent"><input type="number" class="spInput" id="axleRight" value="46"></div>
 										<br>
 										<button class="ter-button ter b-textOnly"
 											onclick="bumpSetpoint('axleRight', -5)">-5</button>
@@ -285,9 +285,9 @@
 							</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainIntSP','up')"></button>
-								<div class="inpPercent speedGround"><input class="spInput" id="chainIntSPGround"
+								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainIntSPGround"
 										value="110"></div>
-								<div class="inpChain speedFixed"><input class="spInput" id="chainIntSPFixed"
+								<div class="inpChain speedFixed"><input type="number" class="spInput" id="chainIntSPFixed"
 										value="220"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainIntSP','dn')"></button>
@@ -314,9 +314,9 @@
 							</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainPriSP','up')"></button>
-								<div class="inpPercent speedGround"><input class="spInput" id="chainPriSPGround"
+								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainPriSPGround"
 										value="115"></div>
-								<div class="inpChain speedFixed"><input class="spInput" id="chainPriSPFixed"
+								<div class="inpChain speedFixed"><input type="number" class="spInput" id="chainPriSPFixed"
 										value="225"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainPriSP','dn')"></button>
@@ -341,9 +341,9 @@
 							<td class="largeFont cell-border-bottom">Secondary/Vine:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainVineSP','up')"></button>
-								<div class="inpPercent speedGround"><input class="spInput" id="chainVineSPGround"
+								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainVineSPGround"
 										value="125"></div>
-								<div class="inpChain speedFixed"><input class="spInput" id="chainVineSPFixed"
+								<div class="inpChain speedFixed"><input type="number" class="spInput" id="chainVineSPFixed"
 										value="235"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainVineSP','dn')"></button>
@@ -368,7 +368,7 @@
 							<td class="largeFont cell-border-bottom">Segment Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
-								<div class="inpChain"><input class="spInput" id="chainSegmentSP" value="240"></div>
+								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP" value="240"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainSegmentSP','dn')"></button>
 							</td>
@@ -392,7 +392,7 @@
 							<td class="largeFont cell-border-bottom">Clod Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
-								<div class="inpChain"><input class="spInput" id="chainClodSP" value="240"></div>
+								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP" value="240"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainClodSP','dn')"></button>
 							</td>
@@ -416,7 +416,7 @@
 							<td class="largeFont cell-border-bottom">Spreader Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSpreaderSP','up')"></button>
-								<div class="inpChain"><input class="spInput" id="chainSpreaderSP" value="230"></div>
+								<div class="inpChain"><input type="number" class="spInput" id="chainSpreaderSP" value="230"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainSpreaderSP','dn')"></button>
 							</td>
@@ -440,9 +440,9 @@
 							<td class="largeFont cell-border-bottom">Rear Cross:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainRearCrossSP','up')"></button>
-								<div class="inpPercent speedGround"><input class="spInput" id="chainRearCrossSPGround"
+								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainRearCrossSPGround"
 										value="135"></div>
-								<div class="inpChain speedFixed"><input class="spInput" id="chainRearCrossSPFixed"
+								<div class="inpChain speedFixed"><input type="number" class="spInput" id="chainRearCrossSPFixed"
 										value="245"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainRearCrossSP','dn')"></button>
@@ -467,9 +467,9 @@
 							<td class="largeFont cell-border-bottom">Side Elev:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainSideElevSP','up')"></button>
-								<div class="inpPercent speedGround"><input class="spInput" id="chainSideElevSPGround"
+								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainSideElevSPGround"
 										value="140"></div>
-								<div class="inpChain speedFixed"><input class="spInput" id="chainSideElevSPFixed"
+								<div class="inpChain speedFixed"><input type="number" class="spInput" id="chainSideElevSPFixed"
 										value="250"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainSideElevSP','dn')"></button>
@@ -494,9 +494,9 @@
 							<td class="largeFont cell-border-bottom">Hopper Elev:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainPilerSP','up')"></button>
-								<div class="inpPercent speedGround"><input class="spInput" id="chainPilerSPGround"
+								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainPilerSPGround"
 										value="145"></div>
-								<div class="inpChain speedFixed"><input class="spInput" id="chainPilerSPFixed"
+								<div class="inpChain speedFixed"><input type="number" class="spInput" id="chainPilerSPFixed"
 										value="255"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainPilerSP','dn')"></button>
@@ -521,9 +521,9 @@
 							<td class="largeFont cell-border-bottom">Hopper Floor:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainHoldTankSP','up')"></button>
-								<div class="inpPercent speedGround"><input class="spInput" id="chainHoldTankSPGround"
+								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainHoldTankSPGround"
 										value="150"></div>
-								<div class="inpChain speedFixed"><input class="spInput" id="chainHoldTankSPFixed"
+								<div class="inpChain speedFixed"><input type="number" class="spInput" id="chainHoldTankSPFixed"
 										value="260"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainHoldTankSP','dn')"></button>
@@ -573,7 +573,7 @@
 								<h3 class="addSpaceBelow">Primary Shakers</h3>
 								<button class="ter-button ter b-textOnly"
 									onclick="bumpSetpoint('primaryShaker',5);bumpSetpoint('primaryShaker2',5);">+5</button>
-								<div class="inpPercent"><input class="spInput" id="primaryShaker2" value="45"></div>
+								<div class="inpPercent"><input type="number" class="spInput" id="primaryShaker2" value="45"></div>
 								<button class="ter-button ter b-textOnly"
 									onclick="bumpSetpoint('primaryShaker',-5);bumpSetpoint('primaryShaker2',-5);">-5</button>
 								<button class="b-auto ter-button ter icon"
@@ -583,7 +583,7 @@
 								<h3 class="addSpaceBelow">Secondary Shakers</h3>
 								<button class="ter-button ter b-textOnly"
 									onclick="bumpSetpoint('secondaryShaker',5);bumpSetpoint('secondaryShaker2',5);">+5</button>
-								<div class="inpPercent"><input class="spInput" id="secondaryShaker2" value="45"></div>
+								<div class="inpPercent"><input type="number" class="spInput" id="secondaryShaker2" value="45"></div>
 								<button class="ter-button ter b-textOnly"
 									onclick="bumpSetpoint('secondaryShaker',-5);bumpSetpoint('secondaryShaker2',-5);">-5</button>
 								<button class="b-auto ter-button ter icon"
@@ -611,21 +611,21 @@
 										class="cell-border-bottom cell-border-right centerText">
 										<h3>Roller<br>Gap</h3>
 										<button class="ter-button ter plusSign"></button>
-										<input class="spInput" value="4">
+										<input type="number" class="spInput" value="4">
 										<button class="ter-button ter plusSign"></button>
 									</div>
 									<div style="grid-column: 2;grid-row: 1 / 3;padding:0 10px;"
 										class="cell-border-bottom cell-border-right centerText">
 										<h3>Roller<br>Height</h3>
 										<button class="ter-button ter plusSign"></button>
-										<input class="spInput" value="3">
+										<input type="number" class="spInput" value="3">
 										<button class="ter-button ter minusSign"></button>
 									</div>
 									<div style="grid-column: 3;grid-row: 1 / 3;padding:0 10px;"
 										class="cell-border-bottom cell-border-right centerText">
 										<h3>Table<br>Angle</h3>
 										<button class="ter-button ter plusSign"></button>
-										<input class="spInput" value="6">
+										<input type="number" class="spInput" value="6">
 										<button class="ter-button ter minusSign"></button>
 									</div>
 									<div style="grid-column: 4;grid-row: 2;padding: 0 10px;" class="cell-border-bottom">
@@ -651,7 +651,7 @@
 							<td class="largeFont cell-border-bottom">Segment Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
-								<div class="inpChain"><input class="spInput" id="chainSegmentSP" value="240"></div>
+								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP" value="240"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainSegmentSP','dn')"></button>
 							</td>
@@ -671,7 +671,7 @@
 							<td class="largeFont cell-border-bottom">Clod Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
-								<div class="inpChain"><input class="spInput" id="chainClodSP" value="240"></div>
+								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP" value="240"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainClodSP','dn')"></button>
 							</td>
@@ -691,7 +691,7 @@
 							<td class="largeFont cell-border-bottom">Spreader Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSpreaderSP','up')"></button>
-								<div class="inpChain"><input class="spInput" id="chainSpreaderSP" value="230"></div>
+								<div class="inpChain"><input type="number" class="spInput" id="chainSpreaderSP" value="230"></div>
 								<button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainSpreaderSP','dn')"></button>
 							</td>
@@ -758,11 +758,11 @@
 									<div style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
 										<div class="inpPercent inpPercent2"
 											style="padding:10px;font-size: 20px;font-weight: bold;">
-											Drop: <input class="spInput" value="4">
+											Drop: <input type="number" class="spInput" value="4">
 										</div>
 										<div class="inpPercent inpPercent2"
 											style="padding:10px;font-size: 20px;font-weight: bold;">
-											Up Speed: <input class="spInput" value="85">
+											Up Speed: <input type="number" class="spInput" value="85">
 										</div>
 									</div>
 									<div style="grid-column: 2; grid-row: 2;">
@@ -993,9 +993,9 @@
 					<tbody>
 						<tr>
 							<td class="greenx preset-label border-right-none">Minimum:</td>
-							<td class="border-left-none"><input class="spInput" id="" value="0.5"> mph</td>
+							<td class="border-left-none"><input type="number" class="spInput" id="" value="0.5"> mph</td>
 							<td class="greenx preset-label">Maximum:</td>
-							<td class="border-left-none"><input class="spInput" id="" value="4.5"> mph</td>
+							<td class="border-left-none"><input type="number" class="spInput" id="" value="4.5"> mph</td>
 						</tr>
 					</tbody>
 				</table>
