@@ -18,7 +18,10 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-  
+
+button {
+	cursor: pointer;
+}
 
 h1, h2, h3, h4 {
     text-align: center;
@@ -77,10 +80,10 @@ meter::-webkit-meter-bar {
 }
 
 #dashboard {
-	margin: 10px;
+	margin: 5px 10px;
 	background-color: lightgray;
 	border-radius: 10px;
-	height: 455px;
+	height: 410px;
 	border: 1px solid black;
 }
 
@@ -409,7 +412,9 @@ meter::-webkit-meter-bar {
 	background-image: url('./icons/settings_16_lt.png');
 }
 .b-auto {
-    background-image: url('./icons/auto_16_lt.png');
+    /*background-image: url('./icons/auto_16_lt.png');*/
+	width: 80px;
+	font-size: 18pt;
 }
 .b-link {
     background-image: url('./icons/link_16_lt.png');
@@ -485,6 +490,14 @@ button.arrowFwd {
 }
 button.arrowRev {
 	background-image: url('./icons/arrow_rev_20.png');
+	background-position: center;
+}
+button.arrowClockwise {
+	background-image: url('./icons/sync_16cw_lt.png');
+	background-position: center;
+}
+button.arrowCounterClockwise {
+	background-image: url('./icons/sync_16ccw_lt.png');
 	background-position: center;
 }
 button.camera {
@@ -778,7 +791,7 @@ th, .largeFont {
 #dash-messages {
 	font-size: 20px;
 	width: 483px;
-	height: 154px;
+	height: 115px;
 	background-color: white;
 	display: flex;
 	align-items: center;

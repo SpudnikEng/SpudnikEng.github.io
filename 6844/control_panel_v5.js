@@ -193,7 +193,7 @@ function showHomePage(elem) {
   document.getElementById("presetSave").classList.add("hide");
   document.getElementById("tbpresetSave").classList.add("hide");
   document.getElementById("showStatus").classList.remove("hide");
-  document.getElementById("shakerControl").classList.remove("hide");
+  document.getElementById("autoControl").classList.remove("hide");
   document.getElementById("displayVideoMode").classList.remove("hide");
   document.getElementById("vidAll").classList.remove("hide");
 }
@@ -208,7 +208,7 @@ function hideHomePage() {
   document.getElementById("tbpresetSave").classList.remove("hide");
   document.getElementById("control-body").classList.remove("hide");
   document.getElementById("showStatus").classList.add("hide");
-  document.getElementById("shakerControl").classList.add("hide");
+  document.getElementById("autoControl").classList.add("hide");
   document.getElementById("displayVideoMode").classList.add("hide");
   document.getElementById("vidAll").classList.add("hide");
 }

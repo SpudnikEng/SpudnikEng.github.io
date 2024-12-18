@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>V4 6844 UI Mockup</title>
+	<title>V5 6844 UI Mockup</title>
 	<link rel="stylesheet" href="./control_panel_v5.css">
 </head>
 
@@ -16,7 +16,7 @@
 			<button class="b-settings pri-button pri icon-lg"></button>
 			<button onclick="changeColorTimed(this)" class="b-rowStart pri-button pri icon">Start Row</button>
 			<button onclick="changeColorTimed(this)" class="b-rowEnd pri-button pri icon">End Row</button>
-			<button onclick="toggleRUN()" id="run-button" class="b-run pri-button pri-em">RUN</button>
+			<button onclick="toggleRUN()" id="run-button" class="b-run pri-button pri-em"><img id="run-button" src="./icons/RUN_Sm.png" alt="RUN" style="margin-top: 8px;"></button>
 		</div>
 		<div id="controls">
 			<div id="control-body">
@@ -29,7 +29,7 @@
 							</th>
 						</tr>
 						<tr><td colspan="2" style="text-align: center;">
-							<img style="width: 30%; margin: 50px 10px 40px 30px;" src="./harvester.png">
+							<img style="margin: 50px 10px 40px 30px;" src="./6844left-side-view.png">
 							</td>
 						</tr>
 						<tr>
@@ -54,7 +54,7 @@
 											</td>
 											<td>
 												<button class="arrowUp ter-button ter icon-lg"></button><br>
-												<button class="b-auto ter-button ter icon"
+												<button class="b-auto ter-button ter button-active"
 													onclick="toggleButtonState(this)">Auto</button><br>
 												<button class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
@@ -83,7 +83,7 @@
 											</td>
 											<td>
 												<button class="arrowUp ter-button ter icon-lg"></button><br>
-												<button class="b-auto ter-button ter icon"
+												<button class="b-auto ter-button ter button-active"
 													onclick="toggleButtonState(this)">Auto</button><br>
 												<button class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
@@ -180,7 +180,7 @@
 												onclick="bumpSetpoint('depthWheelRight', -5)">-5</button>
 										</div>
 										<div style="grid-row: 2;grid-column: 1 / 6;" class="centerText">
-											<button class="b-auto ter-button ter icon"
+											<button class="b-auto ter-button ter button-active"
 												onclick="toggleButtonState(this)">Auto</button>
 										</div>
 									</div>
@@ -439,7 +439,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Hopper Elev:</td>
+							<td class="largeFont cell-border-bottom">Hopper Boom:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainPilerSP','up')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput" id="chainPilerSPGround"
@@ -524,7 +524,7 @@
 								<div class="inpPercent"><input type="number" class="spInput" id="primaryShaker" value="45"></div>
 								<button class="ter-button ter b-textOnly"
 									onclick="bumpSetpoint('primaryShaker',-5);">-5</button>
-								<button class="b-auto ter-button ter icon"
+								<button class="b-auto ter-button ter button-active"
 									onclick="toggleButtonState(this)">Auto</button>
 							</td>
 							<td style="padding: 0 10px;" class="cell-border-bottom centerText cell-padding-small">
@@ -534,7 +534,7 @@
 								<div class="inpPercent"><input type="number" class="spInput" id="secondaryShaker" value="45"></div>
 								<button class="ter-button ter b-textOnly"
 									onclick="bumpSetpoint('secondaryShaker',-5);">-5</button>
-								<button class="b-auto ter-button ter icon"
+								<button class="b-auto ter-button ter button-active"
 									onclick="toggleButtonState(this)">Auto</button>
 							</td>
 						</tr>
@@ -659,7 +659,7 @@
 					<table class="controlL1">
 						<tr>
 							<th class="controlHead" colspan="2">
-								<h2>Hopper/Boom</h2>
+								<h2>Boom</h2>
 							</th>
 						</tr>
 						<tr>
@@ -698,7 +698,7 @@
 								<div style="display: grid; grid-template-columns: 230px 65px 100px; grid-template-rows: auto auto; margin: 30px 0 0 110px;"
 									class="centerText">
 									<div style="grid-column: 1 / 4; grid-row: 1; padding: 10px 0 10px 25px;">
-										<h4 style="font-size: 20px;">Hopper Elevator</h4>
+										<h4 style="font-size: 20px;">Hopper Boom</h4>
 									</div>
 									<div style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
 										<div class="inpPercent inpPercent2"
@@ -734,7 +734,9 @@
 							</th>
 						</tr>
 						<tr>
-							<div><img style="margin: 50px 10px 40px 30px;" src="./harvester.png"></div>
+							<td colspan="2">
+							<img style="margin: 50px 10px 40px 70px;width: 585px;" src="./6844rear-view.png">
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -777,14 +779,14 @@
 										<button class="arrowUp ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-row: 3; grid-column: 5;">
-										<button class="arrowRev ter-button ter icon-lg"></button>
+										<button class="arrowCounterClockwise ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-row: 3; grid-column: 6;">
-										<button class="b-auto ter-button ter icon"
+										<button class="b-auto ter-button ter button-active"
 											onclick="toggleButtonState(this)">Auto</button>
 									</div>
 									<div style="grid-row: 3; grid-column: 7;">
-										<button class="arrowFwd ter-button ter icon-lg"></button>
+										<button class="arrowClockwise ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-row: 4; grid-column: 6;">
 										<button class="arrowDown ter-button ter icon-lg"></button>
@@ -797,7 +799,7 @@
 				</div>
 
 			</div>
-			<div id="control-buttons">
+			<div id="control-buttons" style="position: relative;top: -1px;">
 				<div id="selectControl" class="border1px">
 					<button id="btnHome" class="sec-button sec button-active">Home</button>
 					<button id="btnDigger" onclick="toggleControl('btnDigger')" class="sec-button sec">Digger</button>
@@ -806,23 +808,8 @@
 					<button id="btnBoom" onclick="toggleControl('btnBoom')" class="sec-button sec">Boom</button>
 					<button id="btnAxle" onclick="toggleControl('btnAxle')" class="sec-button sec">Axle</button>
 				</div>
-				<div id="shakerControl" class="border1px centerText">
-					<h3>Shakers</h3>
-					<button class="b-auto ter-button ter icon" style="font-size: 18px;"
-						onclick="toggleButtonState(this)">Auto</button>
-					<button class="b-auto ter-button ter icon hide" style="font-size: 18px;"
-						onclick="toggleButtonState(this)">Sec. Auto</button>
-					<div id="primaryShakerSlider" class="slider-container hide">
-						<h4>Primary</h4>
-						<div class="slider"></div>
-					</div>
-					<div id="secondaryShakerSlider" class="slider-container hide">
-						<h4 style="position: relative; left: -8px;">Secondary</h4>
-						<div class="slider"></div>
-					</div>
-				</div>
 			</div>
-			<div id="preset-buttons">
+			<div id="preset-buttons" style="position: relative; top: -1px;">
 				<div id="globalPresets" class="border1px">
 					<h3>Intake/Axle</h3>
 					<div id="presets">
@@ -898,6 +885,40 @@
 					<div id="dash-messages" class="dash-comp-margin border1px">
 						- No Active Alarms -
 					</div>
+				</div>
+				<div id="autoControl">
+					<span>
+						<span style="float: left;margin-left: 11px;">
+							<h3>Digger</h3>
+							<button class="b-auto ter-button ter button-active" style="margin-top: 0;"
+								onclick="toggleButtonState(this)">Auto</button>
+						</span>
+						<span style="float: left;">
+							<h3>Hump</h3>
+							<button class="b-auto ter-button ter button-active" style="margin-top: 0;"
+								onclick="toggleButtonState(this)">Auto</button>
+						</span>
+						<span style="float: left;">
+							<h3>Depth Whl</h3>
+							<button class="b-auto ter-button ter button-active" style="margin-top: 0;"
+								onclick="toggleButtonState(this)">Auto</button>
+						</span>
+						<span style="float: left;">
+							<h3>Axle</h3>
+							<button class="b-auto ter-button ter button-active" style="margin-top: 0;"
+								onclick="toggleButtonState(this)">Auto</button>
+						</span>
+						<span style="float: left;">
+							<h3>Pri Shkr</h3>
+							<button class="b-auto ter-button ter button-active" style="margin-top: 0;"
+								onclick="toggleButtonState(this)">Auto</button>
+						</span>
+						<span style="float: left;">
+							<h3>Sec Shkr</h3>
+							<button class="b-auto ter-button ter button-active" style="margin-top: 0;"
+								onclick="toggleButtonState(this)">Auto</button>
+						</span>
+					</span>
 				</div>
 			</div>
 		</div>
