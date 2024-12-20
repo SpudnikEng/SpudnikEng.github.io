@@ -4,7 +4,7 @@ window.onload = function () {
 };
 
 function bumpChainSetpoint(setPointItm, direction) {
-   if (document.querySelector('.groundMode').classList.contains('green')) {
+  if (document.querySelector(".groundMode").classList.contains("green")) {
     setPointElem = document.getElementById(setPointItm + "Ground");
   } else {
     setPointElem = document.getElementById(setPointItm + "Fixed");
@@ -22,7 +22,7 @@ function bumpChainSetpoint(setPointItm, direction) {
 
 function bumpRollerSetpoint(setPointItm, direction) {
   setPointElem = document.getElementById(setPointItm);
-  setPointElem2 = document.getElementById(setPointItm+'2');
+  setPointElem2 = document.getElementById(setPointItm + "2");
   let currentValue = parseInt(setPointElem.value);
   if (isNaN(currentValue) || currentValue < 10) {
     currentValue = 10;
@@ -47,18 +47,24 @@ function bumpChainSetpointAll(direction) {
   bumpChainSetpoint("chainHoldTankSP", direction);
 }
 
-function bumpSetpoint(id, inc) {
-  let setPointElem = document.getElementById(id);
-  let currentValue = parseInt(setPointElem.value);
-  if (isNaN(currentValue) || ((currentValue <= Math.abs(inc)) && (inc < 0))) {
+function bumpSetpoint(id, inc, attr) {
+  const barContainer = document.getElementById('barGraph-'+id);
+  let currentValue = parseInt(barContainer.getAttribute(attr), 10);
+  if (isNaN(currentValue)) {
     //do nothing
   } else {
-    setPointElem.value = currentValue + inc;
+	if(inc < 0) {
+		currentValue = Math.max(currentValue+inc, 0);	//clamp to min 0
+	} else {
+		currentValue = Math.min(currentValue+inc, 100);	//clamp to max 100
+	}
+	barContainer.setAttribute(attr, currentValue);
+	updateBarGraphs();
   }
 }
 
 function hideShowGroundSpeedSP() {
-  if (document.querySelector('.groundMode').classList.contains('green')) {
+  if (document.querySelector(".groundMode").classList.contains("green")) {
     toggleObjectClass("speedFixed", "speedGround", "hide");
   } else {
     toggleObjectClass("speedGround", "speedFixed", "hide");
@@ -76,10 +82,14 @@ function setChainMode(mode) {
 
 function changeColorTimed(button) {
   const originalColor = button.style.backgroundColor;
-  button.style.backgroundColor = "#72BB53";
-  setTimeout(() => {
-    button.style.backgroundColor = originalColor;
-  }, 3000);
+  if(originalColor == "#72BB53") {
+	//ignore extra click while background is green
+  } else {
+	button.style.backgroundColor = "#72BB53";
+	setTimeout(() => {
+	  button.style.backgroundColor = originalColor;
+	}, 3000);
+  }
 }
 
 function toggleRUN() {
@@ -96,7 +106,9 @@ function toggleRUN() {
     document.getElementById("segmentFwd").classList.remove("button-active");
     document.getElementById("spreaderFwd").classList.remove("button-active");
     document.getElementById("rearcrossFwd").classList.remove("button-active");
-    document.getElementById("sideelevatorFwd").classList.remove("button-active");
+    document
+      .getElementById("sideelevatorFwd")
+      .classList.remove("button-active");
     document.getElementById("pilerFwd").classList.remove("button-active");
     document.getElementById("bunkerFwd").classList.remove("button-active");
     toggleObjectClass("chains-override", "chains-speed", "hide");
@@ -121,24 +133,24 @@ function toggleButtonState(button) {
   if (button.classList.contains("button-active")) {
     button.classList.remove("button-active");
     if (button.id == "coulterSync") {
-      document.querySelectorAll(".syncBars").forEach(element => {
+      document.querySelectorAll(".syncBars").forEach((element) => {
         element.classList.add("hide");
       });
     }
     if (button.id == "depthWheelsSync") {
-      document.querySelectorAll(".syncBarsDepthWheels").forEach(element => {
+      document.querySelectorAll(".syncBarsDepthWheels").forEach((element) => {
         element.classList.add("hide");
       });
     }
   } else {
     button.classList.add("button-active");
     if (button.id == "coulterSync") {
-      document.querySelectorAll(".syncBars").forEach(element => {
+      document.querySelectorAll(".syncBars").forEach((element) => {
         element.classList.remove("hide");
       });
     }
     if (button.id == "depthWheelsSync") {
-      document.querySelectorAll(".syncBarsDepthWheels").forEach(element => {
+      document.querySelectorAll(".syncBarsDepthWheels").forEach((element) => {
         element.classList.remove("hide");
       });
     }
@@ -234,32 +246,93 @@ function openBottomSheet(elem) {
   bottomSheet.classList.add("open");
 }
 
-function toggleObjectClass(activeButtonClass, inactiveButtonClass, targetClass) {
-  document.querySelectorAll("."+activeButtonClass).forEach((element) => {
+function toggleObjectClass(
+  activeButtonClass,
+  inactiveButtonClass,
+  targetClass
+) {
+  document.querySelectorAll("." + activeButtonClass).forEach((element) => {
     element.classList.add(targetClass);
   });
-  document.querySelectorAll("."+inactiveButtonClass).forEach((element) => {
+  document.querySelectorAll("." + inactiveButtonClass).forEach((element) => {
     element.classList.remove(targetClass);
   });
 }
 
 function toggleHomeVideos(objectId) {
+  const CLASS_HIDE = "hide";
+  const CLASS_VIDEO_LARGE = "videoLarge";
+  const CLASS_VIDEO_MED = "videoMed";
+  const videoElements = {
+    topLeft: document.getElementById("topLeft"),
+    topRight: document.getElementById("topRight"),
+    bottomLeft: document.getElementById("bottomLeft"),
+    bottomRight: document.getElementById("bottomRight"),
+  };
+
+  const controlElements = {
+    videoGridView: document.getElementById("videoGridView"),
+    videoPrevView: document.getElementById("videoPrevView"),
+    videoNextView: document.getElementById("videoNextView"),
+  };
+
+  const videoKeys = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
+
+  // Logging for debugging purposes
   console.log(objectId);
-  if(objectId == 'videoGridView') {
-    document.querySelectorAll(".videoHome").forEach((element) => {
-      element.classList.remove("hide");
-      element.classList.remove("videoLarge");
-      element.classList.add("videoMed");
-    });
-    document.getElementById('videoGridView').classList.add('hide');
-  } else {
-    document.querySelectorAll(".videoHome").forEach((element) => {
-      element.classList.add("hide");
-    });
-    document.getElementById(objectId).classList.remove('videoMed');
-    document.getElementById(objectId).classList.add('videoLarge');
-    document.getElementById(objectId).classList.remove('hide');
-    document.getElementById('videoGridView').classList.remove('hide');
+
+  // Handle different views
+  switch (objectId) {
+    case "videoGridView":
+      document.querySelectorAll(".videoHome").forEach((element) => {
+        element.classList.remove(CLASS_HIDE, CLASS_VIDEO_LARGE);
+        element.classList.add(CLASS_VIDEO_MED);
+      });
+      Object.values(controlElements).forEach((el) =>
+        el.classList.add(CLASS_HIDE)
+      );
+      break;
+
+    case "videoPrevView":
+      for (let i = 0; i < videoKeys.length; i++) {
+        const current = videoElements[videoKeys[i]];
+        const next = videoElements[videoKeys[(i + 3) % 4]]; // Previous element in circular order
+        if (!current.classList.contains(CLASS_HIDE)) {
+          current.classList.add(CLASS_HIDE);
+          next.classList.remove(CLASS_HIDE, CLASS_VIDEO_MED);
+          next.classList.add(CLASS_VIDEO_LARGE);
+          break;
+        }
+      }
+      break;
+
+    case "videoNextView":
+		for (let i = 0; i < videoKeys.length; i++) {
+		  const current = videoElements[videoKeys[i]];
+		  const next = videoElements[videoKeys[(i + 1) % 4]]; // Next element in circular order
+		  if (!current.classList.contains(CLASS_HIDE)) {
+			current.classList.add(CLASS_HIDE);
+			next.classList.remove(CLASS_HIDE, CLASS_VIDEO_MED);
+			next.classList.add(CLASS_VIDEO_LARGE);
+			break;
+		  }
+		}
+      break;
+
+    default:
+      // Handle individual video selection
+      document.querySelectorAll(".videoHome").forEach((element) => {
+        element.classList.add(CLASS_HIDE);
+      });
+      const selectedVideo = document.getElementById(objectId);
+      if (selectedVideo) {
+        selectedVideo.classList.remove(CLASS_HIDE, CLASS_VIDEO_MED);
+        selectedVideo.classList.add(CLASS_VIDEO_LARGE);
+      }
+      Object.values(controlElements).forEach((el) =>
+        el.classList.remove(CLASS_HIDE)
+      );
+      break;
   }
 }
 
@@ -272,27 +345,121 @@ function closeModal(modalId) {
   document.getElementById(modalId).style.display = "none";
 }
 
+function assignClickListeners() {
+  document.querySelectorAll(".cleanMode").forEach((element) => {
+    element.addEventListener("click", () =>
+      toggleObjectClass("cleanMode", "transportMode", "green")
+    );
+  });
+  document.querySelectorAll(".transportMode").forEach((element) => {
+    element.addEventListener("click", () =>
+      toggleObjectClass("transportMode", "cleanMode", "green")
+    );
+  });
+  document.querySelectorAll(".fixedMode").forEach((element) => {
+    element.addEventListener("click", () => setChainMode("Fixed"));
+  });
+  document.querySelectorAll(".groundMode").forEach((element) => {
+    element.addEventListener("click", () => setChainMode("Ground"));
+  });
 
-function assignClickListeners(){
-	document.querySelectorAll(".cleanMode").forEach(element => {
-    element.addEventListener('click', () => toggleObjectClass("cleanMode", "transportMode", "green"));
-	});
-  document.querySelectorAll(".transportMode").forEach(element => {
-    element.addEventListener('click', () => toggleObjectClass("transportMode", "cleanMode", "green"));
-	});
-  document.querySelectorAll(".fixedMode").forEach(element => {
-    element.addEventListener('click', () => setChainMode('Fixed'));
-	});
-  document.querySelectorAll(".groundMode").forEach(element => {
-    element.addEventListener('click', () => setChainMode('Ground'));
-	});
+  document.querySelectorAll(".videoHome").forEach((element) => {
+    element.addEventListener("click", () => toggleHomeVideos(element.id));
+  });
 
-  document.querySelectorAll(".videoHome").forEach(element => {
-    element.addEventListener('click', () => toggleHomeVideos(element.id));
-	});
-
-  document.getElementById('videoGridView').addEventListener('click', () => toggleHomeVideos('videoGridView'));
-  document.getElementById('smallVideos').addEventListener('click', () => showHomePage());
-  document.getElementById('btnHome').addEventListener('click', () => showHomePage());
+  document
+    .getElementById("videoPrevView")
+    .addEventListener("click", () => toggleHomeVideos("videoPrevView"));
+  document
+    .getElementById("videoGridView")
+    .addEventListener("click", () => toggleHomeVideos("videoGridView"));
+  document
+    .getElementById("videoNextView")
+    .addEventListener("click", () => toggleHomeVideos("videoNextView"));
+  document
+    .getElementById("smallVideos")
+    .addEventListener("click", () => showHomePage());
+  document
+    .getElementById("btnHome")
+    .addEventListener("click", () => showHomePage());
 }
 
+/* bar graph code */
+function updateBarGraphs() {
+	const barContainers = document.querySelectorAll('.vertical-bar-container');
+  
+	barContainers.forEach((container) => {
+	  const value = parseInt(container.getAttribute('data-value'), 10);
+	  const target = parseInt(container.getAttribute('data-target'), 10);
+
+	  //update setpoint value in additional container
+	  const setpointInput = document.getElementById((container.id).split('-')[1]);
+	  if(setpointInput) {
+		setpointInput.value = target;
+	  }
+  
+	  const valuePercentage = Math.min(Math.max(value, 0), 100);
+	  const targetPercentage = Math.min(Math.max(target, 0), 100);
+  
+	  const barFill = container.querySelector('.bar-fill');
+	  barFill.style.height = `${valuePercentage}%`;
+  
+	  const targetMarker = container.querySelector('.target-marker');
+	  targetMarker.style.bottom = `${targetPercentage}%`;
+  
+	  const barLabel = container.querySelector('.bar-label');
+	  barLabel.textContent = `${value}`;
+  
+	  const tickMarksContainer = container.querySelector('.tick-marks');
+	  tickMarksContainer.innerHTML = '';
+  
+	  const numTicks = 5;
+	  for (let i = 1; i <= numTicks; i++) { // Start from 1 to exclude 0
+		const positionPercentage = (i / numTicks) * 100;
+  
+		const tickLeft = document.createElement('div');
+		tickLeft.classList.add('tick', 'left');
+		tickLeft.style.bottom = `${positionPercentage}%`;
+  
+		const tickRight = document.createElement('div');
+		tickRight.classList.add('tick', 'right');
+		tickRight.style.bottom = `${positionPercentage}%`;
+  
+		const tickLabelLeft = document.createElement('div');
+		tickLabelLeft.classList.add('tick-label', 'left');
+		tickLabelLeft.style.bottom = `${positionPercentage}%`;
+		tickLabelLeft.textContent = Math.round((i / numTicks) * 100);
+  
+		const tickLabelRight = document.createElement('div');
+		tickLabelRight.classList.add('tick-label', 'right');
+		tickLabelRight.style.bottom = `${positionPercentage}%`;
+		tickLabelRight.textContent = Math.round((i / numTicks) * 100);
+  
+		tickMarksContainer.appendChild(tickLeft);
+		tickMarksContainer.appendChild(tickRight);
+		tickMarksContainer.appendChild(tickLabelLeft);
+		tickMarksContainer.appendChild(tickLabelRight);
+	  }
+	});
+  }
+
+  function addControls() {
+	const barContainers = document.querySelectorAll('.vertical-bar-container');
+  
+	barContainers.forEach((container) => {
+	  const incrementBtn = container.querySelector('.increment-btn');
+	  const decrementBtn = container.querySelector('.decrement-btn');
+  
+	  incrementBtn.addEventListener('click', () => {
+		let value = parseInt(container.getAttribute('data-value'), 10);
+		container.setAttribute('data-value', Math.min(value + 5, 100)); // Clamp to max 100
+		updateBarGraphs();
+	  });
+  
+	  decrementBtn.addEventListener('click', () => {
+		let value = parseInt(container.getAttribute('data-value'), 10);
+		container.setAttribute('data-value', Math.max(value - 5, 0)); // Clamp to min 0
+		updateBarGraphs();
+	  });
+	});
+  }

@@ -5,42 +5,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horizontal Bar with Colors</title>
     <style>
-        .horizontal-bar {
-            display: flex;
-            width: 140px;
-            height: 60px;
-            position: relative;
-        }
-        .green {
-            width: 90px;
-            height: 100%;
-            background-color: green;
-        }
-        .yellow {
-            width: 25px;
-            height: 100%;
-            background-color: yellow;
-        }
-        .red {
-            width: 25px;
-            height: 100%;
-            background-color: red;
-        }
-        .black-bar {
-            position: absolute;
-            top: -10px;
-            bottom: -10px;
-            width: 2px;
-            background-color: black;
-            left: 127px;
-        }
+.vertical-bar-container {
+  display: inline-block;
+  margin: 20px;
+  text-align: center;
+}
+
+.vertical-bar {
+  position: relative;
+  width: 50px;
+  height: 200px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.bar-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #76c7c0;
+}
+
+.target-marker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: red;
+}
+
+.tick-marks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.tick-marks .tick {
+  position: absolute;
+  width: 10px;
+  height: 1px;
+  background-color: black;
+}
+
+.tick-marks .tick.left {
+  left: 0;
+}
+
+.tick-marks .tick.right {
+  right: 0;
+}
+
+.tick-marks .tick-label {
+  position: absolute;
+  font-size: 12px;
+  transform: translateY(50%);
+}
+
+.tick-marks .tick-label.left {
+  left: -20px;
+  text-align: right;
+}
+
+.tick-marks .tick-label.right {
+  right: -20px;
+  text-align: left;
+}
+
+.bar-label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.bar-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.increment-btn,
+.decrement-btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
     </style>
 </head>
 <body>
-    <div class="horizontal-bar">
-        <div class="green"></div>
-        <div class="yellow"></div>
-        <div class="red"></div>
-    </div>
+    <div id="bar-graph-1" class="vertical-bar-container" data-value="40" data-target="70">
+        <div class="vertical-bar">
+          <div class="bar-fill"></div>
+          <div class="target-marker"></div>
+          <div class="tick-marks"></div>
+        </div>
+        <div class="bar-label">40</div>
+        <div class="bar-controls">
+          <button class="increment-btn">+</button>
+          <button class="decrement-btn">-</button>
+        </div>
+      </div>
+      
+      <div id="bar-graph-2" class="vertical-bar-container" data-value="60" data-target="80">
+        <div class="vertical-bar">
+          <div class="bar-fill"></div>
+          <div class="target-marker"></div>
+          <div class="tick-marks"></div>
+        </div>
+        <div class="bar-label">60</div>
+        <div class="bar-controls">
+          <button class="increment-btn">+</button>
+          <button class="decrement-btn">-</button>
+        </div>
+      </div>
+      
 </body>
+<script>
+function updateBarGraphs() {
+  const barContainers = document.querySelectorAll('.vertical-bar-container');
+
+  barContainers.forEach((container) => {
+    const value = parseInt(container.getAttribute('data-value'), 10);
+    const target = parseInt(container.getAttribute('data-target'), 10);
+
+    const valuePercentage = Math.min(Math.max(value, 0), 100);
+    const targetPercentage = Math.min(Math.max(target, 0), 100);
+
+    const barFill = container.querySelector('.bar-fill');
+    barFill.style.height = `${valuePercentage}%`;
+
+    const targetMarker = container.querySelector('.target-marker');
+    targetMarker.style.bottom = `${targetPercentage}%`;
+
+    const barLabel = container.querySelector('.bar-label');
+    barLabel.textContent = `${value}`;
+
+    const tickMarksContainer = container.querySelector('.tick-marks');
+    tickMarksContainer.innerHTML = '';
+
+    const numTicks = 5;
+    for (let i = 1; i <= numTicks; i++) { // Start from 1 to exclude 0
+      const positionPercentage = (i / numTicks) * 100;
+
+      const tickLeft = document.createElement('div');
+      tickLeft.classList.add('tick', 'left');
+      tickLeft.style.bottom = `${positionPercentage}%`;
+
+      const tickRight = document.createElement('div');
+      tickRight.classList.add('tick', 'right');
+      tickRight.style.bottom = `${positionPercentage}%`;
+
+      const tickLabelLeft = document.createElement('div');
+      tickLabelLeft.classList.add('tick-label', 'left');
+      tickLabelLeft.style.bottom = `${positionPercentage}%`;
+      tickLabelLeft.textContent = Math.round((i / numTicks) * 100);
+
+      const tickLabelRight = document.createElement('div');
+      tickLabelRight.classList.add('tick-label', 'right');
+      tickLabelRight.style.bottom = `${positionPercentage}%`;
+      tickLabelRight.textContent = Math.round((i / numTicks) * 100);
+
+      tickMarksContainer.appendChild(tickLeft);
+      tickMarksContainer.appendChild(tickRight);
+      tickMarksContainer.appendChild(tickLabelLeft);
+      tickMarksContainer.appendChild(tickLabelRight);
+    }
+  });
+}
+
+function addControls() {
+  const barContainers = document.querySelectorAll('.vertical-bar-container');
+
+  barContainers.forEach((container) => {
+    const incrementBtn = container.querySelector('.increment-btn');
+    const decrementBtn = container.querySelector('.decrement-btn');
+
+    incrementBtn.addEventListener('click', () => {
+      let value = parseInt(container.getAttribute('data-value'), 10);
+      container.setAttribute('data-value', Math.min(value + 10, 100)); // Clamp to max 100
+      updateBarGraphs();
+    });
+
+    decrementBtn.addEventListener('click', () => {
+      let value = parseInt(container.getAttribute('data-value'), 10);
+      container.setAttribute('data-value', Math.max(value - 10, 0)); // Clamp to min 0
+      updateBarGraphs();
+    });
+  });
+}
+
+updateBarGraphs();
+addControls();
+
+</script>
 </html>

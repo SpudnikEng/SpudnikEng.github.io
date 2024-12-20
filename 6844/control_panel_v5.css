@@ -29,6 +29,10 @@ h1, h2, h3, h4 {
     margin-bottom: 2px;
 }
 
+h3.control-label {
+	font-size: 16pt;
+}
+
 table {
 	border-collapse: collapse;
 }
@@ -83,7 +87,7 @@ meter::-webkit-meter-bar {
 	margin: 5px 10px;
 	background-color: lightgray;
 	border-radius: 10px;
-	height: 410px;
+	height: 480px;
 	border: 1px solid black;
 }
 
@@ -200,7 +204,6 @@ meter::-webkit-meter-bar {
 
 .syncBars, .syncBarsDepthWheels {
 	position: absolute;
-	left: 103px;
 	width: 135px;
 	height: 15px;
 }
@@ -262,10 +265,24 @@ meter::-webkit-meter-bar {
 	left: 10px;
 	top: -510px;
 }
+#videoPrevView {
+	position: relative;
+	left: 460px;
+	top: -717px;
+	width: 90px;
+	height: 60px;
+}
 #videoGridView {
 	position: relative;
-	left: 680px;
-	top: -710px;
+	left: 454px;
+	top: -717px;
+	width: 90px;
+	height: 60px;
+}
+#videoNextView {
+	position: relative;
+	left: 446px;
+	top: -717px;
 	width: 90px;
 	height: 60px;
 }
@@ -436,7 +453,7 @@ meter::-webkit-meter-bar {
 }
 .b-textOnly {
     font-size: 25px;
-    min-width: 50px;
+    min-width: 70px;
 }
 
 .button-left {
@@ -459,6 +476,14 @@ meter::-webkit-meter-bar {
 
 button.gridView {
 	background-image: url('./icons/grid_view_20_lt.png');
+	background-position: center;
+}
+button.prevView {
+	background-image: url('./icons/arrow_back_ios_20_lt.png');
+	background-position: center;
+}
+button.nextView {
+	background-image: url('./icons/arrow_forward_ios_20_lt.png');
 	background-position: center;
 }
 
@@ -706,7 +731,7 @@ h2 {
 	font-size: 26px;
 }
 h3 {
-	font-size: 16px;
+	font-size: 14px;
 }
 th, .largeFont {
 	font-size: 18px;
@@ -835,3 +860,93 @@ th, .largeFont {
 .chains-psi, .chains-speed {
 	width: 105px;
 }
+
+/* bar graphs */
+.vertical-bar-container {
+	display: inline-block;
+	margin: 0 7px;
+	text-align: center;
+  }
+  
+  .vertical-bar {
+	position: relative;
+	width: 40px;
+	height: 150px;
+	background-color: #e0e0e0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	overflow: hidden;
+  }
+  
+  .bar-fill {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #76c7c0;
+  }
+  
+  .target-marker {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background-color: red;
+  }
+  
+  .tick-marks {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+  }
+  
+  .tick-marks .tick {
+	position: absolute;
+	width: 10px;
+	height: 1px;
+	background-color: black;
+  }
+  
+  .tick-marks .tick.left {
+	left: 0;
+  }
+  
+  .tick-marks .tick.right {
+	right: 0;
+  }
+  
+  .tick-marks .tick-label {
+	position: absolute;
+	font-size: 12px;
+	transform: translateY(50%);
+  }
+  
+  .tick-marks .tick-label.left {
+	left: -20px;
+	text-align: right;
+  }
+  
+  .tick-marks .tick-label.right {
+	right: -20px;
+	text-align: left;
+  }
+  
+  .bar-label {
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 5px;
+  }
+  
+  .bar-controls {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+  }
+  
+  .increment-btn,
+  .decrement-btn {
+	padding: 5px 10px;
+	font-size: 14px;
+	cursor: pointer;
+  }
