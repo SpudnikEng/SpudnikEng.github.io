@@ -91,23 +91,8 @@ meter::-webkit-meter-bar {
 	border: 1px solid black;
 }
 
-#dash-digger {
-}
-
-#dash-temp {
-}
-
-#dash-intake {
-}
-
-#dash-fill-elev {
-}
-
 #dash-empty {
 	padding: 0;
-}
-
-#dash-table {
 }
 
 .dash-number {

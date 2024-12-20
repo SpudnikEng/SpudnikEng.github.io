@@ -129,6 +129,35 @@ function toggleRUN() {
   }
 }
 
+// LocalStorage helper functions
+const saveStatus = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+
+const getStatus = (key) => {
+    const status = localStorage.getItem(key);
+    return status ? JSON.parse(status) : null;
+};
+
+function toggleAutoState(buttonFunction){
+	const autoState = getStatus('autoStatus');
+	console.log(autoState);
+	autoState[buttonFunction] = !autoState[buttonFunction];
+	for (const [key, value] of Object.entries(autoState)) {
+		console.log(key, value);
+        const buttonCollection = document.getElementsByClassName(key+'Auto');
+		console.log(buttonCollection);
+		Array.from(buttonCollection).forEach((button) => {
+			if(value){
+				button.classList.add('green');
+			} else {
+				button.classList.remove('green');
+			}
+		})
+    }
+	saveStatus('autoStatus', autoState);
+}
+
 function toggleButtonState(button) {
   if (button.classList.contains("button-active")) {
     button.classList.remove("button-active");
@@ -443,23 +472,123 @@ function updateBarGraphs() {
 	});
   }
 
-  function addControls() {
-	const barContainers = document.querySelectorAll('.vertical-bar-container');
-  
-	barContainers.forEach((container) => {
-	  const incrementBtn = container.querySelector('.increment-btn');
-	  const decrementBtn = container.querySelector('.decrement-btn');
-  
-	  incrementBtn.addEventListener('click', () => {
-		let value = parseInt(container.getAttribute('data-value'), 10);
-		container.setAttribute('data-value', Math.min(value + 5, 100)); // Clamp to max 100
-		updateBarGraphs();
-	  });
-  
-	  decrementBtn.addEventListener('click', () => {
-		let value = parseInt(container.getAttribute('data-value'), 10);
-		container.setAttribute('data-value', Math.max(value - 5, 0)); // Clamp to min 0
-		updateBarGraphs();
-	  });
-	});
-  }
+  const initStatus = () => {
+    const initialStatus = {
+        digger: true,
+        hump: true,
+        depthWheel: true,
+        axle: true,
+        priShaker: true,
+        secShaker: true,
+    };
+
+    localStorage.setItem("autoStatus", JSON.stringify(initialStatus));
+};
+
+const initializePresets = () => {
+    const presets = {
+        preset1: {
+            title: 'Preset 1',
+            saved: true,
+            depth: 30,
+            priShaker: 30,
+            secShaker: 30,
+            axle: 25,
+            titleNew: 'Preset 1',
+            depthNew: 30,
+            priShakerNew: 30,
+            secShakerNew: 30,
+            axleNew: 25,
+        },
+        preset2: {
+            title: 'Preset 2',
+            saved: true,
+            depth: 30,
+            priShaker: 30,
+            secShaker: 30,
+            axle: 25,
+            titleNew: 'Preset 2',
+            depthNew: 30,
+            priShakerNew: 30,
+            secShakerNew: 30,
+            axleNew: 25,
+        },
+        preset3: {
+            title: 'Preset 3',
+            saved: true,
+            depth: 30,
+            priShaker: 30,
+            secShaker: 30,
+            axle: 25,
+            titleNew: 'Preset 3',
+            depthNew: 30,
+            priShakerNew: 30,
+            secShakerNew: 30,
+            axleNew: 25,
+        },
+        presetA: {
+            title: 'Preset A',
+            saved: true,
+            gap: 30,
+            height: 30,
+            angle: 30,
+            clodRollerSpeed: 25,
+            segmentRollerSpeed: 25,
+            spreaderRollerSpeed: 25,
+            cleanMode: true,
+            titleNew: 'Preset A',
+            gapNew: 30,
+            heightNew: 30,
+            angleNew: 30,
+            clodRollerSpeedNew: 25,
+            segmentRollerSpeedNew: 25,
+            spreaderRollerSpeedNew: 25,
+            cleanModeNew: true,
+        },
+        presetB: {
+            title: 'Preset B',
+            saved: true,
+            gap: 30,
+            height: 30,
+            angle: 30,
+            clodRollerSpeed: 25,
+            segmentRollerSpeed: 25,
+            spreaderRollerSpeed: 25,
+            cleanMode: true,
+            titleNew: 'Preset B',
+            gapNew: 30,
+            heightNew: 30,
+            angleNew: 30,
+            clodRollerSpeedNew: 25,
+            segmentRollerSpeedNew: 25,
+            spreaderRollerSpeedNew: 25,
+            cleanModeNew: true,
+        },
+        presetC: {
+            title: 'Preset C',
+            saved: true,
+            gap: 30,
+            height: 30,
+            angle: 30,
+            clodRollerSpeed: 25,
+            segmentRollerSpeed: 25,
+            spreaderRollerSpeed: 25,
+            cleanMode: true,
+            titleNew: 'Preset C',
+            gapNew: 30,
+            heightNew: 30,
+            angleNew: 30,
+            clodRollerSpeedNew: 25,
+            segmentRollerSpeedNew: 25,
+            spreaderRollerSpeedNew: 25,
+            cleanModeNew: true,
+        },
+    };
+
+    for (const [key, value] of Object.entries(presets)) {
+        if (!localStorage.getItem(key)) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+    }
+};
+

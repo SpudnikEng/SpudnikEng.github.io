@@ -61,8 +61,8 @@
 											<td>
 												<button onclick="bumpSetpoint('depthControlSP', 1, 'data-value')"
 													class="arrowUp ter-button ter icon-lg"></button><br>
-												<button class="b-auto ter-button ter button-active"
-													onclick="toggleButtonState(this)">Auto</button><br>
+												<button class="b-auto ter-button ter button-active diggerAuto"
+													onclick="toggleAutoState('digger');">Auto</button><br>
 												<button onclick="bumpSetpoint('depthControlSP', -1, 'data-value')"
 													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
@@ -933,7 +933,7 @@
 						<p class="dash-number"><span class="chains-override">0</span><span
 								class="chains-speed">205</span> FPM</p>
 						<div class="dash-number">1280 psi</div>
-						<div class="meterContainer"><meter class="meter-horizontal" id='dash-temp-meter' min='0'
+						<div class="meterContainer"><meter class="meter-horizontal" id='dash-intake-meter' min='0'
 								low='10' high='40' max='3500' optimum='3000' value='1280'></meter>
 						</div>
 					</div>
@@ -965,7 +965,7 @@
 							<span style="float: left;">
 								<h3>Digger</h3>
 								<button class="b-auto ter-button ter button-active" style="margin-top: 0;"
-									onclick="toggleButtonState(this)">Auto</button>
+									onclick="toggleAutoState('digger')">Auto</button>
 							</span>
 							<span style="float: left;">
 								<h3>Hump</h3>
@@ -1131,6 +1131,8 @@
 		showHomePage();
 		assignClickListeners();
 		updateBarGraphs();
+		initStatus();
+		initializePresets();
 	</script>
 </body>
 
