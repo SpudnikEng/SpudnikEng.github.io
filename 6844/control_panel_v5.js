@@ -1,3 +1,23 @@
+
+// Initialize presets in memory
+const presets = [
+  { label: "Preset 1", values: [30, 35, 45, 25, 25, 35, 0] },
+  { label: "Preset 2", values: [35, 40, 50, 30, 30, 40, 0] },
+  { label: "Preset 3", values: [40, 45, 55, 35, 35, 45, 0] },
+  { label: "Preset A", values: [0, 0, 0, 0, 0, 0, 0] },
+  { label: "Preset B", values: [0, 0, 0, 0, 0, 0, 0] },
+  { label: "Preset C", values: [0, 0, 0, 0, 0, 0, 0] },
+];
+
+const initialStatus = {
+  digger: true,
+  hump: true,
+  depthWheel: true,
+  axle: true,
+  priShaker: true,
+  secShaker: true,
+};
+
 // Load the saved orientation when the page loads
 window.onload = function () {
   hideShowGroundSpeedSP();
@@ -385,14 +405,31 @@ function getSelectedIntakePreset(){
 
 function openModal(modalId) {
   if(modalId=='saveModal'){
-    const currPresets = getPreset(getSelectedIntakePreset());
+    let tempVal = 0;
+    const selectedPreset = getSelectedIntakePreset();
+    const currPresets = getPreset(selectedPreset);
+    document.getElementById('selected-preset').innerHTML = (selectedPreset+1);
     document.getElementById('currPresetLabel').value = currPresets.label;
-    document.getElementById('saveSp1').value = currPresets.values[0];
-    document.getElementById('saveSp2').value = currPresets.values[1];
-    document.getElementById('saveSp3').value = currPresets.values[2];
-    document.getElementById('saveSp4').value = currPresets.values[3];
-    document.getElementById('saveSp5').value = currPresets.values[4];
-    document.getElementById('saveSp6').value = currPresets.values[5];
+    document.getElementById('currPresetLabel').style.backgroundColor = 'white';
+    tempVal = document.getElementById('depthControlSP').value;
+    document.getElementById('saveSp1').value = tempVal;
+    document.getElementById('saveSp1').style.backgroundColor = (currPresets.values[0] == tempVal)?'white':'yellow';
+    tempVal = document.getElementById('humpControl').value;
+    document.getElementById('saveSp2').value = tempVal;
+    document.getElementById('saveSp2').style.backgroundColor = (currPresets.values[1] == tempVal)?'white':'yellow';
+    tempVal = parseInt((parseInt(document.getElementById('depthWheelLeft').value) + parseInt(document.getElementById('depthWheelRight').value))/2);
+    document.getElementById('saveSp3').value = tempVal;
+    document.getElementById('saveSp3').style.backgroundColor = (currPresets.values[2] == tempVal)?'white':'yellow';
+    tempVal = document.getElementById('primaryShaker').value;
+    document.getElementById('saveSp4').value = tempVal;
+    document.getElementById('saveSp4').style.backgroundColor = (currPresets.values[3] == tempVal)?'white':'yellow';
+    tempVal = document.getElementById('secondaryShaker').value;
+    document.getElementById('saveSp5').value = tempVal;
+    document.getElementById('saveSp5').style.backgroundColor = (currPresets.values[4] == tempVal)?'white':'yellow';
+    tempVal = parseInt((parseInt(document.getElementById('axleLeft').value) + parseInt(document.getElementById('axleRight').value))/2);
+    document.getElementById('saveSp6').value = tempVal;
+    document.getElementById('saveSp6').style.backgroundColor = (currPresets.values[5] == tempVal)?'white':'yellow';
+
   }
   document.getElementById(modalId).style.display = "flex";
 }
@@ -426,6 +463,91 @@ function refreshPresets() {
   updateSetpointValue('axleRight', currPresets.values[5]);
   updateBarGraphs();
 }
+
+
+/* bar graph code */
+function updateBarGraphs() {
+  let setpointChangeNotSaved = false;
+  const currPresets = getPreset(getSelectedIntakePreset());
+  const keyMap = {
+    'depthC': 0,
+    'humpCo': 1,
+    'depthW': 2,
+    'primar': 3,
+    'second': 4,
+    'axleLe': 5,
+    'axleRi': 5
+  };
+	const barContainers = document.querySelectorAll('.vertical-bar-container');
+  console.log(currPresets);
+  
+	barContainers.forEach((container) => {
+	  const value = parseInt(container.getAttribute('data-value'), 10);
+	  const target = parseInt(container.getAttribute('data-target'), 10);
+
+    console.log((container.id).split('-')[1].slice(0, 6), keyMap[(container.id).split('-')[1].slice(0, 6)], currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]]);
+    if(currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]] != target) {
+      setpointChangeNotSaved = true;
+    }
+
+	  //update setpoint value in additional container
+	  const setpointInput = document.getElementById((container.id).split('-')[1]);
+	  if(setpointInput) {
+      setpointInput.value = target;
+	  }
+  
+	  const valuePercentage = Math.min(Math.max(value, 0), 100);
+	  const targetPercentage = Math.min(Math.max(target, 0), 100);
+  
+	  const barFill = container.querySelector('.bar-fill');
+	  barFill.style.height = `${valuePercentage}%`;
+  
+	  const targetMarker = container.querySelector('.target-marker');
+	  targetMarker.style.bottom = `${targetPercentage}%`;
+  
+	  const barLabel = container.querySelector('.bar-label');
+	  barLabel.textContent = `${value}`;
+  
+	  const tickMarksContainer = container.querySelector('.tick-marks');
+	  tickMarksContainer.innerHTML = '';
+  
+	  const numTicks = 5;
+	  for (let i = 1; i <= numTicks; i++) { // Start from 1 to exclude 0
+      const positionPercentage = (i / numTicks) * 100;
+    
+      const tickLeft = document.createElement('div');
+      tickLeft.classList.add('tick', 'left');
+      tickLeft.style.bottom = `${positionPercentage}%`;
+    
+      const tickRight = document.createElement('div');
+      tickRight.classList.add('tick', 'right');
+      tickRight.style.bottom = `${positionPercentage}%`;
+    
+      const tickLabelLeft = document.createElement('div');
+      tickLabelLeft.classList.add('tick-label', 'left');
+      tickLabelLeft.style.bottom = `${positionPercentage}%`;
+      tickLabelLeft.textContent = Math.round((i / numTicks) * 100);
+    
+      const tickLabelRight = document.createElement('div');
+      tickLabelRight.classList.add('tick-label', 'right');
+      tickLabelRight.style.bottom = `${positionPercentage}%`;
+      tickLabelRight.textContent = Math.round((i / numTicks) * 100);
+    
+      tickMarksContainer.appendChild(tickLeft);
+      tickMarksContainer.appendChild(tickRight);
+      tickMarksContainer.appendChild(tickLabelLeft);
+      tickMarksContainer.appendChild(tickLabelRight);
+	  }
+	});
+
+  if(setpointChangeNotSaved){
+    document.getElementById('presetSave').style.backgroundColor = "yellow";
+    document.getElementById('presetSave').style.color = "black";
+  } else {
+    document.getElementById('presetSave').style.backgroundColor = "#808080";
+    document.getElementById('presetSave').style.color = "white";
+  }
+};
 
 function savePresets() {
   const label = document.getElementById('currPresetLabel').value;
@@ -479,88 +601,6 @@ function assignClickListeners() {
     .getElementById("btnHome")
     .addEventListener("click", () => showHomePage());
 }
-
-/* bar graph code */
-function updateBarGraphs() {
-	const barContainers = document.querySelectorAll('.vertical-bar-container');
-  
-	barContainers.forEach((container) => {
-	  const value = parseInt(container.getAttribute('data-value'), 10);
-	  const target = parseInt(container.getAttribute('data-target'), 10);
-
-	  //update setpoint value in additional container
-	  const setpointInput = document.getElementById((container.id).split('-')[1]);
-	  if(setpointInput) {
-		setpointInput.value = target;
-	  }
-  
-	  const valuePercentage = Math.min(Math.max(value, 0), 100);
-	  const targetPercentage = Math.min(Math.max(target, 0), 100);
-  
-	  const barFill = container.querySelector('.bar-fill');
-	  barFill.style.height = `${valuePercentage}%`;
-  
-	  const targetMarker = container.querySelector('.target-marker');
-	  targetMarker.style.bottom = `${targetPercentage}%`;
-  
-	  const barLabel = container.querySelector('.bar-label');
-	  barLabel.textContent = `${value}`;
-  
-	  const tickMarksContainer = container.querySelector('.tick-marks');
-	  tickMarksContainer.innerHTML = '';
-  
-	  const numTicks = 5;
-	  for (let i = 1; i <= numTicks; i++) { // Start from 1 to exclude 0
-		const positionPercentage = (i / numTicks) * 100;
-  
-		const tickLeft = document.createElement('div');
-		tickLeft.classList.add('tick', 'left');
-		tickLeft.style.bottom = `${positionPercentage}%`;
-  
-		const tickRight = document.createElement('div');
-		tickRight.classList.add('tick', 'right');
-		tickRight.style.bottom = `${positionPercentage}%`;
-  
-		const tickLabelLeft = document.createElement('div');
-		tickLabelLeft.classList.add('tick-label', 'left');
-		tickLabelLeft.style.bottom = `${positionPercentage}%`;
-		tickLabelLeft.textContent = Math.round((i / numTicks) * 100);
-  
-		const tickLabelRight = document.createElement('div');
-		tickLabelRight.classList.add('tick-label', 'right');
-		tickLabelRight.style.bottom = `${positionPercentage}%`;
-		tickLabelRight.textContent = Math.round((i / numTicks) * 100);
-  
-		tickMarksContainer.appendChild(tickLeft);
-		tickMarksContainer.appendChild(tickRight);
-		tickMarksContainer.appendChild(tickLabelLeft);
-		tickMarksContainer.appendChild(tickLabelRight);
-	  }
-	});
-  }
-
-  const initStatus = () => {
-    const initialStatus = {
-        digger: true,
-        hump: true,
-        depthWheel: true,
-        axle: true,
-        priShaker: true,
-        secShaker: true,
-    };
-
-    localStorage.setItem("autoStatus", JSON.stringify(initialStatus));
-};
-
-// Initialize presets in memory
-const presets = [
-  { label: "Preset 1", values: [30, 35, 45, 25, 25, 35, 0] },
-  { label: "Preset 2", values: [35, 40, 50, 30, 30, 40, 0] },
-  { label: "Preset 3", values: [40, 45, 55, 35, 35, 45, 0] },
-  { label: "Preset A", values: [0, 0, 0, 0, 0, 0, 0] },
-  { label: "Preset B", values: [0, 0, 0, 0, 0, 0, 0] },
-  { label: "Preset C", values: [0, 0, 0, 0, 0, 0, 0] },
-];
 
 // Function to get a preset
 function getPreset(index) {

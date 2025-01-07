@@ -1031,31 +1031,31 @@
 					<tbody>
 						<tr>
 							<td class="greenx preset-label border-right-none">Preset button label:</td>
-							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg" value="Preset 1" onchange="this.style.backgroundColor = 'orange'"></td>
+							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg" value="" onchange="this.style.backgroundColor = 'yellow'"></td>
 						</tr>
 						<tr>
 							<td class="greenx preset-label border-right-none">Digger Depth Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="64" onchange="this.style.backgroundColor = 'orange'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="greenx preset-label border-right-none">Digger Hump Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="32" onchange="this.style.backgroundColor = 'orange'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="greenx preset-label border-right-none">Depth Wheel Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="44" onchange="this.style.backgroundColor = 'orange'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class=" preset-label border-right-none">Primary Shaker Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpSm" value="25" onchange="this.style.backgroundColor = 'orange'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class=" preset-label border-right-none">Secondary Shaker Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpSm" value="25" onchange="this.style.backgroundColor = 'orange'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="preset-label border-right-none">Axle Height Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpSm" value="33" onchange="this.style.backgroundColor = 'orange'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 
 					</tbody>
@@ -1102,7 +1102,7 @@
 						</tr>
 						<tr>
 							<td class=" preset-label border-right-none">Cleaning Mode:</td>
-							<td class="border-left-none"><input type="number" id="saveSp7" class="presetInpLg" value="TRANSPORT" onchange="this.style.backgroundColor = 'orange'"></td>
+							<td class="border-left-none"><input type="text" id="saveSp7" class="presetInpLg" value="TRANSPORT" onchange="this.style.backgroundColor = 'orange'"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -1143,7 +1143,7 @@
 		showHomePage();
 		assignClickListeners();
 		updateBarGraphs();
-		initStatus();
+		refreshPresets();
 	</script>
 </body>
 
