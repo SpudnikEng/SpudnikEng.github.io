@@ -165,6 +165,21 @@ meter::-webkit-meter-bar {
 	text-align: left;
 }
 
+.presetInpLg {
+	font-size: 18px;
+	width: 75px;
+}
+
+.presetInpMd {
+	font-size: 18px;
+	width: 45px;
+}
+
+.presetInpSm {
+	font-size: 18px;
+	width: 20px;
+}
+
 .border-left-none {
 	border-left: none !important;
 }
@@ -503,11 +518,11 @@ button.arrowRev {
 	background-position: center;
 }
 button.arrowClockwise {
-	background-image: url('./icons/sync_16cw_lt.png');
+	background-image: url('./icons/arrow_top_right_20.png');
 	background-position: center;
 }
 button.arrowCounterClockwise {
-	background-image: url('./icons/sync_16ccw_lt.png');
+	background-image: url('./icons/arrow_top_left_20.png');
 	background-position: center;
 }
 button.camera {

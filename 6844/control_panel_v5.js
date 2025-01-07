@@ -47,6 +47,20 @@ function bumpChainSetpointAll(direction) {
   bumpChainSetpoint("chainHoldTankSP", direction);
 }
 
+function bumpInpSetpoint(id, inc) {
+  let currentValue = parseInt(document.getElementById(id).value, 10);
+  if (isNaN(currentValue)) {
+    //do nothing
+  } else {
+    if(inc < 0) {
+      currentValue = Math.max(currentValue+inc, 0);	//clamp to min 0
+    } else {
+      currentValue = Math.min(currentValue+inc, 100);	//clamp to max 100
+    }
+    document.getElementById(id).value = currentValue;
+  }
+}
+
 function bumpSetpoint(id, inc, attr) {
   const barContainer = document.getElementById('barGraph-'+id);
   let currentValue = parseInt(barContainer.getAttribute(attr), 10);
@@ -141,20 +155,18 @@ const getStatus = (key) => {
 
 function toggleAutoState(buttonFunction){
 	const autoState = getStatus('autoStatus');
-	console.log(autoState);
 	autoState[buttonFunction] = !autoState[buttonFunction];
 	for (const [key, value] of Object.entries(autoState)) {
-		console.log(key, value);
-        const buttonCollection = document.getElementsByClassName(key+'Auto');
-		console.log(buttonCollection);
+    const buttonCollection = document.getElementsByClassName(key+'Auto');
 		Array.from(buttonCollection).forEach((button) => {
+      console.log(value);
 			if(value){
-				button.classList.add('green');
+				button.classList.add('button-active');
 			} else {
-				button.classList.remove('green');
+				button.classList.remove('button-active');
 			}
 		})
-    }
+  }
 	saveStatus('autoStatus', autoState);
 }
 
@@ -201,6 +213,7 @@ function togglePreset(button) {
     document.getElementById("preset3").classList.remove("button-active");
   }
   button.classList.add("button-active");
+  refreshPresets();
 }
 
 function deselectControlButtons() {
@@ -365,13 +378,67 @@ function toggleHomeVideos(objectId) {
   }
 }
 
+function getSelectedIntakePreset(){
+  const buttons = ['preset1', 'preset2', 'preset3'];
+  return buttons.findIndex(id => document.getElementById(id).classList.contains('button-active'));
+}
+
 function openModal(modalId) {
-  console.log(modalId);
+  if(modalId=='saveModal'){
+    const currPresets = getPreset(getSelectedIntakePreset());
+    document.getElementById('currPresetLabel').value = currPresets.label;
+    document.getElementById('saveSp1').value = currPresets.values[0];
+    document.getElementById('saveSp2').value = currPresets.values[1];
+    document.getElementById('saveSp3').value = currPresets.values[2];
+    document.getElementById('saveSp4').value = currPresets.values[3];
+    document.getElementById('saveSp5').value = currPresets.values[4];
+    document.getElementById('saveSp6').value = currPresets.values[5];
+  }
   document.getElementById(modalId).style.display = "flex";
 }
 
 function closeModal(modalId) {
   document.getElementById(modalId).style.display = "none";
+}
+
+function updateSetpointValue(id, val) {
+  document.getElementById(id).value = val;
+  const barContainer = document.getElementById('barGraph-'+id);
+  if(barContainer){
+    barContainer.setAttribute('data-target', val);
+  }
+}
+
+function refreshPresets() {
+  const buttons = ['preset1', 'preset2', 'preset3'];
+  buttons.forEach((id, index) => {
+    const preset = getPreset(index);
+    document.getElementById(id).innerHTML = preset.label;
+  });
+  const currPresets = getPreset(getSelectedIntakePreset());
+  updateSetpointValue('depthControlSP', currPresets.values[0]);
+  updateSetpointValue('humpControl', currPresets.values[1]);
+  updateSetpointValue('depthWheelLeft', currPresets.values[2]);
+  updateSetpointValue('depthWheelRight', currPresets.values[2]);
+  updateSetpointValue('primaryShaker', currPresets.values[3]);
+  updateSetpointValue('secondaryShaker', currPresets.values[4]);
+  updateSetpointValue('axleLeft', currPresets.values[5]);
+  updateSetpointValue('axleRight', currPresets.values[5]);
+  updateBarGraphs();
+}
+
+function savePresets() {
+  const label = document.getElementById('currPresetLabel').value;
+  const values = [
+    parseFloat(document.getElementById('saveSp1').value),
+    parseFloat(document.getElementById('saveSp2').value),
+    parseFloat(document.getElementById('saveSp3').value),
+    parseFloat(document.getElementById('saveSp4').value),
+    parseFloat(document.getElementById('saveSp5').value),
+    parseFloat(document.getElementById('saveSp6').value),
+    0
+  ];
+  setPreset(getSelectedIntakePreset(), label, values);
 }
 
 function assignClickListeners() {
@@ -485,110 +552,31 @@ function updateBarGraphs() {
     localStorage.setItem("autoStatus", JSON.stringify(initialStatus));
 };
 
-const initializePresets = () => {
-    const presets = {
-        preset1: {
-            title: 'Preset 1',
-            saved: true,
-            depth: 30,
-            priShaker: 30,
-            secShaker: 30,
-            axle: 25,
-            titleNew: 'Preset 1',
-            depthNew: 30,
-            priShakerNew: 30,
-            secShakerNew: 30,
-            axleNew: 25,
-        },
-        preset2: {
-            title: 'Preset 2',
-            saved: true,
-            depth: 30,
-            priShaker: 30,
-            secShaker: 30,
-            axle: 25,
-            titleNew: 'Preset 2',
-            depthNew: 30,
-            priShakerNew: 30,
-            secShakerNew: 30,
-            axleNew: 25,
-        },
-        preset3: {
-            title: 'Preset 3',
-            saved: true,
-            depth: 30,
-            priShaker: 30,
-            secShaker: 30,
-            axle: 25,
-            titleNew: 'Preset 3',
-            depthNew: 30,
-            priShakerNew: 30,
-            secShakerNew: 30,
-            axleNew: 25,
-        },
-        presetA: {
-            title: 'Preset A',
-            saved: true,
-            gap: 30,
-            height: 30,
-            angle: 30,
-            clodRollerSpeed: 25,
-            segmentRollerSpeed: 25,
-            spreaderRollerSpeed: 25,
-            cleanMode: true,
-            titleNew: 'Preset A',
-            gapNew: 30,
-            heightNew: 30,
-            angleNew: 30,
-            clodRollerSpeedNew: 25,
-            segmentRollerSpeedNew: 25,
-            spreaderRollerSpeedNew: 25,
-            cleanModeNew: true,
-        },
-        presetB: {
-            title: 'Preset B',
-            saved: true,
-            gap: 30,
-            height: 30,
-            angle: 30,
-            clodRollerSpeed: 25,
-            segmentRollerSpeed: 25,
-            spreaderRollerSpeed: 25,
-            cleanMode: true,
-            titleNew: 'Preset B',
-            gapNew: 30,
-            heightNew: 30,
-            angleNew: 30,
-            clodRollerSpeedNew: 25,
-            segmentRollerSpeedNew: 25,
-            spreaderRollerSpeedNew: 25,
-            cleanModeNew: true,
-        },
-        presetC: {
-            title: 'Preset C',
-            saved: true,
-            gap: 30,
-            height: 30,
-            angle: 30,
-            clodRollerSpeed: 25,
-            segmentRollerSpeed: 25,
-            spreaderRollerSpeed: 25,
-            cleanMode: true,
-            titleNew: 'Preset C',
-            gapNew: 30,
-            heightNew: 30,
-            angleNew: 30,
-            clodRollerSpeedNew: 25,
-            segmentRollerSpeedNew: 25,
-            spreaderRollerSpeedNew: 25,
-            cleanModeNew: true,
-        },
-    };
+// Initialize presets in memory
+const presets = [
+  { label: "Preset 1", values: [30, 35, 45, 25, 25, 35, 0] },
+  { label: "Preset 2", values: [35, 40, 50, 30, 30, 40, 0] },
+  { label: "Preset 3", values: [40, 45, 55, 35, 35, 45, 0] },
+  { label: "Preset A", values: [0, 0, 0, 0, 0, 0, 0] },
+  { label: "Preset B", values: [0, 0, 0, 0, 0, 0, 0] },
+  { label: "Preset C", values: [0, 0, 0, 0, 0, 0, 0] },
+];
 
-    for (const [key, value] of Object.entries(presets)) {
-        if (!localStorage.getItem(key)) {
-            localStorage.setItem(key, JSON.stringify(value));
-        }
-    }
-};
+// Function to get a preset
+function getPreset(index) {
+  if (index >= 0 && index < presets.length) {
+      return presets[index];
+  } else {
+      console.error("Invalid preset index!");
+      return null;
+  }
+}
 
+// Function to set values for a preset
+function setPreset(index, label, values) {
+  if (index >= 0 && index < presets.length && values.length === 7) {
+      presets[index] = { label, values };
+  } else {
+      console.error("Invalid preset data!");
+  }
+}
