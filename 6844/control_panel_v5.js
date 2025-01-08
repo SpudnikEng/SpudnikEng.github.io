@@ -81,7 +81,7 @@ function bumpInpSetpoint(id, inc) {
   }
 }
 
-function bumpSetpoint(id, inc, attr) {
+function bumpDatapoint(id, inc, attr) {
   const barContainer = document.getElementById('barGraph-'+id);
   let currentValue = parseInt(barContainer.getAttribute(attr), 10);
   if (isNaN(currentValue)) {
@@ -123,6 +123,35 @@ function changeColorTimed(button) {
 	setTimeout(() => {
 	  button.style.backgroundColor = originalColor;
 	}, 3000);
+  }
+}
+
+function togglePage(id) {
+  // If button for selected page is active, remove button-active class and hide corresponding DIV
+  const screenArray = {
+    'controls': document.getElementById('controls'),
+    'diagnostics': document.getElementById('diagnostics'),
+    'global-settings': document.getElementById('global-settings'),
+    'btn-diagnostics': document.getElementById('btn-diagnostics'),
+    'btn-global-settings': document.getElementById('btn-global-settings')
+  };
+
+  if (screenArray['btn-'+id].classList.contains("button-active")) {
+    // Deactivate button and hide diagnostics/settings screens, show control screen
+    screenArray['btn-diagnostics'].classList.remove("button-active");
+    screenArray['btn-global-settings'].classList.remove("button-active");
+    screenArray['controls'].classList.remove('hide');
+    screenArray['diagnostics'].classList.add('hide');
+    screenArray['global-settings'].classList.add('hide');
+  } else {
+    // Activate button and hide diagnostics/settings/control screens, show selected screen
+    screenArray['btn-diagnostics'].classList.remove("button-active");
+    screenArray['btn-global-settings'].classList.remove("button-active");
+    screenArray['btn-'+id].classList.add("button-active");
+    screenArray['controls'].classList.add('hide');
+    screenArray['diagnostics'].classList.add('hide');
+    screenArray['global-settings'].classList.add('hide');
+    screenArray[id].classList.remove('hide'); // Show selected screen
   }
 }
 
@@ -339,9 +368,6 @@ function toggleHomeVideos(objectId) {
   };
 
   const videoKeys = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
-
-  // Logging for debugging purposes
-  console.log(objectId);
 
   // Handle different views
   switch (objectId) {
@@ -618,5 +644,75 @@ function setPreset(index, label, values) {
       presets[index] = { label, values };
   } else {
       console.error("Invalid preset data!");
+  }
+}
+
+//handle synced buttons
+function handleSynced(id, arrowDirection, mouseClickActive){
+  console.log(id, arrowDirection, mouseClickActive);
+  if(document.getElementById(id).classList.contains('button-active')) {
+    if(arrowDirection == 'up') {
+      if(mouseClickActive){
+        document.getElementById('coulterLeftUp').classList.add('button-active');
+        document.getElementById('coulterRightUp').classList.add('button-active');
+        document.getElementById('syncBarTop').classList.add('button-active');
+        console.log("clicked button");
+      }
+      else
+      {
+        document.getElementById('coulterLeftUp').classList.remove('button-active');
+        document.getElementById('coulterRightUp').classList.remove('button-active');
+        document.getElementById('syncBarTop').classList.remove('button-active');
+        console.log("released button");
+      }
+    }
+    else
+    {
+      if(mouseClickActive){
+        document.getElementById('coulterLeftDn').classList.add('button-active');
+        document.getElementById('coulterRightDn').classList.add('button-active');
+        document.getElementById('syncBarBottom').classList.add('button-active');
+        console.log("clicked button");
+      }
+      else
+      {
+        document.getElementById('coulterLeftDn').classList.remove('button-active');
+        document.getElementById('coulterRightDn').classList.remove('button-active');
+        document.getElementById('syncBarBottom').classList.remove('button-active');
+        console.log("released button");
+      }
+    }
+  }
+}
+
+//handle synced buttons
+function handleSyncPress(id, arrowDirection){
+  if(document.getElementById(id).classList.contains('button-active')) {
+    if(arrowDirection == 'up') {
+     document.getElementById((id=='coulterSync')?'coulterLeftUp':'dwLeftUp').style.backgroundColor="#4D9920";
+     document.getElementById((id=='coulterSync')?'coulterRightUp':'dwRightUp').style.backgroundColor="#4D9920";
+     document.getElementById((id=='coulterSync')?'syncBarTop':'syncBarDwTop').style.backgroundColor="#4D9920";
+    }
+    else
+    {
+      document.getElementById((id=='coulterSync')?'coulterLeftDn':'dwLeftDn').style.backgroundColor="#4D9920";
+      document.getElementById((id=='coulterSync')?'coulterRightDn':'dwRightDn').style.backgroundColor="#4D9920";
+      document.getElementById((id=='coulterSync')?'syncBarBottom':'syncBarDwBottom').style.backgroundColor="#4D9920";
+    }
+  }
+}
+function handleSyncRelease(id, arrowDirection){
+  if(document.getElementById(id).classList.contains('button-active')) {
+    if(arrowDirection == 'up') {
+      document.getElementById((id=='coulterSync')?'coulterLeftUp':'dwLeftUp').style.backgroundColor='#808080';
+      document.getElementById((id=='coulterSync')?'coulterRightUp':'dwRightUp').style.backgroundColor='#808080';
+      document.getElementById((id=='coulterSync')?'syncBarTop':'syncBarDwTop').style.backgroundColor='#808080';
+    }
+    else
+    {
+      document.getElementById((id=='coulterSync')?'coulterLeftDn':'dwLeftDn').style.backgroundColor='#808080';
+      document.getElementById((id=='coulterSync')?'coulterRightDn':'dwRightDn').style.backgroundColor='#808080';
+      document.getElementById((id=='coulterSync')?'syncBarBottom':'syncBarDwBottom').style.backgroundColor='#808080';
+    }
   }
 }

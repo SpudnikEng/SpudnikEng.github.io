@@ -234,6 +234,14 @@ meter::-webkit-meter-bar {
     background-color: #C8C4B7;
 }
 
+#diagnostics, #global-settings {
+	background-color: #C8C4B7;
+	border: 2px solid #322F35;
+    box-sizing: border-box;
+    border-radius: 5px;
+	z-index: 100;
+}
+
 #logo-spudnik {
 	width: 220px;
 	height: auto;
@@ -253,8 +261,8 @@ meter::-webkit-meter-bar {
 }
 
 .videoLarge {
-	width: 750px;
-	height: 714px;
+	width: 782px;
+	height: 685px;
 }
 .videoMed {
 	width: 390px;
@@ -262,27 +270,27 @@ meter::-webkit-meter-bar {
 }
 #vidAll {
 	position: relative;
-	left: 10px;
+	left: 6px;
 	top: -510px;
 }
 #videoPrevView {
 	position: relative;
-	left: 460px;
-	top: -717px;
+	left: 489px;
+	top: -689px;
 	width: 90px;
 	height: 60px;
 }
 #videoGridView {
 	position: relative;
-	left: 454px;
-	top: -717px;
+	left: 484px;
+	top: -689px;
 	width: 90px;
 	height: 60px;
 }
 #videoNextView {
 	position: relative;
-	left: 446px;
-	top: -717px;
+	left: 479px;
+	top: -689px;
 	width: 90px;
 	height: 60px;
 }
@@ -950,3 +958,97 @@ th, .largeFont {
 	font-size: 14px;
 	cursor: pointer;
   }
+
+/* Diagnotics page */
+  .diagnostic-control-section {
+	display: grid;
+	grid-template-rows: auto auto auto;
+	border: 1px solid black;
+	padding: 10px;
+	gap: 10px;
+  }
+  .diagnostic-row {
+	display: flex;
+	gap: 10px;
+  }
+  .diagnostic-column {
+	flex: 1;
+	border: 1px solid black;
+	padding: 10px;
+  }
+  .diagnostic-select {
+	font-size: 25px;
+	width: 520px;
+	background-color: lightgray;
+  }
+  .diagnostic-input, .diagnostic-output {
+	width: 100%;
+	margin: 5px 0;
+  }
+  .diagnostic-input tr > td:first-child {
+	border: darkgray solid 1px;
+    background-color: lightgray;
+  }
+
+  .diagnostic-input tr > td:nth-child(2) {
+	border: darkgray solid 1px;
+    background-color: whitesmoke;
+	text-align: center;
+  }
+
+  .icon-diagnostic {
+	height: 55px;
+    background-size: 50px;
+    width: 53px;
+	margin: 2px 20px;
+  }
+
+  .diagnostic-input tr > td:first-child > span {
+	color: darkblue;
+  }
+
+  /* settings page styles */
+  #global-settings-control {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	padding: 10px;
+	gap: 10px;
+  }
+
+  .column {
+	padding: 0px;
+  }
+  .row {
+	margin: 5px;
+	padding: 10px;
+    background-color: lightgray;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  .row h3 {
+	font-size: 18px;
+  }
+
+  .input-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 10px;
+	margin-top: 10px;
+  }
+  .input-grid2 {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 10px;
+	margin-top: 10px;
+  }
+  .input-grid input, .input-grid2 input {
+	width: 70px;
+    font-size: 20px;
+  }
+
+  .input-grid input[type="checkbox"] {
+	height: 30px;
+    position: relative;
+    top: -5px;
+  }
+  

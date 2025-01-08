@@ -12,11 +12,11 @@
 	<div class="container">
 		<div class="master">
 			<img id="logo-spudnik" src="./icons/SpudnikLogo.svg" alt="SPUDNIK">
-			<button class="b-diagnostics pri-button pri icon-lg"></button>
-			<button class="b-settings pri-button pri icon-lg"></button>
+			<button id="btn-diagnostics" onclick="togglePage('diagnostics')" class="b-diagnostics pri-button pri icon-lg"></button>
+			<button id="btn-global-settings" onclick="togglePage('global-settings')" class="b-settings pri-button pri icon-lg"></button>
 			<button onclick="changeColorTimed(this)" class="b-rowStart pri-button pri icon">Start Row</button>
 			<button onclick="changeColorTimed(this)" class="b-rowEnd pri-button pri icon">End Row</button>
-			<button onclick="toggleRUN()" id="run-button" class="b-run pri-button pri-em"><img id="run-button"
+			<button id="run-button" onclick="toggleRUN()" class="b-run pri-button pri-em"><img id="run-button"
 					src="./icons/RUN_Sm.png" alt="RUN" style="margin-top: 8px;"></button>
 		</div>
 		<div id="controls">
@@ -52,18 +52,18 @@
 												</div>
 											</td>
 											<td><button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint('depthControlSP', 5, 'data-target')">+5</button><br>
+													onclick="bumpDatapoint('depthControlSP', 5, 'data-target')">+5</button><br>
 												<div class="inpPercent"><input type="number" class="spInput"
 														id="depthControlSP" value="64"></div><br>
 												<button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint('depthControlSP', -5, 'data-target')">-5</button><br>
+													onclick="bumpDatapoint('depthControlSP', -5, 'data-target')">-5</button><br>
 											</td>
 											<td>
-												<button onclick="bumpSetpoint('depthControlSP', 1, 'data-value')"
+												<button onclick="bumpDatapoint('depthControlSP', 1, 'data-value')"
 													class="arrowUp ter-button ter icon-lg"></button><br>
 												<button class="b-auto ter-button ter button-active diggerAuto"
 													onclick="toggleAutoState('digger');">Auto</button><br>
-												<button onclick="bumpSetpoint('depthControlSP', -1, 'data-value')"
+												<button onclick="bumpDatapoint('depthControlSP', -1, 'data-value')"
 													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 										</tr>
@@ -87,18 +87,18 @@
 												</div>
 											</td>
 											<td><button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint('humpControl', 5, 'data-target')">+5</button><br>
+													onclick="bumpDatapoint('humpControl', 5, 'data-target')">+5</button><br>
 												<div class="inpPercent"><input type="number" class="spInput"
 														id="humpControl" value="36"></div><br>
 												<button class="ter-button ter b-textOnly"
-													onclick="bumpSetpoint('humpControl', -5, 'data-target')">-5</button><br>
+													onclick="bumpDatapoint('humpControl', -5, 'data-target')">-5</button><br>
 											</td>
 											<td>
-												<button onclick="bumpSetpoint('humpControl', 1, 'data-value')"
+												<button onclick="bumpDatapoint('humpControl', 1, 'data-value')"
 													class="arrowUp ter-button ter icon-lg"></button><br>
 												<button class="b-auto ter-button ter button-active humpAuto"
 													onclick="toggleAutoState('hump')">Auto</button><br>
-												<button onclick="bumpSetpoint('humpControl', -1, 'data-value')"
+												<button onclick="bumpDatapoint('humpControl', -1, 'data-value')"
 													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 										</tr>
@@ -109,15 +109,15 @@
 						<tr>
 							<td class="cell-border-right cell-padding-small" style="vertical-align: top;">
 								<div style="width: 285px;margin: 0 0 0 20px;" class="">
-									<div class="hide ter syncBars" style="top: 692px; left: 103px;"></div>
-									<div class="hide ter syncBars" style="top: 775px; left: 103px;"></div>
-									<h3 class="control-label">Coulters</h3>
+									<div id="syncBarTop" class="hide ter syncBars" style="top: 692px; left: 103px;"></div>
+									<div id="syncBarBottom" class="hide ter syncBars" style="top: 775px; left: 103px;"></div>
+									<h3 id='hdrCoulter' class="control-label">Coulters</h3>
 									<table>
 										<tr>
 											<td>
 												<h4>Left</h4>
-												<button class="arrowUp ter-button ter icon-lg"></button><br>
-												<button class="arrowDown ter-button ter icon-lg"></button><br>
+												<button id="coulterLeftUp" onmousedown="handleSyncPress('coulterSync','up')" onmouseup="handleSyncRelease('coulterSync','up')" class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="coulterLeftDn" onmousedown="handleSyncPress('coulterSync','dn')" onmouseup="handleSyncRelease('coulterSync','dn')" class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 											<td>
 												<button id="coulterSync" style="margin-top: 23px;"
@@ -126,8 +126,8 @@
 											</td>
 											<td>
 												<h4>Right</h4>
-												<button class="arrowUp ter-button ter icon-lg"></button><br>
-												<button class="arrowDown ter-button ter icon-lg"></button><br>
+												<button id="coulterRightUp" onmousedown="handleSyncPress('coulterSync','up')" onmouseup="handleSyncRelease('coulterSync','up')" class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="coulterRightDn" onmousedown="handleSyncPress('coulterSync','dn')" onmouseup="handleSyncRelease('coulterSync','dn')" class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 										</tr>
 									</table>
@@ -135,16 +135,16 @@
 							</td>
 							<td valign="top" rowspan="2" class="cell-padding-small">
 								<div style="width: 285px;margin: 0 0 0 20px;" class="">
-									<div class="hide ter syncBarsDepthWheels" style="top: 692px; left: 445px;"></div>
-									<div class="hide ter syncBarsDepthWheels" style="top: 775px; left: 445px;"></div>
+									<div id="syncBarDwTop" class="hide ter syncBarsDepthWheels" style="top: 692px; left: 445px;"></div>
+									<div id="syncBarDwBottom" class="hide ter syncBarsDepthWheels" style="top: 775px; left: 445px;"></div>
 									<h3 class="control-label">Depth Wheels</h3>
 									<table>
 										<tr>
 											<td>
 												<h4>Left</h4>
-												<button onclick="bumpSetpoint('depthWheelLeft', 1, 'data-value')"
+												<button id="dwLeftUp" onclick="bumpDatapoint('depthWheelLeft', 1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','up')" onmouseup="handleSyncRelease('depthWheelsSync','up')"
 													class="arrowUp ter-button ter icon-lg"></button><br>
-												<button onclick="bumpSetpoint('depthWheelLeft', -1, 'data-value')"
+												<button id="dwLeftDn" onclick="bumpDatapoint('depthWheelLeft', -1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','dn')" onmouseup="handleSyncRelease('depthWheelsSync','dn')"
 													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 											<td>
@@ -154,9 +154,9 @@
 											</td>
 											<td>
 												<h4>Right</h4>
-												<button onclick="bumpSetpoint('depthWheelRight', 1, 'data-value')"
+												<button id="dwRightUp" onclick="bumpDatapoint('depthWheelRight', 1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','up')" onmouseup="handleSyncRelease('depthWheelsSync','up')"
 													class="arrowUp ter-button ter icon-lg"></button><br>
-												<button onclick="bumpSetpoint('depthWheelRight', -1, 'data-value')"
+												<button id="dwRightDn" onclick="bumpDatapoint('depthWheelRight', -1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','dn')" onmouseup="handleSyncRelease('depthWheelsSync','dn')"
 													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 										</tr>
@@ -166,13 +166,13 @@
 										<div style="grid-row: 1; grid-column: 1; margin-top: 22px; margin-right: 0px;"
 											class="centerText">
 											<button class="ter-button ter b-textOnly"
-												onclick="bumpSetpoint('depthWheelLeft', 5, 'data-target')">+5</button><br>
+												onclick="bumpDatapoint('depthWheelLeft', 5, 'data-target')">+5</button><br>
 											<div class="inpPercent"><input type="number" class="spInput"
 													id="depthWheelLeft" value="46">
 											</div>
 											<br>
 											<button class="ter-button ter b-textOnly"
-												onclick="bumpSetpoint('depthWheelLeft', -5, 'data-target')">-5</button>
+												onclick="bumpDatapoint('depthWheelLeft', -5, 'data-target')">-5</button>
 										</div>
 										<div style="grid-row: 1; grid-column: 2;">
 											<h4>Left</h4>
@@ -202,13 +202,13 @@
 										<div style="grid-row: 1; grid-column: 5; margin-top: 22px; margin-right: 0px;"
 											class="centerText">
 											<button class="ter-button ter b-textOnly"
-												onclick="bumpSetpoint('depthWheelRight', 5, 'data-target')">+5</button><br>
+												onclick="bumpDatapoint('depthWheelRight', 5, 'data-target')">+5</button><br>
 											<div class="inpPercent"><input type="number" class="spInput"
 													id="depthWheelRight" value="46">
 											</div>
 											<br>
 											<button class="ter-button ter b-textOnly"
-												onclick="bumpSetpoint('depthWheelRight', -5, 'data-target')">-5</button>
+												onclick="bumpDatapoint('depthWheelRight', -5, 'data-target')">-5</button>
 										</div>
 										<div style="grid-row: 2;grid-column: 1 / 6;" class="centerText">
 											<button class="b-auto ter-button ter button-active depthWheelAuto"
@@ -781,11 +781,11 @@
 									<div style="grid-row: 2 / 5; grid-column: 1; margin-top: 22px; margin-right: 20px;"
 										class="centerText">
 										<button class="ter-button ter b-textOnly"
-											onclick="bumpSetpoint('axleLeft', 5, 'data-target')">+5</button><br>
+											onclick="bumpDatapoint('axleLeft', 5, 'data-target')">+5</button><br>
 										<div class="inpPercent"><input type="number" class="spInput" id="axleLeft"
 												value="46"></div><br>
 										<button class="ter-button ter b-textOnly"
-											onclick="bumpSetpoint('axleLeft', -5, 'data-target')">-5</button>
+											onclick="bumpDatapoint('axleLeft', -5, 'data-target')">-5</button>
 									</div>
 									<div style="grid-row: 2 / 5; grid-column: 2;padding-left: 40px;">
 										<h4>Left</h4>
@@ -814,21 +814,21 @@
 									<div style="grid-row: 2 / 5; grid-column: 4; margin-top: 22px; margin-right: 31px;"
 										class="centerText">
 										<button class="ter-button ter b-textOnly"
-											onclick="bumpSetpoint('axleRight', 5, 'data-target')">+5</button><br>
+											onclick="bumpDatapoint('axleRight', 5, 'data-target')">+5</button><br>
 										<div class="inpPercent"><input type="number" class="spInput" id="axleRight"
 												value="46"></div>
 										<br>
 										<button class="ter-button ter b-textOnly"
-											onclick="bumpSetpoint('axleRight', -5, 'data-target')">-5</button>
+											onclick="bumpDatapoint('axleRight', -5, 'data-target')">-5</button>
 									</div>
 									<div style="grid-row: 2; grid-column: 6;">
 										<button
-											onclick="bumpSetpoint('axleLeft', 1, 'data-value');bumpSetpoint('axleRight', 1, 'data-value');"
+											onclick="bumpDatapoint('axleLeft', 1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
 											class="arrowUp ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-row: 3; grid-column: 5;">
 										<button
-											onclick="bumpSetpoint('axleLeft', -1, 'data-value');bumpSetpoint('axleRight', 1, 'data-value');"
+											onclick="bumpDatapoint('axleLeft', -1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
 											class="arrowCounterClockwise ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-row: 3; grid-column: 6;">
@@ -837,12 +837,12 @@
 									</div>
 									<div style="grid-row: 3; grid-column: 7;">
 										<button
-											onclick="bumpSetpoint('axleLeft', 1, 'data-value');bumpSetpoint('axleRight', -1, 'data-value');"
+											onclick="bumpDatapoint('axleLeft', 1, 'data-value');bumpDatapoint('axleRight', -1, 'data-value');"
 											class="arrowClockwise ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-row: 4; grid-column: 6;">
 										<button
-											onclick="bumpSetpoint('axleLeft', -1, 'data-value');bumpSetpoint('axleRight', -1, 'data-value');"
+											onclick="bumpDatapoint('axleLeft', -1, 'data-value');bumpDatapoint('axleRight', -1, 'data-value');"
 											class="arrowDown ter-button ter icon-lg"></button>
 									</div>
 								</div>
@@ -996,6 +996,145 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div id="global-settings" class="hide">
+			<h2>Settings</h2>
+			<div id="global-settings-control">
+			<div class="column">
+				<div class="row">
+				<h3>Machine Information</h3>
+				<ul>
+					<li>S4 SW Version 2.00</li>
+					<li>Display SW Version 1.00</li>
+					<li>SN 6844-55-25</li>
+					<li>Machine hours: 3.7</li>
+				</ul>
+			</div>
+			<div class="row">
+				<h3>Chain Configuration</h3>
+				select chain<br>
+				Drive Pitch (mm) # of teeth<br>
+				Set Clod Roller Safety Position<br>
+				Minumum Chain fpm<br>
+				<button class="ter ter-button">Unlock</button>
+			</div>
+			  </div>
+		  
+			  <!-- Column 2 -->
+			  <div class="column">
+				<!-- Row 1 -->
+				<div class="row">
+				  <h3>Start Row Sequence</h3>
+				  <p>The Start Row sequence engages Digger Auto and goes to setpoints.</p>
+				  <div class="input-grid">
+					<span> </span><span><b>Start Delay</b></span><span><b>Duration/Enable</b></span>
+					<span>Global Start Chains</span>
+					<span><input type="number" placeholder="0"> sec</span>
+					<span><input type="checkbox"></span>
+					<span>Coulters Down</span>
+					<span><input type="number" placeholder="0"> sec</span>
+					<span><input type="number" placeholder="0"> sec</span>
+					<span>Center Steering</span>
+					<span><input type="number" placeholder="0"> sec</span>
+					<span><input type="checkbox"></span>
+				  </div>
+				</div>
+		  
+				<!-- Row 2 -->
+				<div class="row">
+				  <h3>End Row Sequence</h3>
+				  <p>The End Row sequence raises the digger and coulters.</p>
+				  <div class="input-grid">
+					<span> </span><span><b>Start Delay</b></span><span><b>Enable</b></span>
+					<span>Global Chains Shutoff</span>
+					<span><input type="number" placeholder="0"> sec</span>
+					<span><input type="checkbox"></span>
+				  </div>
+				</div>
+		  
+				<!-- Row 3 -->
+				<div class="row">
+				  <h3>Cleaning Table Settings</h3>
+				  <div class="input-grid2">
+					<span>Pressure threshold for reversing rollers</span>
+					<span><input type="number" placeholder="0"> psi</span>
+					<span>Reverse roller duration</span>
+					<span><input type="number" placeholder="0"> sec</span>
+				  </div>
+				</div>
+		  
+				<!-- Row 4 -->
+				<div class="row">
+				  <h3>Display Brightness</h3>
+				<div style="text-align: center;"><button class="ter ter-button">-</button> <button class="ter ter-button">Auto</button> <button class="ter ter-button">+</button></div>
+				</div>
+			  </div>
+			</div>
+		</div>
+		<div id="diagnostics" class="hide">
+			<h2>Diagnotics</h2>
+			<div class="diagnostic-control-section">
+				<!-- Row 1 -->
+				<div class="diagnostic-row">
+					<button class="prevView ter-button ter icon-diagnostic"></button>
+				  <select class="diagnostic-select">
+					<option>Intake Drive</option>
+					<option>Digger and Hump Adjust</option>
+					<option>Coulters</option>
+					<option>Primary Chain Drive</option>
+					<option>Shakers</option>
+					<option>Secondary Chain Drive</option>
+					<option>Vine Chain</option>
+					<option>Cleaning Table</option>
+					<option>Rear Cross Drive</option>
+					<option>Side Elevator/Boom Drive</option>
+				  </select>
+				  <button class="nextView ter-button ter icon-diagnostic"></button>
+				</div>
+			
+				<!-- Row 2 -->
+				<div class="diagnostic-row">
+				  <div class="diagnostic-column">
+					<h3>Inputs</h3>
+					<table class="diagnostic-input">
+						<tr>
+							<td>INTAKE CHAIN SPEED RH<br><span>S4 In1 Pin 5, Block 2 Port 4</span></td><td>0.0 Hz</td>
+						</tr>
+						<tr>
+							<td>INTAKE CHAIN SPEED LH<br><span>S4 In1 Pin 13, Block 5 Port 3</span></td><td>0.0 Hz</td>
+						</tr>
+						<tr>
+							<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 12, Block 2 Port 3</span></td><td>0.0 Hz</td>
+						</tr>
+						<tr>
+							<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 13, Block 5 Port 2</span></td><td>0.0 Hz</td>
+						</tr>
+					</table>
+				  </div>
+				  <div class="diagnostic-column">
+					<h3>Outputs</h3>
+					<table class="diagnostic-input">
+						<tr>
+							<td>INTAKE DRIVE FWD RH<br><span>S4 Out1 Pin 12 (8T), Block 19 Port 3A</span></td><td>0 PWM</td>
+						</tr>
+						<tr>
+							<td>INTAKE DRIVE FWD LH<br><span>S4 Out1 Pin 10 (7T), Block 20 Port 3A</span></td><td>0 PWM</td>
+						</tr>
+						<tr>
+							<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 15 (10T), Block 19 Port 3B</span></td><td>0 PWM</td>
+						</tr>
+						<tr>
+							<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 13 (9T), Block 20 Port 3B</span></td><td>0 PWM</td>
+						</tr>
+					</table>
+				  </div>
+				</div>
+			
+				<!-- Row 3 -->
+				<div class="diagnostic-row">
+				  <button class="ter-button ter">Enable Diagnostic Output</button>
+				</div>
+			  </div>
 		</div>
 		<div id="smallVideos" class="video">
 			<div class="video-col"><img onclick="openBottomSheet('vid1')" class="videoFeeds" src="./vid1optS.png">
