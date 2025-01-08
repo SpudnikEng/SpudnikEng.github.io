@@ -1011,12 +1011,27 @@
 				</ul>
 			</div>
 			<div class="row">
-				<h3>Chain Configuration</h3>
-				select chain<br>
-				Drive Pitch (mm) # of teeth<br>
-				Set Clod Roller Safety Position<br>
-				Minumum Chain fpm<br>
-				<button class="ter ter-button">Unlock</button>
+				<h3>Service Configuration</h3>
+				<br>
+				<button class="prevView ter-button ter icon-diagnostic hide"></button>
+				  <select class="settings-select">
+					<option>Intake Chain</option>
+					<option>Primary Chain</option>
+					<option>Secondary Chain</option>
+					<option>Vine Chain</option>
+					<option>Rear Cross Chain</option>
+					<option>Side Elevator Chain</option>
+					<option>Hopper Elevator Chain</option>
+					<option>Hopper Floor Chain</option>
+					<option>Boom Chain</option>
+				  </select>
+				  <button class="nextView ter-button ter icon-diagnostic hide"></button>
+				  <div class="settings-input"><div>Drive Pitch (mm)</div><div><input type="number" placeholder="0"></div></div>
+				  <div class="settings-input"><div># of teeth</div><div><input type="number" placeholder="0"></div></div>
+				  <div class="settings-input"><div><br>Set Clod Roller Safety Position</div><div><button class="ter ter-button">Set Limit</button></div></div>
+				  <div class="settings-input"><div><br>Minumum Chain fpm</div><div><br><input type="number" placeholder="120"></div></div>
+				  <br><br>
+				<button style="margin: 10px 70px;" class="ter ter-button">Unlock</button>
 			</div>
 			  </div>
 		  
@@ -1068,11 +1083,12 @@
 				  <h3>Display Brightness</h3>
 				<div style="text-align: center;"><button class="ter ter-button">-</button> <button class="ter ter-button">Auto</button> <button class="ter ter-button">+</button></div>
 				</div>
+				<button onclick="togglePage('global-settings')" class="ter-button ter" style="position: relative;top: 165px;left: 93px;">Close</button>
 			  </div>
 			</div>
 		</div>
 		<div id="diagnostics" class="hide">
-			<h2>Diagnotics</h2>
+			<h2>Diagnostics</h2>
 			<div class="diagnostic-control-section">
 				<!-- Row 1 -->
 				<div class="diagnostic-row">
@@ -1094,7 +1110,7 @@
 			
 				<!-- Row 2 -->
 				<div class="diagnostic-row">
-				  <div class="diagnostic-column">
+				  <div class="diagnostic-column row">
 					<h3>Inputs</h3>
 					<table class="diagnostic-input">
 						<tr>
@@ -1111,7 +1127,7 @@
 						</tr>
 					</table>
 				  </div>
-				  <div class="diagnostic-column">
+				  <div class="diagnostic-column row">
 					<h3>Outputs</h3>
 					<table class="diagnostic-input">
 						<tr>
@@ -1132,7 +1148,8 @@
 			
 				<!-- Row 3 -->
 				<div class="diagnostic-row">
-				  <button class="ter-button ter">Enable Diagnostic Output</button>
+				  <button class="ter-button ter" style="margin-left: 245px;">Enable Diagnostic Output</button>
+				  <button onclick="togglePage('diagnostics')" class="ter-button ter" style="position: relative;top: 545px;left: -170px;">Close</button>
 				</div>
 			  </div>
 		</div>

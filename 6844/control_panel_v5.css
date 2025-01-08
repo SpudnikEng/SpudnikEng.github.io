@@ -959,11 +959,10 @@ th, .largeFont {
 	cursor: pointer;
   }
 
-/* Diagnotics page */
+/* Diagnostics page */
   .diagnostic-control-section {
 	display: grid;
 	grid-template-rows: auto auto auto;
-	border: 1px solid black;
 	padding: 10px;
 	gap: 10px;
   }
@@ -1012,14 +1011,19 @@ th, .largeFont {
 	display: grid;
 	grid-template-columns: 1fr 2fr;
 	padding: 10px;
-	gap: 10px;
+  }
+
+  .settings-select {
+	font-size: 20px;
+	width: 220px;
+	background-color: lightgray;
   }
 
   .column {
 	padding: 0px;
   }
   .row {
-	margin: 5px;
+	margin: 10px 5px;
 	padding: 10px;
     background-color: lightgray;
     border-radius: 10px;
@@ -1041,9 +1045,19 @@ th, .largeFont {
 	gap: 10px;
 	margin-top: 10px;
   }
-  .input-grid input, .input-grid2 input {
+  .input-grid input, .input-grid2 input, .settings-input input  {
 	width: 70px;
     font-size: 20px;
+  }
+
+  div.settings-input > div:first-child {
+	width: 135px;
+    font-size: 16px;
+    float: left;
+  }
+
+  div.settings-input {
+	margin: 5px;
   }
 
   .input-grid input[type="checkbox"] {
