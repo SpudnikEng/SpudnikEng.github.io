@@ -24,7 +24,7 @@ window.onload = function () {
 };
 
 function bumpChainSetpoint(setPointItm, direction) {
-  if (document.querySelector(".groundMode").classList.contains("green")) {
+  if (document.querySelector(".groundMode").classList.contains("button-active")) {
     setPointElem = document.getElementById(setPointItm + "Ground");
   } else {
     setPointElem = document.getElementById(setPointItm + "Fixed");
@@ -98,7 +98,7 @@ function bumpDatapoint(id, inc, attr) {
 }
 
 function hideShowGroundSpeedSP() {
-  if (document.querySelector(".groundMode").classList.contains("green")) {
+  if (document.querySelector(".groundMode").classList.contains("button-active")) {
     toggleObjectClass("speedFixed", "speedGround", "hide");
   } else {
     toggleObjectClass("speedGround", "speedFixed", "hide");
@@ -107,9 +107,9 @@ function hideShowGroundSpeedSP() {
 
 function setChainMode(mode) {
   if (mode == "Ground") {
-    toggleObjectClass("groundMode", "fixedMode", "green");
+    toggleObjectClass("groundMode", "fixedMode", "button-active");
   } else {
-    toggleObjectClass("fixedMode", "groundMode", "green");
+    toggleObjectClass("fixedMode", "groundMode", "button-active");
   }
   hideShowGroundSpeedSP();
 }
@@ -117,7 +117,7 @@ function setChainMode(mode) {
 function changeColorTimed(button) {
   const originalColor = button.style.backgroundColor;
   if(originalColor == "#72BB53") {
-	//ignore extra click while background is green
+	//ignore extra click while button is active
   } else {
 	button.style.backgroundColor = "#72BB53";
 	setTimeout(() => {
@@ -592,12 +592,12 @@ function savePresets() {
 function assignClickListeners() {
   document.querySelectorAll(".cleanMode").forEach((element) => {
     element.addEventListener("click", () =>
-      toggleObjectClass("cleanMode", "transportMode", "green")
+      toggleObjectClass("cleanMode", "transportMode", "button-active")
     );
   });
   document.querySelectorAll(".transportMode").forEach((element) => {
     element.addEventListener("click", () =>
-      toggleObjectClass("transportMode", "cleanMode", "green")
+      toggleObjectClass("transportMode", "cleanMode", "button-active")
     );
   });
   document.querySelectorAll(".fixedMode").forEach((element) => {

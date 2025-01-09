@@ -524,7 +524,7 @@
 						<tr>
 							<td style="padding: 25px 0;" colspan="5" class="cell-border-bottom">
 								<button class="button-left ter-button groundMode ter b-textOnly">Ground Speed</button>
-								<button class="button-right ter-button fixedMode ter b-textOnly green">Fixed
+								<button class="button-right ter-button fixedMode ter b-textOnly button-active">Fixed
 									Speed</button>
 								<button onclick="openModal('setSpeedRange')" id="setGroundSpeedRange"
 									style="float: right; margin-right: 20px;" class="ter-button ter b-textOnly">Set
@@ -605,7 +605,7 @@
 									</div>
 									<div style="grid-column: 4;grid-row: 2;padding: 0 10px;" class="cell-border-bottom">
 										<h3>Clod Roller Mode</h3>
-										<button class="ter-button ter icon cleanMode green"
+										<button class="ter-button ter icon cleanMode button-active"
 											style="margin-right: 0;width: 100px;border-bottom-right-radius: 0;border-top-right-radius: 0;">Pinch</button>
 										<button class="ter-button ter icon transportMode"
 											style="margin-left: 0;position: relative;left: -1px;border-bottom-left-radius: 0;border-top-left-radius: 0;">Transport</button>
@@ -948,9 +948,9 @@
 					<div id="dash-empty" class="dash-comp-margin centerText dash-tall">
 						<p class="dash-label-small">Chain Mode:</p>
 						<button class="dash-button-left groundMode ter">Ground</button>
-						<button class="dash-button-right fixedMode ter green">Fixed</button>
+						<button class="dash-button-right fixedMode ter button-active">Fixed</button>
 						<p class="dash-label-small">Clod Roller Mode:</p>
-						<button class="dash-button-left ter cleanMode green">Pinch</button>
+						<button class="dash-button-left ter cleanMode button-active">Pinch</button>
 						<button class="dash-button-right ter transportMode">Trans.</button>
 					</div>
 					<div id="dash-table" class="border1px dash-comp-margin centerText dash-tall">
@@ -1193,27 +1193,27 @@
 				<table class="tableBorderX" style="height: 190px; width: 305px; margin: 30px 0 60px 40px;">
 					<tbody>
 						<tr>
-							<td class="greenx preset-label border-right-none">Preset button label:</td>
+							<td class="preset-label border-right-none">Preset button label:</td>
 							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg" value="" onchange="this.style.backgroundColor = 'yellow'"></td>
 						</tr>
 						<tr>
-							<td class="greenx preset-label border-right-none">Digger Depth Setpoint:</td>
+							<td class="preset-label border-right-none">Digger Depth Setpoint:</td>
 							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
-							<td class="greenx preset-label border-right-none">Digger Hump Setpoint:</td>
+							<td class="preset-label border-right-none">Digger Hump Setpoint:</td>
 							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
-							<td class="greenx preset-label border-right-none">Depth Wheel Setpoint:</td>
+							<td class="preset-label border-right-none">Depth Wheel Setpoint:</td>
 							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
-							<td class=" preset-label border-right-none">Primary Shaker Setpoint:</td>
+							<td class="preset-label border-right-none">Primary Shaker Setpoint:</td>
 							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
-							<td class=" preset-label border-right-none">Secondary Shaker Setpoint:</td>
+							<td class="preset-label border-right-none">Secondary Shaker Setpoint:</td>
 							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
@@ -1236,7 +1236,7 @@
 				<table class="tableBorderX" style="height: 190px; width: 305px; margin: 30px 0 60px 40px;">
 					<tbody>
 						<tr>
-							<td class="greenx preset-label border-right-none">Preset button label:</td>
+							<td class="preset-label border-right-none">Preset button label:</td>
 							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg" value="Preset A" onchange="this.style.backgroundColor = 'orange'"></td>
 						</tr>
 						<tr>
@@ -1283,10 +1283,10 @@
 				<table class="tableBorder" style="height: 70px; width: 450px;">
 					<tbody>
 						<tr>
-							<td class="greenx preset-label border-right-none">Minimum:</td>
+							<td class="preset-label border-right-none">Minimum:</td>
 							<td class="border-left-none"><input type="number" class="spInput" id="" value="0.5"> mph
 							</td>
-							<td class="greenx preset-label">Maximum:</td>
+							<td class="preset-label">Maximum:</td>
 							<td class="border-left-none"><input type="number" class="spInput" id="" value="4.5"> mph
 							</td>
 						</tr>
