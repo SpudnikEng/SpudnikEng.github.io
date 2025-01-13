@@ -512,24 +512,30 @@ function updateBarGraphs() {
 	  const target = parseInt(container.getAttribute('data-target'), 10);
 
     console.log((container.id).split('-')[1].slice(0, 6), keyMap[(container.id).split('-')[1].slice(0, 6)], currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]]);
-    if(currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]] != target) {
-      setpointChangeNotSaved = true;
-    }
 
-	  //update setpoint value in additional container
-	  const setpointInput = document.getElementById((container.id).split('-')[1]);
-	  if(setpointInput) {
-      setpointInput.value = target;
-	  }
+    const targetMarker = container.querySelector('.target-marker');
+
+    if(target == 0){
+      //don't show setpoint bar
+      targetMarker.style.display = "none";
+    } else {
+      if(currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]] != target) {
+        setpointChangeNotSaved = true;
+      }
+    
+      //update setpoint value in additional container
+      const setpointInput = document.getElementById((container.id).split('-')[1]);
+      if(setpointInput) {
+        setpointInput.value = target;
+      }
+      const targetPercentage = Math.min(Math.max(target, 0), 100);
+	    targetMarker.style.bottom = `${targetPercentage}%`;
+    }
   
 	  const valuePercentage = Math.min(Math.max(value, 0), 100);
-	  const targetPercentage = Math.min(Math.max(target, 0), 100);
   
 	  const barFill = container.querySelector('.bar-fill');
 	  barFill.style.height = `${valuePercentage}%`;
-  
-	  const targetMarker = container.querySelector('.target-marker');
-	  targetMarker.style.bottom = `${targetPercentage}%`;
   
 	  const barLabel = container.querySelector('.bar-label');
 	  barLabel.textContent = `${value}`;

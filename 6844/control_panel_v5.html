@@ -240,7 +240,7 @@
 								Override</th>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">
+							<td class="largeFont chains-row-padding cell-border-bottom">
 								Intake:
 							</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
@@ -269,7 +269,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">
+							<td class="largeFont chains-row-padding cell-border-bottom">
 								Primary:
 							</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
@@ -298,7 +298,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Secondary/Vine:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Secondary/Vine:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainVineSP','up')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput"
@@ -325,7 +325,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Segment Roller:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Segment Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
 								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP"
@@ -351,7 +351,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Clod Roller:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Clod Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
 								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP" value="240">
@@ -378,7 +378,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Spreader Roller:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Spreader Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSpreaderSP','up')"></button>
 								<div class="inpChain"><input type="number" class="spInput" id="chainSpreaderSP"
@@ -403,7 +403,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Rear Cross:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Rear Cross:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainRearCrossSP','up')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput"
@@ -430,7 +430,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Side Elev:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Side Elev:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainSideElevSP','up')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput"
@@ -457,7 +457,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Hopper Boom:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Hopper Boom:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainPilerSP','up')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput"
@@ -484,7 +484,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Hopper Floor:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Hopper Floor:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpoint('chainHoldTankSP','up')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput"
@@ -511,7 +511,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont">Adjust all:</td>
+							<td class="largeFont chains-row-padding">Adjust all:</td>
 							<td><button style="float: left;" class="ter-button ter b-bumpUp"
 									onclick="bumpChainSetpointAll('up')"></button>
 								<span style="float: left; text-align: center; margin: 9px 10px 0; width: 80px;">CHAIN
@@ -522,7 +522,7 @@
 								mph = 226 FPM</td>
 						</tr>
 						<tr>
-							<td style="padding: 25px 0;" colspan="5" class="cell-border-bottom">
+							<td style="padding: 23px 0;" colspan="5" class="cell-border-bottom">
 								<button class="button-left ter-button groundMode ter b-textOnly">Ground Speed</button>
 								<button class="button-right ter-button fixedMode ter b-textOnly button-active">Fixed
 									Speed</button>
@@ -532,7 +532,7 @@
 							</td>
 						</tr>
 					</table>
-					<table>
+					<table style="width: 98%;">
 						<tr>
 							<td style="padding: 0 10px;"
 								class="cell-border-right cell-border-bottom centerText cell-padding-small">
@@ -702,25 +702,25 @@
 									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: auto;">
 									<div style="grid-column: 1;grid-row: 1;padding:0 10px;"
 										class="cell-border-right cell-border-bottom">
-										<h3>Outer Boom</h3>
+										<h3 class="control-label">Outer Boom</h3>
 										<button class="arrowUp ter-button ter icon-lg"></button>
 										<button class="arrowDown ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-column: 2;grid-row: 1;padding:0 10px;"
 										class="cell-border-right cell-border-bottom">
-										<h3>Inner Boom</h3>
+										<h3 class="control-label">Inner Boom</h3>
 										<button class="arrowUp ter-button ter icon-lg"></button>
 										<button class="arrowDown ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-column: 3;grid-row: 1;padding:0 10px;"
 										class="cell-border-right cell-border-bottom">
-										<h3>Boom Swing</h3>
+										<h3 class="control-label">Boom Swing</h3>
 										<button class="arrowRev ter-button ter icon-lg"></button>
 										<button class="arrowFwd ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-column: 4;grid-row: 1;padding:0 10px;"
 										class="cell-border-bottom">
-										<h3>Telescoping Boom</h3>
+										<h3 class="control-label">Extend Boom</h3>
 										<button class="arrowRev ter-button ter icon-lg"></button>
 										<button class="arrowFwd ter-button ter icon-lg"></button>
 									</div>
@@ -729,7 +729,7 @@
 									<div style="grid-column: 1; display: grid; grid-template-columns: 230px 65px 100px; grid-template-rows: auto auto; margin: 0;"
 										class="centerText cell-border-right">
 										<div style="grid-column: 1 / 4; grid-row: 1; padding: 10px 0 10px 25px;">
-											<h3>Hopper Boom</h3>
+											<h3 class="control-label">Hopper Boom</h3>
 										</div>
 										<div style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
 											<div class="inpPercent inpPercent2"
@@ -742,9 +742,14 @@
 											</div>
 										</div>
 										<div style="grid-column: 2; grid-row: 2;">
-											<div class="meterContainer"><meter class="meter-vertical" id='hopper-meter'
-													min='0' low='20' high='50' max='100' optimum='60' value='64'></meter>
-												<h3>70</h3>
+											<div id="barGraph-hopperBoom" class="vertical-bar-container"
+													data-value="70" data-target="0">
+												<div class="vertical-bar">
+													<div class="bar-fill"></div>
+													<div class="target-marker"></div>
+													<div class="tick-marks"></div>
+												</div>
+												<div class="bar-label">70</div>
 											</div>
 										</div>
 										<div style="grid-column: 3; grid-row: 2; padding-top: 10px;">
@@ -753,7 +758,7 @@
 										</div>
 									</div>
 									<div style="grid-column: 2;padding: 8px 15px;">
-										<h3 style="margin-bottom: 10px;">Boom Fold</h3>
+										<h3 class="control-label" style="margin-bottom: 10px;">Boom Fold</h3>
 										<button class="ter-button ter">Fold</button>
 										<button class="ter-button ter">Unfold</button>
 										<ul class="status" style="border: none;padding: 5px;font-weight: bold;margin-left: 40px;">

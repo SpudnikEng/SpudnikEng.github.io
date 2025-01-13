@@ -31,6 +31,7 @@ h1, h2, h3, h4 {
 
 h3.control-label {
 	font-size: 16pt;
+	padding-bottom: 5px;
 }
 
 table {
@@ -177,7 +178,9 @@ meter::-webkit-meter-bar {
 
 .presetInpSm {
 	font-size: 18px;
-	width: 20px;
+    width: 35px;
+    text-align: center;
+    padding: 3px;
 }
 
 .border-left-none {
@@ -867,6 +870,10 @@ th, .largeFont {
 
 .chains-psi, .chains-speed {
 	width: 105px;
+}
+
+.chains-row-padding {
+	padding: 20px 0;
 }
 
 /* bar graphs */
