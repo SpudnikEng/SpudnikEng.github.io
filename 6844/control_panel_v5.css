@@ -205,6 +205,22 @@ meter::-webkit-meter-bar {
 	margin: 0 0 0 2px;
 }
 
+#syncBarTop, #syncBarDwTop {
+	top: 702px;
+}
+
+#syncBarBottom, #syncBarDwBottom {
+	top: 785px;	
+}
+
+.syncBars {
+	left: 103px;
+}
+
+.syncBarsDepthWheels {
+	left: 445px;
+}
+
 .syncBars, .syncBarsDepthWheels {
 	position: absolute;
 	width: 135px;
