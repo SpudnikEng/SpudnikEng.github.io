@@ -3,203 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizontal Bar with Colors</title>
+    <title>Assembly Configuration Tool</title>
     <style>
-.vertical-bar-container {
-  display: inline-block;
-  margin: 20px;
-  text-align: center;
-}
-
-.vertical-bar {
-  position: relative;
-  width: 50px;
-  height: 200px;
-  background-color: #e0e0e0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.bar-fill {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: #76c7c0;
-}
-
-.target-marker {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: red;
-}
-
-.tick-marks {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
-.tick-marks .tick {
-  position: absolute;
-  width: 10px;
-  height: 1px;
-  background-color: black;
-}
-
-.tick-marks .tick.left {
-  left: 0;
-}
-
-.tick-marks .tick.right {
-  right: 0;
-}
-
-.tick-marks .tick-label {
-  position: absolute;
-  font-size: 12px;
-  transform: translateY(50%);
-}
-
-.tick-marks .tick-label.left {
-  left: -20px;
-  text-align: right;
-}
-
-.tick-marks .tick-label.right {
-  right: -20px;
-  text-align: left;
-}
-
-.bar-label {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.bar-controls {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.increment-btn,
-.decrement-btn {
-  padding: 5px 10px;
-  font-size: 14px;
-  cursor: pointer;
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
-    <div id="bar-graph-1" class="vertical-bar-container" data-value="40" data-target="70">
-        <div class="vertical-bar">
-          <div class="bar-fill"></div>
-          <div class="target-marker"></div>
-          <div class="tick-marks"></div>
-        </div>
-        <div class="bar-label">40</div>
-        <div class="bar-controls">
-          <button class="increment-btn">+</button>
-          <button class="decrement-btn">-</button>
-        </div>
-      </div>
-      
-      <div id="bar-graph-2" class="vertical-bar-container" data-value="60" data-target="80">
-        <div class="vertical-bar">
-          <div class="bar-fill"></div>
-          <div class="target-marker"></div>
-          <div class="tick-marks"></div>
-        </div>
-        <div class="bar-label">60</div>
-        <div class="bar-controls">
-          <button class="increment-btn">+</button>
-          <button class="decrement-btn">-</button>
-        </div>
-      </div>
-      
+    <h1>Assembly Configuration Tool</h1>
+    
+    <label for="assembly-input">Assembly Descriptions:</label>
+    <textarea id="assembly-input" placeholder="Paste assembly descriptions here..."></textarea>
+
+    <label for="ignore-list">Assembly Numbers to Ignore (comma-separated):</label>
+    <input id="ignore-list" type="text" placeholder="e.g., FA5786, FB2108">
+
+    <label for="config-map">Assembly Numbers for Specific Configurations (JSON format):</label>
+    <textarea id="config-map" placeholder='e.g., {"Frame": ["FA5786"], "Boom Type": ["FB5064"]}'></textarea>
+
+    <button onclick="processAssemblies()">Process Assemblies</button>
+
+    <label for="config-output">Configurations:</label>
+    <textarea id="config-output" readonly placeholder="Processed configurations will appear here..."></textarea>
+
+    <script>
+        function processAssemblies() {
+            // Get input values
+            const assemblyInput = document.getElementById("assembly-input").value;
+            const ignoreList = document.getElementById("ignore-list").value.split(",").map(item => item.trim());
+            const configMap = JSON.parse(document.getElementById("config-map").value || "{}") || {};
+
+            // Split assembly input into lines
+            const lines = assemblyInput.split("\n").map(line => line.trim()).filter(line => line);
+
+            // Initialize result variables
+            let remainingLines = [];
+            let configurations = {};
+
+            // Populate initial configurations object
+            for (let config in configMap) {
+                configurations[config] = [];
+            }
+
+            // Process each line
+            lines.forEach(line => {
+                const assemblyNumber = line.substring(0, 6); // Extract first 6 characters
+
+                // Check if the line should be ignored
+                if (ignoreList.includes(assemblyNumber)) {
+                    return; // Skip this line
+                }
+
+                // Check if the line matches a configuration
+                let matched = false;
+                for (let config in configMap) {
+                    if (configMap[config].includes(assemblyNumber)) {
+                        configurations[config].push(config); // Add configuration only
+                        matched = true;
+                        break;
+                    }
+                }
+
+                // If not matched, add to remaining lines
+                if (!matched) {
+                    remainingLines.push(line);
+                }
+            });
+
+            // Update the text areas
+            document.getElementById("assembly-input").value = remainingLines.join("\n");
+
+            // Create a comma-separated configurations string
+            const configOutput = Object.keys(configurations)
+                .filter(key => configurations[key].length > 0)
+                .join(", ");
+
+            document.getElementById("config-output").value = configOutput;
+        }
+    </script>
 </body>
-<script>
-function updateBarGraphs() {
-  const barContainers = document.querySelectorAll('.vertical-bar-container');
-
-  barContainers.forEach((container) => {
-    const value = parseInt(container.getAttribute('data-value'), 10);
-    const target = parseInt(container.getAttribute('data-target'), 10);
-
-    const valuePercentage = Math.min(Math.max(value, 0), 100);
-    const targetPercentage = Math.min(Math.max(target, 0), 100);
-
-    const barFill = container.querySelector('.bar-fill');
-    barFill.style.height = `${valuePercentage}%`;
-
-    const targetMarker = container.querySelector('.target-marker');
-    targetMarker.style.bottom = `${targetPercentage}%`;
-
-    const barLabel = container.querySelector('.bar-label');
-    barLabel.textContent = `${value}`;
-
-    const tickMarksContainer = container.querySelector('.tick-marks');
-    tickMarksContainer.innerHTML = '';
-
-    const numTicks = 5;
-    for (let i = 1; i <= numTicks; i++) { // Start from 1 to exclude 0
-      const positionPercentage = (i / numTicks) * 100;
-
-      const tickLeft = document.createElement('div');
-      tickLeft.classList.add('tick', 'left');
-      tickLeft.style.bottom = `${positionPercentage}%`;
-
-      const tickRight = document.createElement('div');
-      tickRight.classList.add('tick', 'right');
-      tickRight.style.bottom = `${positionPercentage}%`;
-
-      const tickLabelLeft = document.createElement('div');
-      tickLabelLeft.classList.add('tick-label', 'left');
-      tickLabelLeft.style.bottom = `${positionPercentage}%`;
-      tickLabelLeft.textContent = Math.round((i / numTicks) * 100);
-
-      const tickLabelRight = document.createElement('div');
-      tickLabelRight.classList.add('tick-label', 'right');
-      tickLabelRight.style.bottom = `${positionPercentage}%`;
-      tickLabelRight.textContent = Math.round((i / numTicks) * 100);
-
-      tickMarksContainer.appendChild(tickLeft);
-      tickMarksContainer.appendChild(tickRight);
-      tickMarksContainer.appendChild(tickLabelLeft);
-      tickMarksContainer.appendChild(tickLabelRight);
-    }
-  });
-}
-
-function addControls() {
-  const barContainers = document.querySelectorAll('.vertical-bar-container');
-
-  barContainers.forEach((container) => {
-    const incrementBtn = container.querySelector('.increment-btn');
-    const decrementBtn = container.querySelector('.decrement-btn');
-
-    incrementBtn.addEventListener('click', () => {
-      let value = parseInt(container.getAttribute('data-value'), 10);
-      container.setAttribute('data-value', Math.min(value + 10, 100)); // Clamp to max 100
-      updateBarGraphs();
-    });
-
-    decrementBtn.addEventListener('click', () => {
-      let value = parseInt(container.getAttribute('data-value'), 10);
-      container.setAttribute('data-value', Math.max(value - 10, 0)); // Clamp to min 0
-      updateBarGraphs();
-    });
-  });
-}
-
-updateBarGraphs();
-addControls();
-
-</script>
 </html>
