@@ -288,7 +288,7 @@ function hideAllControls() {
 function showHomePage(elem) {
   hideControlBody();
   deselectControlButtons();
-  document.getElementById("controls").style.height = "505px";
+  document.getElementById("controls").style.height = "745px";
   document.getElementById("preset-buttons").style.float = "left";
   document.getElementById("btnHome").classList.add("button-active");
   document.getElementById("smallVideos").classList.remove("video");
@@ -302,7 +302,7 @@ function showHomePage(elem) {
 }
 
 function hideHomePage() {
-  document.getElementById("controls").style.height = "auto";
+  document.getElementById("controls").style.height = "1090px";
   document.getElementById("preset-buttons").style.float = "right";
   document.getElementById("btnHome").classList.remove("button-active");
   document.getElementById("smallVideos").classList.add("video");
