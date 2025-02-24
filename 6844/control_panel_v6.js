@@ -278,11 +278,11 @@ function hideControlBody() {
 }
 
 function hideAllControls() {
-  document.getElementById("digger").classList.add("hide");
-  document.getElementById("chains").classList.add("hide");
-  document.getElementById("table").classList.add("hide");
-  document.getElementById("boom").classList.add("hide");
-  document.getElementById("axle").classList.add("hide");
+  document.getElementById("diggerCtrl").classList.add("hide");
+  document.getElementById("chainsCtrl").classList.add("hide");
+  document.getElementById("tableCtrl").classList.add("hide");
+  document.getElementById("boomCtrl").classList.add("hide");
+  document.getElementById("axleCtrl").classList.add("hide");
 }
 
 function showHomePage(elem) {
@@ -321,7 +321,7 @@ function toggleControl(id) {
   hideAllControls();
   deselectControlButtons();
   document.getElementById(id).classList.add("button-active");
-  document.getElementById(id.toLowerCase().substr(3)).classList.remove("hide");
+  document.getElementById(id.toLowerCase().substr(3)+'Ctrl').classList.remove("hide");
 }
 
 function openBottomSheet(elem) {
@@ -505,13 +505,12 @@ function updateBarGraphs() {
     'axleRi': 5
   };
 	const barContainers = document.querySelectorAll('.vertical-bar-container');
-  console.log(currPresets);
   
 	barContainers.forEach((container) => {
 	  const value = parseInt(container.getAttribute('data-value'), 10);
 	  const target = parseInt(container.getAttribute('data-target'), 10);
 
-    console.log((container.id).split('-')[1].slice(0, 6), keyMap[(container.id).split('-')[1].slice(0, 6)], currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]]);
+    // console.log((container.id).split('-')[1].slice(0, 6), keyMap[(container.id).split('-')[1].slice(0, 6)], currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]]);
 
     const targetMarker = container.querySelector('.target-marker');
 

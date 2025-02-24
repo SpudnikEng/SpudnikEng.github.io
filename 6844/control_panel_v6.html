@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
 	<meta name="viewport" content="width=800">
-	<title>V5 6844 UI Mockup</title>
+	<title>V6 6844 UI Mockup</title>
 	<link rel="stylesheet" href="./control_panel_v6.css">
 </head>
 
@@ -23,7 +23,7 @@
 		<div id="controls">
 			<div id="control-body">
 
-				<div class="controlL1 hide" id="digger">
+				<div class="controlL1 hide" id="diggerCtrl">
 					<table class="controlL1">
 						<tr>
 							<th colspan="2">
@@ -223,8 +223,8 @@
 					<br>
 				</div>
 
-				<div class="controlL1 hide cell-padding-small" id="chains">
-					<table style="width: 98%; font-weight: bold;" class="controlL1">
+				<div class="controlL1 hide cell-padding-small" id="chainsCtrl">
+					<table>
 						<tr>
 							<th class="controlHead" colspan="5">
 								<h2>Chains</h2>
@@ -566,8 +566,8 @@
 					</tr>
 				</div>
 
-				<div class="controlL1 hide" id="table">
-					<table class="controlL1">
+				<div class="controlL1 hide cell-padding-small" id="tableCtrl">
+					<table>
 						<tr>
 							<th class="controlHead" colspan="2">
 								<h2>Cleaning Table</h2>
@@ -579,35 +579,35 @@
 								</div>
 								<div
 									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr auto; grid-template-rows: auto auto auto;">
-									<div style="grid-column: 1;grid-row: 1 / 3;padding:0 10px;"
+									<div style="grid-column: 1;grid-row: 1 / 3;padding:10px;"
 										class="cell-border-bottom cell-border-right centerText">
-										<h3>Roller<br>Gap</h3>
+										<h3 class="addSpaceBelow">Roller<br>Gap</h3>
 										<button class="ter-button ter plusSign"
 											onclick="bumpInpSetpoint('rollerGap',1);"></button>
 										<input type="number" class="spInput" value="4" id="rollerGap">
 										<button class="ter-button ter minusSign"
 											onclick="bumpInpSetpoint('rollerGap',-1);"></button>
 									</div>
-									<div style="grid-column: 2;grid-row: 1 / 3;padding:0 10px;"
+									<div style="grid-column: 2;grid-row: 1 / 3;padding:10px;"
 										class="cell-border-bottom cell-border-right centerText">
-										<h3>Roller<br>Height</h3>
+										<h3 class="addSpaceBelow">Roller<br>Height</h3>
 										<button class="ter-button ter plusSign"
 											onclick="bumpInpSetpoint('rollerHeight',1);"></button>
 										<input type="number" class="spInput" value="3" id="rollerHeight">
 										<button class="ter-button ter minusSign"
 											onclick="bumpInpSetpoint('rollerHeight',-1);"></button>
 									</div>
-									<div style="grid-column: 3;grid-row: 1 / 3;padding:0 10px;"
+									<div style="grid-column: 3;grid-row: 1 / 3;padding:10px;"
 										class="cell-border-bottom cell-border-right centerText">
-										<h3>Table<br>Angle</h3>
+										<h3 class="addSpaceBelow">Table<br>Angle</h3>
 										<button class="ter-button ter plusSign"
 											onclick="bumpInpSetpoint('tableAngle',1);"></button>
 										<input type="number" class="spInput" value="6" id="tableAngle">
 										<button class="ter-button ter minusSign"
 											onclick="bumpInpSetpoint('tableAngle',-1);"></button>
 									</div>
-									<div style="grid-column: 4;grid-row: 2;padding: 0 10px;" class="cell-border-bottom">
-										<h3>Clod Roller Mode</h3>
+									<div style="grid-column: 4;grid-row: 2;padding:10px;" class="cell-border-bottom">
+										<h3 class="addSpaceBelow">Clod Roller Mode</h3>
 										<button class="ter-button ter icon cleanMode button-active"
 											style="margin-right: 0;width: 100px;border-bottom-right-radius: 0;border-top-right-radius: 0;">Pinch</button>
 										<button class="ter-button ter icon transportMode"
@@ -617,19 +617,20 @@
 							</td>
 						</tr>
 					</table>
-					<table style="width: 98%; font-weight: bold;" class="controlL1">
+					<br><br>
+					<table>
 						<tr>
 							<th class="controlHead" colspan="5"> &nbsp; </th>
 						</tr>
 						<tr>
 							<th class="cell-border-bottom">Name</th>
 							<th class="cell-border-bottom">Setpoint</th>
-							<th class="cell-border-bottom">PSI</th>
-							<th class="cell-border-bottom">Actual</th>
-							<th class="cell-border-bottom">Target</th>
+							<th class="cell-border-bottom cell-data-width">PSI</th>
+							<th class="cell-border-bottom cell-data-width">Actual</th>
+							<th class="cell-border-bottom cell-data-width">Target</th>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Segment Roller:</td>
+							<td class="largeFont cell-border-bottom chains-row-padding">Segment Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
 								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP2"
@@ -649,7 +650,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Clod Roller:</td>
+							<td class="largeFont cell-border-bottom chains-row-padding">Clod Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
 								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP2"
@@ -669,7 +670,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom">Spreader Roller:</td>
+							<td class="largeFont cell-border-bottom chains-row-padding">Spreader Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
 									onclick="bumpRollerSetpoint('chainSpreaderSP','up')"></button>
 								<div class="inpChain"><input type="number" class="spInput" id="chainSpreaderSP2"
@@ -691,7 +692,7 @@
 					</table>
 				</div>
 
-				<div class="controlL1 hide" id="boom">
+				<div class="controlL1 hide" id="boomCtrl">
 					<table class="controlL1">
 						<tr>
 							<th class="controlHead" colspan="2">
@@ -700,28 +701,28 @@
 						</tr>
 						<tr>
 							<td style="text-align: center;">
-								<div style="padding: 15px 10px;"><img src="./BoomWithLabels.png"></div>
+								<div style="padding: 45px 10px;"><img src="./BoomWithLabels.png"></div>
 								<div
 									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: auto;">
-									<div style="grid-column: 1;grid-row: 1;padding:0 10px;"
+									<div style="grid-column: 1;grid-row: 1;padding:10px;"
 										class="cell-border-right cell-border-bottom">
 										<h3 class="control-label">Outer Boom</h3>
 										<button class="arrowUp ter-button ter icon-lg"></button>
 										<button class="arrowDown ter-button ter icon-lg"></button>
 									</div>
-									<div style="grid-column: 2;grid-row: 1;padding:0 10px;"
+									<div style="grid-column: 2;grid-row: 1;padding:10px;"
 										class="cell-border-right cell-border-bottom">
 										<h3 class="control-label">Inner Boom</h3>
 										<button class="arrowUp ter-button ter icon-lg"></button>
 										<button class="arrowDown ter-button ter icon-lg"></button>
 									</div>
-									<div style="grid-column: 3;grid-row: 1;padding:0 10px;"
+									<div style="grid-column: 3;grid-row: 1;padding:10px;"
 										class="cell-border-right cell-border-bottom">
 										<h3 class="control-label">Boom Swing</h3>
 										<button class="arrowRev ter-button ter icon-lg"></button>
 										<button class="arrowFwd ter-button ter icon-lg"></button>
 									</div>
-									<div style="grid-column: 4;grid-row: 1;padding:0 10px;"
+									<div style="grid-column: 4;grid-row: 1;padding:10px;"
 										class="cell-border-bottom">
 										<h3 class="control-label">Extend Boom</h3>
 										<button class="arrowRev ter-button ter icon-lg"></button>
@@ -731,7 +732,7 @@
 								<div style="width: 100%;display: grid;grid-template-columns: 2fr 1fr; grid-template-rows: auto;">
 									<div style="grid-column: 1; display: grid; grid-template-columns: 230px 65px 100px; grid-template-rows: auto auto; margin: 0;"
 										class="centerText cell-border-right">
-										<div style="grid-column: 1 / 4; grid-row: 1; padding: 10px 0 10px 25px;">
+										<div style="grid-column: 1 / 4; grid-row: 1; padding: 10px 0 10px 65px;">
 											<h3 class="control-label">Hopper Boom</h3>
 										</div>
 										<div style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
@@ -764,7 +765,7 @@
 										<h3 class="control-label" style="margin-bottom: 10px;">Boom Fold</h3>
 										<button class="ter-button ter">Fold</button>
 										<button class="ter-button ter">Unfold</button>
-										<ul class="status" style="border: none;padding: 5px;font-weight: bold;margin-left: 40px;">
+										<ul class="status" style="border: none;padding: 5px;font-weight: bold;font-size: larger; margin-left: 40px;">
 											<li><span class="dot green"></span>Unfolded</li>
 										</ul>
 									</div>
@@ -774,7 +775,7 @@
 					</table>
 				</div>
 
-				<div class="controlL1 hide" id="axle">
+				<div class="controlL1 hide" id="axleCtrl">
 					<table class="controlL1">
 						<tr>
 							<th colspan="2">
@@ -783,26 +784,17 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<img style="margin: 50px 10px 40px 70px;width: 585px;" src="./6844rear-view.png">
+								<img style="margin: 75px 10px 60px 70px;width: 585px;" src="./6844rear-view.png">
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
 								<div class=" cell-padding-small cell-border-bottom"
-									style="display: grid; grid-template-columns: 50px auto 50px auto auto auto auto;grid-template-rows: auto auto auto auto;padding: 10px; margin: 0 30px;">
-									<div style="grid-row: 1; grid-column: 1 / 8;">
+									style="display: grid; grid-template-columns: 50px auto 50px auto auto 87px auto;grid-template-rows: auto 52px 52px auto;padding: 10px; margin: 0 30px;">
+									<div style="grid-row: 1; grid-column: 1 / 8; padding-bottom: 20px;">
 										<h3 class="control-label">Machine Height/Roll</h3>
 									</div>
-									<div style="grid-row: 2 / 5; grid-column: 1; margin-top: 22px; margin-right: 20px;"
-										class="centerText">
-										<button class="ter-button ter b-textOnly"
-											onclick="bumpDatapoint('axleLeft', 5, 'data-target')">+5</button><br>
-										<div class="inpPercent"><input type="number" class="spInput" id="axleLeft"
-												value="46"></div><br>
-										<button class="ter-button ter b-textOnly"
-											onclick="bumpDatapoint('axleLeft', -5, 'data-target')">-5</button>
-									</div>
-									<div style="grid-row: 2 / 5; grid-column: 2;padding-left: 40px;">
+									<div style="grid-row: 2 / 5; grid-column: 1;">
 										<h4>Left</h4>
 										<div id="barGraph-axleLeft" class="vertical-bar-container" data-value="48"
 											data-target="50">
@@ -813,6 +805,20 @@
 											</div>
 											<div class="bar-label"></div>
 										</div>
+									</div>
+									<div style="grid-row: 2 / 5; grid-column: 2; margin-top: 22px;" class="centerText">
+										<button class="ter-button ter b-textOnly"
+											onclick="bumpDatapoint('axleRight', 5, 'data-target')">+5</button><br>
+										<div class="inpPercent"><input type="number" class="spInput" id="axleRight"
+												value="46"></div>
+										<br>
+										<button class="ter-button ter b-textOnly"
+											onclick="bumpDatapoint('axleRight', -5, 'data-target')">-5</button>
+									</div>
+									<div style="grid-row: 2; grid-column: 6;"class="centerText">
+										<button
+											onclick="bumpDatapoint('axleLeft', 1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
+											class="arrowUp ter-button ter icon-lg"></button>
 									</div>
 									<div style="grid-row: 2 / 5; grid-column: 3;">
 										<h4>Right</h4>
@@ -826,22 +832,10 @@
 											<div class="bar-label"></div>
 										</div>
 									</div>
-									<div style="grid-row: 2 / 5; grid-column: 4; margin-top: 22px; margin-right: 31px;"
-										class="centerText">
-										<button class="ter-button ter b-textOnly"
-											onclick="bumpDatapoint('axleRight', 5, 'data-target')">+5</button><br>
-										<div class="inpPercent"><input type="number" class="spInput" id="axleRight"
-												value="46"></div>
-										<br>
-										<button class="ter-button ter b-textOnly"
-											onclick="bumpDatapoint('axleRight', -5, 'data-target')">-5</button>
+									<div style="grid-row: 2 / 5; grid-column: 4; margin-top: 22px; margin-right: 31px;">
+										
 									</div>
-									<div style="grid-row: 2; grid-column: 6;">
-										<button
-											onclick="bumpDatapoint('axleLeft', 1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
-											class="arrowUp ter-button ter icon-lg"></button>
-									</div>
-									<div style="grid-row: 3; grid-column: 5;">
+									<div style="grid-row: 3; grid-column: 5; text-align: right;">
 										<button
 											onclick="bumpDatapoint('axleLeft', -1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
 											class="arrowCounterClockwise ter-button ter icon-lg"></button>
@@ -954,10 +948,10 @@
 					</div>
 					<br>
 					<div id="dash-empty" class="dash-comp-margin centerText dash-tall">
-						<p class="dash-label-small">Chain Mode:</p>
+						<div class="dash-label-small">Chain Mode:</div>
 						<button class="dash-button-left groundMode ter">Ground</button>
 						<button class="dash-button-right fixedMode ter button-active">Fixed</button>
-						<p class="dash-label-small">Clod Roller Mode:</p>
+						<div class="dash-label-small" style="padding-top: 8px;">Clod Roller Mode:</div>
 						<button class="dash-button-left ter cleanMode button-active">Pinch</button>
 						<button class="dash-button-right ter transportMode">Trans.</button>
 					</div>
@@ -974,43 +968,41 @@
 					<div id="dash-messages" class="dash-comp-margin border1px">
 						- No Active Alarms -
 					</div>
-
-					<div id="autoControl" style="position:absolute; top: 500px; left: 135px;">
-						<span>
-							<span style="float: left;">
-								<h3>Digger</h3>
-								<button class="b-auto ter-button ter button-active diggerAuto" style="margin-top: 0;"
-									onclick="toggleAutoState('digger')">Auto</button>
-							</span>
-							<span style="float: left;">
-								<h3>Hump</h3>
-								<button class="b-auto ter-button ter button-active humpAuto" style="margin-top: 0;"
-									onclick="toggleAutoState('hump')">Auto</button>
-							</span>
-							<span style="float: left;">
-								<h3>Depth Wheel</h3>
-								<button class="b-auto ter-button ter button-active depthWheelAuto" style="margin-top: 0;"
-									onclick="toggleAutoState('depthWheel')">Auto</button>
-							</span>
-							<span style="float: left;">
-								<h3>Axle</h3>
-								<button class="b-auto ter-button ter button-active axleAuto" style="margin-top: 0;"
-									onclick="toggleAutoState('axle')">Auto</button>
-							</span>
-							<span style="float: left;">
-								<h3>Pri Shaker</h3>
-								<button class="b-auto ter-button ter button-active priShakerAuto" style="margin-top: 0;"
-									onclick="toggleAutoState('priShaker')">Auto</button>
-							</span>
-							<span style="float: left;">
-								<h3>Sec Shaker</h3>
-								<button class="b-auto ter-button ter button-active secShakerAuto" style="margin-top: 0;"
-									onclick="toggleAutoState('secShaker')">Auto</button>
-							</span>
-						</span>
-					</div>
 				</div>
 			</div>
+			<div id="autoControl">
+				<span class="autoButtonDisp centerText">
+					<h3>Digger</h3>
+					<button class="b-auto ter-button ter button-active diggerAuto"
+						onclick="toggleAutoState('digger')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Hump</h3>
+					<button class="b-auto ter-button ter button-active humpAuto"
+						onclick="toggleAutoState('hump')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Depth Wheel</h3>
+					<button class="b-auto ter-button ter button-active depthWheelAuto"
+						onclick="toggleAutoState('depthWheel')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Axle</h3>
+					<button class="b-auto ter-button ter button-active axleAuto"
+						onclick="toggleAutoState('axle')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Pri Shaker</h3>
+					<button class="b-auto ter-button ter button-active priShakerAuto"
+						onclick="toggleAutoState('priShaker')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Sec Shaker</h3>
+					<button class="b-auto ter-button ter button-active secShakerAuto"
+						onclick="toggleAutoState('secShaker')">Auto</button>
+				</span>
+			</div>
+
 		</div>
 		<div id="global-settings" class="hide">
 			<h2>Settings</h2>

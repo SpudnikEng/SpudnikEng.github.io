@@ -18,7 +18,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 input[type="number"] {
-  -moz-appearance: textfield;
+  -appearance: textfield;
 }
 
 button {
@@ -52,8 +52,7 @@ table {
     float: left;
 }
 .meter-vertical {
-	/* for Firefox: Change default appearance */
-	-moz-appearance: none;
+	-appearance: none;
 
 	width: 150px;
 	height: 80px;
@@ -77,7 +76,7 @@ meter::-webkit-meter-bar {
 }
 
 .dash-small {
-	height: 86px;
+	height: 110px;
 	width: 155px;
 }
 
@@ -86,11 +85,16 @@ meter::-webkit-meter-bar {
 	width: 155px;
 }
 
+#dashboard h3 {
+	font-size: 25px;
+	margin-top: 10px;
+}
+
 #dashboard {
 	margin: 5px 10px;
 	background-color: lightgray;
 	border-radius: 10px;
-	height: 480px;
+	height: 600px;
 	border: 1px solid black;
 }
 
@@ -156,6 +160,27 @@ meter::-webkit-meter-bar {
 	top: 6px;
 	left: 5px;
 	color: white;
+}
+
+#autoControl {
+	position: absolute;
+	top: 700px;
+	width: 790px;
+	height: 120px;
+	padding: 15px;
+}
+
+.autoButtonDisp h3 {
+	font-size: 20px;
+}
+
+.autoButtonDisp .b-auto {
+	width: 100px;
+}
+
+.autoButtonDisp {
+	width: 125px;
+	float: left;
 }
 
 #preset-buttons {
@@ -360,7 +385,7 @@ meter::-webkit-meter-bar {
     border-radius: 16px;
     height: 60px; /*56dp*/
     font-size: 16pt;
-    margin: 4px 4px;
+    margin: 7px 4px;
     border: none;
     padding: 5px;
     min-width: 100px;
@@ -393,6 +418,9 @@ meter::-webkit-meter-bar {
     padding: 10px;
 }
 
+.cell-data-width {
+	width: 105px;
+}
 .dash-comp-margin {
 	margin: 10px 0 0 16px;
 	float: left;
@@ -401,6 +429,7 @@ meter::-webkit-meter-bar {
 
 .addSpaceBelow {
     padding-bottom: 5px;
+	font-size: large;
 }
 
 .hide {
@@ -846,13 +875,13 @@ th, .largeFont {
 #dash-messages {
 	font-size: 20px;
 	width: 483px;
-	height: 115px;
+	height: 230px;
 	background-color: white;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: 0 15px 10px 0;
-	margin-top: 15px;
+	margin-top: 45px;
 }
 
 .dash-button-left {
@@ -882,8 +911,8 @@ th, .largeFont {
 }
 
 .dash-label-small {
-	margin: 0;
-	font-size: 12px;
+	margin: 3;
+	font-size: 18px;
 	font-weight: bold;
 }
 
@@ -892,7 +921,12 @@ th, .largeFont {
 }
 
 .chains-row-padding {
-	padding: 20px 0;
+	padding: 23px 0;
+}
+
+#chainsCtrl table, #tableCtrl table {
+	font-weight: bold;
+	width: 98%;
 }
 
 /* bar graphs */
