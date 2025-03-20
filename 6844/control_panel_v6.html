@@ -13,8 +13,10 @@
 	<div class="container">
 		<div class="master">
 			<img id="logo-spudnik" src="./icons/SpudnikLogo.svg" alt="SPUDNIK">
-			<button id="btn-diagnostics" onclick="togglePage('diagnostics')" class="b-diagnostics pri-button pri icon-lg"></button>
-			<button id="btn-global-settings" onclick="togglePage('global-settings')" class="b-settings pri-button pri icon-lg"></button>
+			<button id="btn-diagnostics" onclick="togglePage('diagnostics')"
+				class="b-diagnostics pri-button pri icon-lg"></button>
+			<button id="btn-global-settings" onclick="togglePage('global-settings')"
+				class="b-settings pri-button pri icon-lg"></button>
 			<button onclick="changeColorTimed(this)" class="b-rowStart pri-button pri icon">Start Row</button>
 			<button onclick="changeColorTimed(this)" class="b-rowEnd pri-button pri icon">End Row</button>
 			<button id="run-button" onclick="toggleRUN()" class="b-run pri-button pri-em"><img id="run-button"
@@ -117,8 +119,14 @@
 										<tr>
 											<td>
 												<h4>Left</h4>
-												<button id="coulterLeftUp" onmousedown="handleSyncPress('coulterSync','up')" onmouseup="handleSyncRelease('coulterSync','up')" class="arrowUp ter-button ter icon-lg"></button><br>
-												<button id="coulterLeftDn" onmousedown="handleSyncPress('coulterSync','dn')" onmouseup="handleSyncRelease('coulterSync','dn')" class="arrowDown ter-button ter icon-lg"></button><br>
+												<button id="coulterLeftUp"
+													onmousedown="handleSyncPress('coulterSync','up')"
+													onmouseup="handleSyncRelease('coulterSync','up')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="coulterLeftDn"
+													onmousedown="handleSyncPress('coulterSync','dn')"
+													onmouseup="handleSyncRelease('coulterSync','dn')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 											<td>
 												<button id="coulterSync" style="margin-top: 23px;"
@@ -127,8 +135,14 @@
 											</td>
 											<td>
 												<h4>Right</h4>
-												<button id="coulterRightUp" onmousedown="handleSyncPress('coulterSync','up')" onmouseup="handleSyncRelease('coulterSync','up')" class="arrowUp ter-button ter icon-lg"></button><br>
-												<button id="coulterRightDn" onmousedown="handleSyncPress('coulterSync','dn')" onmouseup="handleSyncRelease('coulterSync','dn')" class="arrowDown ter-button ter icon-lg"></button><br>
+												<button id="coulterRightUp"
+													onmousedown="handleSyncPress('coulterSync','up')"
+													onmouseup="handleSyncRelease('coulterSync','up')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="coulterRightDn"
+													onmousedown="handleSyncPress('coulterSync','dn')"
+													onmouseup="handleSyncRelease('coulterSync','dn')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 										</tr>
 									</table>
@@ -143,9 +157,15 @@
 										<tr>
 											<td>
 												<h4>Left</h4>
-												<button id="dwLeftUp" onclick="bumpDatapoint('depthWheelLeft', 1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','up')" onmouseup="handleSyncRelease('depthWheelsSync','up')"
+												<button id="dwLeftUp"
+													onclick="bumpDatapoint('depthWheelLeft', 1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','up')"
+													onmouseup="handleSyncRelease('depthWheelsSync','up')"
 													class="arrowUp ter-button ter icon-lg"></button><br>
-												<button id="dwLeftDn" onclick="bumpDatapoint('depthWheelLeft', -1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','dn')" onmouseup="handleSyncRelease('depthWheelsSync','dn')"
+												<button id="dwLeftDn"
+													onclick="bumpDatapoint('depthWheelLeft', -1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','dn')"
+													onmouseup="handleSyncRelease('depthWheelsSync','dn')"
 													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 											<td>
@@ -155,9 +175,15 @@
 											</td>
 											<td>
 												<h4>Right</h4>
-												<button id="dwRightUp" onclick="bumpDatapoint('depthWheelRight', 1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','up')" onmouseup="handleSyncRelease('depthWheelsSync','up')"
+												<button id="dwRightUp"
+													onclick="bumpDatapoint('depthWheelRight', 1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','up')"
+													onmouseup="handleSyncRelease('depthWheelsSync','up')"
 													class="arrowUp ter-button ter icon-lg"></button><br>
-												<button id="dwRightDn" onclick="bumpDatapoint('depthWheelRight', -1, 'data-value')" onmousedown="handleSyncPress('depthWheelsSync','dn')" onmouseup="handleSyncRelease('depthWheelsSync','dn')"
+												<button id="dwRightDn"
+													onclick="bumpDatapoint('depthWheelRight', -1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','dn')"
+													onmouseup="handleSyncRelease('depthWheelsSync','dn')"
 													class="arrowDown ter-button ter icon-lg"></button><br>
 											</td>
 										</tr>
@@ -274,13 +300,13 @@
 								Primary:
 							</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
-								onclick="bumpChainSetpoint('chainPriSP','dn')"></button>
+									onclick="bumpChainSetpoint('chainPriSP','dn')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput"
 										id="chainPriSPGround" value="115"></div>
 								<div class="inpChain speedFixed"><input type="number" class="spInput"
 										id="chainPriSPFixed" value="225"></div>
 								<button class="ter-button ter b-bumpUp"
-								onclick="bumpChainSetpoint('chainPriSP','up')"></button>
+									onclick="bumpChainSetpoint('chainPriSP','up')"></button>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-psi">
 								<span id="chainPriPSI">1229 PSI</span>
@@ -558,7 +584,7 @@
 									onclick="bumpInpSetpoint('secondaryShaker',-5);">-5</button><br>
 								<button class="ter-button ter button-active secShakerAuto"
 									onclick="toggleAutoState('secShaker')">Auto</button>
-									<button class="ter-button ter" id="secShakerManual">Manual</button>
+								<button class="ter-button ter" id="secShakerManual">Manual</button>
 							</td>
 						</tr>
 					</table>
@@ -722,20 +748,21 @@
 										<button class="arrowRev ter-button ter icon-lg"></button>
 										<button class="arrowFwd ter-button ter icon-lg"></button>
 									</div>
-									<div style="grid-column: 4;grid-row: 1;padding:10px;"
-										class="cell-border-bottom">
+									<div style="grid-column: 4;grid-row: 1;padding:10px;" class="cell-border-bottom">
 										<h3 class="control-label">Extend Boom</h3>
 										<button class="arrowRev ter-button ter icon-lg"></button>
 										<button class="arrowFwd ter-button ter icon-lg"></button>
 									</div>
 								</div>
-								<div style="width: 100%;display: grid;grid-template-columns: 2fr 1fr; grid-template-rows: auto;">
+								<div
+									style="width: 100%;display: grid;grid-template-columns: 2fr 1fr; grid-template-rows: auto;">
 									<div style="grid-column: 1; display: grid; grid-template-columns: 230px 65px 100px; grid-template-rows: auto auto; margin: 0;"
 										class="centerText cell-border-right">
 										<div style="grid-column: 1 / 4; grid-row: 1; padding: 10px 0 10px 65px;">
 											<h3 class="control-label">Hopper Boom</h3>
 										</div>
-										<div style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
+										<div
+											style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
 											<div class="inpPercent inpPercent2"
 												style="padding:10px;font-size: 20px;font-weight: bold;">
 												Drop: <input type="number" class="spInput" value="4">
@@ -746,8 +773,8 @@
 											</div>
 										</div>
 										<div style="grid-column: 2; grid-row: 2;">
-											<div id="barGraph-hopperBoom" class="vertical-bar-container"
-													data-value="70" data-target="0">
+											<div id="barGraph-hopperBoom" class="vertical-bar-container" data-value="70"
+												data-target="0">
 												<div class="vertical-bar">
 													<div class="bar-fill"></div>
 													<div class="target-marker"></div>
@@ -765,7 +792,8 @@
 										<h3 class="control-label" style="margin-bottom: 10px;">Boom Fold</h3>
 										<button class="ter-button ter">Fold</button>
 										<button class="ter-button ter">Unfold</button>
-										<ul class="status" style="border: none;padding: 5px;font-weight: bold;font-size: larger; margin-left: 40px;">
+										<ul class="status"
+											style="border: none;padding: 5px;font-weight: bold;font-size: larger; margin-left: 40px;">
 											<li><span class="dot green"></span>Unfolded</li>
 										</ul>
 									</div>
@@ -815,7 +843,7 @@
 										<button class="ter-button ter b-textOnly"
 											onclick="bumpDatapoint('axleRight', -5, 'data-target')">-5</button>
 									</div>
-									<div style="grid-row: 2; grid-column: 6;"class="centerText">
+									<div style="grid-row: 2; grid-column: 6;" class="centerText">
 										<button
 											onclick="bumpDatapoint('axleLeft', 1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
 											class="arrowUp ter-button ter icon-lg"></button>
@@ -833,7 +861,7 @@
 										</div>
 									</div>
 									<div style="grid-row: 2 / 5; grid-column: 4; margin-top: 22px; margin-right: 31px;">
-										
+
 									</div>
 									<div style="grid-row: 3; grid-column: 5; text-align: right;">
 										<button
@@ -1007,91 +1035,206 @@
 		<div id="global-settings" class="hide">
 			<h2>Settings</h2>
 			<div id="global-settings-control">
-			<div class="column">
-				<div class="row">
-				<h3>Machine Information</h3>
-				<ul>
-					<li>S4 SW Version 2.00</li>
-					<li>Display SW Version 1.00</li>
-					<li>SN 6844-55-25</li>
-					<li>Machine hours: 3.7</li>
-				</ul>
-			</div>
-			<div class="row">
-				<h3>Service Configuration</h3>
-				<br>
-				<button class="prevView ter-button ter icon-diagnostic hide"></button>
-				  <select class="settings-select">
-					<option>Intake Chain</option>
-					<option>Primary Chain</option>
-					<option>Secondary Chain</option>
-					<option>Vine Chain</option>
-					<option>Rear Cross Chain</option>
-					<option>Side Elevator Chain</option>
-					<option>Hopper Elevator Chain</option>
-					<option>Hopper Floor Chain</option>
-					<option>Boom Chain</option>
-				  </select>
-				  <button class="nextView ter-button ter icon-diagnostic hide"></button>
-				  <div class="settings-input"><div>Drive Pitch (mm)</div><div><input type="number" placeholder="0"></div></div>
-				  <div class="settings-input"><div># of teeth</div><div><input type="number" placeholder="0"></div></div>
-				  <div class="settings-input"><div><br>Set Clod Roller Safety Position</div><div><button class="ter ter-button">Set Limit</button></div></div>
-				  <div class="settings-input"><div><br>Minumum Chain fpm</div><div><br><input type="number" placeholder="120"></div></div>
-				  <br><br>
-				<button style="margin: 10px 70px;" class="ter ter-button">Unlock</button>
-			</div>
-			  </div>
-		  
-			  <!-- Column 2 -->
-			  <div class="column">
-				<!-- Row 1 -->
-				<div class="row">
-				  <h3>Start Row Sequence</h3>
-				  <p>The Start Row sequence engages Digger Auto and goes to setpoints.</p>
-				  <div class="input-grid">
-					<span> </span><span><b>Start Delay</b></span><span><b>Duration/Enable</b></span>
-					<span>Global Start Chains</span>
-					<span><input type="number" placeholder="0"> sec</span>
-					<span><input type="checkbox"></span>
-					<span>Coulters Down</span>
-					<span><input type="number" placeholder="0"> sec</span>
-					<span><input type="number" placeholder="0"> sec</span>
-					<span>Center Steering</span>
-					<span><input type="number" placeholder="0"> sec</span>
-					<span><input type="checkbox"></span>
-				  </div>
+				<div class="column">
+					<div class="row">
+						<h3>Machine Information</h3>
+<!--						<ul>
+							<li>S4 SW Version 2.00</li>
+							<li>Display SW Version 1.00</li>
+							<li>SN 6844-55-25</li>
+							<li>Machine hours: 3.7</li>
+						</ul>-->
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+					</div>
+					<div class="row">
+						<h3>Service Configuration</h3>
+						<div class="ServiceConfigRead">
+							<table>
+								<tr>
+									<th>Chain</th>
+									<th>Pitch</th>
+									<th>Teeth</th>
+								</tr>
+								<tr>
+									<td>Intake</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Primary</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Secondary</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Vine</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Rear Cross</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Side Elevator</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Hopper Elevator</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Hopper Floor</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Boom</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+							<br>
+							<div class="settings-input"><b>Clod Roller Safety Position</b></div>
+							<br><br>
+							<div class="settings-input"><b>Minumum Chain fpm</b></div>
+							<br><br>
+							<button style="margin: 10px 70px;" class="ter ter-button"
+								onclick='toggleObjectClass("ServiceConfigRead", "ServiceConfigEdit", "hide")'>Unlock</button>
+						</div>
+						<div class="ServiceConfigEdit hide">
+							<br>
+							<select class="settings-select">
+								<option>Intake Chain</option>
+								<option>Primary Chain</option>
+								<option>Secondary Chain</option>
+								<option>Vine Chain</option>
+								<option>Rear Cross Chain</option>
+								<option>Side Elevator Chain</option>
+								<option>Hopper Elevator Chain</option>
+								<option>Hopper Floor Chain</option>
+								<option>Boom Chain</option>
+							</select>
+							<br>
+							<div class="settings-input">
+								<div>Drive Pitch (mm)</div>
+								<div><input type="number" placeholder=""></div>
+							</div>
+							<div class="settings-input">
+								<div># of teeth</div>
+								<div><input type="number" placeholder=""></div>
+							</div>
+							<br><br>
+							<div class="settings-input">Set Clod Roller Safety Position<br><button
+									class="ter ter-button">Set Limit</button></div>
+							<br>
+							<div class="settings-input">
+								<div><br>Minumum Chain fpm</div>
+								<div><br><input type="number" placeholder=""></div>
+							</div>
+							<br>
+							<div class="settings-input">
+								<div><br>Serial Number</div>
+								<div><br><input type="number" placeholder=""></div>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="padding-left: 2px;padding-right: 2px;">
+						<h3>Display Brightness</h3>
+						<div style="text-align: center;"><button style="margin: 2px 2px;" class="ter ter-button">-</button> <button style="margin: 2px 2px;"
+								class="ter ter-button">Auto</button> <button style="margin: 2px 2px;" class="ter ter-button">+</button></div>
+					</div>
 				</div>
-		  
-				<!-- Row 2 -->
-				<div class="row">
-				  <h3>End Row Sequence</h3>
-				  <p>The End Row sequence raises the digger and coulters.</p>
-				  <div class="input-grid">
-					<span> </span><span><b>Start Delay</b></span><span><b>Enable</b></span>
-					<span>Global Chains Shutoff</span>
-					<span><input type="number" placeholder="0"> sec</span>
-					<span><input type="checkbox"></span>
-				  </div>
+
+				<!-- Column 2 -->
+				<div class="column">
+					<!-- Row 1 -->
+					<div class="row">
+						<h3>Start Row Sequence</h3>
+						<p>The Start Row sequence engages Digger Auto and goes to setpoints.</p>
+						<div class="input-grid">
+							<span> </span><span><b>Start Delay</b></span><span><b>Duration/Enable</b></span>
+							<span>Global Start Chains</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="checkbox"></span>
+							<span>Coulters Down</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span>Center Steering</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="checkbox"></span>
+						</div>
+					</div>
+
+					<!-- Row 2 -->
+					<div class="row">
+						<h3>End Row Sequence</h3>
+						<p>The End Row sequence raises the digger and coulters.</p>
+						<div class="input-grid">
+							<span> </span><span><b>Start Delay</b></span><span><b>Enable</b></span>
+							<span>Global Chains Shutoff</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="checkbox"></span>
+						</div>
+					</div>
+
+					<!-- Row 3 -->
+					<div class="row">
+						<h3>Cleaning Table Settings</h3>
+						<div class="input-grid2">
+							<span>Pressure threshold for reversing rollers</span>
+							<span><input type="number" placeholder=""> psi</span>
+							<span>Reverse roller duration</span>
+							<span><input type="number" placeholder=""> sec</span>
+						</div>
+					</div>
+
+					<!-- Row 4 -->
+					<div class="row">
+						<h3>Preset Names</h3>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Intake 1</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Intake 2</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Intake 3</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Table A</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Table B</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Table C</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+					</div>
+
+					<button onclick="togglePage('global-settings')" class="ter-button ter"
+						style="position: relative;top: 50px;left: 93px;">Close</button>
 				</div>
-		  
-				<!-- Row 3 -->
-				<div class="row">
-				  <h3>Cleaning Table Settings</h3>
-				  <div class="input-grid2">
-					<span>Pressure threshold for reversing rollers</span>
-					<span><input type="number" placeholder="0"> psi</span>
-					<span>Reverse roller duration</span>
-					<span><input type="number" placeholder="0"> sec</span>
-				  </div>
-				</div>
-		  
-				<!-- Row 4 -->
-				<div class="row">
-				  <h3>Display Brightness</h3>
-				<div style="text-align: center;"><button class="ter ter-button">-</button> <button class="ter ter-button">Auto</button> <button class="ter ter-button">+</button></div>
-				</div>
-				<button onclick="togglePage('global-settings')" class="ter-button ter" style="position: relative;top: 165px;left: 93px;">Close</button>
-			  </div>
 			</div>
 		</div>
 		<div id="diagnostics" class="hide">
@@ -1100,65 +1243,74 @@
 				<!-- Row 1 -->
 				<div class="diagnostic-row">
 					<button class="prevView ter-button ter icon-diagnostic"></button>
-				  <select class="diagnostic-select">
-					<option>Intake Drive</option>
-					<option>Digger and Hump Adjust</option>
-					<option>Coulters</option>
-					<option>Primary Chain Drive</option>
-					<option>Shakers</option>
-					<option>Secondary Chain Drive</option>
-					<option>Vine Chain</option>
-					<option>Cleaning Table</option>
-					<option>Rear Cross Drive</option>
-					<option>Side Elevator/Boom Drive</option>
-				  </select>
-				  <button class="nextView ter-button ter icon-diagnostic"></button>
+					<select class="diagnostic-select">
+						<option>Intake Drive</option>
+						<option>Digger and Hump Adjust</option>
+						<option>Coulters</option>
+						<option>Primary Chain Drive</option>
+						<option>Shakers</option>
+						<option>Secondary Chain Drive</option>
+						<option>Vine Chain</option>
+						<option>Cleaning Table</option>
+						<option>Rear Cross Drive</option>
+						<option>Side Elevator/Boom Drive</option>
+					</select>
+					<button class="nextView ter-button ter icon-diagnostic"></button>
 				</div>
-			
+
 				<!-- Row 2 -->
 				<div class="diagnostic-row">
-				  <div class="diagnostic-column row">
-					<h3>Inputs</h3>
-					<table class="diagnostic-input">
-						<tr>
-							<td>INTAKE CHAIN SPEED RH<br><span>S4 In1 Pin 5, Block 2 Port 4</span></td><td>0.0 Hz</td>
-						</tr>
-						<tr>
-							<td>INTAKE CHAIN SPEED LH<br><span>S4 In1 Pin 13, Block 5 Port 3</span></td><td>0.0 Hz</td>
-						</tr>
-						<tr>
-							<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 12, Block 2 Port 3</span></td><td>0.0 Hz</td>
-						</tr>
-						<tr>
-							<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 13, Block 5 Port 2</span></td><td>0.0 Hz</td>
-						</tr>
-					</table>
-				  </div>
-				  <div class="diagnostic-column row">
-					<h3>Outputs</h3>
-					<table class="diagnostic-input">
-						<tr>
-							<td>INTAKE DRIVE FWD RH<br><span>S4 Out1 Pin 12 (8T), Block 19 Port 3A</span></td><td>0 PWM</td>
-						</tr>
-						<tr>
-							<td>INTAKE DRIVE FWD LH<br><span>S4 Out1 Pin 10 (7T), Block 20 Port 3A</span></td><td>0 PWM</td>
-						</tr>
-						<tr>
-							<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 15 (10T), Block 19 Port 3B</span></td><td>0 PWM</td>
-						</tr>
-						<tr>
-							<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 13 (9T), Block 20 Port 3B</span></td><td>0 PWM</td>
-						</tr>
-					</table>
-				  </div>
+					<div class="diagnostic-column row">
+						<h3>Inputs</h3>
+						<table class="diagnostic-input">
+							<tr>
+								<td>INTAKE CHAIN SPEED RH<br><span>S4 In1 Pin 5, Block 2 Port 4</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+							<tr>
+								<td>INTAKE CHAIN SPEED LH<br><span>S4 In1 Pin 13, Block 5 Port 3</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+							<tr>
+								<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 12, Block 2 Port 3</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+							<tr>
+								<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 13, Block 5 Port 2</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+						</table>
+					</div>
+					<div class="diagnostic-column row">
+						<h3>Outputs</h3>
+						<table class="diagnostic-input">
+							<tr>
+								<td>INTAKE DRIVE FWD RH<br><span>S4 Out1 Pin 12 (8T), Block 19 Port 3A</span></td>
+								<td>0 PWM</td>
+							</tr>
+							<tr>
+								<td>INTAKE DRIVE FWD LH<br><span>S4 Out1 Pin 10 (7T), Block 20 Port 3A</span></td>
+								<td>0 PWM</td>
+							</tr>
+							<tr>
+								<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 15 (10T), Block 19 Port 3B</span></td>
+								<td>0 PWM</td>
+							</tr>
+							<tr>
+								<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 13 (9T), Block 20 Port 3B</span></td>
+								<td>0 PWM</td>
+							</tr>
+						</table>
+					</div>
 				</div>
-			
+
 				<!-- Row 3 -->
 				<div class="diagnostic-row">
-				  <button class="ter-button ter" style="margin-left: 245px;">Enable Diagnostic Output</button>
-				  <button onclick="togglePage('diagnostics')" class="ter-button ter" style="position: relative;top: 545px;left: -170px;">Close</button>
+					<button class="ter-button ter" style="margin-left: 245px;">Enable Diagnostic Output</button>
+					<button onclick="togglePage('diagnostics')" class="ter-button ter"
+						style="position: relative;top: 545px;left: -170px;">Close</button>
 				</div>
-			  </div>
+			</div>
 		</div>
 		<div id="smallVideos" class="video">
 			<div class="video-col"><img onclick="openBottomSheet('vid1')" class="videoFeeds" src="./vid1optS.png">
@@ -1189,42 +1341,51 @@
 		<!-- *****    GENERAL PRESET Modal    ***** -->
 		<div id="saveModal" class="modal" style="display: none;">
 			<div class="modal-content">
-				<h2 style="width: 375px;">Save the following settings to Preset <span id='selected-preset'>1</span>?</h2>
+				<h2 style="width: 375px;">Save the following settings to Preset <span id='selected-preset'>1</span>?
+				</h2>
 				<table class="tableBorderX" style="height: 190px; width: 305px; margin: 30px 0 60px 40px;">
 					<tbody>
 						<tr>
 							<td class="preset-label border-right-none">Preset button label:</td>
-							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg" value="" onchange="this.style.backgroundColor = 'yellow'"></td>
+							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg"
+									value="" onchange="this.style.backgroundColor = 'yellow'"></td>
 						</tr>
 						<tr>
 							<td class="preset-label border-right-none">Digger Depth Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="preset-label border-right-none">Digger Hump Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="preset-label border-right-none">Depth Wheel Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="preset-label border-right-none">Primary Shaker Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="preset-label border-right-none">Secondary Shaker Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 						<tr>
 							<td class="preset-label border-right-none">Axle Height Setpoint:</td>
-							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpSm" value="0" onchange="this.style.backgroundColor = 'yellow'">%</td>
+							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
 						</tr>
 
 					</tbody>
 				</table>
 				<br>
-				<button id="saveChanges" class="sec-button sec-em" onclick="savePresets();refreshPresets();closeModal('saveModal');">Save</button>
+				<button id="saveChanges" class="sec-button sec-em"
+					onclick="savePresets();refreshPresets();closeModal('saveModal');">Save</button>
 				<button id="saveCancel" class="sec-button sec-em" onclick="closeModal('saveModal')">Cancel</button>
 			</div>
 		</div>
@@ -1232,46 +1393,57 @@
 		<!-- *****    CLEANING TABLE PRESET Modal    ***** -->
 		<div id="saveModalCleaning" class="modal" style="display: none;">
 			<div class="modal-content">
-				<h2 style="width: 375px;">Save the following settings to Preset <span id='selected-preset'>A</span>?</h2>
+				<h2 style="width: 375px;">Save the following settings to Preset <span id='selected-preset'>A</span>?
+				</h2>
 				<table class="tableBorderX" style="height: 190px; width: 305px; margin: 30px 0 60px 40px;">
 					<tbody>
 						<tr>
 							<td class="preset-label border-right-none">Preset button label:</td>
-							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg" value="Preset A" onchange="this.style.backgroundColor = 'orange'"></td>
+							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg"
+									value="Preset A" onchange="this.style.backgroundColor = 'orange'"></td>
 						</tr>
 						<tr>
 							<td class="preset-label">Clod Roller Gap:</td>
-							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="6" onchange="this.style.backgroundColor = 'orange'"></td>
+							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="6"
+									onchange="this.style.backgroundColor = 'orange'"></td>
 						</tr>
 						<tr>
 							<td class="preset-label">Clod Roller Height:</td>
-							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="3" onchange="this.style.backgroundColor = 'orange'"></td>
+							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="3"
+									onchange="this.style.backgroundColor = 'orange'"></td>
 						</tr>
 						<tr>
 							<td class="preset-label">Table Angle:</td>
-							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="4" onchange="this.style.backgroundColor = 'orange'"></td>
+							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="4"
+									onchange="this.style.backgroundColor = 'orange'"></td>
 						</tr>
 						<tr>
 							<td class="preset-label">Clod Roller Speed:</td>
-							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpMd" value="210" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
+							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpMd"
+									value="210" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
 						</tr>
 						<tr>
 							<td class="preset-label">Spreader Roller Speed:</td>
-							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpMd" value="180" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
+							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpMd"
+									value="180" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
 						</tr>
 						<tr>
 							<td class="preset-label">Segment Roller Speed:</td>
-							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpMd" value="200" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
+							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpMd"
+									value="200" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
 						</tr>
 						<tr>
 							<td class=" preset-label border-right-none">Cleaning Mode:</td>
-							<td class="border-left-none"><input type="text" id="saveSp7" class="presetInpLg" value="TRANSPORT" onchange="this.style.backgroundColor = 'orange'"></td>
+							<td class="border-left-none"><input type="text" id="saveSp7" class="presetInpLg"
+									value="TRANSPORT" onchange="this.style.backgroundColor = 'orange'"></td>
 						</tr>
 					</tbody>
 				</table>
 				<br>
-				<button id="saveChanges" class="sec-button sec-em" onclick="savePresets();refreshPresets();closeModal('saveModalCleaning');">Save</button>
-					<button id="saveCancel" class="sec-button sec-em" onclick="closeModal('saveModalCleaning')">Cancel</button>
+				<button id="saveChanges" class="sec-button sec-em"
+					onclick="savePresets();refreshPresets();closeModal('saveModalCleaning');">Save</button>
+				<button id="saveCancel" class="sec-button sec-em"
+					onclick="closeModal('saveModalCleaning')">Cancel</button>
 			</div>
 		</div>
 		<div id="setSpeedRange" class="modal" style="display: none; font-size: 20px;">
