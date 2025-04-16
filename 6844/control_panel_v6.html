@@ -19,7 +19,7 @@
 				class="b-settings pri-button pri icon-lg"></button>
 			<button onclick="changeColorTimed(this)" class="b-rowStart pri-button pri icon">Start Row</button>
 			<button onclick="changeColorTimed(this)" class="b-rowEnd pri-button pri icon">End Row</button>
-			<button id="run-button" onclick="toggleRUN()" class="b-run pri-button pri-em"><img id="run-button"
+			<button id="run-button" onclick="toggleRUN()" class="b-run pri-button pri-em"><img
 					src="./icons/RUN_Sm.png" alt="RUN" style="margin-top: 8px;"></button>
 		</div>
 		<div id="controls">
@@ -262,7 +262,7 @@
 							<th class="cell-border-bottom chains-psi">PSI</th>
 							<th class="cell-border-bottom chains-speed">Actual</th>
 							<th class="cell-border-bottom chains-speed">Target</th>
-							<th class="cell-border-bottom chains-override hide"
+							<th class="cell-border-bottom chains-override"
 								style="width:185px;padding: 0 12px 0 8px;">Manual
 								Override</th>
 						</tr>
@@ -288,7 +288,7 @@
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
 								<span id="chainIntTarget" class="darkBlueText">220 FPM</span>
 							</td>
-							<td class="centerText cell-border-bottom chains-override hide">
+							<td class="centerText cell-border-bottom chains-override">
 								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('intakeFwd')">Rev</button>
 								<button class="ter-button ter icon clockwise button-right button-rev" id="intakeFwd"
@@ -317,7 +317,7 @@
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
 								<span id="chainPriTarget" class="darkBlueText">225 FPM</span>
 							</td>
-							<td class="centerText cell-border-bottom chains-override hide">
+							<td class="centerText cell-border-bottom chains-override">
 								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('primaryFwd')">Rev</button>
 								<button class="ter-button ter icon clockwise button-right button-rev" id="primaryFwd"
@@ -344,7 +344,7 @@
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
 								<span id="chainVineTarget" class="darkBlueText">235 FPM</span>
 							</td>
-							<td class="centerText cell-border-bottom chains-override hide">
+							<td class="centerText cell-border-bottom chains-override">
 								<button class="ter-button ter icon counterClockwise button-left"
 									onclick="disableButton('vineFwd')">Rev</button>
 								<button class="ter-button ter icon clockwise button-right button-rev" id="vineFwd"
@@ -405,22 +405,22 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont chains-row-padding cell-border-bottom">Spreader Roller:</td>
+							<td class="largeFont chains-row-padding cell-border-bottom">Transfer Roller:</td>
 							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
-									onclick="bumpRollerSetpoint('chainSpreaderSP','dn')"></button>
-								<div class="inpChain"><input type="number" class="spInput" id="chainSpreaderSP"
+									onclick="bumpRollerSetpoint('chainTransferSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainTransferSP"
 										value="230"></div>
 								<button class="ter-button ter b-bumpUp"
-									onclick="bumpRollerSetpoint('chainSpreaderSP','up')"></button>
+									onclick="bumpRollerSetpoint('chainTransferSP','up')"></button>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-psi">
-								<span id="chainSpreaderPSI">1179 PSI</span>
+								<span id="chainTransferPSI">1179 PSI</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSpreaderActual">220 FPM</span>
+								<span id="chainTransferActual">220 FPM</span>
 							</td>
 							<td class="mediumFont centerText cell-border-bottom chains-speed">
-								<span id="chainSpreaderTarget" class="darkBlueText">230 FPM</span>
+								<span id="chainTransferTarget" class="darkBlueText">230 FPM</span>
 							</td>
 							<td class="centerText cell-border-bottom chains-override hide">
 								<button class="ter-button ter icon counterClockwise button-left"
@@ -601,7 +601,7 @@
 						</tr>
 						<tr>
 							<td>
-								<div><img style="margin: 50px 10px 40px 30px;" src="./tableControlsCleaningMode.png">
+								<div><img style="margin: 50px 10px 40px 5px;" src="./tableControlsCleaningMode.png">
 								</div>
 								<div
 									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr auto; grid-template-rows: auto auto auto;">
@@ -652,67 +652,89 @@
 							<th class="cell-border-bottom">Name</th>
 							<th class="cell-border-bottom">Setpoint</th>
 							<th class="cell-border-bottom cell-data-width">PSI</th>
-							<th class="cell-border-bottom cell-data-width">Actual</th>
-							<th class="cell-border-bottom cell-data-width">Target</th>
+							<th class="cell-border-bottom cell-data-width chains-speed">Actual</th>
+							<th class="cell-border-bottom cell-data-width chains-speed">Target</th>
+							<th class="cell-border-bottom chains-override"
+								style="width:185px;padding: 0 12px 0 8px;">Manual
+								Override</th>
+						</tr>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom chains-row-padding">Segment Roller:</td>
-							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
-									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
-								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP2"
-										value="240"></div>
-								<button class="ter-button ter b-bumpDown"
+							<td class="largeFont chains-row-padding cell-border-bottom">Segment Roller:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainSegmentSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP"
+										value="240"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
+							<td class="mediumFont centerText cell-border-bottom chains-psi">
 								<span id="chainSegmentPSI">1179 PSI</span>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
+							<td class="mediumFont centerText cell-border-bottom chains-speed">
 								<span id="chainSegmentActual"><span class="chains-override">0</span><span
 										class="chains-speed">220</span> FPM</span>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
+							<td class="mediumFont centerText cell-border-bottom chains-speed">
 								<span id="chainSegmentTarget" class="darkBlueText">240 FPM</span>
 							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('segmentFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="segmentFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom chains-row-padding">Clod Roller:</td>
-							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
-									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
-								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP2"
-										value="240"></div>
-								<button class="ter-button ter b-bumpDown"
+							<td class="largeFont chains-row-padding cell-border-bottom">Clod Roller:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
 									onclick="bumpRollerSetpoint('chainClodSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP" value="240">
+								</div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
+							<td class="mediumFont centerText cell-border-bottom chains-psi">
 								<span id="chainClodPSI">1179 PSI</span>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
-								<span id="chainClodActual"><span class="chains-override">0</span><span
-										class="chains-speed">240</span> FPM</span>
+							<td class="mediumFont centerText cell-border-bottom chains-speed">
+								<span id="chainClodActual">220 FPM</span>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
-								<span id="chainClodTarget" class="darkBlueText">220 FPM</span>
+							<td class="mediumFont centerText cell-border-bottom chains-speed">
+								<span id="chainClodTarget" class="darkBlueText"><span
+										class="chains-override">0</span><span class="chains-speed">240</span>
+									FPM</span><br>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('clodFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="clodFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
 						<tr>
-							<td class="largeFont cell-border-bottom chains-row-padding">Spreader Roller:</td>
-							<td class="cell-border-bottom"><button class="ter-button ter b-bumpUp"
-									onclick="bumpRollerSetpoint('chainSpreaderSP','up')"></button>
-								<div class="inpChain"><input type="number" class="spInput" id="chainSpreaderSP2"
+							<td class="largeFont chains-row-padding cell-border-bottom">Transfer Roller:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpRollerSetpoint('chainTransferSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainTransferSP"
 										value="230"></div>
-								<button class="ter-button ter b-bumpDown"
-									onclick="bumpRollerSetpoint('chainSpreaderSP','dn')"></button>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainTransferSP','up')"></button>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
-								<span id="chainSpreaderPSI">1179 PSI</span>
+							<td class="mediumFont centerText cell-border-bottom chains-psi">
+								<span id="chainTransferPSI">1179 PSI</span>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
-								<span id="chainSpreaderActual"><span class="chains-override">0</span><span
-										class="chains-speed">230</span> FPM</span>
+							<td class="mediumFont centerText cell-border-bottom chains-speed">
+								<span id="chainTransferActual">220 FPM</span>
 							</td>
-							<td class="mediumFont centerText cell-border-bottom">
-								<span id="chainSpreaderTarget" class="darkBlueText">220 FPM</span>
+							<td class="mediumFont centerText cell-border-bottom chains-speed">
+								<span id="chainTransferTarget" class="darkBlueText">230 FPM</span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('spreaderFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="spreaderFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
 							</td>
 						</tr>
 					</table>
@@ -1423,7 +1445,7 @@
 									value="210" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
 						</tr>
 						<tr>
-							<td class="preset-label">Spreader Roller Speed:</td>
+							<td class="preset-label">Transfer Roller Speed:</td>
 							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpMd"
 									value="180" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
 						</tr>
