@@ -576,6 +576,14 @@ button.arrowRev {
 	background-image: url('./icons/arrow_rev_20.png');
 	background-position: center;
 }
+button.arrowNW {
+	background-image: url('./icons/arrow_NW_20.png');
+	background-position: center;
+}
+button.arrowSW {
+	background-image: url('./icons/arrow_SW_20.png');
+	background-position: center;
+}
 button.arrowClockwise {
 	background-image: url('./icons/arrow_top_right_20.png');
 	background-position: center;
