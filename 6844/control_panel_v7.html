@@ -457,7 +457,8 @@
 						</tr>
 						<tr>
 							<td class="largeFont chains-row-padding cell-border-bottom">Fill Elevator:</td>
-							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+							<td class="cell-border-bottom">
+								<button class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpoint('chainPilerSP','dn')"></button>
 								<div class="inpPercent speedGround"><input type="number" class="spInput"
 										id="chainPilerSPGround" value="145"></div>
@@ -480,6 +481,22 @@
 							</td>
 						</tr>
 						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Hopper Chain:</td>
+							<td class="centerText cell-border-bottom">
+								<button class="ter-button ter button-left button-active" onclick="disableButton('segmentFwd')">On</button>
+									<button class="ter-button ter button-right" onclick="disableButton('segmentFwd')">Off</button> 
+							</td>
+							<td class="centerText cell-border-bottom chains-psi" style="width: 70px;">
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide" style="width: 70px;">
+								<button class="ter-button ter icon clockwise button-rev" id="hopperFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom">Hopper: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FPM<br>
+								Boom: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FPM
+							</td>
+						</tr>
+						<tr>
 							<td class="largeFont chains-row-padding">Adjust all:</td>
 							<td><button style="float: left;" class="ter-button ter b-bumpDown"
 									onclick="bumpChainSetpointAll('dn')"></button>
@@ -487,18 +504,20 @@
 									SPEEDS</span>
 								<button class="ter-button ter b-bumpUp" onclick="bumpChainSetpointAll('up')"></button>
 							</td>
-							<td colspan="5" style="padding-right: 15px;" class="largeFont centerText">Ground Speed: 2.5
-								mph = 226 FPM</td>
+							<td colspan="3" style="padding-right: 15px;" class="mediumFont rightText">Ground Speed Range
+								<br>2.5 MPH ground speed = 220 FPM
+								<br>Max: <div class="inpPercent">
+									<input type="number" class="spInput" id="groundSpdMax" value="5"></div>
+								</td>
 						</tr>
 						<tr>
-							<td style="padding: 23px 0;" colspan="5" class="cell-border-bottom">
+							<td colspan="2" class="cell-border-bottom">
 								<button class="button-left ter-button groundMode ter b-textOnly">Ground Speed</button>
 								<button class="button-right ter-button fixedMode ter b-textOnly button-active">Fixed
 									Speed</button>
-								<button onclick="openModal('setSpeedRange')" id="setGroundSpeedRange"
-									style="float: right; margin-right: 20px;" class="ter-button ter b-textOnly">Set
-									Speed Range</button>
 							</td>
+							<td colspan="3" style="padding-right: 15px;" class="cell-border-bottom mediumFont rightText"><div class="inpPercent">
+								Max: <input type="number" class="spInput" id="groundSpdMin" value="3"></div></td>
 						</tr>
 					</table>
 					<table style="width: 98%;">
