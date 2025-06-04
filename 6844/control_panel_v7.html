@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+	<meta name="viewport" content="width=800">
+	<title>V7 6844 UI Mockup</title>
+	<link rel="stylesheet" href="./control_panel_v7.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="master">
+			<img id="logo-spudnik" src="./icons/SpudnikLogo.svg" alt="SPUDNIK">
+			<button id="btn-diagnostics" onclick="togglePage('diagnostics')"
+				class="b-diagnostics pri-button pri icon-lg"></button>
+			<button id="btn-global-settings" onclick="togglePage('global-settings')"
+				class="b-settings pri-button pri icon-lg"></button>
+			<button onclick="changeColorTimed(this)" class="b-rowStart pri-button pri icon">Start Row</button>
+			<button onclick="changeColorTimed(this)" class="b-rowEnd pri-button pri icon">End Row</button>
+			<button id="run-button" onclick="toggleRUN()" class="b-run pri-button pri-em"><img src="./icons/RUN_Sm.png"
+					alt="RUN" style="margin-top: 8px;"></button>
+		</div>
+		<div id="controls">
+			<div id="control-body">
+
+				<div class="controlL1 hide" id="diggerCtrl">
+					<table class="controlL1">
+						<tr>
+							<th colspan="2">
+								<h2>Digger</h2>
+							</th>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: center;">
+								<img style="margin: 15px 30px;" src="./6844left-side-view.png">
+							</td>
+						</tr>
+						<tr>
+							<td class="cell-border-right cell-border-bottom cell-padding-small">
+								<div style="width: 240px;margin-left: 35px;" class="centerText">
+									<h3 class="control-label">Digger Depth</h3>
+									<table>
+										<tr>
+											<td>
+												<div id="barGraph-depthControlSP" class="vertical-bar-container"
+													data-value="70" data-target="55">
+													<div class="vertical-bar">
+														<div class="bar-fill"></div>
+														<div class="target-marker"></div>
+														<div class="tick-marks"></div>
+													</div>
+													<div class="bar-label"></div>
+												</div>
+											</td>
+											<td><button class="ter-button ter b-textOnly"
+													onclick="bumpDatapoint('depthControlSP', 5, 'data-target')">+5</button><br>
+												<div class="inpPercent"><input type="number" class="spInput"
+														id="depthControlSP" value="64"></div><br>
+												<button class="ter-button ter b-textOnly"
+													onclick="bumpDatapoint('depthControlSP', -5, 'data-target')">-5</button><br>
+											</td>
+											<td>
+												<button onclick="bumpDatapoint('depthControlSP', 1, 'data-value')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button class="b-auto ter-button ter button-active diggerAuto"
+													onclick="toggleAutoState('digger');">Auto</button><br>
+												<button onclick="bumpDatapoint('depthControlSP', -1, 'data-value')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+							<td class="cell-border-bottom cell-padding-small">
+								<div style="width: 240px;margin-left: 35px;" class="centerText">
+									<h3 class="control-label">Hump</h3>
+									<table>
+										<tr>
+											<td>
+												<div id="barGraph-humpControl" class="vertical-bar-container"
+													data-value="48" data-target="46">
+													<div class="vertical-bar">
+														<div class="bar-fill"></div>
+														<div class="target-marker"></div>
+														<div class="tick-marks"></div>
+													</div>
+													<div class="bar-label"></div>
+												</div>
+											</td>
+											<td><button class="ter-button ter b-textOnly"
+													onclick="bumpDatapoint('humpControl', 5, 'data-target')">+5</button><br>
+												<div class="inpPercent"><input type="number" class="spInput"
+														id="humpControl" value="36"></div><br>
+												<button class="ter-button ter b-textOnly"
+													onclick="bumpDatapoint('humpControl', -5, 'data-target')">-5</button><br>
+											</td>
+											<td>
+												<button onclick="bumpDatapoint('humpControl', 1, 'data-value')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button class="b-auto ter-button ter button-active humpAuto"
+													onclick="toggleAutoState('hump')">Auto</button><br>
+												<button onclick="bumpDatapoint('humpControl', -1, 'data-value')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="cell-border-right cell-padding-small" style="vertical-align: top;">
+								<div style="width: 285px;margin: 0 0 0 20px;" class="">
+									<div id="syncBarTop" class="hide ter syncBars"></div>
+									<div id="syncBarBottom" class="hide ter syncBars"></div>
+									<h3 id='hdrCoulter' class="control-label">Coulters</h3>
+									<table>
+										<tr>
+											<td>
+												<h4>Left</h4>
+												<button id="coulterLeftUp"
+													onmousedown="handleSyncPress('coulterSync','up')"
+													onmouseup="handleSyncRelease('coulterSync','up')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="coulterLeftDn"
+													onmousedown="handleSyncPress('coulterSync','dn')"
+													onmouseup="handleSyncRelease('coulterSync','dn')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
+											</td>
+											<td>
+												<button id="coulterSync" style="margin-top: 23px;"
+													class="b-link ter-button ter icon"
+													onclick="toggleButtonState(this)">Sync</button><br>
+											</td>
+											<td>
+												<h4>Right</h4>
+												<button id="coulterRightUp"
+													onmousedown="handleSyncPress('coulterSync','up')"
+													onmouseup="handleSyncRelease('coulterSync','up')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="coulterRightDn"
+													onmousedown="handleSyncPress('coulterSync','dn')"
+													onmouseup="handleSyncRelease('coulterSync','dn')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+							<td valign="top" rowspan="2" class="cell-padding-small">
+								<div style="width: 285px;margin: 0 0 0 20px;" class="">
+									<div id="syncBarDwTop" class="hide ter syncBarsDepthWheels"></div>
+									<div id="syncBarDwBottom" class="hide ter syncBarsDepthWheels"></div>
+									<h3 class="control-label">Depth Wheels</h3>
+									<table>
+										<tr>
+											<td>
+												<h4>Left</h4>
+												<button id="dwLeftUp"
+													onclick="bumpDatapoint('depthWheelLeft', 1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','up')"
+													onmouseup="handleSyncRelease('depthWheelsSync','up')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="dwLeftDn"
+													onclick="bumpDatapoint('depthWheelLeft', -1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','dn')"
+													onmouseup="handleSyncRelease('depthWheelsSync','dn')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
+											</td>
+											<td>
+												<button id="depthWheelsSync" style="margin-top: 23px;"
+													class="b-link ter-button ter icon"
+													onclick="toggleButtonState(this)">Sync</button><br>
+											</td>
+											<td>
+												<h4>Right</h4>
+												<button id="dwRightUp"
+													onclick="bumpDatapoint('depthWheelRight', 1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','up')"
+													onmouseup="handleSyncRelease('depthWheelsSync','up')"
+													class="arrowUp ter-button ter icon-lg"></button><br>
+												<button id="dwRightDn"
+													onclick="bumpDatapoint('depthWheelRight', -1, 'data-value')"
+													onmousedown="handleSyncPress('depthWheelsSync','dn')"
+													onmouseup="handleSyncRelease('depthWheelsSync','dn')"
+													class="arrowDown ter-button ter icon-lg"></button><br>
+											</td>
+										</tr>
+									</table>
+									<div
+										style="display: grid; grid-template-columns: 90px 50px auto 50px 90px; grid-template-rows: auto 60px;margin-top: 10px;">
+										<div style="grid-row: 1; grid-column: 1; margin-top: 22px; margin-right: 0px;"
+											class="centerText">
+											<button class="ter-button ter b-textOnly"
+												onclick="bumpDatapoint('depthWheelLeft', 5, 'data-target')">+5</button><br>
+											<div class="inpPercent"><input type="number" class="spInput"
+													id="depthWheelLeft" value="46">
+											</div>
+											<br>
+											<button class="ter-button ter b-textOnly"
+												onclick="bumpDatapoint('depthWheelLeft', -5, 'data-target')">-5</button>
+										</div>
+										<div style="grid-row: 1; grid-column: 2;">
+											<h4>Left</h4>
+											<div id="barGraph-depthWheelLeft" class="vertical-bar-container"
+												data-value="48" data-target="46">
+												<div class="vertical-bar">
+													<div class="bar-fill"></div>
+													<div class="target-marker"></div>
+													<div class="tick-marks"></div>
+												</div>
+												<div class="bar-label">48</div>
+											</div>
+										</div>
+										<div style="grid-row: 1; grid-column: 3;"></div>
+										<div style="grid-row: 1; grid-column: 4;">
+											<h4>Right</h4>
+											<div id="barGraph-depthWheelRight" class="vertical-bar-container"
+												data-value="48" data-target="46">
+												<div class="vertical-bar">
+													<div class="bar-fill"></div>
+													<div class="target-marker"></div>
+													<div class="tick-marks"></div>
+												</div>
+												<div class="bar-label">48</div>
+											</div>
+										</div>
+										<div style="grid-row: 1; grid-column: 5; margin-top: 22px; margin-right: 0px;"
+											class="centerText">
+											<button class="ter-button ter b-textOnly"
+												onclick="bumpDatapoint('depthWheelRight', 5, 'data-target')">+5</button><br>
+											<div class="inpPercent"><input type="number" class="spInput"
+													id="depthWheelRight" value="46">
+											</div>
+											<br>
+											<button class="ter-button ter b-textOnly"
+												onclick="bumpDatapoint('depthWheelRight', -5, 'data-target')">-5</button>
+										</div>
+										<div style="grid-row: 2;grid-column: 1 / 6;" class="centerText">
+											<button class="b-auto ter-button ter button-active depthWheelAuto"
+												onclick="toggleAutoState('depthWheel')">Auto</button>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br>
+				</div>
+
+				<div class="controlL1 hide cell-padding-small" id="chainsCtrl">
+					<table>
+						<tr>
+							<th class="controlHead" colspan="5">
+								<h2>Chains</h2>
+							</th>
+						</tr>
+						<tr>
+							<th class="cell-border-bottom">Name</th>
+							<th class="cell-border-bottom">Setpoint</th>
+							<th class="cell-border-bottom chains-speed">Actual Speed</th>
+							<th class="cell-border-bottom chains-psi">Pressure</th>
+							<th class="cell-border-bottom chains-override">
+								Manual
+								Override</th>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">
+								Intake:
+							</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainIntSP','dn')"></button>
+								<div class="inpPercent speedGround"><input type="number" class="spInput"
+										id="chainIntSPGround" value="110"></div>
+								<div class="inpChain speedFixed"><input type="number" class="spInput"
+										id="chainIntSPFixed" value="220"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainIntSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainIntActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainIntPSI">PSI</span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('intakeFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="intakeFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">
+								Primary:
+							</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainPriSP','dn')"></button>
+								<div class="inpPercent speedGround"><input type="number" class="spInput"
+										id="chainPriSPGround" value="115"></div>
+								<div class="inpChain speedFixed"><input type="number" class="spInput"
+										id="chainPriSPFixed" value="225"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainPriSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainPriActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainPriPSI"></span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('primaryFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="primaryFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Secondary/Vine:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainVineSP','dn')"></button>
+								<div class="inpPercent speedGround"><input type="number" class="spInput"
+										id="chainVineSPGround" value="125"></div>
+								<div class="inpChain speedFixed"><input type="number" class="spInput"
+										id="chainVineSPFixed" value="235"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainVineSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainVineActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainVinePSI">PSI</span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('vineFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="vineFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Segment Rollers:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpRollerSetpoint('chainSegmentSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP"
+										value="240"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainSegmentActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainSegmentPSI">PSI</span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('segmentFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="segmentFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Clod Rollers:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpRollerSetpoint('chainClodSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP" value="240">
+								</div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainClodActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainClodPSI"></span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="ter-button ter icon clockwise button-rev" id="clodFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Transfer Rollers:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpRollerSetpoint('chainTransferSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainTransferSP"
+										value="230"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainTransferSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainTransferActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainTransferPSI"></span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="ter-button ter icon clockwise button-rev" id="spreaderFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Rear Cross:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainRearCrossSP','dn')"></button>
+								<div class="inpPercent speedGround"><input type="number" class="spInput"
+										id="chainRearCrossSPGround" value="135"></div>
+								<div class="inpChain speedFixed"><input type="number" class="spInput"
+										id="chainRearCrossSPFixed" value="245"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainRearCrossSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainRearCrossActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainRearCrossPSI"></span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('rearcrossFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="rearcrossFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Side Elev:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainSideElevSP','dn')"></button>
+								<div class="inpPercent speedGround"><input type="number" class="spInput"
+										id="chainSideElevSPGround" value="140"></div>
+								<div class="inpChain speedFixed"><input type="number" class="spInput"
+										id="chainSideElevSPFixed" value="250"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainSideElevSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainSideElevActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainSideElevPSI">PSI</span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('sideelevatorFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev"
+									id="sideelevatorFwd" onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Fill Elevator:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpoint('chainPilerSP','dn')"></button>
+								<div class="inpPercent speedGround"><input type="number" class="spInput"
+										id="chainPilerSPGround" value="145"></div>
+								<div class="inpChain speedFixed"><input type="number" class="spInput"
+										id="chainPilerSPFixed" value="255"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpChainSetpoint('chainPilerSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainPilerActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainPilerPSI"></span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('pilerFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="pilerFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding">Adjust all:</td>
+							<td><button style="float: left;" class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpointAll('dn')"></button>
+								<span style="float: left; text-align: center; margin: 9px 10px 0; width: 80px;">CHAIN
+									SPEEDS</span>
+								<button class="ter-button ter b-bumpUp" onclick="bumpChainSetpointAll('up')"></button>
+							</td>
+							<td colspan="5" style="padding-right: 15px;" class="largeFont centerText">Ground Speed: 2.5
+								mph = 226 FPM</td>
+						</tr>
+						<tr>
+							<td style="padding: 23px 0;" colspan="5" class="cell-border-bottom">
+								<button class="button-left ter-button groundMode ter b-textOnly">Ground Speed</button>
+								<button class="button-right ter-button fixedMode ter b-textOnly button-active">Fixed
+									Speed</button>
+								<button onclick="openModal('setSpeedRange')" id="setGroundSpeedRange"
+									style="float: right; margin-right: 20px;" class="ter-button ter b-textOnly">Set
+									Speed Range</button>
+							</td>
+						</tr>
+					</table>
+					<table style="width: 98%;">
+						<tr>
+							<td style="padding: 0 10px;"
+								class="cell-border-right cell-border-bottom centerText cell-padding-small">
+								<h3 class="addSpaceBelow">Primary Shakers</h3>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpInpSetpoint('primaryShaker',5);">+5</button>
+								<div class="inpPercent"><input type="number" class="spInput" id="primaryShaker"
+										value="45"></div>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpInpSetpoint('primaryShaker',-5);">-5</button><br>
+								<button class="b-auto ter-button ter button-active priShakerAuto"
+									onclick="toggleAutoState('priShaker')">Auto</button>
+								<button class="ter-button ter" id="priShakerManual">Manual</button>
+							</td>
+							<td style="padding: 0 10px;" class="cell-border-bottom centerText cell-padding-small">
+								<h3 class="addSpaceBelow">Secondary Shakers</h3>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpInpSetpoint('secondaryShaker',5);">+5</button>
+								<div class="inpPercent"><input type="number" class="spInput" id="secondaryShaker"
+										value="45"></div>
+								<button class="ter-button ter b-textOnly"
+									onclick="bumpInpSetpoint('secondaryShaker',-5);">-5</button><br>
+								<button class="ter-button ter button-active secShakerAuto"
+									onclick="toggleAutoState('secShaker')">Auto</button>
+								<button class="ter-button ter" id="secShakerManual">Manual</button>
+							</td>
+						</tr>
+					</table>
+					</td>
+					</tr>
+				</div>
+
+				<div class="controlL1 hide cell-padding-small" id="tableCtrl">
+					<table>
+						<tr>
+							<th class="controlHead" colspan="2">
+								<h2>Cleaning Table</h2>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<div><img style="margin: 50px 10px 40px 5px;" src="./tableControlsCleaningMode.png">
+								</div>
+								<div
+									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr auto; grid-template-rows: auto auto auto;">
+									<div style="grid-column: 1;grid-row: 1 / 3;padding:10px;"
+										class="cell-border-bottom cell-border-right centerText">
+										<h3 class="addSpaceBelow">Roller<br>Gap</h3>
+										<button class="ter-button ter plusSign"
+											onclick="bumpInpSetpoint('rollerGap',1);"></button>
+										<input type="number" class="spInput" value="4" id="rollerGap">
+										<button class="ter-button ter minusSign"
+											onclick="bumpInpSetpoint('rollerGap',-1);"></button>
+									</div>
+									<div style="grid-column: 2;grid-row: 1 / 3;padding:10px;"
+										class="cell-border-bottom cell-border-right centerText">
+										<h3 class="addSpaceBelow">Roller<br>Height</h3>
+										<button class="ter-button ter plusSign"
+											onclick="bumpInpSetpoint('rollerHeight',1);"></button>
+										<input type="number" class="spInput" value="3" id="rollerHeight">
+										<button class="ter-button ter minusSign"
+											onclick="bumpInpSetpoint('rollerHeight',-1);"></button>
+									</div>
+									<div style="grid-column: 3;grid-row: 1 / 3;padding:10px;"
+										class="cell-border-bottom cell-border-right centerText">
+										<h3 class="addSpaceBelow">Table<br>Angle</h3>
+										<button class="ter-button ter plusSign"
+											onclick="bumpInpSetpoint('tableAngle',1);"></button>
+										<input type="number" class="spInput" value="6" id="tableAngle">
+										<button class="ter-button ter minusSign"
+											onclick="bumpInpSetpoint('tableAngle',-1);"></button>
+									</div>
+									<div style="grid-column: 4;grid-row: 2;padding:10px;" class="cell-border-bottom">
+										<h3 class="addSpaceBelow">Clod Roller Mode</h3>
+										<button class="ter-button ter icon cleanMode button-active"
+											style="margin-right: 0;width: 100px;border-bottom-right-radius: 0;border-top-right-radius: 0;">Pinch</button>
+										<button class="ter-button ter icon transportMode"
+											style="margin-left: 0;position: relative;left: -1px;border-bottom-left-radius: 0;border-top-left-radius: 0;">Transport</button>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br><br>
+					<table>
+						<tr>
+							<th class="controlHead" colspan="5"> &nbsp; </th>
+						</tr>
+						<tr>
+							<th class="cell-border-bottom">Name</th>
+							<th class="cell-border-bottom">Setpoint</th>
+							<th class="cell-border-bottom cell-data-width">PSI</th>
+							<th class="cell-border-bottom cell-data-width chains-speed">Actual</th>
+							<th class="cell-border-bottom cell-data-width chains-speed">Target</th>
+							<th class="cell-border-bottom chains-override" style="width:185px;padding: 0 12px 0 8px;">
+								Manual
+								Override</th>
+						</tr>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Segment Rollers:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpRollerSetpoint('chainSegmentSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainSegmentSP"
+										value="240"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainSegmentSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainSegmentActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainSegmentPSI">PSI</span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								<button class="ter-button ter icon counterClockwise button-left"
+									onclick="disableButton('segmentFwd')">Rev</button>
+								<button class="ter-button ter icon clockwise button-right button-rev" id="segmentFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Clod Rollers:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpRollerSetpoint('chainClodSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainClodSP" value="240">
+								</div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainClodSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainClodActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainClodPSI"></span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="ter-button ter icon clockwise button-rev" id="clodFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="largeFont chains-row-padding cell-border-bottom">Transfer Rollers:</td>
+							<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+									onclick="bumpRollerSetpoint('chainTransferSP','dn')"></button>
+								<div class="inpChain"><input type="number" class="spInput" id="chainTransferSP"
+										value="230"></div>
+								<button class="ter-button ter b-bumpUp"
+									onclick="bumpRollerSetpoint('chainTransferSP','up')"></button>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-speed">
+								<span id="chainTransferActual">FPM</span>
+							</td>
+							<td class="mediumFont rightText cell-border-bottom chains-psi">
+								<span id="chainTransferPSI"></span>
+							</td>
+							<td class="centerText cell-border-bottom chains-override hide">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="ter-button ter icon clockwise button-rev" id="spreaderFwd"
+									onclick="toggleButtonState(this)">Fwd</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="controlL1 hide" id="boomCtrl">
+					<table class="controlL1">
+						<tr>
+							<th class="controlHead" colspan="2">
+								<h2>Boom</h2>
+							</th>
+						</tr>
+						<tr>
+							<td style="text-align: center;">
+								<div style="padding: 45px 10px;"><img src="./BoomWithLabels.png"></div>
+								<div
+									style="width: 100%;display: grid;grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: auto;">
+									<div style="grid-column: 1;grid-row: 1;padding:10px;" class="cell-border-bottom cell-border-right">
+										<h3 class="control-label">Boom In/Out</h3>
+										<button class="arrowRev ter-button ter icon-lg"></button>
+										<button class="arrowFwd ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-column: 2;grid-row: 1;padding:10px;"
+										class="cell-border-right cell-border-bottom">
+										<h3 class="control-label">Outer Boom</h3>
+										<button class="arrowUp ter-button ter icon-lg"></button>
+										<button class="arrowDown ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-column: 3;grid-row: 1;padding:10px;"
+										class="cell-border-right cell-border-bottom">
+										<h3 class="control-label">Inner Boom</h3>
+										<button class="arrowUp ter-button ter icon-lg"></button>
+										<button class="arrowDown ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-column: 4;grid-row: 1;padding:10px;"
+										class="cell-border-bottom">
+										<h3 class="control-label">Boom Swing</h3>
+										<button class="arrowNW ter-button ter icon-lg"></button>
+										<button class="arrowSW ter-button ter icon-lg"></button>
+									</div>
+								</div>
+								<div
+									style="width: 100%;display: grid;grid-template-columns: 2fr 1fr; grid-template-rows: auto;">
+									<div style="grid-column: 1; display: grid; grid-template-columns: 230px 65px 100px; grid-template-rows: auto auto; margin: 0;"
+										class="centerText cell-border-right cell-border-bottom">
+										<div style="grid-column: 1 / 4; grid-row: 1; padding: 10px 0 10px 65px;">
+											<h3 class="control-label">Fill Elevator</h3>
+										</div>
+										<div
+											style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
+											<div class="inpPercent inpPercent2"
+												style="padding:10px;font-size: 20px;font-weight: bold;">
+												Drop: <input type="number" class="spInput" value="4">
+											</div>
+											<div class="inpPercent inpPercent2"
+												style="padding:10px;font-size: 20px;font-weight: bold;">
+												Force Up: <input type="number" class="spInput" value="85">
+											</div>
+										</div>
+										<div style="grid-column: 2; grid-row: 2;">
+											<div id="barGraph-hopperBoom" class="vertical-bar-container" data-value="70"
+												data-target="0">
+												<div class="vertical-bar">
+													<div class="bar-fill"></div>
+													<div class="target-marker"></div>
+													<div class="tick-marks"></div>
+												</div>
+												<div class="bar-label">70</div>
+											</div>
+										</div>
+										<div style="grid-column: 3; grid-row: 2; padding-top: 10px;padding-left: 15px;width: 100px;">
+											<button class="arrowUp ter-button ter icon-lg"></button>
+											<button class="arrowDown ter-button ter icon-lg"></button>
+											<br><br>
+											Speed: 0 FPM
+										</div>
+									</div>
+									<div style="grid-column: 2;padding: 8px 15px;" class="cell-border-bottom">
+										<h3 class="control-label" style="margin-bottom: 10px;">Boom Fold</h3>
+										<button class="ter-button ter">Fold</button>
+										<button class="ter-button ter">Unfold</button>
+										<ul class="status"
+											style="border: none;padding: 5px;font-weight: bold;font-size: larger; margin-left: 40px;">
+											<li><span class="dot green"></span>Unfolded</li>
+										</ul>
+									</div>
+								</div>
+								<div style="width: 80%; margin-top: 15px;margin-left: 75px;" class="centerText border-top-left-radius">
+									<h3 class="control-label">Hopper Chain</h3>
+									<div style="width: 310px; float: left;">
+										<div class="inpPercent inpPercent2"
+											style="padding:10px;font-size: 20px;font-weight: bold;">
+											Target Pile Height: <input type="number" class="spInput" value="40">
+										</div>
+										<div style="padding: 5px 10px 10px 15px;font-size: 20px;font-weight: bold; width: 310px;">
+											Max Chain Speed: <input style="width: 50px; padding-right: 30px;" type="number" class="spInput" value="120"><span style="color: #666;font-size:13px;position:relative;left: -30px;">FPM</span>
+										</div>
+									</div>
+									<div style="float: right;padding-top: 5px;">
+										<button class="ter-button ter button-left button-active" onclick="disableButton('segmentFwd')">On</button>
+										<button class="ter-button ter button-right" onclick="disableButton('segmentFwd')">Off</button><br><br>
+										Speed: 0 FPM
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="controlL1 hide" id="axleCtrl">
+					<table class="controlL1">
+						<tr>
+							<th colspan="2">
+								<h2>Axle</h2>
+							</th>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<img style="margin: 75px 10px 60px 70px;width: 585px;" src="./6844rear-view.png">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div class=" cell-padding-small cell-border-bottom"
+									style="display: grid; grid-template-columns: 50px auto 50px auto auto 87px auto;grid-template-rows: auto 52px 52px auto;padding: 10px; margin: 0 30px;">
+									<div style="grid-row: 1; grid-column: 1 / 8; padding-bottom: 20px;">
+										<h3 class="control-label">Machine Height/Roll</h3>
+									</div>
+									<div style="grid-row: 2 / 5; grid-column: 1;">
+										<h4>Left</h4>
+										<div id="barGraph-axleLeft" class="vertical-bar-container" data-value="48"
+											data-target="50">
+											<div class="vertical-bar">
+												<div class="bar-fill"></div>
+												<div class="target-marker"></div>
+												<div class="tick-marks"></div>
+											</div>
+											<div class="bar-label"></div>
+										</div>
+									</div>
+									<div style="grid-row: 2 / 5; grid-column: 2; margin-top: 22px;" class="centerText">
+										<button class="ter-button ter b-textOnly"
+											onclick="bumpDatapoint('axleLeft', 5, 'data-target');bumpDatapoint('axleRight', 5, 'data-target');">+5</button><br>
+										<div class="inpPercent"><input type="number" class="spInput" id="axleRight"
+												value="46"></div>
+										<br>
+										<button class="ter-button ter b-textOnly"
+											onclick="bumpDatapoint('axleLeft', -5, 'data-target');bumpDatapoint('axleRight', -5, 'data-target');">-5</button>
+									</div>
+									<div style="grid-row: 2; grid-column: 6;" class="centerText">
+										<button
+											onclick="bumpDatapoint('axleLeft', 1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
+											class="arrowUp ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-row: 2 / 5; grid-column: 3;">
+										<h4>Right</h4>
+										<div id="barGraph-axleRight" class="vertical-bar-container" data-value="48"
+											data-target="50">
+											<div class="vertical-bar">
+												<div class="bar-fill"></div>
+												<div class="target-marker"></div>
+												<div class="tick-marks"></div>
+											</div>
+											<div class="bar-label"></div>
+										</div>
+									</div>
+									<div style="grid-row: 2 / 5; grid-column: 4; margin-top: 22px; margin-right: 31px;">
+
+									</div>
+									<div style="grid-row: 3; grid-column: 5; text-align: right;">
+										<button
+											onclick="bumpDatapoint('axleLeft', -1, 'data-value');bumpDatapoint('axleRight', 1, 'data-value');"
+											class="arrowCounterClockwise ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-row: 3; grid-column: 6;">
+										<button class="b-auto ter-button ter button-active axleAuto"
+											onclick="toggleAutoState('axle')">Auto</button>
+									</div>
+									<div style="grid-row: 3; grid-column: 7;">
+										<button
+											onclick="bumpDatapoint('axleLeft', 1, 'data-value');bumpDatapoint('axleRight', -1, 'data-value');"
+											class="arrowClockwise ter-button ter icon-lg"></button>
+									</div>
+									<div style="grid-row: 4; grid-column: 6;">
+										<button
+											onclick="bumpDatapoint('axleLeft', -1, 'data-value');bumpDatapoint('axleRight', -1, 'data-value');"
+											class="arrowDown ter-button ter icon-lg"></button>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="cell-padding-small" colspan="2">
+								<div style="width: 285px;margin: 0 0 0 180px;" class="centerText">
+									<h3 class="control-label">Steering</h3>
+									<meter style="width: 140px; direction: rtl;margin-right: -1px;"
+										class="meter-horizontal" id='steering-meter' min='0' low='0' high='4' max='100'
+										optimum='4' value='4'></meter>
+									<meter style="width: 140px;" class="meter-horizontal" id='steering-meter' min='0'
+										low='0' high='4' max='100' optimum='4' value='4'></meter><br>
+									<button class="arrowRev ter-button ter icon-lg"
+										style="vertical-align: text-bottom;"></button>
+									<button class=" ter-button ter b-textOnly"
+										style="vertical-align: text-bottom;font-size: 20px;">Center</button>
+									<button class="arrowFwd ter-button ter icon-lg"
+										style="vertical-align: text-bottom;"></button>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br>
+				</div>
+
+			</div>
+			<div id="control-buttons" style="position: relative;top: -1px;">
+				<div id="selectControl" class="border1px">
+					<button id="btnHome" class="sec-button sec button-active">Home</button>
+					<button id="btnDigger" onclick="toggleControl('btnDigger')" class="sec-button sec">Digger</button>
+					<button id="btnChains" onclick="toggleControl('btnChains')" class="sec-button sec">Chains</button>
+					<button id="btnTable" onclick="toggleControl('btnTable')" class="sec-button sec">Table</button>
+					<button id="btnBoom" onclick="toggleControl('btnBoom')" class="sec-button sec">Boom</button>
+					<button id="btnAxle" onclick="toggleControl('btnAxle')" class="sec-button sec">Axle</button>
+				</div>
+			</div>
+			<div id="preset-buttons" style="position: relative; top: -1px;">
+				<div id="globalPresets" class="border1px">
+					<h3>Intake/Axle</h3>
+					<div id="presets">
+						<button id="preset1" class="button-active sec-button sec" onclick="togglePreset(this)">Preset
+							1</button>
+						<button id="preset2" class="sec-button sec" onclick="togglePreset(this)">Preset 2</button>
+						<button id="preset3" class="sec-button sec" onclick="togglePreset(this)">Preset 3</button>
+						<button id="presetSave" class="sec-button sec" onclick="openModal('saveModal');">Save</button>
+					</div>
+				</div>
+				<div id="tablePresets" class="border1px">
+					<h3>Cleaning Table</h3>
+					<div id="presets">
+						<button id="tbpreset1" class="button-active sec-button sec" onclick="togglePreset(this)">Preset
+							A</button>
+						<button id="tbpreset2" class="sec-button sec" onclick="togglePreset(this)">Preset B</button>
+						<button id="tbpreset3" class="sec-button sec" onclick="togglePreset(this)">Preset C</button>
+						<button id="tbpresetSave" class="sec-button sec"
+							onclick="openModal('saveModalCleaning');">Save</button>
+					</div>
+				</div>
+			</div>
+			<div id="showStatus" class="hide">
+				<div id="dashboard">
+					<h3>Dashboard</h3>
+					<div id="dash-digger" class="border1px dash-comp-margin centerText dash-small">
+						<h4>Depth Control</h4>
+						<p class="dash-number">49%</p>
+						<div class="meterContainer"><meter class="meter-horizontal" id='dash-digger-meter' min='0'
+								low='10' high='40' max='100' optimum='50' value='49'></meter>
+						</div>
+					</div>
+					<div id="dash-temp" class="border1px dash-comp-margin centerText dash-small">
+						<h4>Oil Temperature</h4>
+						<p class="dash-number">127° F</p>
+						<div class="meterContainer"><meter class="meter-horizontal" id='dash-temp-meter' min='0'
+								low='10' high='40' max='200' optimum='150' value='127'></meter>
+						</div>
+					</div>
+					<div id="dash-fill-elev" class="border1px dash-comp-margin centerText dash-small">
+						<h4>Hopper Fill</h4>
+						<p class="dash-number">43%</p>
+						<div class="meterContainer"><meter class="meter-horizontal" id='dash-fill-elev-meter' min='0'
+								low='10' high='40' max='100' optimum='50' value='43'></meter>
+						</div>
+					</div>
+					<div id="dash-intake" class="border1px dash-comp-margin centerText dash-tall">
+						<h4>Intake Chain</h4>
+						<p class="dash-number"><span class="chains-override">0</span><span
+								class="chains-speed">205</span> FPM</p>
+						<div class="dash-number">1280 psi</div>
+						<div class="meterContainer"><meter class="meter-horizontal" id='dash-intake-meter' min='0'
+								low='10' high='40' max='3500' optimum='3000' value='1280'></meter>
+						</div>
+					</div>
+					<br>
+					<div id="dash-empty" class="dash-comp-margin centerText dash-tall">
+						<div class="dash-label-small">Chain Mode:</div>
+						<button class="dash-button-left groundMode ter">Ground</button>
+						<button class="dash-button-right fixedMode ter button-active">Fixed</button>
+						<div class="dash-label-small" style="padding-top: 8px;">Clod Roller Mode:</div>
+						<button class="dash-button-left ter cleanMode button-active">Pinch</button>
+						<button class="dash-button-right ter transportMode">Trans.</button>
+					</div>
+					<div id="dash-table" class="border1px dash-comp-margin centerText dash-tall">
+						<h4>Cleaning Table</h4>
+						<p class="dash-number"><span class="chains-override">0</span><span
+								class="chains-speed">245</span> FPM</p>
+						<div class="dash-number">1320 psi</div>
+						<div class="meterContainer"><meter class="meter-horizontal" id='dash-table-meter' min='0'
+								low='10' high='40' max='3500' optimum='3000' value='1320'></meter>
+						</div>
+					</div>
+					<br>
+					<div id="dash-messages" class="dash-comp-margin border1px">
+						- No Active Alarms -
+					</div>
+				</div>
+			</div>
+			<div id="autoControl">
+				<span class="autoButtonDisp centerText">
+					<h3>Digger</h3>
+					<button class="b-auto ter-button ter button-active diggerAuto"
+						onclick="toggleAutoState('digger')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Hump</h3>
+					<button class="b-auto ter-button ter button-active humpAuto"
+						onclick="toggleAutoState('hump')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Depth Wheel</h3>
+					<button class="b-auto ter-button ter button-active depthWheelAuto"
+						onclick="toggleAutoState('depthWheel')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Axle</h3>
+					<button class="b-auto ter-button ter button-active axleAuto"
+						onclick="toggleAutoState('axle')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Pri Shaker</h3>
+					<button class="b-auto ter-button ter button-active priShakerAuto"
+						onclick="toggleAutoState('priShaker')">Auto</button>
+				</span>
+				<span class="autoButtonDisp centerText">
+					<h3>Sec Shaker</h3>
+					<button class="b-auto ter-button ter button-active secShakerAuto"
+						onclick="toggleAutoState('secShaker')">Auto</button>
+				</span>
+			</div>
+
+		</div>
+		<div id="global-settings" class="hide">
+			<h2>Settings</h2>
+			<div id="global-settings-control">
+				<div class="column">
+					<div class="row">
+						<h3>Machine Information</h3>
+						<!--						<ul>
+							<li>S4 SW Version 2.00</li>
+							<li>Display SW Version 1.00</li>
+							<li>SN 6844-55-25</li>
+							<li>Machine hours: 3.7</li>
+						</ul>-->
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+					</div>
+					<div class="row">
+						<h3>Service Configuration</h3>
+						<div class="ServiceConfigRead">
+							<table>
+								<tr>
+									<th>Chain</th>
+									<th>Pitch</th>
+									<th>Teeth</th>
+								</tr>
+								<tr>
+									<td>Intake</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Primary</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Secondary</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Vine</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Rear Cross</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Side Elevator</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Hopper Elevator</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Hopper Floor</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Boom</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+							<br>
+							<div class="settings-input"><b>Clod Roller Safety Position</b></div>
+							<br><br>
+							<div class="settings-input"><b>Minumum Chain fpm</b></div>
+							<br><br>
+							<button style="margin: 10px 70px;" class="ter ter-button"
+								onclick='toggleObjectClass("ServiceConfigRead", "ServiceConfigEdit", "hide")'>Unlock</button>
+						</div>
+						<div class="ServiceConfigEdit hide">
+							<br>
+							<select class="settings-select">
+								<option>Intake Chain</option>
+								<option>Primary Chain</option>
+								<option>Secondary Chain</option>
+								<option>Vine Chain</option>
+								<option>Rear Cross Chain</option>
+								<option>Side Elevator Chain</option>
+								<option>Hopper Elevator Chain</option>
+								<option>Hopper Floor Chain</option>
+								<option>Boom Chain</option>
+							</select>
+							<br>
+							<div class="settings-input">
+								<div>Drive Pitch (mm)</div>
+								<div><input type="number" placeholder=""></div>
+							</div>
+							<div class="settings-input">
+								<div># of teeth</div>
+								<div><input type="number" placeholder=""></div>
+							</div>
+							<br><br>
+							<div class="settings-input">Set Clod Roller Safety Position<br><button
+									class="ter ter-button">Set Limit</button></div>
+							<br>
+							<div class="settings-input">
+								<div><br>Minumum Chain fpm</div>
+								<div><br><input type="number" placeholder=""></div>
+							</div>
+							<br>
+							<div class="settings-input">
+								<div><br>Serial Number</div>
+								<div><br><input type="number" placeholder=""></div>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="padding-left: 2px;padding-right: 2px;">
+						<h3>Display Brightness</h3>
+						<div style="text-align: center;"><button style="margin: 2px 2px;"
+								class="ter ter-button">-</button> <button style="margin: 2px 2px;"
+								class="ter ter-button">Auto</button> <button style="margin: 2px 2px;"
+								class="ter ter-button">+</button></div>
+					</div>
+				</div>
+
+				<!-- Column 2 -->
+				<div class="column">
+					<!-- Row 1 -->
+					<div class="row">
+						<h3>Start Row Sequence</h3>
+						<p>The Start Row sequence engages Digger Auto and goes to setpoints.</p>
+						<div class="input-grid">
+							<span> </span><span><b>Start Delay</b></span><span><b>Duration/Enable</b></span>
+							<span>Global Start Chains</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="checkbox"></span>
+							<span>Coulters Down</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span>Center Steering</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="checkbox"></span>
+						</div>
+					</div>
+
+					<!-- Row 2 -->
+					<div class="row">
+						<h3>End Row Sequence</h3>
+						<p>The End Row sequence raises the digger and coulters.</p>
+						<div class="input-grid">
+							<span> </span><span><b>Start Delay</b></span><span><b>Enable</b></span>
+							<span>Global Chains Shutoff</span>
+							<span><input type="number" placeholder=""> sec</span>
+							<span><input type="checkbox"></span>
+						</div>
+					</div>
+
+					<!-- Row 3 -->
+					<div class="row">
+						<h3>Cleaning Table Settings</h3>
+						<div class="input-grid2">
+							<span>Pressure threshold for reversing rollers</span>
+							<span><input type="number" placeholder=""> psi</span>
+							<span>Reverse roller duration</span>
+							<span><input type="number" placeholder=""> sec</span>
+						</div>
+					</div>
+
+					<!-- Row 4 -->
+					<div class="row">
+						<h3>Preset Names</h3>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Intake 1</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Intake 2</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Intake 3</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Table A</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Table B</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+						<div class="settings-input" style="margin: 5px 92px;">
+							<div>Table C</div>
+							<div><input type="text" placeholder="" style="width: 150px;"></div>
+						</div>
+					</div>
+					<div class="centerText">Add table gap/height max/min limits</div>
+
+					<button onclick="togglePage('global-settings')" class="ter-button ter"
+						style="position: relative;top: 20px;left: 93px;">Close</button>
+				</div>
+			</div>
+		</div>
+		<div id="diagnostics" class="hide">
+			<h2>Diagnostics</h2>
+			<div class="diagnostic-control-section">
+				<!-- Row 1 -->
+				<div class="diagnostic-row">
+					<button class="prevView ter-button ter icon-diagnostic"></button>
+					<select class="diagnostic-select">
+						<option>Intake Drive</option>
+						<option>Digger and Hump Adjust</option>
+						<option>Coulters</option>
+						<option>Primary Chain Drive</option>
+						<option>Shakers</option>
+						<option>Secondary Chain Drive</option>
+						<option>Vine Chain</option>
+						<option>Cleaning Table</option>
+						<option>Rear Cross Drive</option>
+						<option>Side Elevator/Boom Drive</option>
+					</select>
+					<button class="nextView ter-button ter icon-diagnostic"></button>
+				</div>
+
+				<!-- Row 2 -->
+				<div class="diagnostic-row">
+					<div class="diagnostic-column row">
+						<h3>Inputs</h3>
+						<table class="diagnostic-input">
+							<tr>
+								<td>INTAKE CHAIN SPEED RH<br><span>S4 In1 Pin 5, Block 2 Port 4</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+							<tr>
+								<td>INTAKE CHAIN SPEED LH<br><span>S4 In1 Pin 13, Block 5 Port 3</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+							<tr>
+								<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 12, Block 2 Port 3</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+							<tr>
+								<td>INTAKE PRESSURE FWD RH<br><span>S4 In4 Pin 13, Block 5 Port 2</span></td>
+								<td>0.0 Hz</td>
+							</tr>
+						</table>
+					</div>
+					<div class="diagnostic-column row">
+						<h3>Outputs</h3>
+						<table class="diagnostic-input">
+							<tr>
+								<td>INTAKE DRIVE FWD RH<br><span>S4 Out1 Pin 12 (8T), Block 19 Port 3A</span></td>
+								<td>0 PWM</td>
+							</tr>
+							<tr>
+								<td>INTAKE DRIVE FWD LH<br><span>S4 Out1 Pin 10 (7T), Block 20 Port 3A</span></td>
+								<td>0 PWM</td>
+							</tr>
+							<tr>
+								<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 15 (10T), Block 19 Port 3B</span></td>
+								<td>0 PWM</td>
+							</tr>
+							<tr>
+								<td>INTAKE DRIVE REV RH<br><span>S4 Out1 Pin 13 (9T), Block 20 Port 3B</span></td>
+								<td>0 PWM</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<!-- Row 3 -->
+				<div class="diagnostic-row">
+					<button class="ter-button ter" style="margin-left: 245px;">Enable Diagnostic Output</button>
+					<button onclick="togglePage('diagnostics')" class="ter-button ter"
+						style="position: relative;top: 545px;left: -170px;">Close</button>
+				</div>
+			</div>
+		</div>
+		<div id="smallVideos" class="video">
+			<div class="video-col"><img onclick="openBottomSheet('vid1')" class="videoFeeds" src="./vid1optS.png">
+			</div>
+			<div class="video-col"><img onclick="openBottomSheet('vid2')" class="videoFeeds" src="./vid2optS.png">
+			</div>
+			<div class="video-col"><img onclick="openBottomSheet('vid3')" class="videoFeeds" src="./vid3optS.png">
+			</div>
+			<div class="video-col"><img onclick="openBottomSheet('vid4')" class="videoFeeds" src="./vid4optS.png">
+			</div>
+		</div>
+		<div id="displayVideoMode" class="hide">
+			<div id="vid1" class="hide"><img class="videoLarge" src="./vid1optS.png"></div>
+			<div id="vid2" class="hide"><img class="videoLarge" src="./vid2optS.png"></div>
+			<div id="vid3" class="hide"><img class="videoLarge" src="./vid3optS.png"></div>
+			<div id="vid4" class="hide"><img class="videoLarge" src="./vid4optS.png"></div>
+			<div id="vidAll" class="hide">
+				<img class="videoMed videoHome" id="topLeft" src="./vid1optS.png">
+				<img class="videoMed videoHome" id="topRight" src="./vid2optS.png">
+				<img class="videoMed videoHome" id="bottomLeft" src="./vid3optS.png">
+				<img class="videoMed videoHome" id="bottomRight" src="./vid4optS.png">
+				<button class="hide prevView ter-button ter icon-lg" id="videoPrevView"></button>
+				<button class="hide gridView ter-button ter icon-lg" id="videoGridView"></button>
+				<button class="hide nextView ter-button ter icon-lg" id="videoNextView"></button>
+			</div>
+		</div>
+
+		<!-- *****    GENERAL PRESET Modal    ***** -->
+		<div id="saveModal" class="modal" style="display: none;">
+			<div class="modal-content">
+				<h2 style="width: 375px;">Save the following settings to Preset <span id='selected-preset'>1</span>?
+				</h2>
+				<table class="tableBorderX" style="height: 190px; width: 305px; margin: 30px 0 60px 40px;">
+					<tbody>
+						<tr>
+							<td class="preset-label border-right-none">Preset button label:</td>
+							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg"
+									value="" onchange="this.style.backgroundColor = 'yellow'"></td>
+						</tr>
+						<tr>
+							<td class="preset-label border-right-none">Digger Depth Setpoint:</td>
+							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
+						</tr>
+						<tr>
+							<td class="preset-label border-right-none">Digger Hump Setpoint:</td>
+							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
+						</tr>
+						<tr>
+							<td class="preset-label border-right-none">Depth Wheel Setpoint:</td>
+							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
+						</tr>
+						<tr>
+							<td class="preset-label border-right-none">Primary Shaker Setpoint:</td>
+							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
+						</tr>
+						<tr>
+							<td class="preset-label border-right-none">Secondary Shaker Setpoint:</td>
+							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
+						</tr>
+						<tr>
+							<td class="preset-label border-right-none">Axle Height Setpoint:</td>
+							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpSm" value="0"
+									onchange="this.style.backgroundColor = 'yellow'">%</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<br>
+				<button id="saveChanges" class="sec-button sec-em"
+					onclick="savePresets();refreshPresets();closeModal('saveModal');">Save</button>
+				<button id="saveCancel" class="sec-button sec-em" onclick="closeModal('saveModal')">Cancel</button>
+			</div>
+		</div>
+
+		<!-- *****    CLEANING TABLE PRESET Modal    ***** -->
+		<div id="saveModalCleaning" class="modal" style="display: none;">
+			<div class="modal-content">
+				<h2 style="width: 375px;">Save the following settings to Preset <span id='selected-preset'>A</span>?
+				</h2>
+				<table class="tableBorderX" style="height: 190px; width: 305px; margin: 30px 0 60px 40px;">
+					<tbody>
+						<tr>
+							<td class="preset-label border-right-none">Preset button label:</td>
+							<td class="border-left-none"><input type="text" id='currPresetLabel' class="presetInpLg"
+									value="Preset A" onchange="this.style.backgroundColor = 'orange'"></td>
+						</tr>
+						<tr>
+							<td class="preset-label">Clod Roller Gap:</td>
+							<td class="border-left-none"><input type="number" id="saveSp1" class="presetInpSm" value="6"
+									onchange="this.style.backgroundColor = 'orange'"></td>
+						</tr>
+						<tr>
+							<td class="preset-label">Clod Roller Height:</td>
+							<td class="border-left-none"><input type="number" id="saveSp2" class="presetInpSm" value="3"
+									onchange="this.style.backgroundColor = 'orange'"></td>
+						</tr>
+						<tr>
+							<td class="preset-label">Table Angle:</td>
+							<td class="border-left-none"><input type="number" id="saveSp3" class="presetInpSm" value="4"
+									onchange="this.style.backgroundColor = 'orange'"></td>
+						</tr>
+						<tr>
+							<td class="preset-label">Clod Roller Speed:</td>
+							<td class="border-left-none"><input type="number" id="saveSp4" class="presetInpMd"
+									value="210" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
+						</tr>
+						<tr>
+							<td class="preset-label">Transfer Roller Speed:</td>
+							<td class="border-left-none"><input type="number" id="saveSp5" class="presetInpMd"
+									value="180" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
+						</tr>
+						<tr>
+							<td class="preset-label">Segment Roller Speed:</td>
+							<td class="border-left-none"><input type="number" id="saveSp6" class="presetInpMd"
+									value="200" onchange="this.style.backgroundColor = 'orange'"> FPM</td>
+						</tr>
+						<tr>
+							<td class=" preset-label border-right-none">Cleaning Mode:</td>
+							<td class="border-left-none"><input type="text" id="saveSp7" class="presetInpLg"
+									value="TRANSPORT" onchange="this.style.backgroundColor = 'orange'"></td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<button id="saveChanges" class="sec-button sec-em"
+					onclick="savePresets();refreshPresets();closeModal('saveModalCleaning');">Save</button>
+				<button id="saveCancel" class="sec-button sec-em"
+					onclick="closeModal('saveModalCleaning')">Cancel</button>
+			</div>
+		</div>
+		<div id="setSpeedRange" class="modal" style="display: none; font-size: 20px;">
+			<div class="modal-content">
+				<h2>Set Ground Speed Range</h2>
+				<p style="width: 450px;">Set the range in mph for when the Ground Speed mode will modify chain speed.
+					Speeds below the minimum will be treated as the minimum and speeds above the maximum will be treated
+					as the maximum.</p>
+				<table class="tableBorder" style="height: 70px; width: 450px;">
+					<tbody>
+						<tr>
+							<td class="preset-label border-right-none">Minimum:</td>
+							<td class="border-left-none"><input type="number" class="spInput" id="" value="0.5"> mph
+							</td>
+							<td class="preset-label">Maximum:</td>
+							<td class="border-left-none"><input type="number" class="spInput" id="" value="4.5"> mph
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<button id="saveChanges" class="sec-button sec-em" onclick="closeModal('setSpeedRange')">Close</button>
+			</div>
+		</div>
+
+	</div>
+	</div>
+
+	<script src="./control_panel_v7.js"></script>
+	<script>
+		toggleRUN();
+		showHomePage();
+		assignClickListeners();
+		updateBarGraphs();
+		refreshPresets();
+	</script>
+</body>
+
+</html>
