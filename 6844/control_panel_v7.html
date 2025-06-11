@@ -257,7 +257,21 @@
 							</th>
 						</tr>
 						<tr>
-							<th class="cell-border-bottom">Name</th>
+							<td class="largeFont chains-row-padding cell-border-bottom">Adjust all:</td>
+							<td class="cell-border-bottom"><button style="float: left;" class="ter-button ter b-bumpDown"
+									onclick="bumpChainSetpointAll('dn')"></button>
+								<span style="float: left; text-align: center; margin: 9px 10px 0; width: 80px;">CHAIN
+									SPEEDS</span>
+								<button class="ter-button ter b-bumpUp" onclick="bumpChainSetpointAll('up')"></button>
+							</td>
+							<td colspan="3" style="padding-right: 10px;" class="mediumFont rightText cell-border-bottom">
+								<button class="button-left ter-button groundMode ter">Ground Speed</button>
+								<button class="button-right ter-button fixedMode ter button-active">Fixed
+									Speed</button>
+							</td>
+						</tr>
+						<tr>
+							<th style="padding: 15px;" class="cell-border-bottom">Name</th>
 							<th class="cell-border-bottom">Setpoint</th>
 							<th class="cell-border-bottom chains-speed">Actual Speed</th>
 							<th class="cell-border-bottom chains-psi">Pressure</th>
@@ -488,36 +502,13 @@
 							</td>
 							<td class="centerText cell-border-bottom chains-psi" style="width: 70px;">
 							</td>
-							<td class="centerText cell-border-bottom chains-override hide" style="width: 70px;">
+							<td colspan="2" class="mediumFont rightText cell-border-bottom"><div style="float: left;">Hopper: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FPM<br>
+								Boom: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FPM</div>
+								<div style="padding-right: 15px;">
 								<button class="ter-button ter icon clockwise button-rev" id="hopperFwd"
 									onclick="toggleButtonState(this)">Fwd</button>
+								</div>
 							</td>
-							<td class="mediumFont rightText cell-border-bottom">Hopper: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FPM<br>
-								Boom: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FPM
-							</td>
-						</tr>
-						<tr>
-							<td class="largeFont chains-row-padding">Adjust all:</td>
-							<td><button style="float: left;" class="ter-button ter b-bumpDown"
-									onclick="bumpChainSetpointAll('dn')"></button>
-								<span style="float: left; text-align: center; margin: 9px 10px 0; width: 80px;">CHAIN
-									SPEEDS</span>
-								<button class="ter-button ter b-bumpUp" onclick="bumpChainSetpointAll('up')"></button>
-							</td>
-							<td colspan="3" style="padding-right: 15px;" class="mediumFont rightText">Ground Speed Range
-								<br>2.5 MPH ground speed = 220 FPM
-								<br>Max: <div class="inpPercent">
-									<input type="number" class="spInput" id="groundSpdMax" value="5"></div>
-								</td>
-						</tr>
-						<tr>
-							<td colspan="2" class="cell-border-bottom">
-								<button class="button-left ter-button groundMode ter b-textOnly">Ground Speed</button>
-								<button class="button-right ter-button fixedMode ter b-textOnly button-active">Fixed
-									Speed</button>
-							</td>
-							<td colspan="3" style="padding-right: 15px;" class="cell-border-bottom mediumFont rightText"><div class="inpPercent">
-								Max: <input type="number" class="spInput" id="groundSpdMin" value="3"></div></td>
 						</tr>
 					</table>
 					<table style="width: 98%;">
@@ -526,11 +517,11 @@
 								class="cell-border-right cell-border-bottom centerText cell-padding-small">
 								<h3 class="addSpaceBelow">Primary Shakers</h3>
 								<button class="ter-button ter b-textOnly"
-									onclick="bumpInpSetpoint('primaryShaker',5);">+5</button>
+									onclick="bumpInpSetpoint('primaryShaker',-5);">-5</button>
 								<div class="inpPercent"><input type="number" class="spInput" id="primaryShaker"
 										value="45"></div>
 								<button class="ter-button ter b-textOnly"
-									onclick="bumpInpSetpoint('primaryShaker',-5);">-5</button><br>
+									onclick="bumpInpSetpoint('primaryShaker',5);">+5</button><br>
 								<button class="b-auto ter-button ter button-active priShakerAuto"
 									onclick="toggleAutoState('priShaker')">Auto</button>
 								<button class="ter-button ter" id="priShakerManual">Manual</button>
@@ -538,11 +529,11 @@
 							<td style="padding: 0 10px;" class="cell-border-bottom centerText cell-padding-small">
 								<h3 class="addSpaceBelow">Secondary Shakers</h3>
 								<button class="ter-button ter b-textOnly"
-									onclick="bumpInpSetpoint('secondaryShaker',5);">+5</button>
+									onclick="bumpInpSetpoint('secondaryShaker',-5);">-5</button>
 								<div class="inpPercent"><input type="number" class="spInput" id="secondaryShaker"
 										value="45"></div>
 								<button class="ter-button ter b-textOnly"
-									onclick="bumpInpSetpoint('secondaryShaker',-5);">-5</button><br>
+									onclick="bumpInpSetpoint('secondaryShaker',5);">+5</button><br>
 								<button class="ter-button ter button-active secShakerAuto"
 									onclick="toggleAutoState('secShaker')">Auto</button>
 								<button class="ter-button ter" id="secShakerManual">Manual</button>
@@ -725,13 +716,19 @@
 										<button class="arrowSW ter-button ter icon-lg"></button>
 									</div>
 								</div>
-								<div
-									style="width: 100%;display: grid;grid-template-columns: 2fr 1fr; grid-template-rows: auto;">
-									<div style="grid-column: 1; display: grid; grid-template-columns: 230px 65px 100px; grid-template-rows: auto auto; margin: 0;"
-										class="centerText cell-border-right cell-border-bottom">
-										<div style="grid-column: 1 / 4; grid-row: 1; padding: 10px 0 10px 65px;">
-											<h3 class="control-label">Fill Elevator</h3>
-										</div>
+								<div style="width: 100%" class=" cell-border-bottom">
+									<h3 class="control-label" style="margin: 15px 40px 15px 110px;float: left;">Boom Fold</h3>
+										<button class="ter-button ter" style="float:left">Fold</button>
+										<button class="ter-button ter" style="float:left">Unfold</button>
+										<ul class="status"
+											style="border: none;padding: 5px;font-weight: bold;font-size: larger;">
+											<li style="padding-left: 45px;"><span class="dot green"></span>Unfolded</li>
+										</ul>
+								</div>
+								<div style="width: 100%;">
+									<h3 class="control-label">Fill Elevator/Hopper Chain</h3>
+									<div style="display: grid; grid-template-columns: 230px 65px 100px; grid-template-rows: auto auto; margin: 0;"
+										class="centerText">
 										<div
 											style="grid-column: 1; grid-row: 2; text-align: right; padding-right: 20px;">
 											<div class="inpPercent inpPercent2"
@@ -760,15 +757,6 @@
 											<br><br>
 											Speed: 0 FPM
 										</div>
-									</div>
-									<div style="grid-column: 2;padding: 8px 15px;" class="cell-border-bottom">
-										<h3 class="control-label" style="margin-bottom: 10px;">Boom Fold</h3>
-										<button class="ter-button ter">Fold</button>
-										<button class="ter-button ter">Unfold</button>
-										<ul class="status"
-											style="border: none;padding: 5px;font-weight: bold;font-size: larger; margin-left: 40px;">
-											<li><span class="dot green"></span>Unfolded</li>
-										</ul>
 									</div>
 								</div>
 								<div style="width: 80%; margin-top: 15px;margin-left: 75px;" class="centerText border-top-left-radius">
