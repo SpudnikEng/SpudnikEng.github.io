@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utility Conversions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .toc {
+      margin-bottom: 20px;
+    }
+    .toc a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: #0055aa;
+    }
+    .collapsible {
+      background: #ddd;
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      text-align: left;
+      font-size: 1.1em;
+      width: 100%;
+      margin-top: 15px;
+    }
+    .content {
+      display: none;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 300px;
+      margin: 10px auto;
+    }
+    th, td {
+      border: 1px solid #555;
+      padding: 6px;
+      text-align: center;
+    }
+    input, button {
+      padding: 6px;
+      margin: 5px;
+    }
+    .converter {
+      text-align: center;
+      margin-top: 10px;
+    }
+    #result-mph, #result-ma {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .radio-group {
+      display: flex;
+      gap: 1em;
+      margin-bottom: 1em;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Utility Conversions</h1>
+
+<!-- Table of Contents -->
+<div class="toc">
+  <strong>Sections:</strong>
+  <a href="#mph-fpm">MPH ↔ FPM Conversion</a>
+  <a href="#ma-conversion">4–20 mA Conversion</a>
+</div>
+
+<!-- MPH ↔ FPM Section -->
+<button class="collapsible" id="mph-fpm">MPH ↔ FPM Conversion</button>
+<div class="content">
+  <div class="converter">
+    <label for="inputValue">Enter Value:</label>
+    <input type="number" id="inputValue" step="any">
+    <button onclick="convertToFPM()">Convert MPH → FPM</button>
+    <button onclick="convertToMPH()">Convert FPM → MPH</button>
+    <p id="result-mph"></p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>MPH</th>
+        <th>Feet per Minute (FPM)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1.50</td><td>132.0</td></tr>
+      <tr><td>1.75</td><td>154.0</td></tr>
+      <tr><td>2.00</td><td>176.0</td></tr>
+      <tr><td>2.25</td><td>198.0</td></tr>
+      <tr><td>2.50</td><td>220.0</td></tr>
+      <tr><td>2.75</td><td>242.0</td></tr>
+      <tr><td>3.00</td><td>264.0</td></tr>
+      <tr><td>3.25</td><td>286.0</td></tr>
+      <tr><td>3.50</td><td>308.0</td></tr>
+      <tr><td>3.75</td><td>330.0</td></tr>
+      <tr><td>4.00</td><td>352.0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 4-20 mA Section -->
+<button class="collapsible" id="ma-conversion">4–20 mA Conversion</button>
+<div class="content">
+  <div class="converter">
+    <label>Conversion Mode</label>
+    <p>Use to convert a sensor's measured value to mA and vice versa. (i.e. temp sensor with min -58 F to max 302 F)</p>
+    <div class="radio-group">
+      <label><input type="radio" name="mode" value="ma-to-value" checked onchange="toggleFields()"> mA to Value</label>
+      <label><input type="radio" name="mode" value="value-to-ma" onchange="toggleFields()"> Value to mA</label>
+    </div>
+
+    <label for="min">Sensor Min Value</label>
+    <input type="number" id="min" placeholder="e.g. 0">
+
+    <label for="max">Sensor Max Value</label>
+    <input type="number" id="max" placeholder="e.g. 100">
+
+    <div id="maInput">
+      <label for="ma">Current (mA)</label>
+      <input type="number" id="ma" step="0.01" placeholder="e.g. 12">
+    </div>
+
+    <div id="valInput" style="display:none">
+      <label for="val">Measured Value</label>
+      <input type="number" id="val" step="0.01" placeholder="e.g. 50">
+    </div>
+
+    <button onclick="convert()">Convert</button>
+
+    <div id="result-ma"></div>
+  </div>
+</div>
+
+<script>
+  // Collapsible toggles
+  document.querySelectorAll(".collapsible").forEach(button => {
+    button.addEventListener("click", () => {
+      const content = button.nextElementSibling;
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  // MPH ↔ FPM
+  const factor = 88; // 1 mph = 88 fpm
+
+  function convertToFPM() {
+    const mph = parseFloat(document.getElementById('inputValue').value);
+    if (!isNaN(mph)) {
+      const fpm = mph * factor;
+      document.getElementById('result-mph').textContent = `${mph} mph = ${fpm.toFixed(1)} fpm`;
+    } else {
+      document.getElementById('result-mph').textContent = "Enter a valid number.";
+    }
+  }
+
+  function convertToMPH() {
+    const fpm = parseFloat(document.getElementById('inputValue').value);
+    if (!isNaN(fpm)) {
+      const mph = fpm / factor;
+      document.getElementById('result-mph').textContent = `${fpm} fpm = ${mph.toFixed(2)} mph`;
+    } else {
+      document.getElementById('result-mph').textContent = "Enter a valid number.";
+    }
+  }
+
+  // 4-20 mA Conversion
+  function getMode() {
+    const radios = document.getElementsByName('mode');
+    for (const radio of radios) {
+      if (radio.checked) return radio.value;
+    }
+    return 'ma-to-value';
+  }
+
+  function toggleFields() {
+    const mode = getMode();
+    document.getElementById('maInput').style.display = mode === 'ma-to-value' ? 'block' : 'none';
+    document.getElementById('valInput').style.display = mode === 'value-to-ma' ? 'block' : 'none';
+    document.getElementById('result-ma').textContent = '';
+  }
+
+  function convert() {
+    const min = parseFloat(document.getElementById('min').value);
+    const max = parseFloat(document.getElementById('max').value);
+    const mode = getMode();
+
+    if (isNaN(min) || isNaN(max)) {
+      document.getElementById('result-ma').textContent = "Please fill in the min and max values.";
+      return;
+    }
+
+    if (mode === 'ma-to-value') {
+      const ma = parseFloat(document.getElementById('ma').value);
+
+      if (isNaN(ma)) {
+        document.getElementById('result-ma').textContent = "Please enter a valid current in mA.";
+        return;
+      }
+
+      if (ma < 4 || ma > 20) {
+        document.getElementById('result-ma').textContent = "Warning: mA value should be between 4 and 20.";
+        return;
+      }
+
+      const value = min + ((ma - 4) / 16) * (max - min);
+      document.getElementById('result-ma').textContent = `Result: ${value.toFixed(2)}`;
+
+    } else {
+      const val = parseFloat(document.getElementById('val').value);
+
+      if (isNaN(val)) {
+        document.getElementById('result-ma').textContent = "Please enter a valid measurement value.";
+        return;
+      }
+
+      if (val < min || val > max) {
+        document.getElementById('result-ma').textContent = "Warning: Value is outside of configured range.";
+        return;
+      }
+
+      const ma = 4 + ((val - min) / (max - min)) * 16;
+      document.getElementById('result-ma').textContent = `Result: ${ma.toFixed(2)} mA`;
+    }
+  }
+</script>
+
+</body>
+</html>

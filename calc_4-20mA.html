@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4-20mA Signal Converter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      max-width: 400px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin: 1em 0 0.25em;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+    .radio-group {
+      display: flex;
+      gap: 1em;
+      margin-bottom: 1em;
+    }
+    button {
+      width: 100%;
+      padding: 0.75em;
+      font-size: 1em;
+      margin-bottom: 1em;
+    }
+    #result {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #005500;
+    }
+  </style>
+</head>
+<body>
+  <h1>4–20 mA Signal Converter</h1>
+
+  <label>Conversion Mode</label>
+  <div class="radio-group">
+    <label><input type="radio" name="mode" value="ma-to-value" checked onchange="toggleFields()"> mA to Value</label>
+    <label><input type="radio" name="mode" value="value-to-ma" onchange="toggleFields()"> Value to mA</label>
+  </div>
+
+  <label for="min">Minimum Value</label>
+  <input type="number" id="min" placeholder="e.g. 0">
+
+  <label for="max">Maximum Value</label>
+  <input type="number" id="max" placeholder="e.g. 100">
+
+  <div id="maInput">
+    <label for="ma">Current (mA)</label>
+    <input type="number" id="ma" step="0.01" placeholder="e.g. 12">
+  </div>
+
+  <div id="valInput" style="display:none">
+    <label for="val">Measured Value</label>
+    <input type="number" id="val" step="0.01" placeholder="e.g. 50">
+  </div>
+
+  <button onclick="convert()">Convert</button>
+
+  <div id="result"></div>
+
+  <script>
+    function getMode() {
+      const radios = document.getElementsByName('mode');
+      for (const radio of radios) {
+        if (radio.checked) return radio.value;
+      }
+      return 'ma-to-value';
+    }
+
+    function toggleFields() {
+      const mode = getMode();
+      document.getElementById('maInput').style.display = mode === 'ma-to-value' ? 'block' : 'none';
+      document.getElementById('valInput').style.display = mode === 'value-to-ma' ? 'block' : 'none';
+      document.getElementById('result').textContent = '';
+    }
+
+    function convert() {
+      const min = parseFloat(document.getElementById('min').value);
+      const max = parseFloat(document.getElementById('max').value);
+      const mode = getMode();
+
+      if (isNaN(min) || isNaN(max)) {
+        document.getElementById('result').textContent = "Please fill in the min and max values.";
+        return;
+      }
+
+      if (mode === 'ma-to-value') {
+        const ma = parseFloat(document.getElementById('ma').value);
+
+        if (isNaN(ma)) {
+          document.getElementById('result').textContent = "Please enter a valid current in mA.";
+          return;
+        }
+
+        if (ma < 4 || ma > 20) {
+          document.getElementById('result').textContent = "Warning: mA value should be between 4 and 20.";
+          return;
+        }
+
+        const value = min + ((ma - 4) / 16) * (max - min);
+        document.getElementById('result').textContent = `Result: ${value.toFixed(2)}`;
+
+      } else {
+        const val = parseFloat(document.getElementById('val').value);
+
+        if (isNaN(val)) {
+          document.getElementById('result').textContent = "Please enter a valid measurement value.";
+          return;
+        }
+
+        if (val < min || val > max) {
+          document.getElementById('result').textContent = "Warning: Value is outside of configured range.";
+          return;
+        }
+
+        const ma = 4 + ((val - min) / (max - min)) * 16;
+        document.getElementById('result').textContent = `Result: ${ma.toFixed(2)} mA`;
+      }
+    }
+  </script>
+</body>
+</html>
