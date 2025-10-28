@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Right-Side Tabs — 1280×800</title>
+  <style>
+    :root{
+      --content-bg: #444444;
+      --shell-bg: #2a2a2a;
+      --tab-bg: #2f2f2f;
+      --ink: #f2f2f2;
+      --muted: #e2e2e2;
+      --border: #222222;
+      --tab-w: 220px; /* 20px narrower */
+      --radius: 14px;
+    }
+
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: #121212; color: var(--ink); display:grid; place-items:center; }
+    .vh{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+    .frame{ width:1280px; height:800px; background:var(--shell-bg); border:1px solid var(--border); border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0,0,0,.45); overflow:hidden; display:grid; grid-template-rows: 1fr; }
+
+    .app{ display:grid; grid-template-columns: 1fr var(--tab-w); grid-template-rows: 1fr; gap:0; height:100%; }
+
+    /* Left: Tabs */
+    .tab-list{ grid-column: 2; grid-row: 1; background: var(--shell-bg); display:grid; align-content:start; padding:10px 10px 10px 0; gap:25px; /* increased by 15px */ }
+    .tab{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:34px 16px; border:1px solid var(--border); border-left:none; background: var(--tab-bg); color:#ddd; cursor:pointer; border-radius:0 10px 10px 0; transition:none; position:relative; }
+
+    /* Removed mouseover effect */
+
+    /* Right: Content */
+    .panels{ grid-column: 1; grid-row: 1; background: var(--content-bg); position:relative; padding:24px 28px; height:100%; }
+    .panel{ display:none; height:auto; }
+    .panel h2{ margin:0 0 8px; font-size:24px }
+    .panel p{ margin:0; color: var(--muted) }
+
+    /* Show panels */
+    #tab-controls:checked ~ .panels #panel-controls,
+    #tab-chains:checked ~ .panels #panel-chains,
+    #tab-settings:checked ~ .panels #panel-settings,
+    #tab-diagnostics:checked ~ .panels #panel-diagnostics,
+    #tab-help:checked ~ .panels #panel-help{ display:block; animation: fade .22s ease }
+
+    /* Selected tab connects seamlessly */
+    #tab-controls:checked ~ .tab-list label[for="tab-controls"],
+    #tab-chains:checked ~ .tab-list label[for="tab-chains"],
+    #tab-settings:checked ~ .tab-list label[for="tab-settings"],
+    #tab-diagnostics:checked ~ .tab-list label[for="tab-diagnostics"],
+    #tab-help:checked ~ .tab-list label[for="tab-help"]{
+      background: var(--content-bg); color: var(--ink);
+      border-color: var(--border);
+      border-left:none;
+      left:-1px; /* overlap 1px to kill any seam; tabs are on the right */
+      box-shadow:none;
+      border-radius:0 10px 10px 0; /* square left side */
+    }
+
+    .tab:focus-visible{ outline:2px solid transparent; box-shadow: 0 0 0 2px rgba(255,255,255,.35); }
+
+    @keyframes fade{ from{opacity:0; transform: translateY(4px)} to{opacity:1; transform:none} }
+  </style>
+</head>
+<body>
+  <section class="frame">
+    <main class="app" role="application">
+      <input class="vh" type="radio" name="tabs" id="tab-controls" checked>
+      <input class="vh" type="radio" name="tabs" id="tab-chains">
+      <input class="vh" type="radio" name="tabs" id="tab-settings">
+      <input class="vh" type="radio" name="tabs" id="tab-diagnostics">
+      <input class="vh" type="radio" name="tabs" id="tab-help">
+
+      <aside class="tab-list" role="tablist" aria-orientation="vertical" aria-label="Panels">
+        <label id="tab-controls-label" for="tab-controls" class="tab" role="tab" aria-controls="panel-controls">Controls</label>
+        <label id="tab-chains-label" for="tab-chains" class="tab" role="tab" aria-controls="panel-chains">Chains</label>
+        <label id="tab-settings-label" for="tab-settings" class="tab" role="tab" aria-controls="panel-settings">Settings</label>
+        <label id="tab-diagnostics-label" for="tab-diagnostics" class="tab" role="tab" aria-controls="panel-diagnostics">Diagnostics</label>
+        <label id="tab-help-label" for="tab-help" class="tab" role="tab" aria-controls="panel-help">Help</label>
+      </aside>
+
+      <section class="panels">
+        <article id="panel-controls" role="tabpanel" aria-labelledby="tab-controls-label" class="panel">
+          <h2>Controls</h2>
+          <p>You're viewing the <strong>Controls</strong> tab. Place primary machine commands and live status here.</p>
+        </article>
+        <article id="panel-chains" role="tabpanel" aria-labelledby="tab-chains-label" class="panel">
+          <h2>Chains</h2>
+          <p>This is the <strong>Chains</strong> tab. Show chain speeds, directions, and synchronization presets.</p>
+        </article>
+        <article id="panel-settings" role="tabpanel" aria-labelledby="tab-settings-label" class="panel">
+          <h2>Settings</h2>
+          <p>Welcome to <strong>Settings</strong>. Provide units, operator profiles, and calibration options here.</p>
+        </article>
+        <article id="panel-diagnostics" role="tabpanel" aria-labelledby="tab-diagnostics-label" class="panel">
+          <h2>Diagnostics</h2>
+          <p>You're on <strong>Diagnostics</strong>. Display sensor health, error codes, and recent logs.</p>
+        </article>
+        <article id="panel-help" role="tabpanel" aria-labelledby="tab-help-label" class="panel">
+          <h2>Help</h2>
+          <p>This is the <strong>Help</strong> tab. Add quick tips, manuals, and troubleshooting steps.</p>
+        </article>
+      </section>
+    </main>
+  </section>
+</body>
+</html>

@@ -78,6 +78,7 @@
   <strong>Sections:</strong>
   <a href="#mph-fpm">MPH ↔ FPM Conversion</a>
   <a href="#ma-conversion">4–20 mA Conversion</a>
+  <a href="#hex-decimal">Hex ↔ Decimal Conversion</a>
 </div>
 
 <!-- MPH ↔ FPM Section -->
@@ -143,6 +144,23 @@
     <button onclick="convert()">Convert</button>
 
     <div id="result-ma"></div>
+  </div>
+</div>
+
+
+<!-- Hex ↔ Decimal Section -->
+<button class="collapsible" id="hex-decimal">Hex ↔ Decimal Conversion</button>
+<div class="content">
+  <div class="converter">
+    <label for="hexInput">Hex Value:</label>
+    <input type="text" id="hexInput" placeholder="e.g. 1A or 0x1A">
+    <button onclick="convertHexToDec()">Convert Hex → Dec</button>
+    <p id="result-hex"></p>
+
+    <label for="decInput">Decimal Value:</label>
+    <input type="number" id="decInput" placeholder="e.g. 26">
+    <button onclick="convertDecToHex()">Convert Dec → Hex</button>
+    <p id="result-dec"></p>
   </div>
 </div>
 
@@ -237,6 +255,36 @@
       document.getElementById('result-ma').textContent = `Result: ${ma.toFixed(2)} mA`;
     }
   }
+
+  // Hex ↔ Decimal
+  function convertHexToDec() {
+    const raw = document.getElementById('hexInput').value.trim();
+    if (!raw) {
+      document.getElementById('result-hex').textContent = "Enter a hexadecimal value.";
+      return;
+    }
+    let hex = raw;
+    if (hex.startsWith('0x') || hex.startsWith('0X')) {
+      hex = hex.slice(2);
+    }
+    if (/^[0-9a-fA-F]+$/.test(hex)) {
+      const dec = parseInt(hex, 16);
+      document.getElementById('result-hex').textContent = `${raw} (hex) = ${dec} (decimal)`;
+    } else {
+      document.getElementById('result-hex').textContent = "Enter a valid hexadecimal value (0-9, A-F).";
+    }
+  }
+
+  function convertDecToHex() {
+    const dec = parseInt(document.getElementById('decInput').value, 10);
+    if (isNaN(dec)) {
+      document.getElementById('result-dec').textContent = "Enter a valid decimal number.";
+      return;
+    }
+    const hex = dec.toString(16).toUpperCase();
+    document.getElementById('result-dec').textContent = `${dec} (decimal) = 0x${hex} (hex)`;
+  }
+
 </script>
 
 </body>
