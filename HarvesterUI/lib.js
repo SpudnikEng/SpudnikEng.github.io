@@ -719,3 +719,16 @@ function handleSyncRelease(id, arrowDirection){
     }
   }
 }
+
+// Overlay button click handler
+(function() {
+  try {
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.classList && e.target.classList.contains('overlay-button')) {
+        console.log('Overlay button clicked:', e.target.textContent.trim());
+      }
+    });
+  } catch (err) {
+    console.warn('Overlay button handler init failed:', err);
+  }
+})();

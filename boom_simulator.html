@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Boom Simulator — Gamepad + IK</title>
+  <style>
+    html, body { height: 100%; margin: 0; background:#0f1115; color:#e8eaed; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+    #hud { position: fixed; top: 10px; left: 10px; right: 10px; display:flex; gap:12px; flex-wrap:wrap; align-items:center }
+    .card { background:#12151c; border:1px solid #2a2f3a; border-radius:14px; padding:10px 12px; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+    label { font-size: 12px; opacity:.9; }
+    input[type=range] { width:220px }
+    kbd { background:#22273a; border:1px solid #3a4157; border-radius:6px; padding:2px 6px; font-size:12px }
+    #status { font-size: 12px; opacity:.8 }
+    #canvas { width:100%; height:100%; display:block }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="hud" class="row">
+    <div class="card">
+      <div style="font-weight:600; margin-bottom:6px">Controls</div>
+      <div style="font-size:13px; line-height:1.6">
+        <div><b>Keyboard</b>: <kbd>A</kbd>/<kbd>D</kbd> yaw • <kbd>W</kbd>/<kbd>S</kbd> height • <kbd>J</kbd>/<kbd>L</kbd> distance • <kbd>R</kbd> reset</div>
+      </div>
+      <div id="status" class="mono">Live State below</div>
+    </div>
+
+    <div class="card row">
+      <label>Target Height H (in)</label>
+      <input id="hSlider" type="range" min="20" max="200" step="1" />
+      <span id="hVal" class="mono"></span>
+    </div>
+
+    <div class="card row">
+      <label>Forward Distance D (in)</label>
+      <input id="dSlider" type="range" min="40" max="180" step="1" />
+      <input id="dInput" type="number" min="1" max="300" step="1" style="width:90px; margin-left:6px; background:#0f1115; color:#e8eaed; border:1px solid #2a2f3a; border-radius:8px; padding:4px 6px" />
+      <span id="dVal" class="mono"></span>
+    </div>
+
+    <div class="card row">
+      <label>Telescoping Max (+in)</label>
+      <input id="telSlider" type="range" min="0" max="24" step="1" />
+      <span id="telVal" class="mono"></span>
+    </div>
+
+    <div class="card row">
+      <label>Yaw Sensitivity</label>
+      <input id="yawSlider" type="range" min="0.2" max="2.5" step="0.1" />
+      <span id="yawVal" class="mono"></span>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:600; margin-bottom:6px">Live State</div>
+      <div class="mono" id="live"></div>
+    </div>
+  </div>
+
+  <script>
+    // ====== Setup ======
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    function resize(){
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth*dpr;
+      canvas.height = window.innerHeight*dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    window.addEventListener('resize',resize);resize();
+
+    // Geometry (inches)
+    const L1=48, L2_BASE=42; let T_MAX=24;           // 4ft, 3.5ft, telescope 0..2ft
+    const TH1_MIN=-20*Math.PI/180,TH1_MAX=20*Math.PI/180; // inner: +/-20 deg
+    const TH2_MIN=0,TH2_MAX=20*Math.PI/180;               // outer: 0..20 deg DOWN relative to inner
+    const YAW_MAX=20*Math.PI/180;                          // base yaw +/-20 deg
+    const BASE_Z = 96; // 8 ft base shoulder height (in)
+
+    // State
+    let targetH=72,targetD=120,yaw=0; let yawSensitivity=1.0;
+
+    // Drawing helpers need these each frame
+    let scaleGlobal=1,baseX2Global=0,baseY2Global=0;
+
+    // ====== IK: 2-link with yaw-coupled telescope keeping height fixed ======
+    function solveIK(D,H){
+      // H is relative to base joint (we pass targetH - BASE_Z from draw)
+      const r=Math.hypot(D,H);
+      let s=Math.min(Math.max(r-L1,0),T_MAX+L2_BASE)+L2_BASE;
+      s=Math.max(L2_BASE,Math.min(L2_BASE+T_MAX,s));
+      const cosTh2=(L1*L1+s*s-r*r)/(2*L1*s);
+      let th2=Math.acos(Math.min(1,Math.max(-1,cosTh2))); // elbow (0=straight)
+      th2=Math.min(Math.max(th2,TH2_MIN),TH2_MAX);
+      const phi=Math.atan2(H,D);
+      const k1=L1 + s*Math.cos(th2);
+      const k2=      s*Math.sin(th2);
+      // outer absolute is (th1 - th2)
+      let th1 = phi + Math.atan2(k2, k1);
+      th1=Math.min(Math.max(th1,TH1_MIN),TH1_MAX);
+
+      // Force plan radial so tip stays on x=D as yaw changes
+      const Rtarget = D/Math.max(0.001, Math.cos(yaw));
+      let s_yaw = (Rtarget - L1*Math.cos(th1)) / Math.max(0.001, Math.cos(th1 - th2));
+      s_yaw = Math.max(L2_BASE, Math.min(L2_BASE+T_MAX, s_yaw));
+
+      // Re-adjust th1 to keep height H with s fixed
+      for (let i=0;i<6;i++){
+        const z  = L1*Math.sin(th1) + s_yaw*Math.sin(th1 - th2);
+        const dz = L1*Math.cos(th1) + s_yaw*Math.cos(th1 - th2);
+        const err = H - z;
+        th1 += (dz!==0 ? err/dz : 0);
+        if (th1 < TH1_MIN) th1 = TH1_MIN; if (th1 > TH1_MAX) th1 = TH1_MAX;
+        if (Math.abs(err) < 1e-3) break;
+      }
+      s = s_yaw;
+
+      const tipX = L1*Math.cos(th1) + s*Math.cos(th1 - th2);
+      const tipZ = L1*Math.sin(th1) + s*Math.sin(th1 - th2);
+      return {th1,th2,s,tipX,tipZ};
+    }
+
+    // ====== HUD / Controls ======
+    const hSlider=document.getElementById('hSlider');
+    const dSlider=document.getElementById('dSlider');
+    const dInput=document.getElementById('dInput');
+    const telSlider=document.getElementById('telSlider');
+    const yawSlider=document.getElementById('yawSlider');
+    const hVal=document.getElementById('hVal');
+    const dVal=document.getElementById('dVal');
+    const telVal=document.getElementById('telVal');
+    const yawVal=document.getElementById('yawVal');
+    const live=document.getElementById('live');
+
+    function initUI(){
+      hSlider.value=targetH; dSlider.value=targetD; dInput.value=targetD; telSlider.value=T_MAX; yawSlider.value=yawSensitivity;
+      hVal.textContent=targetH.toFixed(0)+' in'; dVal.textContent=targetD.toFixed(0)+' in'; telVal.textContent='+'+T_MAX.toFixed(0)+' in'; yawVal.textContent=yawSensitivity.toFixed(1);
+      hSlider.oninput=()=>{targetH=+hSlider.value; hVal.textContent=targetH.toFixed(0)+' in';};
+      dSlider.oninput=()=>{targetD=+dSlider.value; dInput.value=targetD; dVal.textContent=targetD.toFixed(0)+' in';};
+      dInput.oninput=()=>{const v=+dInput.value; if(!Number.isNaN(v)){ targetD=v; dSlider.value=targetD; dVal.textContent=targetD.toFixed(0)+' in'; }};
+      telSlider.oninput=()=>{T_MAX=+telSlider.value; telVal.textContent='+'+T_MAX.toFixed(0)+' in';};
+      yawSlider.oninput=()=>{yawSensitivity=+yawSlider.value; yawVal.textContent=yawSensitivity.toFixed(1);};
+    }
+    initUI();
+
+    // Keyboard fallback + input handling (single definitions)
+    const keys=new Set();
+    window.addEventListener('keydown',e=>keys.add(e.key.toLowerCase()));
+    window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
+    function applyInputs(dt){
+      let yawCmd=0; if(keys.has('a')) yawCmd-=1; if(keys.has('d')) yawCmd+=1; yaw+=yawCmd*dt*1.5*yawSensitivity; if(yaw>YAW_MAX) yaw=YAW_MAX; if(yaw<-YAW_MAX) yaw=-YAW_MAX;
+      let hCmd=0; if(keys.has('w')) hCmd+=1; if(keys.has('s')) hCmd-=1; targetH+=hCmd*dt*24; targetH=Math.max(20,Math.min(200,targetH));
+      if(keys.has('j')) targetD-=40*dt; if(keys.has('l')) targetD+=40*dt; targetD=Math.max(40,Math.min(300,targetD));
+      if(keys.has('r')) { yaw=0; targetH=72; targetD=120; }
+      if(!hSlider.matches(':active')) { hSlider.value=targetH; hVal.textContent=targetH.toFixed(0)+' in'; }
+      if(!dSlider.matches(':active')) { dSlider.value=targetD; dInput.value=targetD; dVal.textContent=targetD.toFixed(0)+' in'; }
+      if(!telSlider.matches(':active')) { telSlider.value=T_MAX; telVal.textContent='+'+T_MAX.toFixed(0)+' in'; }
+      if(!yawSlider.matches(':active')) { yawSlider.value=yawSensitivity; yawVal.textContent=yawSensitivity.toFixed(1); }
+    }
+
+    // ====== Draw helpers ======
+    function drawLink(bx,by,A,B,color){
+      ctx.strokeStyle=color;ctx.lineWidth=6;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(bx+A.x*scaleGlobal,by-A.z*scaleGlobal);
+      ctx.lineTo(bx+B.x*scaleGlobal,by-B.z*scaleGlobal);ctx.stroke();
+    }
+    function drawDot(bx,by,P,r,color){
+      ctx.fillStyle=color;ctx.beginPath();ctx.arc(bx+P.x*scaleGlobal,by-P.z*scaleGlobal,r,0,Math.PI*2);ctx.fill();
+    }
+    function drawTopDot(x,y,r){ctx.fillStyle='#22c55e';ctx.beginPath();ctx.arc(baseX2Global+x*scaleGlobal,baseY2Global+y*scaleGlobal,r,0,Math.PI*2);ctx.fill();}
+    function drawGrid(baseX,baseY,scale){
+      ctx.save();ctx.translate(baseX,baseY);ctx.strokeStyle='#1b2030';ctx.lineWidth=1;
+      const step=12*scale,extent=800;
+      for(let x=-extent;x<=extent;x+=step){ctx.beginPath();ctx.moveTo(x,-extent);ctx.lineTo(x,extent);ctx.stroke();}
+      for(let y=-extent;y<=extent;y+=step){ctx.beginPath();ctx.moveTo(-extent,y);ctx.lineTo(extent,y);ctx.stroke();}
+      ctx.strokeStyle='#2f3548';ctx.beginPath();ctx.moveTo(-extent,0);ctx.lineTo(extent,0);ctx.stroke();ctx.beginPath();ctx.moveTo(0,-extent);ctx.lineTo(0,extent);ctx.stroke();ctx.restore();
+    }
+
+    // ====== Render ======
+    function drawScene(){
+      const state=solveIK(targetD, targetH - BASE_Z);
+      const {th1,th2,s,tipX,tipZ}=state;
+      const W=window.innerWidth,H=window.innerHeight;
+      ctx.clearRect(0,0,W,H);
+      const scale=2.6,baseX1=W*0.28,baseY1=H*0.75,baseX2=W*0.72,baseY2=H*0.75;
+      scaleGlobal=scale;baseX2Global=baseX2;baseY2Global=baseY2;
+
+      // ---- Side view (z up, x forward)
+      drawGrid(baseX1,baseY1,scale);
+      const p0={x:0,z:BASE_Z};
+      const p1={x:L1*Math.cos(th1), z:BASE_Z + L1*Math.sin(th1)};
+      const p2_base={x:L1*Math.cos(th1)+L2_BASE*Math.cos(th1 - th2), z:BASE_Z + L1*Math.sin(th1)+L2_BASE*Math.sin(th1 - th2)};
+      const p2_tip={x:L1*Math.cos(th1)+s*Math.cos(th1 - th2), z:BASE_Z + L1*Math.sin(th1)+s*Math.sin(th1 - th2)};
+      drawLink(baseX1,baseY1,p0,p1,'#cbd5e1');          // inner
+      drawLink(baseX1,baseY1,p1,p2_base,'#93c5fd');     // outer base
+      drawLink(baseX1,baseY1,p2_base,p2_tip,'#10b981'); // telescope
+      drawDot(baseX1,baseY1,p0,6,'#eab308');
+      drawDot(baseX1,baseY1,p1,5,'#38bdf8');
+      drawDot(baseX1,baseY1,p2_tip,5,'#22c55e');
+
+      // ---- Top view (x forward, y lateral). Tip must lie on x=D (vertical world line)
+      drawGrid(baseX2,baseY2,scale);
+      ctx.save();ctx.translate(baseX2,baseY2);
+      // Straight-line target at x=D
+      ctx.strokeStyle='#3a86ff55';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(targetD*scale,-1000);ctx.lineTo(targetD*scale,1000);ctx.stroke();
+      // Projected plan lengths using final th1, th2, s
+      const L1p=L1*Math.cos(th1);
+      const L2p_base=L2_BASE*Math.cos(th1 - th2);
+      const L2p_tel = Math.max(0, (s - L2_BASE)) * Math.cos(th1 - th2);
+      const R = L1p + L2p_base + L2p_tel; // should equal D/cos(yaw)
+      // Draw along yaw axis
+      ctx.save();ctx.rotate(yaw);
+      ctx.strokeStyle='#cbd5e1';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(L1p*scale,0);ctx.stroke();
+      ctx.strokeStyle='#93c5fd';ctx.beginPath();ctx.moveTo(L1p*scale,0);ctx.lineTo((L1p+L2p_base)*scale,0);ctx.stroke();
+      if(L2p_tel>0){ctx.strokeStyle='#10b981';ctx.beginPath();ctx.moveTo((L1p+L2p_base)*scale,0);ctx.lineTo((L1p+L2p_base+L2p_tel)*scale,0);ctx.stroke();}
+      // tip in rotated frame
+      ctx.fillStyle='#22c55e';ctx.beginPath();ctx.arc(R*scale,0,5,0,Math.PI*2);ctx.fill();
+      ctx.restore();
+      // tip in world coords at (D, D*tan(yaw))
+      const lat=Math.tan(yaw)*targetD;ctx.fillStyle='#22c55e';ctx.beginPath();ctx.arc(targetD*scale,lat*scale,4,0,Math.PI*2);ctx.fill();
+      ctx.restore();
+
+      // Live text
+      live.innerText=[
+        'yaw='+(yaw*180/Math.PI).toFixed(1)+' deg',
+        'theta1='+(th1*180/Math.PI).toFixed(1)+' deg',
+        'theta2='+(th2*180/Math.PI).toFixed(1)+' deg (down rel. inner)',
+        'L2 eff='+s.toFixed(1)+' in',
+        'tip x='+tipX.toFixed(1)+' in, z='+(BASE_Z + (tipZ)).toFixed(1)+' in'
+      ].join('  ');
+    }
+
+    // ====== Main loop (no duplicate declarations) ======
+    let last=performance.now();
+    function loop(ts){
+      const dt=Math.min(0.05,(ts-last)/1000); last=ts;
+      applyInputs(dt);
+      drawScene();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>

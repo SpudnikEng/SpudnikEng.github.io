@@ -1214,3 +1214,37 @@ th, .largeFont {
 	border: 1px solid silver;
   	padding: 4px;
   }
+
+/* === Overlay buttons on 7040TopView image === */
+.image-button-container {
+  position: relative;
+  display: inline-block;
+}
+.top-view-image {
+  display: block;
+  width: 1086px;
+  height: auto;
+  padding-top: 60px;
+}
+.overlay-button {
+  position: absolute;
+  transform: translateX(-50%);
+  background-color: #666666;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.overlay-button:hover {
+  background-color: #4D9920;
+}
+.top-button {
+  top: 20px;
+}
+.bottom-button {
+  bottom: 20px;
+}
+/* === end overlay buttons === */

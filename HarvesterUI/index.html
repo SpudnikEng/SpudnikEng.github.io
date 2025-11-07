@@ -13,11 +13,8 @@
 	<div class="container">
 		<div class="master">
 			<img id="logo-spudnik" src="./icons/SpudnikLogo.svg" alt="SPUDNIK">
-			<button id="btn-diagnostics" onclick="togglePage('diagnostics')"
-				class="b-diagnostics pri-button pri icon-lg"></button>
-			<button id="btn-global-settings" onclick="togglePage('global-settings')"
-				class="b-settings pri-button pri icon-lg"></button>
-			<button onclick="changeColorTimed(this)" class="b-rowStart pri-button pri icon">Start Row</button>
+			
+			<button style="margin-left: 540px;" onclick="changeColorTimed(this)" class="b-rowStart pri-button pri icon">Start Row</button>
 			<button onclick="changeColorTimed(this)" class="b-rowEnd pri-button pri icon">End Row</button>
 			<button id="run-button" onclick="toggleRUN()" class="b-run pri-button pri-em"><img src="./icons/RUN_Sm.png"
 					alt="RUN" style="margin-top: 8px;"></button>
@@ -40,8 +37,20 @@
 
       <section class="panels">
         <article id="panel-controls" role="tabpanel" aria-labelledby="tab-controls-label" class="panel">
-          <p><img src="./icons/6844Harvester.png" style="width: 1086px;height: fit-content;padding-top: 60px;"></p>
-        </article>
+  <div class="image-button-container">
+    <img src="./icons/7040TopView.png" alt="Top View" class="top-view-image">
+    <!-- Top buttons -->
+    <button class="overlay-button top-button" style="left: 5%;">Fill Elevator</button>
+    <button class="overlay-button top-button" style="left: 30%;">Depth Wheels</button>
+    <button class="overlay-button top-button" style="left: 55%;">Coulters</button>
+    <button class="overlay-button top-button" style="left: 80%;">Digger Blade</button>
+    <!-- Bottom buttons -->
+    <button class="overlay-button bottom-button" style="left: 5%;">Fan Speed</button>
+    <button class="overlay-button bottom-button" style="left: 30%;">MultiSep</button>
+    <button class="overlay-button bottom-button" style="left: 55%;">Boom/Hopper</button>
+    <button class="overlay-button bottom-button" style="left: 80%;">Hump/Shakers</button>
+  </div>
+</article>
         <article id="panel-chains" role="tabpanel" aria-labelledby="tab-chains-label" class="panel">
           <div class="controlL1 cell-padding-small" id="chainsCtrl">
 					<table>
