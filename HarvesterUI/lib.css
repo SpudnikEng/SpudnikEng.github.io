@@ -539,11 +539,11 @@ meter::-webkit-meter-bar {
     max-width: 155px;
     width: 155px;
 }
-.b-rowStart {
-	background-image: url('./icons/rowStart_16_lt.png');
+.b-start {
+	background-image: url('./icons/play_arrow_24_FFFFFF.png');
 }
-.b-rowEnd {
-	background-image: url('./icons/rowEnd_16_lt.png');
+.b-end {
+	background-image: url('./icons/stop_24_FFFFFF.png');
 }
 .b-settings {
 	background-image: url('./icons/settings_16_lt.png');
@@ -1002,7 +1002,7 @@ th, .largeFont {
 }
 
 .chains-row-padding {
-	padding: 23px 0;
+	padding: 16px 0;
 }
 
 #chainsCtrl table, #tableCtrl table {
@@ -1229,14 +1229,17 @@ th, .largeFont {
 .overlay-button {
   position: absolute;
   transform: translateX(-50%);
-  background-color: #666666;
-  color: #FFFFFF;
+  background-color: whitesmoke;
+  color: black;
+  font-weight: bold;
   border: none;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 10px 10px;
   cursor: pointer;
   font-size: 16px;
   white-space: nowrap;
+  width: 130px;
+  height: 90px;
 }
 .overlay-button:hover {
   background-color: #4D9920;
@@ -1247,4 +1250,110 @@ th, .largeFont {
 .bottom-button {
   bottom: 20px;
 }
+
+/* === Image toggle button (bottom-right) === */
+.image-toggle-btn{
+  position: absolute;
+  right: 0px;
+  bottom: 20px;
+  background-color: #666666;
+  color: #FFFFFF;
+  border: 1px solid black;
+  border-radius: 22px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+}
+.image-toggle-btn:hover{
+  background-color: #4D9920;
+}
+.btn-info {
+	background-color: lightgray;
+	font-weight: normal;
+	padding: 4px;
+}
+#header-sn{
+	float: left;
+    font-size: 24px;
+    font-weight: bold;
+    width: 160px;
+    text-align: center;
+	padding: 12px 0;
+}
+#header-version{
+	font-size: 12px;
+	font-weight: normal;
+}
+/* === end image toggle button === */
 /* === end overlay buttons === */
+
+
+/* === Tab label typography & icon === */
+.tab {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700; /* bold */
+  gap: 6px;
+}
+.tab .tab-text {
+  display: block;
+  line-height: 1.1;
+}
+.tab .tab-icon {
+  width: 28px;
+  height: 28px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* === Modal window === */
+.ui-modal[aria-hidden="true"] { display: none; }
+.ui-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+.ui-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+.ui-modal__dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: min(720px, 90vw);
+  background: #2e2e2e;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  padding: 20px 24px 24px;
+}
+.ui-modal__title {
+  margin: 0 32px 8px 0;
+  font-size: 20px;
+  font-weight: 800;
+}
+.ui-modal__content {
+  font-size: 15px;
+  color: #e5e5e5;
+}
+.ui-modal__close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 0;
+  background: #555;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.ui-modal__close:hover { background: #4D9920; }

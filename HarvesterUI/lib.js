@@ -732,3 +732,124 @@ function handleSyncRelease(id, arrowDirection){
     console.warn('Overlay button handler init failed:', err);
   }
 })();
+
+// === Image cycle logic for top-view image ===
+(function(){
+  try{
+    const imgEl = document.querySelector('.top-view-image');
+    const btn = document.querySelector('.image-toggle-btn');
+    if(!imgEl || !btn) return;
+    // Define the views to cycle through. First item must match the initial src.
+    const views = [
+      { src: './icons/7040FrontAndSide.png', label: '7040', sn: '7040-55-27' },
+      { src: './icons/6844OffsetSideViewTransparentBackgroundSm.png', label: '6844', sn: '6844-55-31' },
+      { src: './icons/BBL-1000_FRONT-RH.png', label: 'BBL-1000', sn: 'BBL-1000-29' },
+      { src: './icons/CEL-1000_FRONT-RH.png', label: 'CEL-1000', sn: 'CEL-1000-27' },
+      { src: './icons/6180_right_front.png', label: '6180', sn: '6180-55-40' }
+    ];
+    // Start from the index of the current image, fallback to 0
+    let idx = Math.max(0, views.findIndex(v => imgEl.src.endsWith(v.src.replace('./',''))));
+    // Update button label initially to hint next view
+    const updateButtonLabel = () => {
+      const nextIdx = (idx + 1) % views.length;
+      btn.textContent = 'View: ' + views[nextIdx].label;
+      btn.setAttribute('title', 'Switch to ' + views[nextIdx].label + ' view');
+      document.querySelector('#header-sn span').innerText = views[idx].sn;
+    };
+    updateButtonLabel();
+    btn.addEventListener('click', () => {
+      idx = (idx + 1) % views.length;
+      imgEl.src = views[idx].src;
+      imgEl.alt = views[idx].label + ' View';
+      updateButtonLabel();
+    });
+  }catch(err){
+    console.warn('Image toggle init failed:', err);
+  }
+})();
+// === end image cycle logic ===
+
+
+// === Modal: open on overlay-button clicks ===
+document.addEventListener('DOMContentLoaded', function(){
+  try {
+    const modal = document.getElementById('ui-modal');
+    if (!modal) return;
+    const backdrop = modal.querySelector('.ui-modal__backdrop');
+    const closeBtn = modal.querySelector('.ui-modal__close');
+    const titleEl = modal.querySelector('#ui-modal-title');
+
+    function openModal(titleText){
+      if (titleEl) titleEl.textContent = titleText || 'Selection';
+      modal.setAttribute('aria-hidden', 'false');
+      closeBtn && closeBtn.focus();
+      document.addEventListener('keydown', onKey);
+    }
+    function closeModal(){
+      modal.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e){
+      if (e.key === 'Escape') closeModal();
+    }
+
+    [backdrop, closeBtn].forEach(el => el && el.addEventListener('click', (e)=>{
+      if (e.currentTarget.dataset.close !== undefined) closeModal();
+    }));
+
+    
+    document.addEventListener('click', function(e){
+      const btn = e.target.closest && e.target.closest('.overlay-button');
+      if (!btn) return;
+
+      const label = (btn.firstChild && btn.firstChild.nodeType === Node.TEXT_NODE ? btn.firstChild.nodeValue : btn.textContent)
+        .trim().split('\\n')[0] || 'Selection';
+
+      const infoEl = btn.querySelector('.btn-info');
+      const info = infoEl ? infoEl.textContent.trim() : '';
+
+      const contentMap = {
+        'Fan': '<p>The <strong>Fan</strong> controls airflow to aid cleaning.</p>',
+        'MultiSep': '<p><strong>MultiSep</strong> separates soil / clods.</p>',
+        'Shakers': `<p><strong>Shakers</strong> assist soil removal. Current: <em>${info || '—'}</em>.</p>
+                    <ul><li>Increase on heavy soil.</li><li>Decrease to protect tubers.</li></ul>`,
+        'Boom/Hopper': `<p><strong>Boom/Hopper</strong> controls discharge and conveyor. Current: <em>${info || '—'}</em>.</p>
+                        <ul><li>Match truck speed to fpm.</li><li>Avoid overfilling the pile.</li></ul>`,
+        'Hump': `<p><strong>Hump</strong> lifts crop to clear debris. Current: <em>${info || '—'}</em>.</p>
+                 <ul><li>Use sparingly to protect skins.</li></ul>`,
+        'Depth Wheels': `<p><strong>Depth Wheels</strong> set dig depth. Current: <em>${info || '—'}</em>.</p>
+                         <ul><li>Keep blade just below stolons.</li></ul>`,
+        'Coulters': '<div class="hide ter syncBars" id="syncBarTop"></div><div class="hide ter syncBars" id="syncBarBottom"></div><table>'+
+          '<tbody><tr><td><h4>Left</h4><button class="arrowUp ter-button ter icon-lg" id="coulterLeftUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>'+
+          '<button class="arrowDown ter-button ter icon-lg" id="coulterLeftDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>'+
+          '</td><td><button class="b-link ter-button ter icon" id="coulterSync" onclick="toggleButtonState(this)" style="margin-top: 23px;">Sync</button><br/></td><td><h4>Right</h4>'+
+          '<button class="arrowUp ter-button ter icon-lg" id="coulterRightUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>'+
+          '<button class="arrowDown ter-button ter icon-lg" id="coulterRightDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>'+
+          '</td></tr></tbody></table>',
+        'Digger Blade': `<p><strong>Digger Blade</strong> angle/height affects intake. Current: <em>${info || '—'}</em>.</p>
+                         <ul><li>Raise slightly in rocky patches.</li></ul>`
+      };
+
+      const fallback = `<p>This is placeholder text for <strong>${label}</strong>. Current setting: <em>${info || '—'}</em>.</p>
+                        <p>Add troubleshooting steps or quick actions here.</p>`;
+
+      const contentHTML = contentMap[label] || fallback;
+
+      const modal = document.getElementById('ui-modal');
+      if (!modal) return;
+      const contentEl = modal.querySelector('.ui-modal__content');
+      const titleEl = modal.querySelector('#ui-modal-title');
+      if (titleEl) titleEl.textContent = label;
+      if (contentEl) contentEl.innerHTML = contentHTML;
+
+      modal.setAttribute('aria-hidden', 'false');
+      const closeBtn = modal.querySelector('.ui-modal__close');
+      if (closeBtn) closeBtn.focus();
+      function escClose(ev){ if (ev.key==='Escape'){ modal.setAttribute('aria-hidden','true'); document.removeEventListener('keydown', escClose); } }
+      document.addEventListener('keydown', escClose);
+    });
+    } catch(err){
+    console.warn('Modal init failed:', err);
+  }
+});
+// === end modal ===
