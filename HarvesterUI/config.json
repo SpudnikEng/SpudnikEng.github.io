@@ -1,0 +1,237 @@
+{
+    "model": "7040",
+    "version": "2.08",
+    "serialNumber": "7040-55-27",
+    "theme": "default",
+    "tabs": [
+        {
+            "id": "controls",
+            "label": "Home",
+            "icon": "./icons/home_16dp_lt.png",
+            "layout": "custom-home",
+            "backgroundImage": "./icons/7040FrontAndSide.png",
+            "components": []
+        },
+        {
+            "id": "chains",
+            "label": "Chains",
+            "icon": "./icons/auto_16_lt.png",
+            "layout": "list",
+            "components": [
+                {
+                    "type": "Header",
+                    "label": "Chains",
+                    "actions": [
+                        {
+                            "label": "Ground Speed",
+                            "action": "setMode",
+                            "value": "ground",
+                            "activeClass": "groundMode"
+                        },
+                        {
+                            "label": "Fixed Speed",
+                            "action": "setMode",
+                            "value": "fixed",
+                            "activeClass": "fixedMode",
+                            "default": true
+                        }
+                    ]
+                },
+                {
+                    "type": "ChainControl",
+                    "id": "intake",
+                    "label": "Intake:",
+                    "bindings": {
+                        "setpoint": "chainIntSP",
+                        "actual": "chainIntActual",
+                        "pressure": "chainIntPSI",
+                        "fwdCmd": "intakeFwd",
+                        "revCmd": "intakeRev"
+                    },
+                    "defaults": {
+                        "fixed": 220,
+                        "ground": 110
+                    }
+                },
+                {
+                    "type": "ChainControl",
+                    "id": "primary",
+                    "label": "Primary:",
+                    "bindings": {
+                        "setpoint": "chainPriSP",
+                        "actual": "chainPriActual",
+                        "pressure": "chainPriPSI",
+                        "fwdCmd": "primaryFwd",
+                        "revCmd": "primaryRev"
+                    },
+                    "defaults": {
+                        "fixed": 225,
+                        "ground": 115
+                    }
+                },
+                {
+                    "type": "ChainControl",
+                    "id": "vine",
+                    "label": "Secondary/Vine:",
+                    "bindings": {
+                        "setpoint": "chainVineSP",
+                        "actual": "chainVineActual",
+                        "pressure": "chainVinePSI",
+                        "fwdCmd": "vineFwd",
+                        "revCmd": "vineRev"
+                    },
+                    "defaults": {
+                        "fixed": 235,
+                        "ground": 125
+                    }
+                },
+                {
+                    "type": "RollerControl",
+                    "id": "segment",
+                    "label": "Segment Rollers:",
+                    "bindings": {
+                        "setpoint": "chainSegmentSP",
+                        "actual": "chainSegmentActual",
+                        "pressure": "chainSegmentPSI",
+                        "fwdCmd": "segmentFwd",
+                        "revCmd": "segmentRev"
+                    },
+                    "defaults": {
+                        "fixed": 240
+                    }
+                },
+                {
+                    "type": "RollerControl",
+                    "id": "clod",
+                    "label": "Clod Rollers:",
+                    "bindings": {
+                        "setpoint": "chainClodSP",
+                        "actual": "chainClodActual",
+                        "pressure": "chainClodPSI",
+                        "fwdCmd": "clodFwd",
+                        "revCmd": "clodRev"
+                    },
+                    "defaults": {
+                        "fixed": 240
+                    }
+                },
+                {
+                    "type": "RollerControl",
+                    "id": "transfer",
+                    "label": "Transfer Rollers:",
+                    "bindings": {
+                        "setpoint": "chainTransferSP",
+                        "actual": "chainTransferActual",
+                        "pressure": "chainTransferPSI",
+                        "fwdCmd": "spreaderFwd",
+                        "revCmd": "spreaderRev"
+                    },
+                    "defaults": {
+                        "fixed": 230
+                    }
+                },
+                {
+                    "type": "ChainControl",
+                    "id": "rearcross",
+                    "label": "Rear Cross:",
+                    "bindings": {
+                        "setpoint": "chainRearCrossSP",
+                        "actual": "chainRearCrossActual",
+                        "pressure": "chainRearCrossPSI",
+                        "fwdCmd": "rearcrossFwd",
+                        "revCmd": "rearcrossRev"
+                    },
+                    "defaults": {
+                        "fixed": 245,
+                        "ground": 135
+                    }
+                },
+                {
+                    "type": "ChainControl",
+                    "id": "sideelev",
+                    "label": "Side Elev:",
+                    "bindings": {
+                        "setpoint": "chainSideElevSP",
+                        "actual": "chainSideElevActual",
+                        "pressure": "chainSideElevPSI",
+                        "fwdCmd": "sideelevatorFwd",
+                        "revCmd": "sideelevatorRev"
+                    },
+                    "defaults": {
+                        "fixed": 250,
+                        "ground": 140
+                    }
+                },
+                {
+                    "type": "ChainControl",
+                    "id": "piler",
+                    "label": "Fill Elevator:",
+                    "bindings": {
+                        "setpoint": "chainPilerSP",
+                        "actual": "chainPilerActual",
+                        "pressure": "chainPilerPSI",
+                        "fwdCmd": "pilerFwd",
+                        "revCmd": "pilerRev"
+                    },
+                    "defaults": {
+                        "fixed": 255,
+                        "ground": 145
+                    }
+                },
+                {
+                    "type": "Group",
+                    "layout": "horizontal",
+                    "components": [
+                        {
+                            "type": "ShakerControl",
+                            "id": "primaryShaker",
+                            "label": "Primary Shakers",
+                            "bindings": {
+                                "setpoint": "primaryShaker",
+                                "autoCmd": "priShakerAuto",
+                                "manualCmd": "priShakerManual"
+                            },
+                            "defaults": {
+                                "value": 45
+                            }
+                        },
+                        {
+                            "type": "ShakerControl",
+                            "id": "secondaryShaker",
+                            "label": "Secondary Shakers",
+                            "bindings": {
+                                "setpoint": "secondaryShaker",
+                                "autoCmd": "secShakerAuto",
+                                "manualCmd": "secShakerManual"
+                            },
+                            "defaults": {
+                                "value": 45
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "settings",
+            "label": "Settings",
+            "icon": "./icons/settings_16_lt.png",
+            "layout": "placeholder",
+            "components": []
+        },
+        {
+            "id": "diagnostics",
+            "label": "Diagnostics",
+            "icon": "./icons/troubleshoot_16_lt.png",
+            "layout": "placeholder",
+            "components": []
+        },
+        {
+            "id": "help",
+            "label": "Help",
+            "icon": "./icons/help_16dp_lt.png",
+            "layout": "placeholder",
+            "components": []
+        }
+    ]
+}

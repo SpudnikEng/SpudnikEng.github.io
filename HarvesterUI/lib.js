@@ -72,28 +72,28 @@ function bumpInpSetpoint(id, inc) {
   if (isNaN(currentValue)) {
     //do nothing
   } else {
-    if(inc < 0) {
-      currentValue = Math.max(currentValue+inc, 0);	//clamp to min 0
+    if (inc < 0) {
+      currentValue = Math.max(currentValue + inc, 0);	//clamp to min 0
     } else {
-      currentValue = Math.min(currentValue+inc, 100);	//clamp to max 100
+      currentValue = Math.min(currentValue + inc, 100);	//clamp to max 100
     }
     document.getElementById(id).value = currentValue;
   }
 }
 
 function bumpDatapoint(id, inc, attr) {
-  const barContainer = document.getElementById('barGraph-'+id);
+  const barContainer = document.getElementById('barGraph-' + id);
   let currentValue = parseInt(barContainer.getAttribute(attr), 10);
   if (isNaN(currentValue)) {
     //do nothing
   } else {
-	if(inc < 0) {
-		currentValue = Math.max(currentValue+inc, 0);	//clamp to min 0
-	} else {
-		currentValue = Math.min(currentValue+inc, 100);	//clamp to max 100
-	}
-	barContainer.setAttribute(attr, currentValue);
-	updateBarGraphs();
+    if (inc < 0) {
+      currentValue = Math.max(currentValue + inc, 0);	//clamp to min 0
+    } else {
+      currentValue = Math.min(currentValue + inc, 100);	//clamp to max 100
+    }
+    barContainer.setAttribute(attr, currentValue);
+    updateBarGraphs();
   }
 }
 
@@ -116,13 +116,13 @@ function setChainMode(mode) {
 
 function changeColorTimed(button) {
   const originalColor = button.style.backgroundColor;
-  if(originalColor == "#72BB53") {
-	//ignore extra click while button is active
+  if (originalColor == "#72BB53") {
+    //ignore extra click while button is active
   } else {
-	button.style.backgroundColor = "#72BB53";
-	setTimeout(() => {
-	  button.style.backgroundColor = originalColor;
-	}, 3000);
+    button.style.backgroundColor = "#72BB53";
+    setTimeout(() => {
+      button.style.backgroundColor = originalColor;
+    }, 3000);
   }
 }
 
@@ -136,7 +136,7 @@ function togglePage(id) {
     'btn-global-settings': document.getElementById('btn-global-settings')
   };
 
-  if (screenArray['btn-'+id].classList.contains("button-active")) {
+  if (screenArray['btn-' + id].classList.contains("button-active")) {
     // Deactivate button and hide diagnostics/settings screens, show control screen
     screenArray['btn-diagnostics'].classList.remove("button-active");
     screenArray['btn-global-settings'].classList.remove("button-active");
@@ -147,7 +147,7 @@ function togglePage(id) {
     // Activate button and hide diagnostics/settings/control screens, show selected screen
     screenArray['btn-diagnostics'].classList.remove("button-active");
     screenArray['btn-global-settings'].classList.remove("button-active");
-    screenArray['btn-'+id].classList.add("button-active");
+    screenArray['btn-' + id].classList.add("button-active");
     screenArray['controls'].classList.add('hide');
     screenArray['diagnostics'].classList.add('hide');
     screenArray['global-settings'].classList.add('hide');
@@ -193,29 +193,29 @@ function toggleRUN() {
 
 // LocalStorage helper functions
 const saveStatus = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(key, JSON.stringify(value));
 };
 
 const getStatus = (key) => {
-    const status = localStorage.getItem(key);
-    return status ? JSON.parse(status) : null;
+  const status = localStorage.getItem(key);
+  return status ? JSON.parse(status) : null;
 };
 
-function toggleAutoState(buttonFunction){
-	const autoState = getStatus('autoStatus');
-	autoState[buttonFunction] = !autoState[buttonFunction];
-	for (const [key, value] of Object.entries(autoState)) {
-    const buttonCollection = document.getElementsByClassName(key+'Auto');
-		Array.from(buttonCollection).forEach((button) => {
+function toggleAutoState(buttonFunction) {
+  const autoState = getStatus('autoStatus');
+  autoState[buttonFunction] = !autoState[buttonFunction];
+  for (const [key, value] of Object.entries(autoState)) {
+    const buttonCollection = document.getElementsByClassName(key + 'Auto');
+    Array.from(buttonCollection).forEach((button) => {
       console.log(value);
-			if(value){
-				button.classList.add('button-active');
-			} else {
-				button.classList.remove('button-active');
-			}
-		})
+      if (value) {
+        button.classList.add('button-active');
+      } else {
+        button.classList.remove('button-active');
+      }
+    })
   }
-	saveStatus('autoStatus', autoState);
+  saveStatus('autoStatus', autoState);
 }
 
 function toggleButtonState(button) {
@@ -320,7 +320,7 @@ function toggleControl(id) {
   hideAllControls();
   deselectControlButtons();
   document.getElementById(id).classList.add("button-active");
-  document.getElementById(id.toLowerCase().substr(3)+'Ctrl').classList.remove("hide");
+  document.getElementById(id.toLowerCase().substr(3) + 'Ctrl').classList.remove("hide");
 }
 
 function openBottomSheet(elem) {
@@ -394,16 +394,16 @@ function toggleHomeVideos(objectId) {
       break;
 
     case "videoNextView":
-		for (let i = 0; i < videoKeys.length; i++) {
-		  const current = videoElements[videoKeys[i]];
-		  const next = videoElements[videoKeys[(i + 1) % 4]]; // Next element in circular order
-		  if (!current.classList.contains(CLASS_HIDE)) {
-			current.classList.add(CLASS_HIDE);
-			next.classList.remove(CLASS_HIDE, CLASS_VIDEO_MED);
-			next.classList.add(CLASS_VIDEO_LARGE);
-			break;
-		  }
-		}
+      for (let i = 0; i < videoKeys.length; i++) {
+        const current = videoElements[videoKeys[i]];
+        const next = videoElements[videoKeys[(i + 1) % 4]]; // Next element in circular order
+        if (!current.classList.contains(CLASS_HIDE)) {
+          current.classList.add(CLASS_HIDE);
+          next.classList.remove(CLASS_HIDE, CLASS_VIDEO_MED);
+          next.classList.add(CLASS_VIDEO_LARGE);
+          break;
+        }
+      }
       break;
 
     default:
@@ -423,37 +423,37 @@ function toggleHomeVideos(objectId) {
   }
 }
 
-function getSelectedIntakePreset(){
+function getSelectedIntakePreset() {
   const buttons = ['preset1', 'preset2', 'preset3'];
   return buttons.findIndex(id => document.getElementById(id).classList.contains('button-active'));
 }
 
 function openModal(modalId) {
-  if(modalId=='saveModal'){
+  if (modalId == 'saveModal') {
     let tempVal = 0;
     const selectedPreset = getSelectedIntakePreset();
     const currPresets = getPreset(selectedPreset);
-    document.getElementById('selected-preset').innerHTML = (selectedPreset+1);
+    document.getElementById('selected-preset').innerHTML = (selectedPreset + 1);
     document.getElementById('currPresetLabel').value = currPresets.label;
     document.getElementById('currPresetLabel').style.backgroundColor = 'white';
     tempVal = document.getElementById('depthControlSP').value;
     document.getElementById('saveSp1').value = tempVal;
-    document.getElementById('saveSp1').style.backgroundColor = (currPresets.values[0] == tempVal)?'white':'yellow';
+    document.getElementById('saveSp1').style.backgroundColor = (currPresets.values[0] == tempVal) ? 'white' : 'yellow';
     tempVal = document.getElementById('humpControl').value;
     document.getElementById('saveSp2').value = tempVal;
-    document.getElementById('saveSp2').style.backgroundColor = (currPresets.values[1] == tempVal)?'white':'yellow';
-    tempVal = parseInt((parseInt(document.getElementById('depthWheelLeft').value) + parseInt(document.getElementById('depthWheelRight').value))/2);
+    document.getElementById('saveSp2').style.backgroundColor = (currPresets.values[1] == tempVal) ? 'white' : 'yellow';
+    tempVal = parseInt((parseInt(document.getElementById('depthWheelLeft').value) + parseInt(document.getElementById('depthWheelRight').value)) / 2);
     document.getElementById('saveSp3').value = tempVal;
-    document.getElementById('saveSp3').style.backgroundColor = (currPresets.values[2] == tempVal)?'white':'yellow';
+    document.getElementById('saveSp3').style.backgroundColor = (currPresets.values[2] == tempVal) ? 'white' : 'yellow';
     tempVal = document.getElementById('primaryShaker').value;
     document.getElementById('saveSp4').value = tempVal;
-    document.getElementById('saveSp4').style.backgroundColor = (currPresets.values[3] == tempVal)?'white':'yellow';
+    document.getElementById('saveSp4').style.backgroundColor = (currPresets.values[3] == tempVal) ? 'white' : 'yellow';
     tempVal = document.getElementById('secondaryShaker').value;
     document.getElementById('saveSp5').value = tempVal;
-    document.getElementById('saveSp5').style.backgroundColor = (currPresets.values[4] == tempVal)?'white':'yellow';
+    document.getElementById('saveSp5').style.backgroundColor = (currPresets.values[4] == tempVal) ? 'white' : 'yellow';
     tempVal = document.getElementById('axleLeft').value;
     document.getElementById('saveSp6').value = tempVal;
-    document.getElementById('saveSp6').style.backgroundColor = (currPresets.values[5] == tempVal)?'white':'yellow';
+    document.getElementById('saveSp6').style.backgroundColor = (currPresets.values[5] == tempVal) ? 'white' : 'yellow';
 
   }
   document.getElementById(modalId).style.display = "flex";
@@ -465,8 +465,8 @@ function closeModal(modalId) {
 
 function updateSetpointValue(id, val) {
   document.getElementById(id).value = val;
-  const barContainer = document.getElementById('barGraph-'+id);
-  if(barContainer){
+  const barContainer = document.getElementById('barGraph-' + id);
+  if (barContainer) {
     barContainer.setAttribute('data-target', val);
   }
 }
@@ -502,74 +502,74 @@ function updateBarGraphs() {
     'axleLe': 5,
     'axleRi': 5
   };
-	const barContainers = document.querySelectorAll('.vertical-bar-container');
-  
-	barContainers.forEach((container) => {
-	  const value = parseInt(container.getAttribute('data-value'), 10);
-	  const target = parseInt(container.getAttribute('data-target'), 10);
+  const barContainers = document.querySelectorAll('.vertical-bar-container');
+
+  barContainers.forEach((container) => {
+    const value = parseInt(container.getAttribute('data-value'), 10);
+    const target = parseInt(container.getAttribute('data-target'), 10);
 
     // console.log((container.id).split('-')[1].slice(0, 6), keyMap[(container.id).split('-')[1].slice(0, 6)], currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]]);
 
     const targetMarker = container.querySelector('.target-marker');
 
-    if(target == 0){
+    if (target == 0) {
       //don't show setpoint bar
       targetMarker.style.display = "none";
     } else {
-      if(currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]] != target) {
+      if (currPresets.values[keyMap[(container.id).split('-')[1].slice(0, 6)]] != target) {
         setpointChangeNotSaved = true;
       }
-    
+
       //update setpoint value in additional container
       const setpointInput = document.getElementById((container.id).split('-')[1]);
-      if(setpointInput) {
+      if (setpointInput) {
         setpointInput.value = target;
       }
       const targetPercentage = Math.min(Math.max(target, 0), 100);
-	    targetMarker.style.bottom = `${targetPercentage}%`;
+      targetMarker.style.bottom = `${targetPercentage}%`;
     }
-  
-	  const valuePercentage = Math.min(Math.max(value, 0), 100);
-  
-	  const barFill = container.querySelector('.bar-fill');
-	  barFill.style.height = `${valuePercentage}%`;
-  
-	  const barLabel = container.querySelector('.bar-label');
-	  barLabel.textContent = `${value}`;
-  
-	  const tickMarksContainer = container.querySelector('.tick-marks');
-	  tickMarksContainer.innerHTML = '';
-  
-	  const numTicks = 5;
-	  for (let i = 1; i <= numTicks; i++) { // Start from 1 to exclude 0
+
+    const valuePercentage = Math.min(Math.max(value, 0), 100);
+
+    const barFill = container.querySelector('.bar-fill');
+    barFill.style.height = `${valuePercentage}%`;
+
+    const barLabel = container.querySelector('.bar-label');
+    barLabel.textContent = `${value}`;
+
+    const tickMarksContainer = container.querySelector('.tick-marks');
+    tickMarksContainer.innerHTML = '';
+
+    const numTicks = 5;
+    for (let i = 1; i <= numTicks; i++) { // Start from 1 to exclude 0
       const positionPercentage = (i / numTicks) * 100;
-    
+
       const tickLeft = document.createElement('div');
       tickLeft.classList.add('tick', 'left');
       tickLeft.style.bottom = `${positionPercentage}%`;
-    
+
       const tickRight = document.createElement('div');
       tickRight.classList.add('tick', 'right');
       tickRight.style.bottom = `${positionPercentage}%`;
-    
+
       const tickLabelLeft = document.createElement('div');
       tickLabelLeft.classList.add('tick-label', 'left');
       tickLabelLeft.style.bottom = `${positionPercentage}%`;
       tickLabelLeft.textContent = Math.round((i / numTicks) * 100);
-    
+
       const tickLabelRight = document.createElement('div');
       tickLabelRight.classList.add('tick-label', 'right');
       tickLabelRight.style.bottom = `${positionPercentage}%`;
       tickLabelRight.textContent = Math.round((i / numTicks) * 100);
-    
+
       tickMarksContainer.appendChild(tickLeft);
       tickMarksContainer.appendChild(tickRight);
       tickMarksContainer.appendChild(tickLabelLeft);
       tickMarksContainer.appendChild(tickLabelRight);
-	  }
-	});
+    }
+  });
 
-  if(setpointChangeNotSaved){
+  if (setpointChangeNotSaved) {
     document.getElementById('presetSave').style.backgroundColor = "yellow";
     document.getElementById('presetSave').style.color = "black";
   } else {
@@ -634,51 +634,48 @@ function assignClickListeners() {
 // Function to get a preset
 function getPreset(index) {
   if (index >= 0 && index < presets.length) {
-      return presets[index];
+    return presets[index];
   } else {
-      console.error("Invalid preset index!");
-      return null;
+    console.error("Invalid preset index!");
+    return null;
   }
 }
 
 // Function to set values for a preset
 function setPreset(index, label, values) {
   if (index >= 0 && index < presets.length && values.length === 7) {
-      presets[index] = { label, values };
+    presets[index] = { label, values };
   } else {
-      console.error("Invalid preset data!");
+    console.error("Invalid preset data!");
   }
 }
 
 //handle synced buttons
-function handleSynced(id, arrowDirection, mouseClickActive){
+function handleSynced(id, arrowDirection, mouseClickActive) {
   console.log(id, arrowDirection, mouseClickActive);
-  if(document.getElementById(id).classList.contains('button-active')) {
-    if(arrowDirection == 'up') {
-      if(mouseClickActive){
+  if (document.getElementById(id).classList.contains('button-active')) {
+    if (arrowDirection == 'up') {
+      if (mouseClickActive) {
         document.getElementById('coulterLeftUp').classList.add('button-active');
         document.getElementById('coulterRightUp').classList.add('button-active');
         document.getElementById('syncBarTop').classList.add('button-active');
         console.log("clicked button");
       }
-      else
-      {
+      else {
         document.getElementById('coulterLeftUp').classList.remove('button-active');
         document.getElementById('coulterRightUp').classList.remove('button-active');
         document.getElementById('syncBarTop').classList.remove('button-active');
         console.log("released button");
       }
     }
-    else
-    {
-      if(mouseClickActive){
+    else {
+      if (mouseClickActive) {
         document.getElementById('coulterLeftDn').classList.add('button-active');
         document.getElementById('coulterRightDn').classList.add('button-active');
         document.getElementById('syncBarBottom').classList.add('button-active');
         console.log("clicked button");
       }
-      else
-      {
+      else {
         document.getElementById('coulterLeftDn').classList.remove('button-active');
         document.getElementById('coulterRightDn').classList.remove('button-active');
         document.getElementById('syncBarBottom').classList.remove('button-active');
@@ -689,41 +686,39 @@ function handleSynced(id, arrowDirection, mouseClickActive){
 }
 
 //handle synced buttons
-function handleSyncPress(id, arrowDirection){
-  if(document.getElementById(id).classList.contains('button-active')) {
-    if(arrowDirection == 'up') {
-     document.getElementById((id=='coulterSync')?'coulterLeftUp':'dwLeftUp').style.backgroundColor="#4D9920";
-     document.getElementById((id=='coulterSync')?'coulterRightUp':'dwRightUp').style.backgroundColor="#4D9920";
-     document.getElementById((id=='coulterSync')?'syncBarTop':'syncBarDwTop').style.backgroundColor="#4D9920";
+function handleSyncPress(id, arrowDirection) {
+  if (document.getElementById(id).classList.contains('button-active')) {
+    if (arrowDirection == 'up') {
+      document.getElementById((id == 'coulterSync') ? 'coulterLeftUp' : 'dwLeftUp').style.backgroundColor = "#4D9920";
+      document.getElementById((id == 'coulterSync') ? 'coulterRightUp' : 'dwRightUp').style.backgroundColor = "#4D9920";
+      document.getElementById((id == 'coulterSync') ? 'syncBarTop' : 'syncBarDwTop').style.backgroundColor = "#4D9920";
     }
-    else
-    {
-      document.getElementById((id=='coulterSync')?'coulterLeftDn':'dwLeftDn').style.backgroundColor="#4D9920";
-      document.getElementById((id=='coulterSync')?'coulterRightDn':'dwRightDn').style.backgroundColor="#4D9920";
-      document.getElementById((id=='coulterSync')?'syncBarBottom':'syncBarDwBottom').style.backgroundColor="#4D9920";
+    else {
+      document.getElementById((id == 'coulterSync') ? 'coulterLeftDn' : 'dwLeftDn').style.backgroundColor = "#4D9920";
+      document.getElementById((id == 'coulterSync') ? 'coulterRightDn' : 'dwRightDn').style.backgroundColor = "#4D9920";
+      document.getElementById((id == 'coulterSync') ? 'syncBarBottom' : 'syncBarDwBottom').style.backgroundColor = "#4D9920";
     }
   }
 }
-function handleSyncRelease(id, arrowDirection){
-  if(document.getElementById(id).classList.contains('button-active')) {
-    if(arrowDirection == 'up') {
-      document.getElementById((id=='coulterSync')?'coulterLeftUp':'dwLeftUp').style.backgroundColor='#808080';
-      document.getElementById((id=='coulterSync')?'coulterRightUp':'dwRightUp').style.backgroundColor='#808080';
-      document.getElementById((id=='coulterSync')?'syncBarTop':'syncBarDwTop').style.backgroundColor='#808080';
+function handleSyncRelease(id, arrowDirection) {
+  if (document.getElementById(id).classList.contains('button-active')) {
+    if (arrowDirection == 'up') {
+      document.getElementById((id == 'coulterSync') ? 'coulterLeftUp' : 'dwLeftUp').style.backgroundColor = '#808080';
+      document.getElementById((id == 'coulterSync') ? 'coulterRightUp' : 'dwRightUp').style.backgroundColor = '#808080';
+      document.getElementById((id == 'coulterSync') ? 'syncBarTop' : 'syncBarDwTop').style.backgroundColor = '#808080';
     }
-    else
-    {
-      document.getElementById((id=='coulterSync')?'coulterLeftDn':'dwLeftDn').style.backgroundColor='#808080';
-      document.getElementById((id=='coulterSync')?'coulterRightDn':'dwRightDn').style.backgroundColor='#808080';
-      document.getElementById((id=='coulterSync')?'syncBarBottom':'syncBarDwBottom').style.backgroundColor='#808080';
+    else {
+      document.getElementById((id == 'coulterSync') ? 'coulterLeftDn' : 'dwLeftDn').style.backgroundColor = '#808080';
+      document.getElementById((id == 'coulterSync') ? 'coulterRightDn' : 'dwRightDn').style.backgroundColor = '#808080';
+      document.getElementById((id == 'coulterSync') ? 'syncBarBottom' : 'syncBarDwBottom').style.backgroundColor = '#808080';
     }
   }
 }
 
 // Overlay button click handler
-(function() {
+(function () {
   try {
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       if (e.target && e.target.classList && e.target.classList.contains('overlay-button')) {
         console.log('Overlay button clicked:', e.target.textContent.trim());
       }
@@ -733,45 +728,9 @@ function handleSyncRelease(id, arrowDirection){
   }
 })();
 
-// === Image cycle logic for top-view image ===
-(function(){
-  try{
-    const imgEl = document.querySelector('.top-view-image');
-    const btn = document.querySelector('.image-toggle-btn');
-    if(!imgEl || !btn) return;
-    // Define the views to cycle through. First item must match the initial src.
-    const views = [
-      { src: './icons/7040FrontAndSide.png', label: '7040', sn: '7040-55-27' },
-      { src: './icons/6844OffsetSideViewTransparentBackgroundSm.png', label: '6844', sn: '6844-55-31' },
-      { src: './icons/BBL-1000_FRONT-RH.png', label: 'BBL-1000', sn: 'BBL-1000-29' },
-      { src: './icons/CEL-1000_FRONT-RH.png', label: 'CEL-1000', sn: 'CEL-1000-27' },
-      { src: './icons/6180_right_front.png', label: '6180', sn: '6180-55-40' }
-    ];
-    // Start from the index of the current image, fallback to 0
-    let idx = Math.max(0, views.findIndex(v => imgEl.src.endsWith(v.src.replace('./',''))));
-    // Update button label initially to hint next view
-    const updateButtonLabel = () => {
-      const nextIdx = (idx + 1) % views.length;
-      btn.textContent = 'View: ' + views[nextIdx].label;
-      btn.setAttribute('title', 'Switch to ' + views[nextIdx].label + ' view');
-      document.querySelector('#header-sn span').innerText = views[idx].sn;
-    };
-    updateButtonLabel();
-    btn.addEventListener('click', () => {
-      idx = (idx + 1) % views.length;
-      imgEl.src = views[idx].src;
-      imgEl.alt = views[idx].label + ' View';
-      updateButtonLabel();
-    });
-  }catch(err){
-    console.warn('Image toggle init failed:', err);
-  }
-})();
-// === end image cycle logic ===
-
 
 // === Modal: open on overlay-button clicks ===
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
   try {
     const modal = document.getElementById('ui-modal');
     if (!modal) return;
@@ -779,26 +738,26 @@ document.addEventListener('DOMContentLoaded', function(){
     const closeBtn = modal.querySelector('.ui-modal__close');
     const titleEl = modal.querySelector('#ui-modal-title');
 
-    function openModal(titleText){
+    function openModal(titleText) {
       if (titleEl) titleEl.textContent = titleText || 'Selection';
       modal.setAttribute('aria-hidden', 'false');
       closeBtn && closeBtn.focus();
       document.addEventListener('keydown', onKey);
     }
-    function closeModal(){
+    function closeModal() {
       modal.setAttribute('aria-hidden', 'true');
       document.removeEventListener('keydown', onKey);
     }
-    function onKey(e){
+    function onKey(e) {
       if (e.key === 'Escape') closeModal();
     }
 
-    [backdrop, closeBtn].forEach(el => el && el.addEventListener('click', (e)=>{
+    [backdrop, closeBtn].forEach(el => el && el.addEventListener('click', (e) => {
       if (e.currentTarget.dataset.close !== undefined) closeModal();
     }));
 
-    
-    document.addEventListener('click', function(e){
+
+    document.addEventListener('click', function (e) {
       const btn = e.target.closest && e.target.closest('.overlay-button');
       if (!btn) return;
 
@@ -819,12 +778,12 @@ document.addEventListener('DOMContentLoaded', function(){
                  <ul><li>Use sparingly to protect skins.</li></ul>`,
         'Depth Wheels': `<p><strong>Depth Wheels</strong> set dig depth. Current: <em>${info || '—'}</em>.</p>
                          <ul><li>Keep blade just below stolons.</li></ul>`,
-        'Coulters': '<div class="hide ter syncBars" id="syncBarTop"></div><div class="hide ter syncBars" id="syncBarBottom"></div><table>'+
-          '<tbody><tr><td><h4>Left</h4><button class="arrowUp ter-button ter icon-lg" id="coulterLeftUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>'+
-          '<button class="arrowDown ter-button ter icon-lg" id="coulterLeftDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>'+
-          '</td><td><button class="b-link ter-button ter icon" id="coulterSync" onclick="toggleButtonState(this)" style="margin-top: 23px;">Sync</button><br/></td><td><h4>Right</h4>'+
-          '<button class="arrowUp ter-button ter icon-lg" id="coulterRightUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>'+
-          '<button class="arrowDown ter-button ter icon-lg" id="coulterRightDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>'+
+        'Coulters': '<div class="hide ter syncBars" id="syncBarTop"></div><div class="hide ter syncBars" id="syncBarBottom"></div><table>' +
+          '<tbody><tr><td><h4>Left</h4><button class="arrowUp ter-button ter icon-lg" id="coulterLeftUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>' +
+          '<button class="arrowDown ter-button ter icon-lg" id="coulterLeftDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>' +
+          '</td><td><button class="b-link ter-button ter icon" id="coulterSync" onclick="toggleButtonState(this)" style="margin-top: 23px;">Sync</button><br/></td><td><h4>Right</h4>' +
+          '<button class="arrowUp ter-button ter icon-lg" id="coulterRightUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>' +
+          '<button class="arrowDown ter-button ter icon-lg" id="coulterRightDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>' +
           '</td></tr></tbody></table>',
         'Digger Blade': `<p><strong>Digger Blade</strong> angle/height affects intake. Current: <em>${info || '—'}</em>.</p>
                          <ul><li>Raise slightly in rocky patches.</li></ul>`
@@ -845,10 +804,10 @@ document.addEventListener('DOMContentLoaded', function(){
       modal.setAttribute('aria-hidden', 'false');
       const closeBtn = modal.querySelector('.ui-modal__close');
       if (closeBtn) closeBtn.focus();
-      function escClose(ev){ if (ev.key==='Escape'){ modal.setAttribute('aria-hidden','true'); document.removeEventListener('keydown', escClose); } }
+      function escClose(ev) { if (ev.key === 'Escape') { modal.setAttribute('aria-hidden', 'true'); document.removeEventListener('keydown', escClose); } }
       document.addEventListener('keydown', escClose);
     });
-    } catch(err){
+  } catch (err) {
     console.warn('Modal init failed:', err);
   }
 });

@@ -1,0 +1,137 @@
+{
+    "model": "Spinach Harvester",
+    "version": "0.00",
+    "serialNumber": "1000-55-26",
+    "theme": "spinach",
+    "tabs": [
+        {
+            "id": "home",
+            "label": "Home",
+            "icon": "./icons/home_16dp_lt.png",
+            "layout": "absolute",
+            "backgroundImage": "./icons/SpinachHarvester3D.png",
+            "components": [
+                {
+                    "type": "DisplayValue",
+                    "label": "Rejects/Min",
+                    "id": "rejects",
+                    "value": "0",
+                    "x": 420,
+                    "y": 150,
+                    "style": "text-align: center; color: white; font-size: 20px;"
+                },
+                {
+                    "type": "ToggleButton",
+                    "label": "Diff Lock",
+                    "id": "diffLock",
+                    "x": 400,
+                    "y": 380,
+                    "width": 80,
+                    "height": 80
+                },
+                {
+                    "type": "ToggleButton",
+                    "label": "Pause Trans Belt",
+                    "id": "pauseTrans",
+                    "x": 910,
+                    "y": 280,
+                    "width": 80,
+                    "height": 80,
+                    "icon": "./icons/pause_belt.png"
+                },
+                {
+                    "type": "SpeedControl",
+                    "id": "speedSettings",
+                    "label": "Speed Setting",
+                    "x": 400,
+                    "y": 540,
+                    "options": [
+                        "Bandsaw",
+                        "Fan",
+                        "Belt"
+                    ],
+                    "bindings": {
+                        "value": "speedValue",
+                        "prev": "speedPrev",
+                        "next": "speedNext",
+                        "inc5": "speedInc5",
+                        "dec5": "speedDec5",
+                        "inc1": "speedInc1",
+                        "dec1": "speedDec1"
+                    }
+                },
+                {
+                    "type": "HeightControl",
+                    "id": "rollerHeight",
+                    "label": "Roller Height",
+                    "x": 860,
+                    "y": 670,
+                    "bindings": {
+                        "leftVal": "rollerLeftVal",
+                        "rightVal": "rollerRightVal",
+                        "leftUp": "rollerLeftUp",
+                        "leftDn": "rollerLeftDn",
+                        "rightUp": "rollerRightUp",
+                        "rightDn": "rollerRightDn"
+                    }
+                },
+                {
+                    "type": "DisplayValue",
+                    "label": "Harvested Acres: 0",
+                    "id": "acres",
+                    "x": 575,
+                    "y": 750,
+                    "width": 260,
+                    "height": 60,
+                    "style": "background: #666; border-radius: 10px; color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 10px;",
+                    "action": {
+                        "label": "Reset to zero",
+                        "id": "resetAcres"
+                    }
+                },
+                {
+                    "type": "Group",
+                    "layout": "horizontal",
+                    "x": 400,
+                    "y": 860,
+                    "gap": 10,
+                    "components": [
+                        {
+                            "type": "ModeButton",
+                            "label": "Field",
+                            "id": "modeField",
+                            "icon": "./icons/field.png",
+                            "active": true
+                        },
+                        {
+                            "type": "ModeButton",
+                            "label": "Bandsaw",
+                            "id": "modeBandsaw",
+                            "icon": "./icons/bandsaw.png"
+                        },
+                        {
+                            "type": "ModeButton",
+                            "label": "Spray Bar",
+                            "id": "modeSpray",
+                            "icon": "./icons/spray.png",
+                            "color": "green"
+                        },
+                        {
+                            "type": "ModeButton",
+                            "label": "Sanitiation",
+                            "id": "modeSanitation",
+                            "icon": "./icons/sanitation.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "settings",
+            "label": "Settings",
+            "icon": "./icons/settings_16_lt.png",
+            "layout": "placeholder",
+            "components": []
+        }
+    ]
+}
