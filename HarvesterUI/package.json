@@ -1,0 +1,11 @@
+{
+  "name": "harvester-ui",
+  "version": "1.0.0",
+  "description": "Harvester UI Development Server",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -o",
+    "serve": "npx http-server . -p 8080 -o"
+  },
+  "devDependencies": {}
+}
+
