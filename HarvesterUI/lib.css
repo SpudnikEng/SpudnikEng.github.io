@@ -471,10 +471,11 @@ th, .largeFont {
 .image-button-container {
   position: relative;
   display: inline-block;
+  padding-left: 100px;
 }
 .top-view-image {
   display: block;
-  width: 1086px;
+  width: 900px;
   height: auto;
   padding-top: 60px;
 }
