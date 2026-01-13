@@ -279,14 +279,29 @@ document.addEventListener('DOMContentLoaded', function () {
                     <ul><li>Increase on heavy soil.</li><li>Decrease to protect tubers.</li></ul>`,
         'Boom/Hopper': `<p><strong>Boom/Hopper</strong> controls discharge and conveyor. Current: <em>${info || '—'}</em>.</p>
                         <ul><li>Match truck speed to fpm.</li><li>Avoid overfilling the pile.</li></ul>`,
-        'Hump': `<p><strong>Hump</strong> lifts crop to clear debris. Current: <em>${info || '—'}</em>.</p>
-                 <ul><li>Use sparingly to protect skins.</li></ul>`,
-        'Depth Wheels': `<p><strong>Depth Wheels</strong> set dig depth. Current: <em>${info || '—'}</em>.</p>
-                         <ul><li>Keep blade just below stolons.</li></ul>`,
-        'Coulters': '<div class="hide ter syncBars" id="syncBarTop"></div><div class="hide ter syncBars" id="syncBarBottom"></div><table>' +
+        'Hump': '<img src="./icons/7040FrontOnly.png" alt="Hump Image" class="ModalImage"><table>' +
+          '<tbody><tr><td><button class="arrowUp ter-button ter icon-lg" id="humpUp" onmousedown="" onmouseup=""></button><br/>' +
+          '<button class="arrowDown ter-button ter icon-lg" id="humpDn" onmousedown="" onmouseup=""></button><br/>' +
+          '</td><td style="width: 70px;"><div style="margin-left: 12px;" class="vertical-bar"><div class="bar-fill" style="height: 48%;"></div>' +
+					'<div class="target-marker" style="bottom: 46%;"></div><div class="tick-marks"><div class="tick left" style="bottom: 20%;"></div>'+
+          '<div class="tick right" style="bottom: 20%;"></div><div class="tick-label left" style="bottom: 20%;">20</div>'+
+          '<div class="tick-label right" style="bottom: 20%;">20</div><div class="tick left" style="bottom: 40%;"></div>'+
+          '<div class="tick right" style="bottom: 40%;"></div><div class="tick-label left" style="bottom: 40%;">40</div>'+
+          '<div class="tick-label right" style="bottom: 40%;">40</div><div class="tick left" style="bottom: 60%;"></div>'+
+          '<div class="tick right" style="bottom: 60%;"></div><div class="tick-label left" style="bottom: 60%;">60</div>'+
+          '<div class="tick-label right" style="bottom: 60%;">60</div><div class="tick left" style="bottom: 80%;"></div>'+
+          '<div class="tick right" style="bottom: 80%;"></div><div class="tick-label left" style="bottom: 80%;">80</div>'+
+          '<div class="tick-label right" style="bottom: 80%;">80</div><div class="tick left" style="bottom: 100%;"></div>'+
+          '<div class="tick right" style="bottom: 100%;"></div><div class="tick-label left" style="bottom: 100%;">100</div>'+
+          '<div class="tick-label right" style="bottom: 100%;">100</div></div></div></td>'+
+          '<td><button class="b-auto ter-button ter button-active humpAuto" onclick="">Auto</button>'+
+          '<br><button class="b-auto ter-button ter" onclick="">Set</button>'+
+          '</td></tr></tbody></table>',
+        'Depth Wheels': '<p><strong>Depth Wheels</strong> set dig depth. Current: <em>${info || "—"}</em>.</p>',
+        'Coulters': '<img src="./icons/7040FrontOnly.png" alt="Coulter Image" class="ModalImage"><div class="hide ter syncBars" id="syncBarTop"></div><div class="hide ter syncBars" id="syncBarBottom"></div><table>' +
           '<tbody><tr><td><h4>Left</h4><button class="arrowUp ter-button ter icon-lg" id="coulterLeftUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>' +
           '<button class="arrowDown ter-button ter icon-lg" id="coulterLeftDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>' +
-          '</td><td><button class="b-link ter-button ter icon" id="coulterSync" onclick="toggleButtonState(this)" style="margin-top: 23px;">Sync</button><br/></td><td><h4>Right</h4>' +
+          '</td><td><button class="b-link ter-button ter icon" id="coulterSync" onclick="toggleButtonState(this)">Sync</button><br/></td><td><h4>Right</h4>' +
           '<button class="arrowUp ter-button ter icon-lg" id="coulterRightUp" onmousedown="handleSyncPress(\'coulterSync\',\'up\')" onmouseup="handleSyncRelease(\'coulterSync\',\'up\')"></button><br/>' +
           '<button class="arrowDown ter-button ter icon-lg" id="coulterRightDn" onmousedown="handleSyncPress(\'coulterSync\',\'dn\')" onmouseup="handleSyncRelease(\'coulterSync\',\'dn\')"></button><br/>' +
           '</td></tr></tbody></table>',

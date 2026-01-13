@@ -37,7 +37,23 @@ body {
 
     /* Left: Tabs */
     .tab-list{ grid-column: 2; grid-row: 1; background: var(--shell-bg); display:grid; align-content:start; padding:12px 12px 12px 0; gap:20px; }
-    .tab{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:32px 18px; border:1px solid var(--border); border-left:none; background: #1a1a1a; color:#aaa; cursor:pointer; border-radius:0 10px 10px 0; transition: all 0.2s ease; position:relative; }
+    .tab{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:32px 18px; border:1px solid var(--border); border-left:none; background: #1a1a1a; color:#aaa; cursor:pointer; border-radius:0 10px 10px 0; transition: all 0.2s ease; position:relative; box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1), inset 0 -1px 2px rgba(0,0,0,0.3); }
+    .tab::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: 0;
+    }
+    .tab > * {
+        position: relative;
+        z-index: 1;
+    }
 
     /* Removed mouseover effect */
 
@@ -64,8 +80,15 @@ body {
       border-color: var(--border);
       border-left:none;
       left:-1px; /* overlap 1px to kill any seam; tabs are on the right */
-      box-shadow:none;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.15), inset 0 -1px 2px rgba(0,0,0,0.25);
       border-radius:0 10px 10px 0; /* square left side */
+    }
+    #tab-controls:checked ~ .tab-list label[for="tab-controls"]::before,
+    #tab-chains:checked ~ .tab-list label[for="tab-chains"]::before,
+    #tab-settings:checked ~ .tab-list label[for="tab-settings"]::before,
+    #tab-diagnostics:checked ~ .tab-list label[for="tab-diagnostics"]::before,
+    #tab-help:checked ~ .tab-list label[for="tab-help"]::before {
+        background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 40%, rgba(0,0,0,0.12) 100%);
     }
 
     .tab:focus-visible{ outline:2px solid transparent; box-shadow: 0 0 0 2px rgba(255,255,255,.35); }
@@ -117,15 +140,15 @@ table {
 }
 
 #syncBarTop, #syncBarDwTop {
-	top: 702px;
+	top: 94px;
 }
 
 #syncBarBottom, #syncBarDwBottom {
-	top: 785px;	
+	top: 177px;	
 }
 
 .syncBars {
-	left: 103px;
+	left: 378px;
 }
 
 .syncBarsDepthWheels {
@@ -134,8 +157,12 @@ table {
 
 .syncBars, .syncBarsDepthWheels {
 	position: absolute;
-	width: 135px;
+	width: 150px;
 	height: 15px;
+}
+
+#coulterSync {
+  margin-top: 35px;
 }
 
 .container {
@@ -148,6 +175,90 @@ table {
     height: 800px;
     grid-template-rows: 80px auto 180px;
 }
+
+/* bar graphs */
+.vertical-bar-container {
+	display: inline-block;
+	margin: 0 7px;
+	text-align: center;
+  }
+  
+  .vertical-bar {
+	position: relative;
+	width: 40px;
+	height: 150px;
+	background-color: #e0e0e0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	overflow: hidden;
+  }
+  
+  .bar-fill {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #107c10;
+  }
+  
+  .target-marker {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background-color: red;
+  }
+  
+  .tick-marks {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+  }
+  
+  .tick-marks .tick {
+	position: absolute;
+	width: 10px;
+	height: 1px;
+	background-color: black;
+  }
+  
+  .tick-marks .tick.left {
+	left: 0;
+  }
+  
+  .tick-marks .tick.right {
+	right: 0;
+  }
+  
+  .tick-marks .tick-label {
+	position: absolute;
+	font-size: 12px;
+	transform: translateY(50%);
+  }
+  
+  .tick-marks .tick-label.left {
+	left: -20px;
+	text-align: right;
+  }
+  
+  .tick-marks .tick-label.right {
+	right: -20px;
+	text-align: left;
+  }
+  
+  .bar-label {
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 5px;
+  }
+  
+  .bar-controls {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+  }
+
 
 
 #logo-spudnik {
@@ -186,6 +297,24 @@ table {
     font-weight: 500;
     letter-spacing: 0.3px;
     transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+    position: relative;
+}
+.pri-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+}
+.pri-button > * {
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -200,6 +329,24 @@ table {
     font-weight: 500;
     letter-spacing: 0.2px;
     transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+    position: relative;
+}
+.ter-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+}
+.ter-button > * {
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -267,12 +414,69 @@ table {
 }
 .b-start {
 	background-image: url('./icons/play_arrow_24_FFFFFF.png');
+	background-color: #666666;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+	position: relative;
+}
+.b-start::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+	border-radius: inherit;
+	pointer-events: none;
+	z-index: 0;
+}
+.b-start > * {
+	position: relative;
+	z-index: 1;
 }
 .b-end {
 	background-image: url('./icons/stop_24_FFFFFF.png');
+	background-color: #666666;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+	position: relative;
+}
+.b-end::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+	border-radius: inherit;
+	pointer-events: none;
+	z-index: 0;
+}
+.b-end > * {
+	position: relative;
+	z-index: 1;
 }
 .b-settings {
 	background-image: url('./icons/settings_16_lt.png');
+	background-color: #666666;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+	position: relative;
+}
+.b-settings::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+	border-radius: inherit;
+	pointer-events: none;
+	z-index: 0;
+}
+.b-settings > * {
+	position: relative;
+	z-index: 1;
 }
 .b-auto {
     /*background-image: url('./icons/auto_16_lt.png');*/
@@ -281,6 +485,25 @@ table {
 }
 .b-link {
     background-image: url('./icons/link_16_lt.png');
+	background-color: #666666;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+	position: relative;
+}
+.b-link::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+	border-radius: inherit;
+	pointer-events: none;
+	z-index: 0;
+}
+.b-link > * {
+	position: relative;
+	z-index: 1;
 }
 .b-textOnly {
     font-size: 25px;
@@ -307,9 +530,56 @@ table {
 
 button.counterClockwise {
 	background-image: url('./icons/counterclockwise_16.png');
+	background-color: #808080;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+	position: relative;
+}
+button.counterClockwise::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+	border-radius: inherit;
+	pointer-events: none;
+	z-index: 0;
+}
+button.counterClockwise > * {
+	position: relative;
+	z-index: 1;
 }
 button.clockwise {
 	background-image: url('./icons/clockwise_16.png');
+	background-color: #808080;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+	position: relative;
+}
+button.clockwise::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+	border-radius: inherit;
+	pointer-events: none;
+	z-index: 0;
+}
+button.clockwise > * {
+	position: relative;
+	z-index: 1;
+}
+
+button.arrowUp {
+	background-image: url('./icons/arrow_up_20.png');
+	background-position: center;
+}
+button.arrowDown {
+	background-image: url('./icons/arrow_down_20.png');
+	background-position: center;
 }
 
 .inpPercent, .inpChain {
@@ -356,7 +626,11 @@ button.clockwise {
 .button-active {
 	background-color: var(--active-green) !important;
 	color: white !important;
-	box-shadow: 0 2px 6px rgba(77, 153, 32, 0.3);
+	box-shadow: 0 3px 8px rgba(77, 153, 32, 0.5), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
+}
+.button-run-active::before,
+.button-active::before {
+	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
 }
 
 
@@ -494,10 +768,27 @@ th, .largeFont {
   width: 130px;
   height: 90px;
   letter-spacing: 0.2px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.3), inset 0 -1px 2px rgba(0,0,0,0.2);
+}
+.overlay-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 40%, rgba(0,0,0,0.1) 100%);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+.overlay-button > * {
+  position: relative;
+  z-index: 1;
 }
 .overlay-button:active {
   transform: translateX(-50%);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
 }
 .top-button {
   top: 20px;
@@ -628,4 +919,25 @@ th, .largeFont {
   align-items: center;
   justify-content: center;
   font-weight: 600;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.15), inset 0 -1px 2px rgba(0,0,0,0.3);
+}
+.ui-modal__close::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+.ui-modal__close:active {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.ModalImage {
+  float: left;
+  margin-right: 30px;
 }
