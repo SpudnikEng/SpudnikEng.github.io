@@ -77,8 +77,8 @@
 										</th>
 									</tr>
 									<tr>
-										<td class="largeFont chains-row-padding cell-border-bottom">Adjust all:</td>
-										<td class="cell-border-bottom"><button class="ter-button ter b-bumpDown"
+										<td class="largeFont chains-row-padding cell-border-bottom" id="chains-col1">Adjust all:</td>
+										<td class="cell-border-bottom" id="chains-col2"><button class="ter-button ter b-bumpDown"
 												onclick="bumpChainSetpointAll('dn')" style="float: left;"></button>
 											<span
 												style="float: left; text-align: center; margin: 9px 10px 0; width: 80px;">CHAIN
@@ -86,7 +86,7 @@
 											<button class="ter-button ter b-bumpUp"
 												onclick="bumpChainSetpointAll('up')"></button>
 										</td>
-										<td class="mediumFont rightText cell-border-bottom" colspan="3"
+										<td class="mediumFont rightText cell-border-bottom" id="chains-col3" colspan="3"
 											style="padding-right: 10px;">
 											<button class="button-left ter-button groundMode ter">Ground Speed</button>
 											<button class="button-right ter-button fixedMode ter button-active">Fixed
@@ -320,6 +320,7 @@
 												id="pilerFwd" onclick="toggleButtonState(this)">Fwd</button>
 										</td>
 									</tr>
+									<!--
 									<tr>
 										<td class="largeFont chains-row-padding cell-border-bottom">Hopper Chain:</td>
 										<td class="centerText cell-border-bottom">
@@ -331,14 +332,15 @@
 										<td class="centerText cell-border-bottom chains-psi hide" style="width: 70px;">
 										</td>
 										<td class="mediumFont rightText cell-border-bottom" colspan="2">
-											<div style="float: left;">Hopper:                 FPM<br />
-												Boom:                 FPM</div>
+											<div style="float: left;">Hopper: FPM<br />
+												Boom: FPM</div>
 											<div style="padding-right: 15px;">
 												<button class="ter-button ter icon clockwise button-rev" id="hopperFwd"
 													onclick="toggleButtonState(this)">Fwd</button>
 											</div>
 										</td>
 									</tr>
+								-->
 								</tbody>
 							</table>
 							<table style="width: 98%;">

@@ -129,12 +129,11 @@ table {
 }
 
 .spInput {
-	height: 45px;
-	width: 56px;
-	text-align: right;
+	height: 40px;
+	width: 95px;
 	font-size: 30px;
 	font-weight: 600;
-	padding: 0 8px;
+	padding: 0 10px 0 0;
 	margin: 0 0 0 4px;
 	letter-spacing: 0.5px;
 }
@@ -390,20 +389,22 @@ table {
 
 .b-bumpDown, .b-bumpUp {
 	margin: 2px 4px;
-	min-width: 50px;
-	padding: 0 8px;
+	min-width: 70px;
+	padding: 12px 8px;
 }
 
 .b-bumpDown::before {
 	content: "-10";
     display: inline-block;
     text-align: center;
+    padding-top: 10px;
 }
 
 .b-bumpUp::before {
 	content: "+10";
     display: inline-block;
     text-align: center;
+    padding-top: 10px;
 }
 
 .b-run {
@@ -594,7 +595,7 @@ button.arrowDown {
 }
 .inpChain .spInput {
     text-align: right;
-    padding-right: 30px;
+    padding-right: 33px;
 }
 
 
@@ -712,6 +713,18 @@ th, .largeFont {
 	text-align: right;
 }
 
+#chains-col1 {
+  width: 180px;
+}
+
+#chains-col2 {
+  width: 200px;
+}
+
+#chains-col3 {
+  width: 350px;
+}
+
 
 .chains-psi {
 	padding-right: 40px;
@@ -727,7 +740,7 @@ th, .largeFont {
 }
 
 .chains-row-padding {
-	padding: 18px 0;
+	padding: 14px 0;
 }
 
 #chainsCtrl table {
@@ -736,7 +749,7 @@ th, .largeFont {
 }
 
 .controlHead {
-	padding: 16px 12px;
+	padding: 0 10px;
 	text-align: center;
 }
 
