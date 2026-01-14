@@ -114,6 +114,24 @@ function toggleRUN() {
   }
 }
 
+function toggleCamera() {
+  const button = document.getElementById("camera-button");
+  const cameraView = document.getElementById("camera-view");
+  const frame = document.querySelector(".frame");
+  
+  if (button.classList.contains("camera-active")) {
+    // Turn off camera view
+    button.classList.remove("camera-active");
+    cameraView.style.display = "none";
+    frame.style.display = "grid";
+  } else {
+    // Turn on camera view
+    button.classList.add("camera-active");
+    cameraView.style.display = "block";
+    frame.style.display = "none";
+  }
+}
+
 // LocalStorage helper functions
 const saveStatus = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));

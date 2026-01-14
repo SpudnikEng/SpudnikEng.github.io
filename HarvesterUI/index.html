@@ -17,9 +17,18 @@
 			<div id="header-sn"><span>7040-55-27</span>
 				<div id="header-version">Version 2.08 / 1.03</div>
 			</div>
-			<button class="b-start pri-button pri icon" onclick="changeColorTimed(this)"
-				style="margin-left: 515px;">Start</button>
-			<button class="b-end pri-button pri icon" onclick="changeColorTimed(this)">End</button>
+			<button class="b-camera pri-button pri" id="camera-button" onclick="toggleCamera()" style="margin-left: 420px;">
+				<img alt="Camera" src="./icons/videocam_24_wght.png" style="display: block; margin: 0 auto 4px;" />
+				<span style="font-size: 12px;">Camera</span>
+			</button>
+			<button class="b-start pri-button pri" onclick="changeColorTimed(this)">
+				<img alt="Start" src="./icons/play_arrow_24_FFFFFF.png" style="display: block; margin: 0 auto 4px;" />
+				<span style="font-size: 12px;">Start</span>
+			</button>
+			<button class="b-end pri-button pri" onclick="changeColorTimed(this)">
+				<img alt="End" src="./icons/stop_24_FFFFFF.png" style="display: block; margin: 0 auto 4px;" />
+				<span style="font-size: 12px;">End</span>
+			</button>
 			<button class="b-run pri-button pri-em" id="run-button" onclick="toggleRUN()"><img alt="RUN"
 					src="./icons/RUN_Sm.png" style="margin-top: 8px;" /></button>
 		</div>
@@ -632,6 +641,9 @@
 				</section>
 			</main>
 		</section>
+		<div id="camera-view" style="display: none;">
+			<img alt="Camera View" src="./icons/Cameras-4up.png" style="width: 100%; height: 100%; object-fit: contain;" />
+		</div>
 	</div>
 	<script src="./lib.js"></script>
 	<script>
