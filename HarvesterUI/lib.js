@@ -122,12 +122,12 @@ function toggleCamera() {
   if (button.classList.contains("camera-active")) {
     // Turn off camera view
     button.classList.remove("camera-active");
-    cameraView.style.display = "none";
+    cameraView.classList.add("camera-view-hidden");
     frame.style.display = "grid";
   } else {
     // Turn on camera view
     button.classList.add("camera-active");
-    cameraView.style.display = "block";
+    cameraView.classList.remove("camera-view-hidden");
     frame.style.display = "none";
   }
 }
