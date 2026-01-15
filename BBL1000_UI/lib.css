@@ -406,6 +406,10 @@ table {
     width: 80px;
 }
 
+.b-header {
+  font-size: 12pt;
+}
+
 
 .b-bumpDown, .b-bumpUp {
 	margin: 2px 4px;
@@ -434,14 +438,10 @@ table {
     width: 155px;
 }
 .b-start {
+	background-image: url('./icons/play_arrow_24_FFFFFF.png');
 	background-color: #666666;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 8px 10px;
 }
 .b-start::before {
 	content: '';
@@ -460,14 +460,10 @@ table {
 	z-index: 1;
 }
 .b-end {
+	background-image: url('./icons/stop_24_FFFFFF.png');
 	background-color: #666666;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 8px 10px;
 }
 .b-end::before {
 	content: '';
@@ -484,46 +480,6 @@ table {
 .b-end > * {
 	position: relative;
 	z-index: 1;
-}
-.b-camera {
-	background-color: #666666;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.3);
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 8px 10px;
-	transition: background-color 0.3s ease;
-}
-.b-camera.camera-active {
-	background-color: #4D9920;
-}
-.b-camera::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.15) 100%);
-	border-radius: inherit;
-	pointer-events: none;
-	z-index: 0;
-}
-.b-camera > * {
-	position: relative;
-	z-index: 1;
-}
-#camera-view {
-	position: absolute;
-	top: 90px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #2a2a2a;
-	z-index: 100;
-	padding: 10px;
 }
 .b-settings {
 	background-image: url('./icons/settings_16_lt.png');
@@ -834,6 +790,7 @@ th, .largeFont {
   position: relative;
   display: inline-block;
   padding-left: 100px;
+  height: 660px;
 }
 .top-view-image {
   display: block;
@@ -882,31 +839,40 @@ th, .largeFont {
   top: 20px;
 }
 .top-button:nth-of-type(1) {
-  left: 12.5%;
+  left: 8%;
 }
 .top-button:nth-of-type(2) {
-  left: 37.5%;
+  left: 25%;
 }
 .top-button:nth-of-type(3) {
-  left: 62.5%;
+  left: 42%;
 }
 .top-button:nth-of-type(4) {
-  left: 87.5%;
+  left: 59%;
+}
+.top-button:nth-of-type(5) {
+  left: 76%;
+}
+.top-button:nth-of-type(6) {
+  left: 93%;
 }
 .bottom-button {
   bottom: 20px;
 }
+.image-button-container > .bottom-button:nth-last-child(5) {
+  left: 10%;
+}
 .image-button-container > .bottom-button:nth-last-child(4) {
-  left: 12.5%;
+  left: 30%;
 }
 .image-button-container > .bottom-button:nth-last-child(3) {
-  left: 37.5%;
+  left: 50%;
 }
 .image-button-container > .bottom-button:nth-last-child(2) {
-  left: 62.5%;
+  left: 70%;
 }
 .image-button-container > .bottom-button:nth-last-child(1) {
-  left: 87.5%;
+  left: 90%;
 }
 
 .btn-info {
@@ -1151,101 +1117,3 @@ color: darkblue;
 	border: 1px solid silver;
   	padding: 4px;
   }
-
-/* Inline style replacements - cleaner code */
-.b-camera-offset {
-	margin-left: 420px;
-}
-
-.button-icon-img {
-	display: block;
-	margin: 0 auto 4px;
-}
-
-.button-label-text {
-	font-size: 12px;
-}
-
-.run-button-icon {
-	margin-top: 8px;
-}
-
-.float-left {
-	float: left;
-}
-
-.chain-speeds-label {
-	float: left;
-	text-align: center;
-	margin: 9px 10px 0;
-	width: 80px;
-}
-
-.padding-right-10 {
-	padding-right: 10px;
-}
-
-.padding-15 {
-	padding: 15px;
-}
-
-.width-70 {
-	width: 70px;
-}
-
-.hopper-info {
-	float: left;
-}
-
-.hopper-button-wrapper {
-	padding-right: 15px;
-}
-
-.table-width-98 {
-	width: 98%;
-}
-
-.cell-padding-10 {
-	padding: 0 10px;
-}
-
-.btn-unlock {
-	margin: 10px 70px;
-}
-
-.brightness-row {
-	padding-left: 2px;
-	padding-right: 2px;
-}
-
-.brightness-controls {
-	text-align: center;
-}
-
-.brightness-btn {
-	margin: 2px 2px;
-}
-
-.diagnostic-enable-btn {
-	margin-left: 245px;
-}
-
-.diagnostic-close-btn {
-	position: relative;
-	top: 545px;
-	left: -170px;
-}
-
-.qr-code-img {
-	width: 120px;
-}
-
-.camera-view-hidden {
-	display: none;
-}
-
-.camera-view-img {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-}

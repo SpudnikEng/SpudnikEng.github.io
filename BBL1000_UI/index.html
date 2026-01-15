@@ -6,7 +6,7 @@
 	<meta charset="utf-8" />
 	<!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
 	<meta content="width=1280" name="viewport" />
-	<title>7040 UI Mockup</title>
+	<title>BBL-1000 UI Mockup</title>
 	<link href="./lib.css" rel="stylesheet" />
 </head>
 
@@ -14,23 +14,16 @@
 	<div class="container">
 		<div class="master">
 			<img alt="SPUDNIK" id="logo-spudnik" src="./icons/SpudnikLogo.svg" />
-			<div id="header-sn"><span>7040-55-27</span>
+			<div id="header-sn"><span>1000-55-27</span>
 				<div id="header-version">Version 2.08 / 1.03</div>
 			</div>
-		<button class="b-camera pri-button pri b-camera-offset" id="camera-button" onclick="toggleCamera()">
-			<img alt="Camera" src="./icons/videocam_24_wght.png" class="button-icon-img" />
-			<span class="button-label-text">Camera</span>
-		</button>
-		<button class="b-start pri-button pri" onclick="changeColorTimed(this)">
-			<img alt="Start" src="./icons/play_arrow_24_FFFFFF.png" class="button-icon-img" />
-			<span class="button-label-text">Start</span>
-		</button>
-		<button class="b-end pri-button pri" onclick="changeColorTimed(this)">
-			<img alt="End" src="./icons/stop_24_FFFFFF.png" class="button-icon-img" />
-			<span class="button-label-text">End</span>
-		</button>
-		<button class="b-run pri-button pri-em" id="run-button" onclick="toggleRUN()"><img alt="RUN"
-				src="./icons/RUN_Sm.png" class="run-button-icon" /></button>
+			<button class="pri-button pri b-header" onclick="changeColorTimed(this)"
+				style="margin-left: 120px;">Mode</button>
+			<button class="pri-button pri b-header" onclick="changeColorTimed(this)">Bandsaw</button>
+			<button class="pri-button pri b-header" onclick="changeColorTimed(this)">Spray Bar</button>
+			<button class="pri-button pri b-header" onclick="changeColorTimed(this)">Sanitation</button>
+			<button class="b-run pri-button pri-em" id="run-button" onclick="toggleRUN()"><img alt="RUN"
+					src="./icons/RUN_Sm.png" style="margin-top: 8px;" /></button>
 		</div>
 		<section class="frame">
 			<main class="app" role="application">
@@ -44,7 +37,7 @@
 						role="tab"><span class="tab-text">Home</span><img alt="" class="tab-icon"
 							src="./icons/home_16dp_lt.png" /></label>
 					<label aria-controls="panel-chains" class="tab" for="tab-chains" id="tab-chains-label"
-						role="tab"><span class="tab-text">Chains</span><img alt="" class="tab-icon"
+						role="tab"><span class="tab-text">Belts</span><img alt="" class="tab-icon"
 							src="./icons/auto_16_lt.png" /></label>
 					<label aria-controls="panel-settings" class="tab" for="tab-settings" id="tab-settings-label"
 						role="tab"><span class="tab-text">Settings</span><img alt="" class="tab-icon"
@@ -59,21 +52,20 @@
 				<section class="panels">
 					<article aria-labelledby="tab-controls-label" class="panel" id="panel-controls" role="tabpanel">
 						<div class="image-button-container">
-							<img alt="Top View" class="top-view-image" src="./icons/7040FrontAndSide4.png" />
+							<img alt="Top View" class="top-view-image" src="./icons/BBL1000FrontRightSide2.png" />
 							<!-- Top buttons -->
-							<button class="overlay-button top-button">Fan<div class="btn-info">1250 rpm</div></button>
-							<button class="overlay-button top-button">MultiSep<div class="btn-info">Clean Mode</div>
-							</button>
-							<button class="overlay-button top-button">Shakers<div class="btn-info">25%</div></button>
-							<button class="overlay-button top-button">Boom/Hopper<div class="btn-info">25% | 233 fpm
-								</div></button>
+							<button class="overlay-button top-button">Infeed Belt<div class="btn-info">5%</div></button>
+							<button class="overlay-button top-button">Transfer Belt<div class="btn-info">100%</div></button>
+							<button class="overlay-button top-button">Divide Roller<div class="btn-info">5%</div></button>
+							<button class="overlay-button top-button">Secondary<div class="btn-info">5%</div></button>
+							<button class="overlay-button top-button">Blower<div class="btn-info">100%</div></button>
+							<button class="overlay-button top-button">Primary<div class="btn-info">5%</div></button>
 							<!-- Bottom buttons -->
-							<button class="overlay-button bottom-button">Hump<div class="btn-info">20%</div></button>
-							<button class="overlay-button bottom-button">Depth Wheels<div class="btn-info">60%</div>
-							</button>
-							<button class="overlay-button bottom-button">Digger Blade<div class="btn-info">30%</div>
-							</button>
-							<button class="overlay-button bottom-button">Coulters<div class="btn-info">UP</div></button>
+							<button class="overlay-button bottom-button">Elevator Belt<div class="btn-info">10%</div></button>
+							<button class="overlay-button bottom-button">Reject Belt<div class="btn-info">15%</div></button>
+							<button class="overlay-button bottom-button">Shakers<div class="btn-info">25%|10%|10%</div></button>
+							<button class="overlay-button bottom-button">Auger<div class="btn-info">15%</div></button>
+							<button class="overlay-button bottom-button">Bandsaw<div class="btn-info">100%</div></button>
 						</div>
 					</article>
 					<article aria-labelledby="tab-chains-label" class="panel" id="panel-chains" role="tabpanel">
@@ -86,29 +78,31 @@
 										</th>
 									</tr>
 									<tr>
-					<td class="largeFont chains-row-padding cell-border-bottom" id="chains-col1">Adjust all:</td>
-					<td class="cell-border-bottom" id="chains-col2"><button class="ter-button ter b-bumpDown float-left"
-							onclick="bumpChainSetpointAll('dn')"></button>
-						<span class="chain-speeds-label">CHAIN
-							SPEEDS</span>
-						<button class="ter-button ter b-bumpUp"
-							onclick="bumpChainSetpointAll('up')"></button>
-					</td>
-					<td class="mediumFont rightText cell-border-bottom padding-right-10" id="chains-col3" colspan="3">
+										<td class="largeFont chains-row-padding cell-border-bottom" id="chains-col1">Adjust all:</td>
+										<td class="cell-border-bottom" id="chains-col2"><button class="ter-button ter b-bumpDown"
+												onclick="bumpChainSetpointAll('dn')" style="float: left;"></button>
+											<span
+												style="float: left; text-align: center; margin: 9px 10px 0; width: 80px;">CHAIN
+												SPEEDS</span>
+											<button class="ter-button ter b-bumpUp"
+												onclick="bumpChainSetpointAll('up')"></button>
+										</td>
+										<td class="mediumFont rightText cell-border-bottom" id="chains-col3" colspan="3"
+											style="padding-right: 10px;">
 											<button class="button-left ter-button groundMode ter">Ground Speed</button>
 											<button class="button-right ter-button fixedMode ter button-active">Fixed
 												Speed</button>
 										</td>
 									</tr>
-				<tr>
-					<th class="cell-border-bottom padding-15">Name</th>
-					<th class="cell-border-bottom">Setpoint</th>
-					<th class="cell-border-bottom chains-speed">Actual Speed</th>
-					<th class="cell-border-bottom chains-psi hide">Pressure</th>
-					<th class="cell-border-bottom chains-override">
-						Manual
-						Override</th>
-				</tr>
+									<tr>
+										<th class="cell-border-bottom" style="padding: 15px;">Name</th>
+										<th class="cell-border-bottom">Setpoint</th>
+										<th class="cell-border-bottom chains-speed">Actual Speed</th>
+										<th class="cell-border-bottom chains-psi hide">Pressure</th>
+										<th class="cell-border-bottom chains-override">
+											Manual
+											Override</th>
+									</tr>
 									<tr>
 										<td class="largeFont chains-row-padding cell-border-bottom">
 											Intake:
@@ -333,19 +327,19 @@
 										<td class="centerText cell-border-bottom">
 											<button class="ter-button ter button-left button-active"
 												onclick="disableButton('segmentFwd')">On</button>
-						<button class="ter-button ter button-right"
-							onclick="disableButton('segmentFwd')">Off</button>
-					</td>
-					<td class="centerText cell-border-bottom chains-psi hide width-70">
-					</td>
-					<td class="mediumFont rightText cell-border-bottom" colspan="2">
-						<div class="hopper-info">Hopper: FPM<br />
-							Boom: FPM</div>
-						<div class="hopper-button-wrapper">
-							<button class="ter-button ter icon clockwise button-rev" id="hopperFwd"
-								onclick="toggleButtonState(this)">Fwd</button>
-						</div>
-					</td>
+											<button class="ter-button ter button-right"
+												onclick="disableButton('segmentFwd')">Off</button>
+										</td>
+										<td class="centerText cell-border-bottom chains-psi hide" style="width: 70px;">
+										</td>
+										<td class="mediumFont rightText cell-border-bottom" colspan="2">
+											<div style="float: left;">Hopper: FPM<br />
+												Boom: FPM</div>
+											<div style="padding-right: 15px;">
+												<button class="ter-button ter icon clockwise button-rev" id="hopperFwd"
+													onclick="toggleButtonState(this)">Fwd</button>
+											</div>
+										</td>
 									</tr>
 								-->
 								</tbody>
@@ -382,209 +376,14 @@
 										</td>
 									</tr>
 								</tbody>
-			</table>
-			-->
-			<table class="table-width-98">
-				<tbody>
-					<tr>
-						<td class="cell-border-right cell-border-bottom centerText cell-padding-small cell-padding-10">
-							<h3 class="addSpaceBelow">Primary Shakers</h3>
-							<button class="ter-button ter b-textOnly"
-								onclick="bumpInpSetpoint('primaryShaker',-5);">-5</button>
-							<div class="inpPercent"><input class="spInput" id="primaryShaker"
-									type="number" value="45" /></div>
-							<button class="ter-button ter b-textOnly"
-								onclick="bumpInpSetpoint('primaryShaker',5);">+5</button><br />
-							<button class="b-auto ter-button ter button-active priShakerAuto"
-								onclick="toggleAutoState('priShaker')">Auto</button>
-							<button class="ter-button ter" id="priShakerManual">Manual</button>
-						</td>
-						<td class="cell-border-bottom centerText cell-padding-small cell-padding-10">
-							<h3 class="addSpaceBelow">Secondary Shakers</h3>
-							<button class="ter-button ter b-textOnly"
-								onclick="bumpInpSetpoint('secondaryShaker',-5);">-5</button>
-							<div class="inpPercent"><input class="spInput" id="secondaryShaker"
-									type="number" value="45" /></div>
-							<button class="ter-button ter b-textOnly"
-								onclick="bumpInpSetpoint('secondaryShaker',5);">+5</button><br />
-							<button class="ter-button ter button-active secShakerAuto"
-								onclick="toggleAutoState('secShaker')">Auto</button>
-							<button class="ter-button ter" id="secShakerManual">Manual</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</article>
-	<article aria-labelledby="tab-settings-label" class="panel" id="panel-settings" role="tabpanel">
-		<h2>Settings</h2>
-		<div id="global-settings-control">
-			<div class="column">
-				<div class="row">
-					<h3>Service Configuration</h3>
-					<div class="ServiceConfigRead">
-						<table>
-							<tbody><tr>
-												<th>Chain</th>
-												<th>Pitch</th>
-												<th>Teeth</th>
-											</tr>
-											<tr>
-												<td>Intake</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Primary</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Secondary</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Vine</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Rear Cross</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Side Elevator</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Hopper Elevator</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Hopper Floor</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>Boom</td>
-												<td></td>
-												<td></td>
-											</tr>
-										</tbody></table>
-										<br>
-									<div class="settings-input"><b>Clod Roller Safety Position</b></div>
-									<br>
-									<div class="settings-input"><b>Minumum Chain fpm</b></div>
-									<br>
-									<button class="ter ter-button btn-unlock" onclick="toggleObjectClass('ServiceConfigRead', 'ServiceConfigEdit', 'hide')">Unlock</button>
-									</div>
-									<div class="ServiceConfigEdit hide">
-										<br>
-										<select class="settings-select">
-											<option>Intake Chain</option>
-											<option>Primary Chain</option>
-											<option>Secondary Chain</option>
-											<option>Vine Chain</option>
-											<option>Rear Cross Chain</option>
-											<option>Side Elevator Chain</option>
-											<option>Hopper Elevator Chain</option>
-											<option>Hopper Floor Chain</option>
-											<option>Boom Chain</option>
-										</select>
-										<br>
-										<div class="settings-input">
-											<div>Drive Pitch (mm)</div>
-											<div><input type="number" placeholder=""></div>
-										</div>
-										<div class="settings-input">
-											<div># of teeth</div>
-											<div><input type="number" placeholder=""></div>
-										</div>
-										<br><br>
-										<div class="settings-input">Set Clod Roller Safety Position<br><button class="ter ter-button">Set Limit</button></div>
-										<br>
-										<div class="settings-input">
-											<div><br>Minumum Chain fpm</div>
-											<div><br><input type="number" placeholder=""></div>
-										</div>
-										<br>
-										<div class="settings-input">
-											<div><br>Serial Number</div>
-											<div><br><input type="number" placeholder=""></div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<!-- Column 2 -->
-							<div class="column">
-								<!-- Row 1 -->
-								<div class="row">
-									<h3>Start Row Sequence</h3>
-									<p>The Start Row sequence engages Digger Auto and goes to setpoints.</p>
-									<div class="input-grid">
-										<span> </span><span><b>Start Delay</b></span><span><b>Duration/Enable</b></span>
-										<span>Global Start Chains</span>
-										<span><input type="number" placeholder=""> sec</span>
-										<span><input type="checkbox"></span>
-										<span>Coulters Down</span>
-										<span><input type="number" placeholder=""> sec</span>
-										<span><input type="number" placeholder=""> sec</span>
-										<span>Center Steering</span>
-										<span><input type="number" placeholder=""> sec</span>
-										<span><input type="checkbox"></span>
-									</div>
-								</div>
-								<div class="row">
-									<h3>Cleaning Table Settings</h3>
-									<div class="input-grid2">
-										<span>Pressure threshold for reversing rollers</span>
-										<span><input type="number" placeholder=""> psi</span>
-										<span>Reverse roller duration</span>
-										<span><input type="number" placeholder=""> sec</span>
-									</div>
-								</div>
-								<div class="row">
-									<h3>Machine Information</h3>
-									<ul>
-										<li>S4 SW Version 2.00</li>
-										<li>Display SW Version 1.00</li>
-										<li>SN 6844-55-25</li>
-										<li>Machine hours: 3.7</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Column 3 -->
-							<div class="column">
-								<div class="row">
-									<h3>End Row Sequence</h3>
-									<p>The End Row sequence raises the digger and coulters.</p>
-									<div class="input-grid">
-										<span> </span><span><b>Start Delay</b></span><span><b>Enable</b></span>
-										<span>Global Chains Shutoff</span>
-										<span><input type="number" placeholder=""> sec</span>
-										<span><input type="checkbox"></span>
-									</div>
-								</div>
-								<div class="row">
-									<h3>Preset Names</h3>
-									<div class="presetRow">Intake 1 <input type="text" placeholder=""></div>
-									<div class="presetRow">Intake 2 <input type="text" placeholder=""></div>
-									<div class="presetRow">Intake 3 <input type="text" placeholder=""></div>
-									<div class="presetRow">Table A <input type="text" placeholder=""></div>
-									<div class="presetRow">Table B <input type="text" placeholder=""></div>
-					<div class="presetRow">Table C <input type="text" placeholder=""></div>
-				</div><!-- end presets 	-->
-				<div class="row brightness-row">
-					<h3>Display Brightness</h3>
-					<div class="brightness-controls"><button class="ter ter-button brightness-btn">-</button> <button class="ter ter-button brightness-btn">Auto</button> <button class="ter ter-button brightness-btn">+</button></div>
-				</div>
-							</div>
+							</table>
+							-->
+						</div>
+					</article>
+					<article aria-labelledby="tab-settings-label" class="panel" id="panel-settings" role="tabpanel">
+						<h2>Settings</h2>
+						<div id="global-settings-control">
+							<img src="./icons/BBL1000Settings.png">
 						</div>
 					</article>
 					<article aria-labelledby="tab-diagnostics-label" class="panel" id="panel-diagnostics"
@@ -655,24 +454,21 @@
 					</div>
 				</div>
 
-			<!-- Row 3 -->
-			<div class="diagnostic-row">
-				<button class="ter-button ter diagnostic-enable-btn">Enable Diagnostic Output</button>
-				<button onclick="togglePage('diagnostics')" class="ter-button ter diagnostic-close-btn">Close</button>
-			</div>
+				<!-- Row 3 -->
+				<div class="diagnostic-row">
+					<button class="ter-button ter" style="margin-left: 245px;">Enable Diagnostic Output</button>
+					<button onclick="togglePage('diagnostics')" class="ter-button ter" style="position: relative;top: 545px;left: -170px;">Close</button>
+				</div>
 			</div>
 					</article>
-	<article aria-labelledby="tab-help-label" class="panel" id="panel-help" role="tabpanel">
-		<h2>Help</h2>
-		<p>Access on-line resources at <a href="https://www.spudnik.com">www.spudnik.com</a> or <br><img class="qr-code-img" src="./icons/6160_docs_qr.png"></p>
-	</article>
+					<article aria-labelledby="tab-help-label" class="panel" id="panel-help" role="tabpanel">
+						<h2>Help</h2>
+						<p>Access on-line resources at <a href="https://www.spudnik.com">www.spudnik.com</a> or <br><img style="width: 120px;" src="./icons/6160_docs_qr.png"></p>
+					</article>
 				</section>
 			</main>
-	</section>
-	<div id="camera-view" class="camera-view-hidden">
-		<img alt="Camera View" src="./icons/Cameras-4up.png" class="camera-view-img" />
+		</section>
 	</div>
-</div>
 	<script src="./lib.js"></script>
 	<script>
 	</script>
