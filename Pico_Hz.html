@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S4 IO Control</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --primary: #58a6ff;
+            --primary-hover: #3182ce;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --danger: #f85149;
+            --success: #2ea043;
+            --border: #30363d;
+            --section-bg: #090c10;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .master-controls {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-master-off {
+            background-color: var(--danger);
+            color: #fff;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-master-off:hover {
+            background-color: #e03b34;
+            transform: scale(1.05);
+        }
+
+        .btn-master-off:active {
+            transform: scale(0.95);
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+        }
+
+        .coming-soon-badge {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            background-color: var(--border);
+            color: var(--text-muted);
+            border-radius: 12px;
+            margin-left: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .channel-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.2s;
+        }
+
+        .channel-card:hover { border-color: var(--primary); }
+        .channel-card.disabled { opacity: 0.5; pointer-events: none; }
+
+        .channel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .channel-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+        }
+
+        .channel-desc {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding: 0.3rem 0.5rem;
+            border-radius: 6px;
+            width: 100%;
+            max-width: 150px;
+            text-align: right;
+            transition: all 0.2s;
+        }
+        .channel-desc:hover { border-color: var(--border); }
+        .channel-desc:focus { outline: none; border-color: var(--primary); color: var(--text-main); background-color: rgba(255,255,255,0.05); }
+
+        /* Segmented Control */
+        .segmented-control {
+            display: flex;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border);
+        }
+
+        .seg-btn {
+            flex: 1;
+            padding: 0.6rem;
+            text-align: center;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .seg-btn.active[data-val="off"] { background-color: var(--danger); color: white; }
+        .seg-btn.active[data-val="on"] { background-color: var(--success); color: white; }
+        .seg-btn.active[data-val="freq"] { background-color: var(--primary); color: white; }
+        .seg-btn:hover:not(.active) { background-color: rgba(255,255,255,0.05); }
+
+        /* Frequency Input */
+        .freq-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .freq-control.hidden { opacity: 0; pointer-events: none; transform: translateY(-5px); }
+        
+        .freq-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, min-width 0.2s;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        .freq-btn:hover { background-color: var(--border); }
+        .freq-btn:active { background-color: var(--primary); color: white; border-color: var(--primary); }
+
+        .freq-input-wrap {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            flex: 1;
+        }
+        
+        .freq-input {
+            width: 70px;
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: right;
+            -moz-appearance: textfield;
+            font-family: inherit;
+        }
+        .freq-input:focus { outline: none; border-bottom: 2px solid var(--primary); margin-bottom: -2px; }
+        .freq-input::-webkit-outer-spin-button,
+        .freq-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .freq-unit { color: var(--text-muted); font-size: 1rem; margin-left: 6px; font-weight: 500; }
+
+        .status-indicator {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background-color: rgba(46, 160, 67, 0.1);
+            color: var(--success);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .status-offline { background-color: rgba(248, 81, 73, 0.1); color: var(--danger); }
+
+        /* Placeholders */
+        .placeholder-text {
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .channels-grid { grid-template-columns: 1fr; }
+            .master-controls { flex-direction: column; gap: 1rem; }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transform: translateX(120%);
+            transition: transform 0.3s ease-out;
+            color: var(--text-main);
+            z-index: 1000;
+        }
+        .toast.show { transform: translateX(0); }
+    </style>
+</head>
+<body>
+
+    <h1>S4 IO Control</h1>
+
+    <div class="master-controls">
+        <div>
+            <div id="connection-status" class="status-indicator status-offline">Disconnected</div>
+            <button id="connect-btn" onclick="connectSerial()" style="margin-top: 0.75rem; padding: 0.5rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: background 0.2s;">Connect USB</button>
+            <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
+                Raspberry Pi Pico
+            </div>
+        </div>
+        <button class="btn-master-off" onclick="masterOff()">Master Off</button>
+    </div>
+
+    <!-- Digital Outputs Section -->
+    <div class="section-container">
+        <div class="section-header">
+            Digital Outputs <span style="font-size: 0.9rem; margin-left:1rem; color: var(--text-muted); font-weight: 400;">(ULN2803)</span>
+        </div>
+        <div class="channels-grid" id="digital-container">
+            <!-- Generated by JS -->
+        </div>
+    </div>
+
+    <!-- 4-20mA Outputs Section -->
+    <div class="section-container">
+        <div class="section-header">
+            4-20mA Outputs <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+        <div class="channels-grid" id="analog-out-container">
+            <!-- Generated Layout Stubs -->
+        </div>
+    </div>
+
+    <!-- 150KHz PWM Inputs Section -->
+    <div class="section-container">
+        <div class="section-header">
+            150KHz PWM Inputs <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+        <div class="channels-grid" id="pwm-in-container">
+            <!-- Generated Layout Stubs -->
+        </div>
+    </div>
+    
+    <div class="section-container" style="max-width: 800px; margin-top: -1rem;">
+        <div class="section-header" style="font-size: 1.1rem; color: var(--text-muted); border-bottom: none;">Serial Debug Console</div>
+        <div id="debug-console" style="background: #0d1117; border: 1px solid var(--border); color: #3fb950; font-family: monospace; font-size: 0.85rem; padding: 1rem; border-radius: 8px; height: 180px; overflow-y: auto;">
+            <div>> Ready. Waiting for connection...</div>
+        </div>
+    </div>
+    <div id="toast" class="toast">Command Sent Successfully</div>
+
+    <script>
+        const NUM_CHANNELS = 8;
+        const FREQ_MIN = 2;
+        const FREQ_MAX = 1200;
+        const FREQ_STEP = 2;
+        const FREQ_REPEAT_DELAY_MS = 400;
+        const FREQ_REPEAT_EVERY_MS = 80;
+
+        let freqRepeatTimer = null;
+        let freqRepeatInterval = null;
+        let freqRepeatCleanup = null;
+
+        function stopFreqRepeat() {
+            if (freqRepeatTimer) {
+                clearTimeout(freqRepeatTimer);
+                freqRepeatTimer = null;
+            }
+            if (freqRepeatInterval) {
+                clearInterval(freqRepeatInterval);
+                freqRepeatInterval = null;
+            }
+            if (freqRepeatCleanup) {
+                freqRepeatCleanup();
+                freqRepeatCleanup = null;
+            }
+        }
+
+        function startFreqRepeat(channel, delta, ev) {
+            if (ev.button !== undefined && ev.button !== 0) return;
+            ev.preventDefault();
+            stopFreqRepeat();
+            adjFreq(channel, delta);
+            const onUp = () => stopFreqRepeat();
+            window.addEventListener('pointerup', onUp);
+            window.addEventListener('pointercancel', onUp);
+            freqRepeatCleanup = () => {
+                window.removeEventListener('pointerup', onUp);
+                window.removeEventListener('pointercancel', onUp);
+            };
+            freqRepeatTimer = setTimeout(() => {
+                freqRepeatTimer = null;
+                freqRepeatInterval = setInterval(() => adjFreq(channel, delta), FREQ_REPEAT_EVERY_MS);
+            }, FREQ_REPEAT_DELAY_MS);
+        }
+        
+        function renderDigitalOutputs() {
+            const container = document.getElementById('digital-container');
+            for (let i = 1; i <= NUM_CHANNELS; i++) {
+                const card = document.createElement('div');
+                card.className = 'channel-card';
+                card.innerHTML = `
+                    <div class="channel-header">
+                        <span class="channel-title">Ch ${i}</span>
+                        <input type="text" class="channel-desc" id="desc-${i}" placeholder="Description..." oninput="syncChannel(${i})" maxlength="32">
+                    </div>
+                    
+                    <div class="segmented-control" id="seg-${i}">
+                        <button class="seg-btn active" data-val="off" onclick="setMode(${i}, 'off')">Off</button>
+                        <button class="seg-btn" data-val="on" onclick="setMode(${i}, 'on')">On</button>
+                        <button class="seg-btn" data-val="freq" onclick="setMode(${i}, 'freq')">Freq</button>
+                    </div>
+
+                    <div class="freq-control hidden" id="freq-ctrl-${i}">
+                        <button type="button" class="freq-btn" title="Decrease Frequency (hold to repeat)" onpointerdown="startFreqRepeat(${i}, ${-FREQ_STEP}, event)">-</button>
+                        <div class="freq-input-wrap">
+                            <input type="number" class="freq-input" id="freq-${i}" value="1000" min="${FREQ_MIN}" max="${FREQ_MAX}" step="${FREQ_STEP}" onchange="onFreqChange(${i})">
+                            <span class="freq-unit">Hz</span>
+                        </div>
+                        <button type="button" class="freq-btn" title="Increase Frequency (hold to repeat)" onpointerdown="startFreqRepeat(${i}, ${FREQ_STEP}, event)">+</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        function renderPlaceholders() {
+            // 4-20mA Outputs
+            const aoContainer = document.getElementById('analog-out-container');
+            for (let i = 1; i <= 8; i++) {
+                const card = document.createElement('div');
+                card.className = 'channel-card disabled';
+                card.innerHTML = `<div class="channel-header"><span class="channel-title">Current Output ${i}</span></div><div class="placeholder-text">Hardware integration pending...</div>`;
+                aoContainer.appendChild(card);
+            }
+            
+            // PWM Inputs
+            const piContainer = document.getElementById('pwm-in-container');
+            for (let i = 1; i <= 8; i++) {
+                const card = document.createElement('div');
+                card.className = 'channel-card disabled';
+                card.innerHTML = `<div class="channel-header"><span class="channel-title">PWM Input ${i}</span></div><div class="placeholder-text">Awaiting signal capture logic...</div>`;
+                piContainer.appendChild(card);
+            }
+        }
+
+        // Initialize UI
+        renderDigitalOutputs();
+        renderPlaceholders();
+
+        let debounceTimer;
+
+        function showToast(msg, isError=false) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.style.borderLeftColor = isError ? 'var(--danger)' : 'var(--success)';
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+        
+        function setConnectionStatus(connected) {
+            const status = document.getElementById('connection-status');
+            const connectBtn = document.getElementById('connect-btn');
+            if(connected) {
+                status.className = 'status-indicator';
+                status.innerText = 'Connected';
+                connectBtn.style.display = 'none';
+            } else {
+                status.className = 'status-indicator status-offline';
+                status.innerText = 'Disconnected';
+                connectBtn.style.display = 'inline-block';
+            }
+        }
+
+        // --- Web Serial Implementation ---
+        
+        let port;
+        let writer;
+        let reader;
+        let reading = false;
+        const decoder = new TextDecoder();
+        let incomeBuffer = "";
+
+        async function connectSerial() {
+            try {
+                port = await navigator.serial.requestPort();
+                await port.open({ baudRate: 115200 });
+                
+                // Crucial: Assert DTR so MicroPython USB CDC actually reads the stream!
+                await port.setSignals({ dataTerminalReady: true, requestToSend: true });
+                
+                setConnectionStatus(true);
+                showToast("USB Connected");
+                
+                writer = port.writable.getWriter();
+                readLoop();
+                sendCommand({ cmd: "get_state" });
+            } catch (error) {
+                console.error("Connection failed", error);
+                setConnectionStatus(false);
+                if (error.name !== "NotFoundError") {
+                    showToast("Failed to connect", true);
+                }
+            }
+        }
+
+        async function readLoop() {
+            reading = true;
+            while (port.readable && reading) {
+                reader = port.readable.getReader();
+                try {
+                    while (true) {
+                        const { value, done } = await reader.read();
+                        if (done) break;
+                        if (value) {
+                            incomeBuffer += decoder.decode(value, { stream: true });
+                            processBuffer();
+                        }
+                    }
+                } catch (error) {
+                    console.error("Read Error", error);
+                    break;
+                } finally {
+                    reader.releaseLock();
+                }
+            }
+            // Disconnected
+            setConnectionStatus(false);
+        }
+
+        function logDebug(msg) {
+            const consoleDiv = document.getElementById('debug-console');
+            if (consoleDiv) {
+                const line = document.createElement('div');
+                line.innerText = `> ${msg}`;
+                consoleDiv.appendChild(line);
+                consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            }
+        }
+
+        function processBuffer() {
+            let newlineIdx;
+            while ((newlineIdx = incomeBuffer.indexOf('\n')) >= 0) {
+                const line = incomeBuffer.substring(0, newlineIdx).trim();
+                incomeBuffer = incomeBuffer.substring(newlineIdx + 1);
+                
+                if (line) {
+                    logDebug("RECV: " + line);
+                    try {
+                        const response = JSON.parse(line);
+                        
+                        if (response.state) {
+                            updateStateUI(response.state);
+                        }
+                        
+                        if (response.status === 'error') {
+                            showToast("Error: " + response.message, true);
+                        } else if (response.status === 'ok' && response.state && !window.uiInitializedOnce) {
+                            window.uiInitializedOnce = true;
+                            // Initial fetch successful
+                        }
+                    } catch (e) {
+                        console.warn("Could not parse JSON:", line);
+                    }
+                }
+            }
+        }
+
+        async function sendCommand(data) {
+            if (!writer) {
+                showToast("Not connected to USB", true);
+                return;
+            }
+            const encoder = new TextEncoder();
+            const str = JSON.stringify(data) + '\n';
+            logDebug("SEND: " + str.trim());
+            try {
+                await writer.write(encoder.encode(str));
+            } catch (e) {
+                console.error("Write error", e);
+                setConnectionStatus(false);
+                showToast("Communication Error", true);
+            }
+        }
+
+        // --- UI Interactions ---
+
+        function setMode(channel, mode) {
+            const segs = document.querySelectorAll(`#seg-${channel} .seg-btn`);
+            segs.forEach(b => b.classList.remove('active'));
+            document.querySelector(`#seg-${channel} .seg-btn[data-val="${mode}"]`).classList.add('active');
+            
+            const freqCtrl = document.getElementById(`freq-ctrl-${channel}`);
+            if (mode === 'freq') {
+                freqCtrl.classList.remove('hidden');
+            } else {
+                freqCtrl.classList.add('hidden');
+            }
+
+            syncChannel(channel);
+        }
+
+        function adjFreq(channel, delta) {
+            const input = document.getElementById(`freq-${channel}`);
+            let val = parseInt(input.value) || 0;
+            val += delta;
+            if (val < FREQ_MIN) val = FREQ_MIN;
+            if (val > FREQ_MAX) val = FREQ_MAX;
+            input.value = val;
+            
+            const mode = document.querySelector(`#seg-${channel} .seg-btn.active`).getAttribute('data-val');
+            if (mode === 'freq') syncChannel(channel);
+        }
+
+        function onFreqChange(channel) {
+            const input = document.getElementById(`freq-${channel}`);
+            let val = parseInt(input.value) || 0;
+            if (val < FREQ_MIN) val = FREQ_MIN;
+            if (val > FREQ_MAX) val = FREQ_MAX;
+            input.value = val;
+            
+            const mode = document.querySelector(`#seg-${channel} .seg-btn.active`).getAttribute('data-val');
+            if (mode === 'freq') syncChannel(channel);
+        }
+
+        function syncChannel(channel) {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const mode = document.querySelector(`#seg-${channel} .seg-btn.active`).getAttribute('data-val');
+                const freq = document.getElementById(`freq-${channel}`).value;
+                const desc = document.getElementById(`desc-${channel}`).value;
+                
+                sendCommand({
+                    cmd: "set_channel",
+                    channel: channel,
+                    mode: mode,
+                    freq: parseInt(freq),
+                    desc: desc
+                });
+            }, 400);
+        }
+
+        function masterOff() {
+            for (let i = 1; i <= NUM_CHANNELS; i++) {
+                document.querySelectorAll(`#seg-${i} .seg-btn`).forEach(b => b.classList.remove('active'));
+                document.querySelector(`#seg-${i} .seg-btn[data-val="off"]`).classList.add('active');
+                document.getElementById(`freq-ctrl-${i}`).classList.add('hidden');
+            }
+
+            clearTimeout(debounceTimer);
+            sendCommand({ cmd: "master_off" });
+        }
+
+        // Update UI when getting state from Pico
+        function updateStateUI(state) {
+            for(let i=1; i<=NUM_CHANNELS; i++){
+                const chData = state[`channel_${i}`];
+                if(chData) {
+                    const freqInput = document.getElementById(`freq-${i}`);
+                    if (document.activeElement !== freqInput) {
+                        freqInput.value = chData.freq;
+                    }
+                    
+                    const descInput = document.getElementById(`desc-${i}`);
+                    if(chData.desc !== undefined && document.activeElement !== descInput) {
+                        descInput.value = chData.desc;
+                    }
+                    
+                    const mode = chData.mode || 'off';
+                    document.querySelectorAll(`#seg-${i} .seg-btn`).forEach(b => b.classList.remove('active'));
+                    document.querySelector(`#seg-${i} .seg-btn[data-val="${mode}"]`).classList.add('active');
+                    
+                    const freqCtrl = document.getElementById(`freq-ctrl-${i}`);
+                    if (mode === 'freq') {
+                        freqCtrl.classList.remove('hidden');
+                    } else {
+                        freqCtrl.classList.add('hidden');
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
