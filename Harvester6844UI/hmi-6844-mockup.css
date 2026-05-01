@@ -1,0 +1,688 @@
+/* 6844 HMI mockup — responsive shell, touch-first tokens */
+
+:root {
+	--shell-bg: #2a2a2a;
+	--header-bg: #1a1a1a;
+	--content-bg: #bdbbb0;
+	--content-ink: #1a1a1a;
+	--ink: #f2f2f2;
+	--muted: #d0d0d0;
+	--border: #1a1a1a;
+	--active-green: #4d9920;
+	--active-green-hover: #5aad28;
+	--btn-grey: #7e7e7e;
+	--input-bg: #fff;
+	--radius: 12px;
+	--radius-pill: 999px;
+	--nav-w: min(168px, 22vw);
+	--touch-min: 56px;
+	--gap: 12px;
+	--font-base: clamp(16px, 1.6vw, 18px);
+	--font-label: clamp(14px, 1.4vw, 16px);
+	--font-value: clamp(20px, 2.2vw, 28px);
+	--font-title: clamp(20px, 2vw, 26px);
+	--safe-bottom: env(safe-area-inset-bottom, 0px);
+	--safe-top: env(safe-area-inset-top, 0px);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	min-height: 100%;
+	font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	font-size: var(--font-base);
+	background: #121212;
+	color: var(--ink);
+	padding: var(--safe-top) 0 var(--safe-bottom);
+}
+
+[hidden] {
+	display: none !important;
+}
+
+.hmi-root {
+	max-width: 1400px;
+	margin: 0 auto;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: var(--shell-bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+	overflow: hidden;
+}
+
+/* ——— Header ——— */
+.hmi-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--gap);
+	padding: 10px 14px;
+	background: var(--header-bg);
+	border-bottom: 1px solid var(--border);
+	min-height: calc(var(--touch-min) + 8px);
+}
+
+.hmi-logo {
+	height: 36px;
+	width: auto;
+	flex-shrink: 0;
+}
+
+.hmi-header-id {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.hmi-header-id span:first-child {
+	font-weight: 700;
+	font-size: var(--font-value);
+	letter-spacing: 0.02em;
+}
+
+.hmi-version {
+	font-size: var(--font-label);
+	color: var(--muted);
+}
+
+.hmi-header-spacer {
+	flex: 1;
+	min-width: 8px;
+}
+
+.hmi-header-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+/* ——— Shell: main + right nav ——— */
+.hmi-shell {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 1fr var(--nav-w);
+	grid-template-rows: 1fr;
+	min-height: 0;
+}
+
+.hmi-main {
+	background: var(--content-bg);
+	color: var(--content-ink);
+	overflow: auto;
+	padding: clamp(12px, 2vw, 24px);
+	min-height: min(70vh, 800px);
+}
+
+.hmi-nav-aside {
+	background: var(--shell-bg);
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid var(--border);
+	padding: 10px 10px 16px;
+	gap: 16px;
+	min-width: 0;
+}
+
+.hmi-nav {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.hmi-presets-label {
+	font-size: var(--font-label);
+	color: var(--muted);
+	text-align: center;
+	margin: 4px 0 0;
+}
+
+.hmi-presets {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+/* ——— Touch buttons ——— */
+.btn-touch {
+	min-height: var(--touch-min);
+	min-width: var(--touch-min);
+	padding: 10px 16px;
+	border-radius: var(--radius);
+	border: 1px solid var(--border);
+	background: var(--btn-grey);
+	color: #fff;
+	font-weight: 600;
+	font-size: var(--font-label);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.btn-touch:hover {
+	filter: brightness(1.08);
+}
+
+.btn-touch:active {
+	filter: brightness(0.95);
+}
+
+.btn-touch--primary {
+	background: var(--active-green);
+}
+
+.btn-touch--primary:hover {
+	background: var(--active-green-hover);
+}
+
+.btn-touch--dark {
+	background: #3a3a3a;
+	color: var(--ink);
+}
+
+.btn-touch--run {
+	min-width: 100px;
+	min-height: 64px;
+	font-size: clamp(22px, 3vw, 32px);
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	background: #c8c8c8;
+	color: #111;
+	border-radius: 8px;
+}
+
+.btn-touch--run[data-state="on"] {
+	background: var(--active-green);
+	color: #fff;
+}
+
+.btn-touch--sm {
+	min-height: 48px;
+	min-width: 48px;
+	padding: 8px 12px;
+	font-size: 14px;
+}
+
+.btn-touch--tab {
+	width: 100%;
+	justify-content: space-between;
+	text-align: left;
+	padding: 14px 12px;
+	border-radius: 0 10px 10px 0;
+	border-left: none;
+	background: #1a1a1a;
+	color: #aaa;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.btn-touch--tab[aria-selected="true"] {
+	background: var(--active-green);
+	color: #fff;
+}
+
+.btn-touch--tab .hmi-tab-icon {
+	width: 22px;
+	height: 22px;
+	opacity: 0.9;
+}
+
+.hmi-panel-title {
+	margin: 0 0 16px;
+	font-size: var(--font-title);
+	font-weight: 700;
+	text-align: center;
+	color: var(--content-ink);
+}
+
+.hmi-val {
+	font-variant-numeric: tabular-nums;
+	font-weight: 800;
+}
+
+/* ——— Home dashboard ——— */
+.hmi-home-grid {
+	display: grid;
+	gap: 16px;
+	grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+	.hmi-home-grid {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.hmi-card {
+	background: rgba(255, 255, 255, 0.35);
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	border-radius: var(--radius);
+	padding: 12px;
+}
+
+.hmi-steering-bar {
+	height: 28px;
+	background: linear-gradient(90deg, #1e5aa8 0%, #1e5aa8 50%, #eee 50%, #eee 100%);
+	border-radius: 4px;
+	position: relative;
+	border: 1px solid #333;
+}
+
+.hmi-steering-needle {
+	position: absolute;
+	top: -4px;
+	bottom: -4px;
+	left: 50%;
+	width: 4px;
+	margin-left: -2px;
+	background: #c00;
+	border-radius: 2px;
+}
+
+.hmi-chain-dots {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.hmi-chain-dots li {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 8px;
+	font-weight: 600;
+	font-size: var(--font-label);
+}
+
+.hmi-status-dot {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #888;
+	border: 2px solid #444;
+	flex-shrink: 0;
+}
+
+.hmi-status-dot--on {
+	background: var(--active-green);
+}
+
+.hmi-bar-v {
+	width: 36px;
+	height: 120px;
+	background: linear-gradient(180deg, #c00 0%, #1e5aa8 100%);
+	border-radius: 4px;
+	border: 1px solid #333;
+	position: relative;
+}
+
+.hmi-bar-v::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 40%;
+	height: 8px;
+	background: #fff;
+	opacity: 0.9;
+}
+
+.hmi-seg {
+	display: inline-flex;
+	border-radius: var(--radius-pill);
+	overflow: hidden;
+	border: 1px solid var(--border);
+}
+
+.hmi-seg button {
+	min-height: 48px;
+	padding: 0 18px;
+	border: none;
+	background: var(--btn-grey);
+	color: #fff;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.hmi-seg button.hmi-seg--active {
+	background: var(--active-green);
+}
+
+.hmi-lamps {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.hmi-lamp {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 700;
+}
+
+.hmi-lamp-light {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: #555;
+	border: 2px solid #333;
+}
+
+.hmi-lamp-light--on {
+	background: var(--active-green);
+	box-shadow: 0 0 10px var(--active-green);
+}
+
+.hmi-log {
+	min-height: 100px;
+	background: var(--input-bg);
+	border: 1px solid #999;
+	border-radius: 6px;
+	padding: 8px;
+	font-size: var(--font-label);
+	position: relative;
+}
+
+.hmi-log-clear {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+}
+
+.hmi-telemetry {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	font-weight: 700;
+	font-size: var(--font-label);
+}
+
+.hmi-auto-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+}
+
+.hmi-auto-row .btn-touch--sm {
+	flex: 1 1 auto;
+	min-width: 120px;
+}
+
+/* ——— Schematic ——— */
+.hmi-schematic {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto 12px;
+	border-radius: 8px;
+}
+
+.hmi-digger-controls {
+	display: grid;
+	gap: 12px;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.hmi-control-stack {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+.hmi-stack-btns {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	width: 100%;
+	max-width: 120px;
+}
+
+.hmi-coulter-pair {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+/* ——— Chains table ——— */
+.hmi-chains-wrap {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	margin: 0 -8px;
+	padding: 0 8px;
+}
+
+.hmi-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: var(--font-label);
+	min-width: 520px;
+}
+
+.hmi-table th,
+.hmi-table td {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	padding: 10px 8px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.hmi-table th {
+	font-weight: 700;
+	background: rgba(0, 0, 0, 0.06);
+}
+
+.hmi-table td:first-child {
+	text-align: left;
+	font-weight: 600;
+}
+
+.hmi-num {
+	width: 72px;
+	max-width: 100%;
+	padding: 8px;
+	font-size: var(--font-label);
+	font-weight: 700;
+	text-align: center;
+	border: 1px solid #666;
+	border-radius: 4px;
+}
+
+.hmi-bump-row {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.hmi-override-pair {
+	display: inline-flex;
+	gap: 8px;
+}
+
+.hmi-override-pair .btn-touch {
+	border-radius: var(--radius-pill);
+	min-width: 64px;
+}
+
+.hmi-shakers {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.hmi-shaker {
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: var(--radius);
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.25);
+}
+
+/* ——— Table page ——— */
+.hmi-table-page-grid {
+	display: grid;
+	gap: 16px;
+	grid-template-columns: 1fr;
+}
+
+@media (min-width: 800px) {
+	.hmi-table-page-grid {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.hmi-roller-rows {
+	margin-top: 12px;
+}
+
+/* ——— Boom ——— */
+.hmi-boom-grid {
+	display: grid;
+	gap: 12px;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.hmi-arrow-grid {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+.hmi-arrow-row {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
+
+/* ——— Axle ——— */
+.hmi-axle-split {
+	display: grid;
+	gap: 16px;
+	grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+	.hmi-axle-split {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.hmi-dpad {
+	display: grid;
+	grid-template-columns: repeat(3, var(--touch-min));
+	grid-template-rows: repeat(3, var(--touch-min));
+	gap: 6px;
+	justify-content: center;
+	align-items: center;
+}
+
+.hmi-dpad .btn-touch:nth-child(1) {
+	grid-column: 2;
+	grid-row: 1;
+}
+.hmi-dpad .btn-touch:nth-child(2) {
+	grid-column: 1;
+	grid-row: 2;
+}
+.hmi-dpad .btn-touch:nth-child(3) {
+	grid-column: 2;
+	grid-row: 2;
+}
+.hmi-dpad .btn-touch:nth-child(4) {
+	grid-column: 3;
+	grid-row: 2;
+}
+.hmi-dpad .btn-touch:nth-child(5) {
+	grid-column: 2;
+	grid-row: 3;
+}
+
+.hmi-steer-btns {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+}
+
+/* ——— Narrow / portrait ——— */
+@media (max-width: 900px) {
+	.hmi-shell {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr;
+	}
+
+	.hmi-nav-aside {
+		border-left: none;
+		border-bottom: 1px solid var(--border);
+		flex-direction: column;
+		order: -1;
+		padding: 8px;
+	}
+
+	.hmi-nav {
+		flex-direction: row;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		gap: 8px;
+		scroll-snap-type: x mandatory;
+		padding-bottom: 4px;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.btn-touch--tab {
+		flex: 0 0 auto;
+		width: auto;
+		min-width: 120px;
+		border-radius: 10px;
+		border: 1px solid var(--border);
+		scroll-snap-align: start;
+	}
+
+	.hmi-presets {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.hmi-presets .btn-touch {
+		flex: 1 1 100px;
+	}
+}
+
+@media (max-width: 480px) {
+	:root {
+		--touch-min: 52px;
+	}
+
+	.hmi-header {
+		justify-content: center;
+	}
+
+	.hmi-header-spacer {
+		display: none;
+	}
+}

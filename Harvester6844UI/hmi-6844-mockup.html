@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>6844 HMI Mockup</title>
+	<link href="./hmi-6844-mockup.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="hmi-root" id="hmi-root">
+		<header class="hmi-header">
+			<img class="hmi-logo" src="./icons/SpudnikLogo.svg" alt="SPUDNIK" width="120" height="36" />
+			<div class="hmi-header-id">
+				<span id="hmi-model">6844-55-26</span>
+				<span class="hmi-version" id="hmi-version">Version 2.08 / 1.03</span>
+			</div>
+			<div class="hmi-header-spacer" aria-hidden="true"></div>
+			<div class="hmi-header-actions">
+				<button type="button" class="btn-touch btn-touch--dark">
+					<img src="./icons/arrow_back_ios_20_lt.png" alt="" width="20" height="20" /> Start Row
+				</button>
+				<button type="button" class="btn-touch btn-touch--dark">
+					End Row <img src="./icons/arrow_forward_ios_20_lt.png" alt="" width="20" height="20" />
+				</button>
+				<button type="button" class="btn-touch btn-touch--run" id="hmi-run" data-state="off" aria-pressed="false">
+					RUN
+				</button>
+			</div>
+		</header>
+
+		<div class="hmi-shell">
+			<main class="hmi-main" aria-label="Machine controls">
+				<!-- Home -->
+				<section id="panel-home" class="hmi-panel hmi-panel--active" role="tabpanel" aria-labelledby="tab-home"
+					tabindex="0">
+					<h2 class="hmi-panel-title">Dashboard</h2>
+					<div class="hmi-home-grid">
+						<div class="hmi-card">
+							<div class="hmi-panel-title" style="font-size: var(--font-label); margin-bottom: 8px;">Steering
+							</div>
+							<div class="hmi-steering-bar" role="img" aria-label="Steering center">
+								<div class="hmi-steering-needle"></div>
+							</div>
+						</div>
+						<div class="hmi-card">
+							<div class="hmi-panel-title" style="font-size: var(--font-label); margin-bottom: 8px;">Chain
+								speeds</div>
+							<ul class="hmi-chain-dots">
+								<li><span class="hmi-status-dot hmi-status-dot--on" aria-hidden="true"></span> Intake</li>
+								<li><span class="hmi-status-dot" aria-hidden="true"></span> Primary</li>
+								<li><span class="hmi-status-dot" aria-hidden="true"></span> Sec/Vine</li>
+								<li><span class="hmi-status-dot" aria-hidden="true"></span> MultiSep</li>
+								<li><span class="hmi-status-dot" aria-hidden="true"></span> Rear Cross</li>
+							</ul>
+						</div>
+						<div class="hmi-card" style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-end;">
+							<div>
+								<div class="hmi-panel-title" style="font-size: var(--font-label); margin-bottom: 8px;">Digger
+								</div>
+								<div class="hmi-bar-v" role="img" aria-label="Digger level"></div>
+							</div>
+							<div>
+								<div class="hmi-panel-title" style="font-size: var(--font-label); margin-bottom: 8px;">
+									Hopper</div>
+								<div class="hmi-bar-v" role="img" aria-label="Hopper level"></div>
+							</div>
+						</div>
+						<div class="hmi-card">
+							<div class="hmi-panel-title" style="font-size: var(--font-label); margin-bottom: 8px;">Clod
+								rollers</div>
+							<div class="hmi-seg" role="group" aria-label="Clod roller mode">
+								<button type="button" class="btn-touch btn-touch--sm">Pinch</button>
+								<button type="button" class="btn-touch btn-touch--sm hmi-seg--active">Transp</button>
+							</div>
+							<div class="hmi-panel-title" style="font-size: var(--font-label); margin: 12px 0 8px;">Chain
+								mode</div>
+							<div class="hmi-seg" role="group" aria-label="Chain speed mode">
+								<button type="button" class="btn-touch btn-touch--sm hmi-seg--active">Ground</button>
+								<button type="button" class="btn-touch btn-touch--sm">Fixed</button>
+							</div>
+						</div>
+					</div>
+					<div class="hmi-card" style="margin-top: 12px;">
+						<div class="hmi-lamps">
+							<div class="hmi-lamp"><span class="hmi-lamp-light hmi-lamp-light--on"></span> BOOM</div>
+							<div class="hmi-lamp"><span class="hmi-lamp-light hmi-lamp-light--on"></span> PTO</div>
+						</div>
+					</div>
+					<div class="hmi-card" style="margin-top: 12px; position: relative;">
+						<div class="hmi-log" aria-label="Message log">
+							<button type="button" class="btn-touch btn-touch--sm hmi-log-clear">Clear</button>
+							<p style="margin: 28px 0 0; color: #333;">Ready.</p>
+						</div>
+					</div>
+					<div class="hmi-card" style="margin-top: 12px;">
+						<div class="hmi-telemetry">
+							<span>Speed: <span class="hmi-val">0.0</span></span>
+							<span>Oil Temp: <span class="hmi-val">—</span></span>
+						</div>
+						<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; align-items: center;">
+							<span style="font-weight: 700;">Fill elevator</span>
+							<button type="button" class="btn-touch btn-touch--sm" aria-label="Fill elevator up"><img
+									src="./icons/arrow_up_20.png" alt="" width="20" height="20" /></button>
+							<button type="button" class="btn-touch btn-touch--sm" aria-label="Fill elevator down"><img
+									src="./icons/arrow_down_20.png" alt="" width="20" height="20" /></button>
+							<span style="font-weight: 700;">Hopper chain</span>
+							<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">On</button>
+						</div>
+					</div>
+
+					<div class="hmi-card" data-requires="wheelDrive" hidden aria-hidden="true" style="margin-top: 12px;">
+						<div class="hmi-panel-title" style="font-size: var(--font-label); text-align: left;">Wheel drive
+						</div>
+						<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+							<button type="button" class="btn-touch btn-touch--sm">Off</button>
+							<span style="font-weight: 700;">Pressure: <span class="hmi-val">0</span> psi</span>
+						</div>
+					</div>
+
+					<div class="hmi-card" style="margin-top: 12px;">
+						<div class="hmi-panel-title" style="font-size: var(--font-label); margin-bottom: 10px;">Auto</div>
+						<div class="hmi-auto-row">
+							<button type="button" class="btn-touch btn-touch--sm">All Chains</button>
+							<button type="button" class="btn-touch btn-touch--sm">Digger</button>
+							<button type="button" class="btn-touch btn-touch--sm">Hump</button>
+							<button type="button" class="btn-touch btn-touch--sm">Depth Wheel</button>
+							<button type="button" class="btn-touch btn-touch--sm">Axle</button>
+							<button type="button" class="btn-touch btn-touch--sm">Pri Shaker</button>
+							<button type="button" class="btn-touch btn-touch--sm">Sec Shaker</button>
+						</div>
+					</div>
+				</section>
+
+				<!-- Digger -->
+				<section id="panel-digger" class="hmi-panel" role="tabpanel" aria-labelledby="tab-digger" tabindex="0"
+					hidden>
+					<h2 class="hmi-panel-title">Digger</h2>
+					<img class="hmi-schematic" src="./icons/6844OffsetSideViewTransparentBackgroundSm.png"
+						alt="6844 side view with digger callouts" width="640" height="200" />
+					<div class="hmi-digger-controls">
+						<div class="hmi-card hmi-control-stack">
+							<strong>Digger depth</strong>
+							<span style="font-size: var(--font-value); font-weight: 800;">0 / 0 PSI</span>
+							<div class="hmi-bar-v" style="height: 100px;"></div>
+							<div class="hmi-stack-btns">
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png"
+										alt="Up" width="20" height="20" /></button>
+								<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">Auto</button>
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_down_20.png"
+										alt="Down" width="20" height="20" /></button>
+							</div>
+						</div>
+						<div class="hmi-card hmi-control-stack">
+							<strong>Hump</strong>
+							<div class="hmi-bar-v" style="height: 100px;"></div>
+							<div class="hmi-stack-btns">
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png"
+										alt="Up" width="20" height="20" /></button>
+								<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">Auto</button>
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_down_20.png"
+										alt="Down" width="20" height="20" /></button>
+							</div>
+						</div>
+						<div class="hmi-card hmi-coulter-pair">
+							<div class="hmi-control-stack">
+								<strong>Coulters L</strong>
+								<div style="display: flex; gap: 8px;">
+									<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png"
+											alt="" width="20" height="20" /></button>
+									<button type="button" class="btn-touch btn-touch--sm"><img
+											src="./icons/arrow_down_20.png" alt="" width="20" height="20" /></button>
+								</div>
+							</div>
+							<button type="button" class="btn-touch btn-touch--sm" title="Sync"><img src="./icons/link_16_lt.png"
+									alt="Sync" width="24" height="24" /></button>
+							<div class="hmi-control-stack">
+								<strong>Coulters R</strong>
+								<div style="display: flex; gap: 8px;">
+									<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png"
+											alt="" width="20" height="20" /></button>
+									<button type="button" class="btn-touch btn-touch--sm"><img
+											src="./icons/arrow_down_20.png" alt="" width="20" height="20" /></button>
+								</div>
+							</div>
+							<div class="hmi-bar-v" style="height: 120px;"></div>
+						</div>
+						<div class="hmi-card hmi-coulter-pair" data-requires="depthWheels">
+							<div class="hmi-control-stack">
+								<strong>Depth L</strong>
+								<div style="display: flex; gap: 8px;">
+									<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png"
+											alt="" width="20" height="20" /></button>
+									<button type="button" class="btn-touch btn-touch--sm"><img
+											src="./icons/arrow_down_20.png" alt="" width="20" height="20" /></button>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+								<button type="button" class="btn-touch btn-touch--sm" title="Sync"><img
+										src="./icons/link_16_lt.png" alt="Sync" width="24" height="24" /></button>
+								<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">Auto</button>
+							</div>
+							<div class="hmi-control-stack">
+								<strong>Depth R</strong>
+								<div style="display: flex; gap: 8px;">
+									<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png"
+											alt="" width="20" height="20" /></button>
+									<button type="button" class="btn-touch btn-touch--sm"><img
+											src="./icons/arrow_down_20.png" alt="" width="20" height="20" /></button>
+								</div>
+							</div>
+							<div class="hmi-bar-v" style="height: 120px;"></div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Chains -->
+				<section id="panel-chains" class="hmi-panel" role="tabpanel" aria-labelledby="tab-chains" tabindex="0"
+					hidden>
+					<h2 class="hmi-panel-title">Chains</h2>
+					<div class="hmi-card" style="margin-bottom: 12px;">
+						<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between;">
+							<span style="font-weight: 800;">Adjust all:</span>
+							<div class="hmi-bump-row">
+								<button type="button" class="btn-touch btn-touch--sm">−10</button>
+								<span style="font-weight: 800; padding: 0 8px;">CHAIN SPEEDS</span>
+								<button type="button" class="btn-touch btn-touch--sm">+10</button>
+							</div>
+							<div class="hmi-seg">
+								<button type="button" class="btn-touch btn-touch--sm hmi-seg--active">Ground Speed</button>
+								<button type="button" class="btn-touch btn-touch--sm">Fixed Speed</button>
+							</div>
+						</div>
+					</div>
+					<div class="hmi-chains-wrap">
+						<table class="hmi-table">
+							<thead>
+								<tr>
+									<th scope="col">Name</th>
+									<th scope="col">Setpoint</th>
+									<th scope="col">Actual</th>
+									<th scope="col">Override</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-requires="intakeChain">
+									<td>Intake</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" inputmode="decimal" value="110" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Rev</button>
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Primary</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="115" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Rev</button>
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Secondary/Vine</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="125" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Rev</button>
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Segment Rollers</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="240" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Rev</button>
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Clod Rollers</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="240" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Transfer Roller</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="230" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Rear Cross</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="220" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Rev</button>
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Side Elev</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="100%" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Fill Elevator</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="100%" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="text-align: right; font-weight: 700;">Hopper / Boom</td>
+									<td><span class="hmi-val">0</span> / <span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="hmi-shakers">
+						<div class="hmi-shaker">
+							<strong>Primary Shakers</strong>
+							<div class="hmi-bump-row" style="margin-top: 8px;">
+								<button type="button" class="btn-touch btn-touch--sm">−5</button>
+								<input class="hmi-num" type="text" value="41%" readonly />
+								<button type="button" class="btn-touch btn-touch--sm">+5</button>
+							</div>
+							<div class="hmi-seg" style="margin-top: 10px;">
+								<button type="button" class="btn-touch btn-touch--sm hmi-seg--active">Auto</button>
+								<button type="button" class="btn-touch btn-touch--sm">Manual</button>
+							</div>
+						</div>
+						<div class="hmi-shaker">
+							<strong>Secondary Shakers</strong>
+							<div class="hmi-bump-row" style="margin-top: 8px;">
+								<button type="button" class="btn-touch btn-touch--sm">−5</button>
+								<input class="hmi-num" type="text" value="0%" readonly />
+								<button type="button" class="btn-touch btn-touch--sm">+5</button>
+							</div>
+							<div class="hmi-seg" style="margin-top: 10px;">
+								<button type="button" class="btn-touch btn-touch--sm hmi-seg--active">Auto</button>
+								<button type="button" class="btn-touch btn-touch--sm">Manual</button>
+							</div>
+						</div>
+					</div>
+					<div class="hmi-card" data-requires="stripperKit"
+						style="margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between;">
+						<strong>Stripper kit</strong>
+						<div>
+							<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_down_20.png" alt="Down"
+									width="20" height="20" /></button>
+							<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png" alt="Up"
+									width="20" height="20" /></button>
+						</div>
+					</div>
+					<div class="hmi-card" style="margin-top: 12px; display: flex; justify-content: flex-end;">
+						<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">All Chains Auto</button>
+					</div>
+				</section>
+
+				<!-- Table -->
+				<section id="panel-table" class="hmi-panel" role="tabpanel" aria-labelledby="tab-table" tabindex="0" hidden>
+					<h2 class="hmi-panel-title">Cleaning table</h2>
+					<div class="hmi-table-page-grid">
+						<div class="hmi-card">
+							<img class="hmi-schematic" src="./icons/6844-2.png" alt="Cleaning table schematic" width="400"
+								height="220" />
+						</div>
+						<div class="hmi-card">
+							<div class="hmi-panel-title" style="font-size: var(--font-label); text-align: left;">Adjustments
+							</div>
+							<div style="display: grid; gap: 12px;">
+								<div>
+									<strong>Gap</strong>
+									<div class="hmi-bump-row" style="margin-top: 6px;">
+										<button type="button" class="btn-touch btn-touch--sm">−</button>
+										<input class="hmi-num" type="text" value="5" readonly />
+										<button type="button" class="btn-touch btn-touch--sm">+</button>
+									</div>
+									<div class="hmi-bar-v" style="height: 80px; margin-top: 8px;"></div>
+								</div>
+								<div>
+									<strong>Height</strong>
+									<div class="hmi-bump-row" style="margin-top: 6px;">
+										<button type="button" class="btn-touch btn-touch--sm">−</button>
+										<input class="hmi-num" type="text" value="5" readonly />
+										<button type="button" class="btn-touch btn-touch--sm">+</button>
+									</div>
+									<div class="hmi-bar-v" style="height: 80px; margin-top: 8px;"></div>
+								</div>
+								<div>
+									<strong>Angle</strong>
+									<div class="hmi-bump-row" style="margin-top: 6px;">
+										<button type="button" class="btn-touch btn-touch--sm">−</button>
+										<input class="hmi-num" type="text" value="0" readonly />
+										<button type="button" class="btn-touch btn-touch--sm">+</button>
+									</div>
+									<div class="hmi-bar-v" style="height: 80px; margin-top: 8px;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="hmi-card" style="margin-top: 12px;">
+						<div class="hmi-panel-title" style="font-size: var(--font-label); text-align: left;">Clod rollers</div>
+						<div class="hmi-seg">
+							<button type="button" class="btn-touch btn-touch--sm">Pinch</button>
+							<button type="button" class="btn-touch btn-touch--sm hmi-seg--active">Transport</button>
+						</div>
+					</div>
+					<div class="hmi-chains-wrap hmi-roller-rows">
+						<table class="hmi-table">
+							<thead>
+								<tr>
+									<th scope="col">Roller</th>
+									<th scope="col">Setpoint</th>
+									<th scope="col">Actual</th>
+									<th scope="col">Override</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Segment</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="240" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Rev</button>
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Clod</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="240" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Rev</button>
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Transfer</td>
+									<td>
+										<div class="hmi-bump-row">
+											<button type="button" class="btn-touch btn-touch--sm">−10</button>
+											<input class="hmi-num" type="text" value="230" readonly />
+											<button type="button" class="btn-touch btn-touch--sm">+10</button>
+										</div>
+									</td>
+									<td><span class="hmi-val">0</span> FPM</td>
+									<td>
+										<div class="hmi-override-pair">
+											<button type="button" class="btn-touch btn-touch--sm">Fwd</button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+
+				<!-- Boom -->
+				<section id="panel-boom" class="hmi-panel" role="tabpanel" aria-labelledby="tab-boom" tabindex="0" hidden>
+					<h2 class="hmi-panel-title">Boom</h2>
+					<img class="hmi-schematic" src="./icons/Boom.png" alt="Boom schematic" width="560" height="200" />
+					<div class="hmi-boom-grid">
+						<div class="hmi-card hmi-arrow-grid">
+							<strong>Boom In/Out</strong>
+							<div class="hmi-arrow-row">
+								<button type="button" class="btn-touch btn-touch--sm" aria-label="Boom in"><img
+										src="./icons/arrow_back_ios_20_lt.png" alt="" width="22" height="22" /></button>
+								<button type="button" class="btn-touch btn-touch--sm" aria-label="Boom out"><img
+										src="./icons/arrow_forward_ios_20_lt.png" alt="" width="22" height="22" /></button>
+							</div>
+						</div>
+						<div class="hmi-card hmi-arrow-grid">
+							<strong>Outer boom</strong>
+							<div class="hmi-arrow-row">
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png" alt="Up"
+										width="22" height="22" /></button>
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_down_20.png"
+										alt="Down" width="22" height="22" /></button>
+							</div>
+						</div>
+						<div class="hmi-card hmi-arrow-grid">
+							<strong>Inner boom</strong>
+							<div class="hmi-arrow-row">
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png" alt="Up"
+										width="22" height="22" /></button>
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_down_20.png"
+										alt="Down" width="22" height="22" /></button>
+							</div>
+						</div>
+						<div class="hmi-card hmi-arrow-grid">
+							<strong>Boom swing</strong>
+							<div class="hmi-arrow-row">
+								<button type="button" class="btn-touch btn-touch--sm" aria-label="Swing up left">↖</button>
+								<button type="button" class="btn-touch btn-touch--sm" aria-label="Swing down right">↘</button>
+							</div>
+						</div>
+					</div>
+					<div class="hmi-home-grid" style="margin-top: 12px;">
+						<div class="hmi-card">
+							<strong>Fill elevator</strong>
+							<div style="margin-top: 8px; display: grid; gap: 8px;">
+								<label>Drop <input class="hmi-num" type="text" value="0 IN" readonly style="width: 100%;" /></label>
+								<label>Force up <input class="hmi-num" type="text" value="40" readonly style="width: 100%;" /></label>
+								<div class="hmi-bar-v" style="height: 100px; margin: 0 auto;"></div>
+								<div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+									<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png" alt=""
+											width="20" height="20" /></button>
+									<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_down_20.png"
+											alt="" width="20" height="20" /></button>
+									<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">On</button>
+								</div>
+							</div>
+						</div>
+						<div class="hmi-card">
+							<strong>Boom fold</strong>
+							<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;">
+								<button type="button" class="btn-touch btn-touch--sm">Fold</button>
+								<button type="button" class="btn-touch btn-touch--sm">Unfold</button>
+							</div>
+							<p style="margin: 12px 0 0; font-weight: 700;"><span class="hmi-lamp-light hmi-lamp-light--on"
+									style="display: inline-block; vertical-align: middle; margin-right: 8px;"></span> Unfolded</p>
+							<p style="margin: 8px 0 0;">Boom <span class="hmi-val">0</span> FPM · Hopper <span
+									class="hmi-val">0</span> FPM</p>
+						</div>
+					</div>
+					<div class="hmi-card" style="margin-top: 12px;">
+						<div style="display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+							<div>
+								<strong>Hopper</strong>
+								<div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+									<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">On</button>
+									<label>Target <input class="hmi-num" type="text" value="80%" readonly /></label>
+								</div>
+							</div>
+							<div>
+								<strong>Boom</strong>
+								<div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+									<button type="button" class="btn-touch btn-touch--sm">Off</button>
+									<label>Height <input class="hmi-num" type="text" value="0 IN" readonly /></label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Axle -->
+				<section id="panel-axle" class="hmi-panel" role="tabpanel" aria-labelledby="tab-axle" tabindex="0" hidden>
+					<h2 class="hmi-panel-title">Axle</h2>
+					<img class="hmi-schematic" src="./icons/6844-3.png" alt="Machine outline left right" width="560" height="180" />
+					<div class="hmi-axle-split">
+						<div class="hmi-card">
+							<div class="hmi-panel-title" style="font-size: var(--font-label);">Machine height / roll</div>
+							<div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: flex-end;">
+								<div class="hmi-bar-v" style="height: 140px;"></div>
+								<div class="hmi-bar-v" style="height: 140px;"></div>
+							</div>
+							<div class="hmi-dpad" style="margin-top: 16px;">
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_up_20.png" alt="Up"
+										width="20" height="20" /></button>
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_back_ios_20_lt.png"
+										alt="Left" width="20" height="20" /></button>
+								<button type="button" class="btn-touch btn-touch--sm btn-touch--primary">Auto</button>
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_forward_ios_20_lt.png"
+										alt="Right" width="20" height="20" /></button>
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_down_20.png" alt="Down"
+										width="20" height="20" /></button>
+							</div>
+						</div>
+						<div class="hmi-card">
+							<div class="hmi-panel-title" style="font-size: var(--font-label);">Steering</div>
+							<div class="hmi-steering-bar" style="max-width: 320px; margin: 0 auto;">
+								<div class="hmi-steering-needle"></div>
+							</div>
+							<div class="hmi-steer-btns" style="margin-top: 16px;">
+								<button type="button" class="btn-touch btn-touch--sm"><img src="./icons/arrow_back_ios_20_lt.png"
+										alt="" width="20" height="20" /> Left</button>
+								<button type="button" class="btn-touch btn-touch--sm">Center</button>
+								<button type="button" class="btn-touch btn-touch--sm">Right <img
+										src="./icons/arrow_forward_ios_20_lt.png" alt="" width="20" height="20" /></button>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+
+			<aside class="hmi-nav-aside" aria-label="Screen navigation">
+				<nav class="hmi-nav" role="tablist" aria-label="Machine areas">
+					<button type="button" class="btn-touch btn-touch--tab" role="tab" id="tab-home" aria-selected="true"
+						aria-controls="panel-home">
+						<span>Home</span>
+						<img class="hmi-tab-icon" src="./icons/home_16dp_lt.png" alt="" />
+					</button>
+					<button type="button" class="btn-touch btn-touch--tab" role="tab" id="tab-digger" aria-selected="false"
+						aria-controls="panel-digger" tabindex="-1">
+						<span>Digger</span>
+						<img class="hmi-tab-icon" src="./icons/play_arrow_24_FFFFFF.png" alt="" />
+					</button>
+					<button type="button" class="btn-touch btn-touch--tab" role="tab" id="tab-chains" aria-selected="false"
+						aria-controls="panel-chains" tabindex="-1">
+						<span>Chains</span>
+						<img class="hmi-tab-icon" src="./icons/auto_16_lt.png" alt="" />
+					</button>
+					<button type="button" class="btn-touch btn-touch--tab" role="tab" id="tab-table" aria-selected="false"
+						aria-controls="panel-table" tabindex="-1">
+						<span>Table</span>
+						<img class="hmi-tab-icon" src="./icons/auto_16_lt.png" alt="" />
+					</button>
+					<button type="button" class="btn-touch btn-touch--tab" role="tab" id="tab-boom" aria-selected="false"
+						aria-controls="panel-boom" tabindex="-1">
+						<span>Boom</span>
+						<img class="hmi-tab-icon" src="./icons/Boom.png" alt="" />
+					</button>
+					<button type="button" class="btn-touch btn-touch--tab" role="tab" id="tab-axle" aria-selected="false"
+						aria-controls="panel-axle" tabindex="-1">
+						<span>Axle</span>
+						<img class="hmi-tab-icon" src="./icons/auto_16_lt.png" alt="" />
+					</button>
+				</nav>
+				<p class="hmi-presets-label">Table presets</p>
+				<div class="hmi-presets" role="group" aria-label="Table presets">
+					<button type="button" class="btn-touch btn-touch--primary">Preset 1</button>
+					<button type="button" class="btn-touch">Preset 2</button>
+					<button type="button" class="btn-touch">Preset 3</button>
+				</div>
+			</aside>
+		</div>
+	</div>
+
+	<script src="./hmi-6844-config.js"></script>
+	<script src="./hmi-6844-mockup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save Hours and Minutes</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #1f1f1f;
+      --muted: #666666;
+      --border: #d0d0d0;
+      --accent: #0b57d0;
+      --danger: #b3261e;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111318;
+        --card: #1b1f27;
+        --text: #e8eaed;
+        --muted: #aeb4be;
+        --border: #3a404c;
+        --accent: #8ab4f8;
+        --danger: #f28b82;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(100%, 420px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.4rem;
+    }
+
+    p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: transparent;
+      color: inherit;
+    }
+
+    input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .hint {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 0;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
+    .status {
+      margin-top: 16px;
+      min-height: 1.4em;
+      font-size: 0.95rem;
+    }
+
+    .error {
+      color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Save Hours and Minutes</h1>
+    <p>Enter values, then save a text file. The page tries Save As first and falls back to a download.</p>
+
+    <div class="field">
+      <label for="hours">Hours</label>
+      <input id="hours" type="number" min="0" max="9999" step="1" inputmode="numeric" placeholder="0 to 9999" required />
+      <span class="hint">Allowed range: 0 to 9999</span>
+    </div>
+
+    <div class="field">
+      <label for="minutes">Minutes</label>
+      <input id="minutes" type="number" min="0" max="59" step="1" inputmode="numeric" placeholder="0 to 59" required />
+      <span class="hint">Allowed range: 0 to 59</span>
+    </div>
+
+    <button id="saveBtn" type="button">Save File</button>
+    <div id="status" class="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const hoursInput = document.getElementById('hours');
+    const minutesInput = document.getElementById('minutes');
+    const saveBtn = document.getElementById('saveBtn');
+    const statusEl = document.getElementById('status');
+
+    function setStatus(message, isError = false) {
+      statusEl.textContent = message;
+      statusEl.className = isError ? 'status error' : 'status';
+    }
+
+    function getValidatedValues() {
+      const hoursRaw = hoursInput.value.trim();
+      const minutesRaw = minutesInput.value.trim();
+
+      if (hoursRaw === '' || minutesRaw === '') {
+        throw new Error('Enter both hours and minutes.');
+      }
+
+      const hours = Number(hoursRaw);
+      const minutes = Number(minutesRaw);
+
+      if (!Number.isInteger(hours) || hours < 0 || hours > 9999) {
+        throw new Error('Hours must be a whole number from 0 to 9999.');
+      }
+
+      if (!Number.isInteger(minutes) || minutes < 0 || minutes > 59) {
+        throw new Error('Minutes must be a whole number from 0 to 59.');
+      }
+
+      return { hours, minutes };
+    }
+
+    function buildText(hours, minutes) {
+      return `${hours}\n${minutes}\n`;
+    }
+
+    async function saveWithPicker(text) {
+      if (typeof window.showSaveFilePicker !== 'function') {
+        throw new Error('Save picker is not supported in this browser.');
+      }
+
+      const handle = await window.showSaveFilePicker({
+        suggestedName: 'hours_minutes.txt',
+        types: [
+          {
+            description: 'Text Files',
+            accept: {
+              'text/plain': ['.txt']
+            }
+          }
+        ]
+      });
+
+      const writable = await handle.createWritable();
+      await writable.write(text);
+      await writable.close();
+    }
+
+    function saveWithDownload(text) {
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'hours_minutes.txt';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    saveBtn.addEventListener('click', async () => {
+      setStatus('');
+
+      let values;
+      try {
+        values = getValidatedValues();
+      } catch (error) {
+        setStatus(error.message, true);
+        return;
+      }
+
+      const text = buildText(values.hours, values.minutes);
+      saveBtn.disabled = true;
+
+      try {
+        await saveWithPicker(text);
+        setStatus('Saved using Save As.');
+      } catch (error) {
+        try {
+          saveWithDownload(text);
+          setStatus('Save As was not available, so a download was started.');
+        } catch (downloadError) {
+          setStatus(`Could not save the file: ${downloadError.message}`, true);
+        }
+      } finally {
+        saveBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
