@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spudnik Harvester Wireframe</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0e0e0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .wf-container {
+            width: 1280px;
+            height: 800px;
+            background-color: #ffffff;
+            border: 2px solid #000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        /* Generic Box style for wireframe look */
+        .box {
+            border: 1px solid #666;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            background-color: #fcfcfc;
+        }
+        
+        .box-label {
+            position: absolute;
+            top: 4px;
+            left: 6px;
+            font-size: 11px;
+            color: #888;
+            font-family: sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* --- Common Top Row (90px) --- */
+        .top-row {
+            height: 90px;
+            display: flex;
+            width: 100%;
+        }
+        .top-left {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 20px;
+            gap: 20px;
+            border: 1px solid #666;
+        }
+        .top-mid {
+            flex: 1;
+            border: 1px solid #666;
+        }
+        .top-right {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 20px;
+            gap: 15px;
+            border: 1px solid #666;
+        }
+        select, button {
+            padding: 10px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 16px;
+            border: 2px solid #333;
+            background: #eee;
+            cursor: pointer;
+        }
+        select {
+            font-size: 18px;
+            height: 50px;
+        }
+        .btn-run {
+            background-color: #ccc;
+            height: 50px;
+            width: 100px;
+        }
+
+        /* --- Views Container --- */
+        .view {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            width: 100%;
+            height: 710px; /* 800 - 90 */
+        }
+        .view.active {
+            display: flex;
+        }
+
+        /* Common Row 2 (80px) for Control, Diagnostic, Help */
+        .row-common-2 {
+            height: 80px;
+            display: flex;
+            width: 100%;
+        }
+        .row-common-2-left { width: 800px; }
+        .row-common-2-right { width: 480px; }
+
+        /* --- Control Page --- */
+        .ctrl-row-3 {
+            height: 520px;
+            display: flex;
+            width: 100%;
+        }
+        .ctrl-row-3-left { width: 1100px; }
+        .ctrl-row-3-right { 
+            width: 180px; 
+            display: flex; 
+            flex-direction: column;
+        }
+        .ctrl-row-4 {
+            height: 110px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0 20px;
+            border: 1px solid #666;
+            gap: 15px;
+        }
+        .preset-group {
+            display: flex;
+            gap: 15px;
+        }
+        .preset-btn {
+            width: 120px;
+            height: 60px;
+        }
+        .preset-spacer {
+            width: 60px;
+        }
+        .night-mode-btn {
+            width: 140px;
+            height: 60px;
+            margin-left: auto;
+        }
+
+        /* --- Diagnostic Page --- */
+        .diag-row-3 {
+            height: 630px;
+            display: flex;
+            width: 100%;
+        }
+        .diag-half { width: 640px; }
+
+        /* --- Settings Page --- */
+        .set-row-2 {
+            height: 710px;
+            display: flex;
+            width: 100%;
+        }
+        .set-row-2-left { width: 1100px; }
+        .set-row-2-right { 
+            width: 180px; 
+            display: flex; 
+            flex-direction: column;
+        }
+
+        /* --- Help Page --- */
+        .help-row-3 {
+            height: 630px;
+            width: 100%;
+        }
+
+        /* --- Tab Styles --- */
+        .tab-item {
+            flex: 1;
+            border: 1px solid #666;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eee;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .tab-item:hover {
+            background: #ddd;
+        }
+        .tab-item.active {
+            background: #ccc;
+            border-left: 6px solid #333;
+        }
+        .ctrl-tab-content, .set-tab-content {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .ctrl-tab-content.active, .set-tab-content.active {
+            display: flex;
+        }
+
+        /* Wireframe crossed box helper */
+        .crossed {
+            background: 
+                linear-gradient(to top left, transparent calc(50% - 1px), #ddd, transparent calc(50% + 1px)),
+                linear-gradient(to top right, transparent calc(50% - 1px), #ddd, transparent calc(50% + 1px));
+        }
+
+        /* Scaling script helper */
+        .scale-wrapper {
+            transform-origin: top left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wf-container scale-wrapper">
+        
+        <!-- Common Top Row: 90px -->
+        <div class="top-row">
+            <div class="top-left box">
+                <div class="box-label">Logo / SN / SW Version</div>
+                <h2>[LOGO]</h2>
+                <p>SN: XXXXX | SW: vX.X</p>
+            </div>
+            <div class="top-mid box crossed">
+                <div class="box-label">Status Information</div>
+                <p>Status Indicators</p>
+            </div>
+            <div class="top-right box">
+                <div class="box-label">Navigation & Run</div>
+                <select id="modeSelect" onchange="switchView(this.value)">
+                    <option value="control">Control</option>
+                    <option value="diagnostic">Diagnostic</option>
+                    <option value="settings">Settings</option>
+                    <option value="help">Help</option>
+                </select>
+                <button class="btn-run">RUN</button>
+            </div>
+        </div>
+
+        <!-- VIEW: CONTROL -->
+        <div id="view-control" class="view active">
+            <!-- Row 2: 80px -->
+            <div class="row-common-2">
+                <div class="row-common-2-left box">
+                    <div class="box-label">800px - Status / Alarm Messages</div>
+                    <h3>ALARM / MESSAGES AREA</h3>
+                </div>
+                <div class="row-common-2-right box">
+                    <div class="box-label">480px - Quick Actions</div>
+                    <p>[Action 1] [Action 2] [Action 3]</p>
+                </div>
+            </div>
+            <!-- Row 3: 520px -->
+            <div class="ctrl-row-3">
+                <div class="ctrl-row-3-left box">
+                    <div class="box-label">1100px - Function Specific Controls</div>
+                    <div id="ctrl-tab-home" class="ctrl-tab-content active crossed"><h2>Home Workspace</h2></div>
+                    <div id="ctrl-tab-digger" class="ctrl-tab-content crossed"><h2>Digger Workspace</h2></div>
+                    <div id="ctrl-tab-chains" class="ctrl-tab-content crossed"><h2>Chains Workspace</h2></div>
+                    <div id="ctrl-tab-table" class="ctrl-tab-content crossed"><h2>Table Workspace</h2></div>
+                    <div id="ctrl-tab-boom" class="ctrl-tab-content crossed"><h2>Boom Workspace</h2></div>
+                    <div id="ctrl-tab-axle" class="ctrl-tab-content crossed"><h2>Axle Workspace</h2></div>
+                </div>
+                <div class="ctrl-row-3-right">
+                    <div class="tab-item ctrl-tab active" onclick="switchCtrlTab('home', this)">Home</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('digger', this)">Digger</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('chains', this)">Chains</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('table', this)">Table</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('boom', this)">Boom</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('axle', this)">Axle</div>
+                </div>
+            </div>
+            <!-- Row 4: 110px -->
+            <div class="ctrl-row-4 box">
+                <div class="box-label">110px - Presets & Night Mode</div>
+                <div class="preset-group">
+                    <button class="preset-btn">DIG 1</button>
+                    <button class="preset-btn">DIG 2</button>
+                    <button class="preset-btn">DIG 3</button>
+                </div>
+                <div class="preset-spacer"></div>
+                <div class="preset-group">
+                    <button class="preset-btn">CLEAN 1</button>
+                    <button class="preset-btn">CLEAN 2</button>
+                    <button class="preset-btn">CLEAN 3</button>
+                </div>
+                <button class="night-mode-btn">NIGHT MODE</button>
+            </div>
+        </div>
+
+        <!-- VIEW: DIAGNOSTIC -->
+        <div id="view-diagnostic" class="view">
+            <!-- Row 2: 80px -->
+            <div class="row-common-2">
+                <div class="row-common-2-left box">
+                    <div class="box-label">800px - Status / Alarm Messages</div>
+                    <h3>ALARM / MESSAGES AREA</h3>
+                </div>
+                <div class="row-common-2-right box">
+                    <div class="box-label">480px - Quick Actions</div>
+                    <p>[Action 1] [Action 2] [Action 3]</p>
+                </div>
+            </div>
+            <!-- Row 3: 630px -->
+            <div class="diag-row-3">
+                <div class="diag-half box crossed">
+                    <div class="box-label">640px - Input Specific Info</div>
+                    <h2>INPUTS</h2>
+                </div>
+                <div class="diag-half box crossed">
+                    <div class="box-label">640px - Output Specific Info</div>
+                    <h2>OUTPUTS</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: SETTINGS -->
+        <div id="view-settings" class="view">
+            <!-- Row 2: 710px -->
+            <div class="set-row-2">
+                <div class="set-row-2-left box">
+                    <div class="box-label">1100px - Specific Setup Areas</div>
+                    <div id="set-tab-general" class="set-tab-content active crossed"><h2>General Setup</h2></div>
+                    <div id="set-tab-chains" class="set-tab-content crossed"><h2>Chains Setup</h2></div>
+                    <div id="set-tab-joystick" class="set-tab-content crossed"><h2>Joystick Setup</h2></div>
+                    <div id="set-tab-start-row" class="set-tab-content crossed"><h2>Start Row Setup</h2></div>
+                    <div id="set-tab-end-row" class="set-tab-content crossed"><h2>End Row Setup</h2></div>
+                    <div id="set-tab-telematics" class="set-tab-content crossed"><h2>Telematics Setup</h2></div>
+                </div>
+                <div class="set-row-2-right">
+                    <div class="tab-item set-tab active" onclick="switchSetTab('general', this)">General</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('chains', this)">Chains</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('joystick', this)">Joystick</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('start-row', this)">Start Row</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('end-row', this)">End Row</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('telematics', this)">Telematics</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: HELP -->
+        <div id="view-help" class="view">
+            <!-- Row 2: 80px -->
+            <div class="row-common-2">
+                <div class="row-common-2-left box">
+                    <div class="box-label">800px - Status / Alarm Messages</div>
+                    <h3>ALARM / MESSAGES AREA</h3>
+                </div>
+                <div class="row-common-2-right box">
+                    <div class="box-label">480px - Quick Actions</div>
+                    <p>[Action 1] [Action 2] [Action 3]</p>
+                </div>
+            </div>
+            <!-- Row 3: 630px -->
+            <div class="help-row-3 box crossed">
+                <div class="box-label">1280px x 630px - Help Documentation</div>
+                <h2>HELP DOCUMENTATION & DIAGRAMS</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchCtrlTab(tabName, element) {
+            document.querySelectorAll('.ctrl-tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.ctrl-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('ctrl-tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function switchSetTab(tabName, element) {
+            document.querySelectorAll('.set-tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.set-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('set-tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function switchView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show selected view
+            document.getElementById('view-' + viewName).classList.add('active');
+        }
+
+        // Auto-scale to fit window
+        function scaleFit() {
+            const container = document.querySelector('.wf-container');
+            // Calculate scale based on container dimensions
+            const scaleX = window.innerWidth / 1280;
+            const scaleY = window.innerHeight / 800;
+            const scale = Math.min(scaleX, scaleY, 1);
+            
+            // Apply scale and center
+            container.style.transform = `scale(${scale})`;
+            
+            // Adjust margin to keep it centered when scaled
+            const scaledWidth = 1280 * scale;
+            const scaledHeight = 800 * scale;
+            
+            container.style.position = 'absolute';
+            container.style.left = `${(window.innerWidth - scaledWidth) / 2}px`;
+            container.style.top = `${(window.innerHeight - scaledHeight) / 2}px`;
+        }
+        
+        window.addEventListener('resize', scaleFit);
+        // Initial call after a slight delay to ensure correct window dimensions
+        setTimeout(scaleFit, 50);
+    </script>
+</body>
+</html>
