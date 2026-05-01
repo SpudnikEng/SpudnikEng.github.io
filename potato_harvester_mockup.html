@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spudnik Potato Harvester UI Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Day Theme */
+            --bg-color: #e9ecef;
+            --panel-bg: #ffffff;
+            --text-color: #212529;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --btn-bg: #f8f9fa;
+            --btn-text: #212529;
+            --btn-border: #ced4da;
+            --btn-active-bg: #4caf50;
+            --btn-active-text: #ffffff;
+            --spudnik-red: #dc3545;
+            --alarm-bg: #ffe5e5;
+            --alarm-text: #d32f2f;
+            --status-ok: #28a745;
+            --status-warn: #ffc107;
+            --preset-dig-bg: #fd7e14;
+            --preset-clean-bg: #0dcaf0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="night"] {
+            /* Night Theme */
+            --bg-color: #121212;
+            --panel-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #9e9e9e;
+            --border-color: #333333;
+            --btn-bg: #2d2d2d;
+            --btn-text: #e0e0e0;
+            --btn-border: #444444;
+            --btn-active-bg: #388e3c;
+            --btn-active-text: #ffffff;
+            --spudnik-red: #f44336;
+            --alarm-bg: #3b0000;
+            --alarm-text: #ff8a80;
+            --status-ok: #00c853;
+            --status-warn: #ffd600;
+            --preset-dig-bg: #e65100;
+            --preset-clean-bg: #0097a7;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000; /* Letterboxing background */
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hmi-container {
+            width: 1280px;
+            height: 800px;
+            display: grid;
+            grid-template-rows: 90px 80px 1fr 110px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Buttons --- */
+        button {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: 2px solid var(--btn-border);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow);
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        button svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+        }
+
+        /* --- Row 1: Top Bar --- */
+        .top-bar {
+            background-color: var(--panel-bg);
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 10;
+        }
+        .brand-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .brand-area h1 {
+            color: var(--spudnik-red);
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .machine-meta {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .status-indicators {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .indicator-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+        .dot-ok { background-color: var(--status-ok); box-shadow: 0 0 8px var(--status-ok); }
+        .dot-warn { background-color: var(--status-warn); box-shadow: 0 0 8px var(--status-warn); }
+        
+        .top-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .top-btn {
+            height: 60px;
+            width: 130px;
+            font-size: 16px;
+        }
+
+        /* --- Row 2: Info & Quick Actions --- */
+        .info-action-bar {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .message-area {
+            flex: 2;
+            background-color: var(--alarm-bg);
+            color: var(--alarm-text);
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 22px;
+            font-weight: 700;
+            border-right: 2px solid var(--border-color);
+            gap: 15px;
+        }
+        .message-area svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+        .quick-actions {
+            flex: 1;
+            background-color: var(--panel-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 15px;
+        }
+        .quick-btn {
+            height: 55px;
+            min-width: 140px;
+        }
+
+        /* --- Row 3: Main Content (Tabs + Workspace) --- */
+        .main-row {
+            display: flex;
+            background-color: var(--bg-color);
+        }
+        .workspace {
+            flex: 1;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            align-content: start;
+        }
+        
+        /* Sample Control Widget */
+        .control-widget {
+            background-color: var(--panel-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            box-shadow: var(--shadow);
+        }
+        .widget-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .widget-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--btn-active-bg);
+        }
+        .widget-controls {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+        .widget-btn {
+            flex: 1;
+            height: 70px;
+            font-size: 24px;
+        }
+
+        /* Tabs on the Right */
+        .tabs-container {
+            width: 180px;
+            background-color: var(--panel-bg);
+            border-left: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .tab-btn {
+            flex: 1;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0;
+            font-size: 22px;
+            box-shadow: none;
+            background-color: transparent;
+            color: var(--text-color);
+        }
+        .tab-btn:last-child {
+            border-bottom: none;
+        }
+        .tab-btn.active {
+            background-color: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-left: 6px solid #1b5e20;
+        }
+
+        /* --- Row 4: Presets --- */
+        .bottom-bar {
+            background-color: var(--panel-bg);
+            border-top: 2px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+        }
+        .preset-group {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
+        }
+        .preset-group-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .preset-btn {
+            flex: 1;
+            max-width: 180px;
+            height: 80px;
+            font-size: 24px;
+            border: none;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .preset-btn.dig {
+            background-color: var(--preset-dig-bg);
+        }
+        .preset-btn.clean {
+            background-color: var(--preset-clean-bg);
+        }
+        .preset-btn:hover {
+            filter: brightness(1.1);
+        }
+
+    </style>
+</head>
+<body data-theme="night"> <!-- Default to night mode -->
+
+    <div class="hmi-container">
+        
+        <!-- Row 1 -->
+        <header class="top-bar">
+            <div class="brand-area">
+                <h1>SPUDNIK</h1>
+                <div class="machine-meta">SN: 6844-23091 | SW: v2.4.1</div>
+            </div>
+            
+            <div class="status-indicators">
+                <div class="status-item">
+                    <div class="indicator-dot dot-ok"></div>
+                    Engine
+                </div>
+                <div class="status-item">
+                    <div class="indicator-dot dot-warn"></div>
+                    Hydraulics
+                </div>
+                <div class="status-item">
+                    <div class="indicator-dot dot-ok"></div>
+                    PTO
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <button class="top-btn" onclick="toggleTheme()">
+                    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    Day/Night
+                </button>
+                <button class="top-btn">
+                    <svg viewBox="0 0 24 24"><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Settings
+                </button>
+            </div>
+        </header>
+
+        <!-- Row 2 -->
+        <div class="info-action-bar">
+            <div class="message-area">
+                <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
+                WARNING: Primary Web Conveyor Slip Detected
+            </div>
+            <div class="quick-actions">
+                <button class="quick-btn">Reset Alarms</button>
+                <button class="quick-btn" style="background-color: var(--btn-active-bg); color: white;">All Start</button>
+                <button class="quick-btn" style="background-color: var(--spudnik-red); color: white;">E-STOP</button>
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <main class="main-row">
+            <div class="workspace">
+                <!-- Mockup Controls for Digger -->
+                <div class="control-widget">
+                    <div class="widget-title">Primary Chain Speed</div>
+                    <div class="widget-value">65%</div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">-</button>
+                        <button class="widget-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="control-widget">
+                    <div class="widget-title">Secondary Chain Speed</div>
+                    <div class="widget-value">72%</div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">-</button>
+                        <button class="widget-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="control-widget">
+                    <div class="widget-title">Blade Depth</div>
+                    <div class="widget-value">4.2 in</div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">Up</button>
+                        <button class="widget-btn">Down</button>
+                    </div>
+                </div>
+                
+                <div class="control-widget">
+                    <div class="widget-title">Agitator Intensity</div>
+                    <div class="widget-value">3</div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">-</button>
+                        <button class="widget-btn">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="tabs-container">
+                <button class="tab-btn">Home</button>
+                <button class="tab-btn active">Digger</button>
+                <button class="tab-btn">Chains</button>
+                <button class="tab-btn">Table</button>
+                <button class="tab-btn">Boom</button>
+                <button class="tab-btn">Axle</button>
+            </nav>
+        </main>
+
+        <!-- Row 4 -->
+        <footer class="bottom-bar">
+            <div class="preset-group">
+                <div class="preset-group-title">DIG:</div>
+                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup.html'">Flat UI</button>
+                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup_3d.html'">3D UI</button>
+                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_wireframe.html'">Wireframe</button>
+            </div>
+            
+            <div class="preset-group">
+                <div class="preset-group-title">CLEAN:</div>
+                <button class="preset-btn clean">Light</button>
+                <button class="preset-btn clean">Medium</button>
+                <button class="preset-btn clean">Aggressive</button>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'night') {
+                body.setAttribute('data-theme', 'day');
+            } else {
+                body.setAttribute('data-theme', 'night');
+            }
+        }
+
+        // Add simple active state toggling for tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                // Could update workspace content here based on tab
+            });
+        });
+    </script>
+</body>
+</html>

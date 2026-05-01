@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spudnik Harvester UI Mockup</title>
+<style>
+  :root {
+    --bg: #10151b; --panel: #19222c; --panel-2: #202c37; --card: #253441; --text: #f3f7fb; --muted: #aab7c4; --border: #394a59; --accent: #ec1c24; --accent-2: #ffcc33; --green: #49d17d; --blue: #55b8ff; --orange: #ff9b42; --shadow: rgba(0,0,0,.35);
+  }
+  body.day { --bg: #e7edf3; --panel: #f7fafc; --panel-2: #edf2f7; --card: #fff; --text: #17202a; --muted: #566575; --border: #c5d0dc; --shadow: rgba(20,30,40,.14); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #070b0f; font-family: Arial, Helvetica, sans-serif; color: var(--text); display: grid; place-items: center; min-height: 100vh; user-select: none; }
+  .screen { width: 1280px; height: 800px; background: var(--bg); padding: 12px; display: grid; grid-template-rows: 76px 118px 452px 100px; gap: 10px; overflow: hidden; }
+  .row,.panel,.button,.tab,.preset,.control-card { border: 2px solid var(--border); border-radius: 18px; background: var(--panel); box-shadow: 0 4px 14px var(--shadow); }
+  .top-row { display: grid; grid-template-columns: 236px 235px 1fr 360px; gap: 10px; align-items: stretch; }
+  .logo-box,.machine-box,.status-strip,.top-actions { display: flex; align-items: center; padding: 8px 12px; min-width: 0; }
+  .logo-box img { width: 206px; height: 50px; object-fit: contain; background: rgba(255,255,255,.94); border-radius: 10px; padding: 5px; }
+  .machine-box { flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; font-size: 18px; font-weight: 700; }
+  .machine-box span { color: var(--muted); font-size: 14px; font-weight: 700; letter-spacing: .03em; }
+  .status-strip { gap: 8px; justify-content: space-between; }
+  .status-pill { flex: 1; min-width: 0; height: 52px; border-radius: 16px; background: var(--panel-2); border: 2px solid var(--border); display: grid; place-items: center; padding: 4px; font-weight: 800; font-size: 13px; text-align: center; text-transform: uppercase; }
+  .status-pill strong { display: block; font-size: 18px; line-height: 19px; color: var(--green); }
+  .status-pill.warn strong { color: var(--orange); }
+  .top-actions { gap: 8px; justify-content: end; padding: 8px; }
+  button { font-family: inherit; color: inherit; cursor: pointer; }
+  .button { min-height: 58px; padding: 0 16px; font-size: 18px; font-weight: 900; background: linear-gradient(180deg, var(--card), var(--panel-2)); }
+  .button.run { background: linear-gradient(180deg, #39cc73, #178b45); color: #07110b; border-color: #80efaa; min-width: 84px; }
+  .button:focus,.button.joy-focus,.tab:focus,.preset:focus,.control-card.selected { outline: 5px solid var(--accent-2); outline-offset: -4px; border-color: var(--accent-2); }
+  .message-row { display: grid; grid-template-columns: 1fr 392px; gap: 10px; }
+  .messages { padding: 12px; display: grid; grid-template-rows: 32px 1fr; gap: 8px; }
+  .section-title { color: var(--muted); font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+  .message-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .msg { background: var(--panel-2); border: 2px solid var(--border); border-radius: 14px; padding: 10px 12px; font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; background: var(--green); flex: none; box-shadow: 0 0 0 4px rgba(73,209,125,.15); }
+  .dot.yellow { background: var(--accent-2); box-shadow: 0 0 0 4px rgba(255,204,51,.15); }
+  .quick-actions { padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .quick-actions .button { min-height: 44px; font-size: 17px; }
+  .main-row { display: grid; grid-template-columns: 1fr 156px; gap: 10px; min-height: 0; }
+  .workspace { padding: 12px; display: grid; grid-template-rows: 42px 1fr; gap: 10px; min-width: 0; }
+  .workspace-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+  .workspace-title { font-size: 26px; font-weight: 950; letter-spacing: .02em; }
+  .hint { color: var(--muted); font-size: 16px; font-weight: 800; }
+  .controls-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: 10px; min-height: 0; }
+  .control-card { padding: 12px; background: var(--card); display: grid; grid-template-rows: auto 1fr auto; gap: 10px; min-height: 0; }
+  .control-name { font-size: 20px; font-weight: 950; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .value { color: var(--blue); font-size: 26px; font-weight: 950; white-space: nowrap; }
+  .adjust { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: end; }
+  .plusminus { min-height: 72px; border-radius: 18px; border: 2px solid var(--border); background: var(--panel-2); color: var(--text); font-size: 42px; font-weight: 950; }
+  .bar-wrap { height: 170px; border: 2px solid var(--border); border-radius: 16px; padding: 8px; background: var(--panel-2); display: flex; align-items: end; justify-content: center; }
+  .bar { width: 54px; border-radius: 12px 12px 8px 8px; background: linear-gradient(180deg, var(--green), var(--blue)); min-height: 18px; }
+  .control-card.selected .bar { background: linear-gradient(180deg, var(--accent-2), var(--orange)); }
+  .tabs { padding: 8px; display: grid; grid-template-rows: repeat(6, 1fr); gap: 8px; }
+  .tab { min-height: 62px; font-size: 20px; font-weight: 950; background: var(--panel-2); }
+  .tab.active { background: var(--accent); color: #fff; border-color: #ff7a80; box-shadow: inset 0 0 0 3px rgba(255,255,255,.18); }
+  .preset-row { display: grid; grid-template-columns: repeat(3, 1fr) repeat(3, 1fr) 156px; gap: 10px; }
+  .preset,.theme-toggle { font-size: 22px; font-weight: 950; border-radius: 20px; background: linear-gradient(180deg, var(--card), var(--panel-2)); border: 2px solid var(--border); color: var(--text); }
+  .preset.dig { border-color: rgba(85,184,255,.8); }
+  .preset.clean { border-color: rgba(73,209,125,.8); }
+  .theme-toggle { border-color: var(--accent-2); font-size: 18px; line-height: 1.1; }
+  .kbd { display: inline-block; padding: 2px 7px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--border); color: var(--muted); font-size: 13px; margin-left: 6px; }
+</style>
+</head>
+<body class="night">
+  <main class="screen" aria-label="Potato harvester UI mockup">
+    <section class="top-row">
+      <div class="row logo-box"><img alt="Spudnik logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDYiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCAyMDYgNTAiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0xLjU3ODgyIDQwLjEwNDlDMy42NTMzMSA0MC40NjAzIDUuNDcwNzggNDAuNzM2NyA3LjAzMTI0IDQwLjg5NDZDOC41OTE2OSA0MS4wNTI2IDkuOTY4NTcgNDEuMTMxNiAxMS4xOTg2IDQxLjEzMTZDMTMuMTQ0NiA0MS4xMzE2IDE0LjQ2NjQgNDAuOTkzNCAxNS4xNjQgNDAuNzE3QzE1Ljg2MTYgNDAuNDQwNSAxNi4yMTA0IDM5Ljk2NjcgMTYuMjEwNCAzOS4yNTU5QzE2LjIxMDQgMzguNzgyMSAxNi4xMDAyIDM4LjQyNjcgMTUuODYxNiAzOC4yMDk1QzE1LjYyMjkgMzcuOTkyMyAxNS4yMzc0IDM3Ljg5MzYgMTQuNzA1IDM3Ljg5MzZDMTMuOTM0IDM3Ljg5MzYgMTMuMDg5NSAzNy45MTMzIDEyLjE4OTkgMzcuOTMzMUMxMS45NTEzIDM3LjkzMzEgMTEuNzg2IDM3LjkzMzEgMTEuNzMxIDM3LjkzMzFDOC42NDY3NyAzNy45MzMxIDYuNDk4ODUgMzcuNDE5NyA1LjI4NzIgMzYuNDEyOEM0LjA3NTU1IDM1LjQwNTkgMy40NTEzNiAzMy42ODgxIDMuNDUxMzYgMzEuMjU5NkMzLjQ1MTM2IDI5LjQwMzcgMy43NDUxIDI3LjU0NzggNC4zNTA5MiAyNS43MzE0QzQuOTM4MzkgMjMuOTE0OSA1Ljc0NjE1IDIyLjM5NDcgNi43Mzc1IDIxLjIxQzcuNjkyMTQgMjAuMDY0OSA5LjAzMjI5IDE5LjI1NTQgMTAuNzk0NyAxOC43NDJDMTIuNTM4NyAxOC4yMjg3IDE1LjAxNzEgMTcuOTkxOCAxOC4yMjk4IDE3Ljk5MThDMjAuMjg1OSAxNy45OTE4IDIyLjQzMzkgMTguMDkwNSAyNC42NzM2IDE4LjMwNzdDMjYuODk0OSAxOC41MjQ5IDI5LjE3MTQgMTguODQwOCAzMS41MDI5IDE5LjI3NTFMMjkuNDgzNSAyOC42MzM3QzI3Ljk3ODEgMjguMjc4MyAyNi41NjQ1IDI4LjAwMTkgMjUuMjQyNyAyNy44MDQ1QzIzLjkyMDkgMjcuNjI2OCAyMi43MDkyIDI3LjUyODEgMjEuNTcxIDI3LjUyODFDMTkuMDAwOSAyNy41MjgxIDE3LjI1NjggMjcuNjg2IDE2LjMwMjIgMjguMDAxOUMxNS4zNjU5IDI4LjMxNzggMTQuODg4NiAyOC44NTA5IDE0Ljg4ODYgMjkuNjAxMkMxNC44ODg2IDMwLjA3NSAxNS4wMTcxIDMwLjQxMDcgMTUuMjkyNSAzMC41ODg0QzE1LjU0OTUgMzAuNzY2IDE2LjI2NTUgMzAuODQ1IDE3LjQ0MDQgMzAuODQ1SDIxLjM2OTFDMjMuNjgyMiAzMC44NDUgMjUuMzUyOCAzMS4zMTg5IDI2LjM5OTMgMzIuMjY2NkMyNy40NDU3IDMzLjIxNDMgMjcuOTc4MSAzNC43MTQ4IDI3Ljk3ODEgMzYuNzY4MkMyNy45NzgxIDM4LjcwMzEgMjcuNzIxMSA0MC40NjAzIDI3LjIyNTQgNDIuMDc5M0MyNi43Mjk3IDQzLjY5ODMgMjYuMDMyMSA0NS4wMDE0IDI1LjEzMjUgNDYuMDA4M0MyNC4xNDEyIDQ3LjE1MzQgMjIuODE5NCA0Ny45ODI3IDIxLjE0ODggNDguNDk2QzE5LjQ3ODIgNDkuMDA5NCAxNy4zMTE5IDQ5LjI2NiAxNC42MzE2IDQ5LjI2NkMxMi4yODE3IDQ5LjI2NiA5Ljg3Njc4IDQ5LjEyNzggNy40MzUxMiA0OC44NzEyQzQuOTkzNDYgNDguNjE0NSAyLjUxNTA5IDQ4LjIxOTYgMCA0Ny43MDYzTDEuNTc4ODIgNDAuMTA0OVoiIGZpbGw9IiNFQzFDMjQiPjwvcGF0aD48cGF0aCBkPSJNMjkuMjI2MyA0OC4zMTg1TDM1LjcyNTIgMTguODIxMkg1NC42ODkzQzU2Ljg1NTYgMTguODIxMiA1OC40NTI4IDE5LjM5MzggNTkuNDgwOCAyMC41NTg2QzYwLjUwODkgMjEuNzIzNSA2MS4wMjI5IDIzLjUyMDIgNjEuMDIyOSAyNS45Njg1QzYxLjAyMjkgMjcuNjY2NCA2MC44NTc3IDI5LjM4NDEgNjAuNTQ1NiAzMS4xNjExQzYwLjIzMzUgMzIuOTE4MyA1OS44MTEzIDM0LjQxODggNTkuMjk3MiAzNS42NjI3QzU4LjM0MjYgMzcuOTMzMiA1Ny4xNjc3IDM5LjUzMjUgNTUuNzcyNCA0MC40MjFDNTQuMzc3MiA0MS4zMjkyIDUyLjMwMjcgNDEuNzYzNSA0OS41NjczIDQxLjc2MzVINDEuMDEyNEwzOS41ODA0IDQ4LjMxODVIMjkuMjI2M1pNNDIuNjI3OSAzNC40MTg4SDQ1Ljg0MDZDNDcuNDU2MSAzNC40MTg4IDQ4LjY2NzggMzQuMDYzNCA0OS40NTcyIDMzLjMzMjlDNTAuMjQ2NiAzMi42MDI0IDUwLjY1MDUgMzEuNDk2NyA1MC42NTA1IDMwLjAzNTdDNTAuNjUwNSAyOS4yNDU5IDUwLjQ0ODUgMjguNjczNCA1MC4wMjYzIDI4LjI5ODJDNDkuNjA0MSAyNy45MjMxIDQ4Ljk2MTUgMjcuNzQ1NCA0OC4wOTg3IDI3Ljc0NTRINDQuMTE0OUw0Mi42Mjc5IDM0LjQxODhaIiBmaWxsPSIjRUMxQzI0Ij48L3BhdGg+PHBhdGggZD0iTTY2LjUxMjEgMTguODIxMkg3Ni44NDc4TDcyLjc5MDYgMzcuMTgzQzcyLjY5ODggMzcuNjE3MyA3Mi42MjU0IDM3Ljk3MjcgNzIuNTcwMyAzOC4yODg2QzcyLjUxNTMgMzguNjA0NSA3Mi40OTY5IDM4Ljg2MTIgNzIuNDk2OSAzOS4wMzg5QzcyLjQ5NjkgMzkuNzI5OSA3Mi42NjIxIDQwLjI2MyA3Mi45OTI2IDQwLjYxODRDNzMuMzIzIDQwLjk3MzggNzMuODM3IDQxLjE1MTUgNzQuNDk3OSA0MS4xNTE1Qzc1LjM2MDggNDEuMTUxNSA3Ni4wNTg0IDQwLjg1NTMgNzYuNTkwOCA0MC4yNDMzQzc3LjEyMzIgMzkuNjMxMiA3Ny41MjcxIDM4LjY2MzggNzcuODAyNCAzNy4zNjA3TDgxLjg1OTYgMTguODQwOUg5Mi4yMzIxTDg4LjEwMTUgMzcuNDM5NkM4Ny41MTQgNDAuMTQ0NSA4Ni45ODE2IDQyLjA1OTcgODYuNTA0MyA0My4xODUxQzg2LjAyNyA0NC4zMTA1IDg1LjQzOTUgNDUuMTk5IDg0Ljc0MTkgNDUuODlDODMuNTY3IDQ3LjAxNTQgODIuMDYxNiA0Ny44NDQ2IDgwLjIwNzQgNDguMzc3N0M3OC4zNTMyIDQ4LjkxMDggNzYuMDQgNDkuMTg3MiA3My4yNDk2IDQ5LjE4NzJDNjkuMTU1NyA0OS4xODcyIDY2LjIxODMgNDguNjM0NCA2NC40MDA5IDQ3LjUyODdDNjIuNTgzNCA0Ni40MjMxIDYxLjY4MzggNDQuNjQ2MSA2MS42ODM4IDQyLjE5NzlDNjEuNjgzOCA0MS41ODU4IDYxLjczODkgNDAuODk0OCA2MS44NDkxIDQwLjE0NDVDNjEuOTU5MiAzOS4zOTQzIDYyLjE2MTIgMzguNDA3MSA2Mi40MzY1IDM3LjEyMzdMNjYuNTEyMSAxOC44MjEyWiIgZmlsbD0iI0VDMUMyNCI+PC9wYXRoPjxwYXRoIGQ9Ik05MC4wNjYyIDQ4LjMxODVMOTYuNTY1IDE4LjgyMTJIMTEyLjE3QzExMy40MTggMTguODIxMiAxMTQuNTAxIDE4Ljg2MDcgMTE1LjQzNyAxOC45NTk0QzExNi4zNzQgMTkuMDU4MSAxMTcuMDUzIDE5LjE3NjYgMTE3LjQ1NyAxOS4zMzQ1QzExOC45MjUgMTkuOTI2OCAxMTkuOTcyIDIwLjgzNTEgMTIwLjYxNCAyMi4wMzk0QzEyMS4yNTcgMjMuMjYzNiAxMjEuNTY5IDI0Ljk2MTUgMTIxLjU2OSAyNy4xNzI4QzEyMS41NjkgMjguMDYxMyAxMjEuNTE0IDI5LjAyODggMTIxLjM4NSAzMC4xMTQ3QzEyMS4yNTcgMzEuMjAwNiAxMjEuMDkyIDMyLjM2NTUgMTIwLjg1MyAzMy42MDkzQzEyMC40NjggMzUuNjAzNSAxMjAuMDA5IDM3LjQwMDIgMTE5LjQ5NSAzOC45NTk5QzExOC45ODEgNDAuNTM5NCAxMTguNDQ4IDQxLjgwMyAxMTcuODYxIDQyLjc3MDVDMTE3LjA5IDQ0LjA5MzMgMTE2LjI0NSA0NS4xNzkyIDExNS4zMjcgNDUuOTY5QzExNC40MDkgNDYuNzc4NSAxMTMuNCA0Ny4zNTExIDExMi4yOCA0Ny42ODY3QzExMS41MjcgNDcuOTAzOSAxMTAuNzU2IDQ4LjA2MTggMTA5Ljk0OCA0OC4xODAzQzEwOS4xNCA0OC4yNzkgMTA4LjI0MSA0OC4zMzgyIDEwNy4yNSA0OC4zMzgyQzEwNi45NzQgNDguMzM4MiAxMDYuNTg5IDQ4LjMzODIgMTA2LjA3NSA0OC4zMTg1QzEwNS41NjEgNDguMjk4OCAxMDUuMTc1IDQ4LjI5ODggMTA0LjkxOCA0OC4yOTg4SDkwLjA2NjJWNDguMzE4NVpNMTAyLjE4MyA0MC4xNDQ1SDEwNC4wMThDMTA1LjI4NSA0MC4xNDQ1IDEwNi4yNTggNDAuMDI2MSAxMDYuOTE5IDM5LjgwODlDMTA3LjU4IDM5LjU5MTcgMTA4LjExMiAzOS4xOTY4IDEwOC41MTYgMzguNjgzNUMxMDkuMTIyIDM3LjgzNDUgMTA5LjYzNiAzNi43NDg2IDExMC4wNCAzNS40MDZDMTEwLjQ0NCAzNC4wNjM0IDExMC42NDYgMzIuNzgwMSAxMTAuNjQ2IDMxLjU5NTVDMTEwLjY0NiAzMC4zNzEzIDExMC40MDcgMjkuNTQyMSAxMDkuOTQ4IDI5LjA4OEMxMDkuNDcxIDI4LjYzMzkgMTA4LjU1MyAyOC40MTY3IDEwNy4xOTQgMjguNDE2N0gxMDQuODA4TDEwMi4xODMgNDAuMTQ0NVoiIGZpbGw9IiNFQzFDMjQiPjwvcGF0aD48cGF0aCBkPSJNMTIxLjExIDQ4LjMxODVMMTI3LjYwOSAxOC44MjEySDEzOS4xNTZMMTQwLjkgMzEuNTc1N0MxNDAuOTM3IDMxLjgzMjQgMTQwLjk5MiAzMi4zODUyIDE0MS4wODQgMzMuMjE0NUMxNDEuMTc2IDM0LjA0MzcgMTQxLjMwNCAzNS4xNjkxIDE0MS40NjkgMzYuNTcwOUMxNDEuNjUzIDM1LjM2NjUgMTQxLjk0NyAzMy44NDYzIDE0Mi4zNSAzMi4wMTAxQzE0Mi40MjQgMzEuNjk0MiAxNDIuNDYxIDMxLjQ3NyAxNDIuNDk3IDMxLjMzODhMMTQ1LjI2OSAxOC44MjEySDE1NS4zODVMMTQ4Ljg2OCA0OC4zMTg1SDEzNy40M0wxMzUuMzE5IDM3LjAwNTNDMTM1LjIwOSAzNi40MzI3IDEzNS4wODEgMzUuNzIxOSAxMzQuOTUyIDM0Ljg3MjlDMTM0LjgwNSAzNC4wNDM3IDEzNC42NTggMzMuMTU1MiAxMzQuNTExIDMyLjIwNzVDMTM0LjMyOCAzMy42MDkzIDEzNC4wMTYgMzUuMjQ4MSAxMzMuNTk0IDM3LjEwNFYzNy4xNjMyTDEzMS4wNzggNDguMzE4NUgxMjEuMTFaIiBmaWxsPSIjRUMxQzI0Ij48L3BhdGg+PHBhdGggZD0iTTE1My4zNDcgNDguMzE4NUwxNTkuODQ2IDE4LjgyMTJIMTcwLjMyOEwxNjMuODExIDQ4LjMxODVIMTUzLjM0N1oiIGZpbGw9IiNFQzFDMjQiPjwvcGF0aD48cGF0aCBkPSJNMTY4LjI1NCA0OC4zMTg3TDE3NC43NTMgMTguODIxNEgxODQuOTZMMTgzLjMyNiAyNi40NjIzQzE4My4xNjEgMjcuMTkyOCAxODIuOTk2IDI3LjkyMzMgMTgyLjgzIDI4LjYxNDRDMTgyLjY0NyAyOS4zMjUxIDE4Mi40NjMgMzAuMDM1OSAxODIuMjQzIDMwLjc2NjRDMTgyLjczOSAyOS44MTg3IDE4My4zNjMgMjguODMxNSAxODQuMDc5IDI3Ljc2NTRDMTg0LjE4OSAyNy42MDc0IDE4NC4yNjIgMjcuNTA4NyAxODQuMjk5IDI3LjQyOTdMMTg5Ljk5IDE4LjgwMTdIMjAyLjcxMkwxOTAuODcxIDM0LjQ3ODNMMTk1LjgxIDQ4LjI5OUgxODQuNTE5TDE4MS45MTIgMzkuODA5MUMxODEuODc2IDM5LjcxMDQgMTgxLjgyMSAzOS41MTMgMTgxLjcyOSAzOS4yMTY4QzE4MS40MzUgMzguMjI5NiAxODEuMTk3IDM3LjM0MTEgMTgxLjAxMyAzNi41OTA5QzE4MC45MjEgMzcuMjQyNCAxODAuODI5IDM3LjgzNDcgMTgwLjczOCAzOC40MDczQzE4MC42MjcgMzguOTc5OSAxODAuNTE3IDM5LjUzMjcgMTgwLjM4OSA0MC4wODU1TDE3OC42MDggNDguMjc5MkgxNjguMjU0VjQ4LjMxODdaIiBmaWxsPSIjRUMxQzI0Ij48L3BhdGg+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04LjI3OTEgMy4xODQxM0gxNTkuNzM1QzE1OC44NTQgNC40NDc3MyAxNTguMzIyIDUuNTMzNjUgMTU4LjEyIDYuMzYyODlDMTU3LjY3OSA4LjEyMDA5IDE1Ny45NTQgOS40ODI0MiAxNTguMTM4IDEwLjIzMjdDMTU4LjQ4NyAxMS42NzQgMTU5LjU1MiAxMy4xNzQ1IDE1OS41NTIgMTMuMTc0NUg1LjYzNTVMOC4yNzkxIDMuMTg0MTNaIiBmaWxsPSIjRUMxQzI0Ij48L3BhdGg+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNzUuNDMzIDMuNDIwOTZDMTc1LjQzMyAzLjQyMDk2IDE3Ni4xNDkgNC4zMjkxOCAxNzYuNjA4IDUuNDk0MDZDMTc3LjE1OSA2Ljg5NTg4IDE3Ny4wMTIgOC43NzE1NCAxNzYuNzc0IDEwLjI1MjNDMTc2LjUzNSAxMS42NzM5IDE3NS4zMjMgMTMuMzEyNiAxNzUuMzIzIDEzLjMxMjZIMjAzLjYxM0wyMDYgMy40MDEyMUgxNzUuNDMzVjMuNDIwOTZaIiBmaWxsPSIjRUMxQzI0Ij48L3BhdGg+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNzQuNTcxIDguMjc4MDFDMTc0LjU3MSA0LjExMjA2IDE3MS40MzIgMC43MzU4NTUgMTY3LjU1OCAwLjczNTg1NUMxNjMuNjg1IDAuNzM1ODU1IDE2MC41NDUgNC4xMTIwNiAxNjAuNTQ1IDguMjc4MDFDMTYwLjU0NSAxMi40NDQgMTYzLjY4NSAxNS44MjAyIDE2Ny41NTggMTUuODIwMkMxNzEuNDMyIDE1LjgyMDIgMTc0LjU3MSAxMi40NDQgMTc0LjU3MSA4LjI3ODAxWiIgZmlsbD0iI0VDMUMyNCI+PC9wYXRoPjwvc3ZnPg==" /></div>
+      <div class="row machine-box"><span>MACHINE</span><div>SN 1248-0800</div><div>HMI v0.9.2 &nbsp; ECU v1.14</div></div>
+      <div class="row status-strip">
+        <div class="status-pill">Pressure<strong>2480</strong>PSI</div><div class="status-pill">Dig<strong>READY</strong></div><div class="status-pill warn">Temp<strong>184°</strong>F</div><div class="status-pill">Boom Speed<strong>42%</strong></div>
+      </div>
+      <div class="row top-actions"><button class="button">Help</button><button class="button">Diagnostics</button><button class="button">Settings</button><button class="button run">RUN</button></div>
+    </section>
+    <section class="message-row">
+      <div class="panel messages"><div class="section-title">Information & Alarm Messages</div><div class="message-list"><div class="msg"><span class="dot"></span> All systems enabled</div><div class="msg"><span class="dot yellow"></span> Table fan near preset limit</div><div class="msg"><span class="dot"></span> Digger depth holding target</div><div class="msg"><span class="dot"></span> No active safety alarms</div></div></div>
+      <div class="panel quick-actions"><button class="button">Conveyor Pause</button><button class="button">Auto Depth</button><button class="button">Lights</button><button class="button">Camera</button></div>
+    </section>
+    <section class="main-row">
+      <div class="panel workspace"><div class="workspace-header"><div class="workspace-title" id="areaTitle">Home Controls</div><div class="hint">Yellow outline = selected joystick/touch control <span class="kbd">←↑↓→</span></div></div><div class="controls-grid" id="controlsGrid"></div></div>
+      <div class="panel tabs" role="tablist" aria-label="Machine areas"><button class="tab active" data-tab="Home">Home</button><button class="tab" data-tab="Digger">Digger</button><button class="tab" data-tab="Chains">Chains</button><button class="tab" data-tab="Table">Table</button><button class="tab" data-tab="Boom">Boom</button><button class="tab" data-tab="Axle">Axle</button></div>
+    </section>
+    <section class="preset-row"><button class="preset dig">Dig 1</button><button class="preset dig">Dig 2</button><button class="preset dig">Dig 3</button><button class="preset clean">Clean 1</button><button class="preset clean">Clean 2</button><button class="preset clean">Clean 3</button><button class="theme-toggle" id="themeToggle">Night<br/>Mode</button></section>
+  </main>
+<script>
+const data = {
+  Home: [['Digger Height','4.2 in',62],['Primary Chain','78%',78],['Secondary Chain','64%',64],['Pile Height','52%',52],['Coulter Pressure','1180 PSI',58],['Table Fan','46%',46],['Boom Speed','42%',42],['Axle Level','0.8°',35]],
+  Digger: [['Blade Height','4.2 in',62],['Depth Wheel L','3.8 in',55],['Depth Wheel R','3.9 in',56],['Coulters','1180 PSI',70],['Hump Height','2.1 in',45],['Auto Depth Gain','62%',62],['Shaker Rate','38%',38],['Dig Tilt','0.4°',36]],
+  Chains: [['Primary Chain','78%',78],['Secondary Chain','64%',64],['Devine Chain','51%',51],['Rear Cross','44%',44],['Speed Match','ON',85],['Chain Reverser','OFF',15],['Load','68%',68],['Slip Monitor','OK',30]],
+  Table: [['Table Height','32%',32],['Table Angle','12°',48],['Roller Gap','1.6 in',56],['Roller Speed','41%',41],['Fan Speed','46%',46],['Dirt Bypass','20%',20],['Clean Load','59%',59],['Inspect Speed','35%',35]],
+  Boom: [['Boom Speed','42%',42],['Boom Height','64%',64],['Boom Swing','CENTER',50],['Truck Offset','4 ft',40],['Fill Elevator','28°',58],['Auto Fill','READY',82],['Spout Trim','0 in',50],['Boom Light','ON',90]],
+  Axle: [['Axle Level','0.8°',35],['Left Height','52%',52],['Right Height','53%',53],['Steer Trim','0.2°',47],['Auto Level','ON',85],['Transport Lock','OFF',15],['Slope','3.1°',61],['Suspension','FIRM',72]]
+};
+let selectedIndex = 0;
+const grid = document.getElementById('controlsGrid');
+const title = document.getElementById('areaTitle');
+function currentTab() { return document.querySelector('.tab.active').dataset.tab; }
+function render(tab) {
+  title.textContent = tab + ' Controls';
+  grid.innerHTML = data[tab].map((c, i) => `
+    <div class="control-card ${i === selectedIndex ? 'selected' : ''}" tabindex="0" data-index="${i}">
+      <div class="control-name"><span>${c[0]}</span><span class="value">${c[1]}</span></div>
+      <div class="bar-wrap"><div class="bar" style="height: ${Math.max(18, c[2] * 1.6)}px"></div></div>
+      <div class="adjust"><button class="plusminus" aria-label="Decrease ${c[0]}">−</button><button class="plusminus" aria-label="Increase ${c[0]}">+</button></div>
+    </div>`).join('');
+  document.querySelectorAll('.control-card').forEach(card => card.addEventListener('click', () => { selectedIndex = Number(card.dataset.index); render(currentTab()); }));
+}
+document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); selectedIndex = 0; render(tab.dataset.tab); }));
+document.getElementById('themeToggle').addEventListener('click', () => { document.body.classList.toggle('day'); const day = document.body.classList.contains('day'); document.getElementById('themeToggle').innerHTML = day ? 'Day<br/>Mode' : 'Night<br/>Mode'; });
+document.addEventListener('keydown', (e) => { const cols = 4; const max = data[currentTab()].length - 1; if (e.key === 'ArrowRight') selectedIndex = Math.min(max, selectedIndex + 1); if (e.key === 'ArrowLeft') selectedIndex = Math.max(0, selectedIndex - 1); if (e.key === 'ArrowDown') selectedIndex = Math.min(max, selectedIndex + cols); if (e.key === 'ArrowUp') selectedIndex = Math.max(0, selectedIndex - cols); if (e.key.startsWith('Arrow')) { e.preventDefault(); render(currentTab()); } });
+render('Home');
+</script>
+</body>
+</html>

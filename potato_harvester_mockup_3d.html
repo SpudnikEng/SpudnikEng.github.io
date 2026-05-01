@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spudnik Potato Harvester UI Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Day Theme (Industrial Skeuomorphic) */
+            --bg-color: #8c9398;
+            --panel-bg: linear-gradient(135deg, #e0e5ec, #a3b1c6);
+            --text-color: #2d3748;
+            --text-muted: #4a5568;
+            --border-color: #8a94a5;
+            
+            --btn-bg: linear-gradient(to bottom, #f7fafc, #cbd5e0);
+            --btn-border-top: #ffffff;
+            --btn-border-bottom: #718096;
+            --btn-text: #2d3748;
+            --btn-shadow: 0 6px 10px rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.8);
+            
+            --btn-active-bg: linear-gradient(to bottom, #48bb78, #2f855a);
+            --btn-active-shadow: inset 0 4px 8px rgba(0,0,0,0.4), 0 1px 1px rgba(255,255,255,0.4);
+            --btn-active-text: #ffffff;
+            
+            --spudnik-red: #e53e3e;
+            --alarm-bg: linear-gradient(135deg, #feb2b2, #fc8181);
+            --alarm-text: #742a2a;
+            --alarm-shadow: inset 0 2px 5px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
+            
+            --status-ok: #48bb78;
+            --status-warn: #ecc94b;
+            
+            --preset-dig-bg: linear-gradient(to bottom, #ed8936, #c05621);
+            --preset-clean-bg: linear-gradient(to bottom, #4299e1, #2b6cb0);
+            
+            --panel-shadow: inset 0 1px 2px rgba(255,255,255,0.6), 0 6px 12px rgba(0,0,0,0.3);
+            
+            --widget-bg: linear-gradient(135deg, #c3cbdc, #edf2f7);
+            --widget-inset: inset 0 3px 6px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.8);
+        }
+
+        [data-theme="night"] {
+            /* Night Theme (Industrial Skeuomorphic) */
+            --bg-color: #1a1c23;
+            --panel-bg: linear-gradient(135deg, #2d3748, #1a202c);
+            --text-color: #e2e8f0;
+            --text-muted: #a0aec0;
+            --border-color: #11141a;
+            
+            --btn-bg: linear-gradient(to bottom, #4a5568, #2d3748);
+            --btn-border-top: #718096;
+            --btn-border-bottom: #0f1218;
+            --btn-text: #f7fafc;
+            --btn-shadow: 0 6px 10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.15);
+            
+            --btn-active-bg: linear-gradient(to bottom, #2f855a, #22543d);
+            --btn-active-shadow: inset 0 4px 8px rgba(0,0,0,0.8), 0 1px 1px rgba(255,255,255,0.1);
+            --btn-active-text: #ffffff;
+            
+            --spudnik-red: #fc8181;
+            --alarm-bg: linear-gradient(135deg, #742a2a, #451a1a);
+            --alarm-text: #fed7d7;
+            --alarm-shadow: inset 0 2px 5px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+            
+            --status-ok: #48bb78;
+            --status-warn: #ecc94b;
+            
+            --preset-dig-bg: linear-gradient(to bottom, #c05621, #7b341e);
+            --preset-clean-bg: linear-gradient(to bottom, #2b6cb0, #1a365d);
+            
+            --panel-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.7);
+            
+            --widget-bg: linear-gradient(135deg, #171923, #2d3748);
+            --widget-inset: inset 0 4px 8px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Inter', sans-serif;
+            background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .hmi-container {
+            width: 1280px;
+            height: 800px;
+            flex-shrink: 0;
+            display: grid;
+            grid-template-rows: 95px 85px 1fr 120px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0,0,0,0.5);
+            border: 8px solid #111;
+            border-radius: 12px;
+        }
+
+        /* --- Skeuomorphic Buttons --- */
+        button {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid var(--border-color);
+            border-top: 2px solid var(--btn-border-top);
+            border-bottom: 2px solid var(--btn-border-bottom);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--btn-shadow);
+        }
+        
+        [data-theme="night"] button {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        button:active, button.active {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            box-shadow: var(--btn-active-shadow);
+            transform: translateY(4px);
+            border-top: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--btn-border-top);
+            text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+        }
+        
+        button svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            filter: drop-shadow(0 1px 1px rgba(255,255,255,0.2));
+        }
+        [data-theme="night"] button svg {
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+        }
+
+        /* --- Panels --- */
+        .top-bar, .info-action-bar, .bottom-bar, .tabs-container {
+            background: var(--panel-bg);
+            box-shadow: var(--panel-shadow);
+            position: relative;
+            z-index: 5;
+        }
+
+        /* --- Row 1: Top Bar --- */
+        .top-bar {
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+        }
+        .brand-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .brand-area h1 {
+            color: var(--spudnik-red);
+            margin: 0;
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+            -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+        }
+        .machine-meta {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
+        }
+        .status-indicators {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            background: var(--widget-bg);
+            padding: 10px 25px;
+            border-radius: 8px;
+            box-shadow: var(--widget-inset);
+            border: 1px solid var(--border-color);
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
+        }
+        .indicator-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.4);
+        }
+        .dot-ok { 
+            background: radial-gradient(circle at 30% 30%, #68d391, var(--status-ok));
+        }
+        .dot-warn { 
+            background: radial-gradient(circle at 30% 30%, #f6e05e, var(--status-warn));
+        }
+        
+        .top-actions {
+            display: flex;
+            gap: 20px;
+        }
+        .top-btn {
+            height: 65px;
+            width: 140px;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+
+        /* --- Row 2: Info & Quick Actions --- */
+        .info-action-bar {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            z-index: 4;
+        }
+        .message-area {
+            flex: 2;
+            background: var(--alarm-bg);
+            color: var(--alarm-text);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            font-size: 24px;
+            font-weight: 800;
+            border-right: 2px solid var(--border-color);
+            gap: 20px;
+            box-shadow: var(--alarm-shadow);
+            text-shadow: 0 1px 1px rgba(255,255,255,0.2);
+        }
+        [data-theme="night"] .message-area {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .message-area svg {
+            width: 36px;
+            height: 36px;
+            fill: currentColor;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+        }
+        .quick-actions {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 20px;
+        }
+        .quick-btn {
+            height: 60px;
+            min-width: 150px;
+            border-radius: 10px;
+        }
+
+        /* --- Row 3: Main Content (Tabs + Workspace) --- */
+        .main-row {
+            display: flex;
+            background-color: var(--bg-color);
+            position: relative;
+            z-index: 1;
+            min-height: 0; /* Prevents CSS grid blowout */
+        }
+        .workspace {
+            flex: 1;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            align-content: start;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+            overflow-y: auto;
+        }
+        
+        /* Control Widget (Skeuomorphic Display) */
+        .control-widget {
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--widget-inset);
+            position: relative;
+        }
+        /* Faux screws on widgets */
+        .control-widget::before, .control-widget::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #a0aec0, #718096);
+            border-radius: 50%;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.5);
+            top: 15px;
+        }
+        .control-widget::before { left: 15px; }
+        .control-widget::after { right: 15px; }
+
+        .widget-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
+        }
+        .widget-display {
+            background: #000;
+            width: 100%;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #333;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.2);
+        }
+        .widget-value {
+            font-family: monospace;
+            font-size: 48px;
+            font-weight: 700;
+            color: #48bb78; /* LED Green */
+            text-shadow: 0 0 10px rgba(72, 187, 120, 0.6);
+            line-height: 1;
+        }
+        .widget-controls {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+        .widget-btn {
+            flex: 1;
+            height: 75px;
+            font-size: 32px;
+            border-radius: 12px;
+        }
+
+        /* Tabs on the Right */
+        .tabs-container {
+            width: 190px;
+            border-left: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .tab-btn {
+            flex: 1;
+            border: none;
+            border-bottom: 2px solid var(--border-color);
+            border-radius: 0;
+            font-size: 24px;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--text-color);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .tab-btn:last-child {
+            border-bottom: none;
+        }
+        .tab-btn.active {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-left: 8px solid #22543d;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.5);
+            transform: translateY(0); /* Don't translate tabs */
+            padding-left: 10px; /* Offset the border */
+        }
+
+        /* --- Row 4: Presets --- */
+        .bottom-bar {
+            border-top: 2px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 30px;
+            gap: 40px;
+            z-index: 6;
+        }
+        .preset-group {
+            display: flex;
+            gap: 25px;
+            flex: 1;
+            justify-content: center;
+            background: var(--widget-bg);
+            padding: 15px 25px;
+            border-radius: 16px;
+            box-shadow: var(--widget-inset);
+            border: 1px solid var(--border-color);
+        }
+        .preset-group-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
+        }
+        .preset-btn {
+            flex: 1;
+            max-width: 200px;
+            height: 85px;
+            font-size: 26px;
+            border: 1px solid rgba(0,0,0,0.5);
+            border-top: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+        .preset-btn.dig { background: var(--preset-dig-bg); }
+        .preset-btn.clean { background: var(--preset-clean-bg); }
+        
+        .preset-btn:active {
+            transform: translateY(4px);
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.8);
+            border-top: 1px solid rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body data-theme="night">
+
+    <div class="hmi-container">
+        
+        <!-- Row 1 -->
+        <header class="top-bar">
+            <div class="brand-area">
+                <h1>SPUDNIK</h1>
+                <div class="machine-meta">SN: 6844-23091 | SW: v2.4.1</div>
+            </div>
+            
+            <div class="status-indicators">
+                <div class="status-item">
+                    <div class="indicator-dot dot-ok"></div>
+                    Engine
+                </div>
+                <div class="status-item">
+                    <div class="indicator-dot dot-warn"></div>
+                    Hydraulics
+                </div>
+                <div class="status-item">
+                    <div class="indicator-dot dot-ok"></div>
+                    PTO
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <button class="top-btn" onclick="toggleTheme()">
+                    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    Day/Night
+                </button>
+                <button class="top-btn">
+                    <svg viewBox="0 0 24 24"><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Settings
+                </button>
+            </div>
+        </header>
+
+        <!-- Row 2 -->
+        <div class="info-action-bar">
+            <div class="message-area">
+                <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
+                WARNING: Primary Web Conveyor Slip Detected
+            </div>
+            <div class="quick-actions">
+                <button class="quick-btn">Reset Alarms</button>
+                <button class="quick-btn" style="background: linear-gradient(to bottom, #48bb78, #2f855a); color: white; border-top: 2px solid rgba(255,255,255,0.4);">All Start</button>
+                <button class="quick-btn" style="background: linear-gradient(to bottom, #f56565, #c53030); color: white; border-top: 2px solid rgba(255,255,255,0.4);">E-STOP</button>
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <main class="main-row">
+            <div class="workspace">
+                <!-- Mockup Controls for Digger -->
+                <div class="control-widget">
+                    <div class="widget-title">Primary Chain</div>
+                    <div class="widget-display">
+                        <div class="widget-value">65<span style="font-size: 24px">%</span></div>
+                    </div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">-</button>
+                        <button class="widget-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="control-widget">
+                    <div class="widget-title">Secondary Chain</div>
+                    <div class="widget-display">
+                        <div class="widget-value">72<span style="font-size: 24px">%</span></div>
+                    </div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">-</button>
+                        <button class="widget-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="control-widget">
+                    <div class="widget-title">Blade Depth</div>
+                    <div class="widget-display">
+                        <div class="widget-value">4.2<span style="font-size: 24px">in</span></div>
+                    </div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">Up</button>
+                        <button class="widget-btn">Dn</button>
+                    </div>
+                </div>
+                
+                <div class="control-widget">
+                    <div class="widget-title">Agitator Int.</div>
+                    <div class="widget-display">
+                        <div class="widget-value">3</div>
+                    </div>
+                    <div class="widget-controls">
+                        <button class="widget-btn">-</button>
+                        <button class="widget-btn">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="tabs-container">
+                <button class="tab-btn">Home</button>
+                <button class="tab-btn active">Digger</button>
+                <button class="tab-btn">Chains</button>
+                <button class="tab-btn">Table</button>
+                <button class="tab-btn">Boom</button>
+                <button class="tab-btn">Axle</button>
+            </nav>
+        </main>
+
+        <!-- Row 4 -->
+        <footer class="bottom-bar">
+            <div class="preset-group">
+                <div class="preset-group-title">DIG:</div>
+                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup.html'">Flat UI</button>
+                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup_3d.html'">3D UI</button>
+                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_wireframe.html'">Wireframe</button>
+            </div>
+            
+            <div class="preset-group">
+                <div class="preset-group-title">CLEAN:</div>
+                <button class="preset-btn clean">Light</button>
+                <button class="preset-btn clean">Medium</button>
+                <button class="preset-btn clean">Aggressive</button>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'night') {
+                body.setAttribute('data-theme', 'day');
+            } else {
+                body.setAttribute('data-theme', 'night');
+            }
+        }
+
+        // Scale the HMI container to fit the browser window
+        function scaleFit() {
+            const container = document.querySelector('.hmi-container');
+            const scaleX = window.innerWidth / 1300; // Adding a bit of margin
+            const scaleY = window.innerHeight / 820;
+            const scale = Math.min(scaleX, scaleY, 1);
+            container.style.transform = `scale(${scale})`;
+        }
+        window.addEventListener('resize', scaleFit);
+        scaleFit();
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
