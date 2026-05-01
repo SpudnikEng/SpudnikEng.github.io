@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harvester HMI Landscape Mockup</title>
+  <style>
+    :root {
+      --screen-w: 1280px;
+      --screen-h: 800px;
+      --bg: #111820;
+      --panel: #1c2732;
+      --panel-2: #263542;
+      --panel-3: #314454;
+      --text: #eef5f8;
+      --muted: #9dafbb;
+      --line: #3c5060;
+      --green: #42d67d;
+      --amber: #ffbf3f;
+      --red: #ff5a52;
+      --blue: #4da3ff;
+      --button: #2f4150;
+      --button-active: #47718f;
+      --shadow: rgba(0, 0, 0, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #080c10;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screen {
+      width: var(--screen-w);
+      height: var(--screen-h);
+      background: var(--bg);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+      display: grid;
+      grid-template-columns: 1fr 108px;
+      grid-template-rows: 64px 1fr 52px 92px;
+      border: 1px solid #32424f;
+    }
+
+    .topbar {
+      grid-column: 1 / 3;
+      grid-row: 1;
+      background: #17222b;
+      border-bottom: 2px solid var(--line);
+      display: grid;
+      grid-template-columns: 150px 160px 150px 150px 1fr 120px;
+      align-items: center;
+      padding: 0 14px;
+      gap: 10px;
+    }
+
+    .top-pill {
+      height: 42px;
+      border-radius: 10px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .top-pill.run {
+      color: #0c1512;
+      background: var(--green);
+      border: none;
+    }
+
+    .top-pill.warning {
+      color: #271900;
+      background: var(--amber);
+      border: none;
+      justify-content: flex-start;
+      padding-left: 16px;
+    }
+
+    .clock {
+      justify-content: flex-end;
+      padding-right: 12px;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+    }
+
+    .main {
+      grid-column: 1;
+      grid-row: 2;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-rows: 1fr 170px;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 10px 24px var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      height: 48px;
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .panel-header span:last-child {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .machine-card {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      display: grid;
+      grid-template-rows: 48px 1fr;
+    }
+
+    .machine-area {
+      position: relative;
+      padding: 22px;
+    }
+
+    .flow-label {
+      position: absolute;
+      left: 32px;
+      top: 24px;
+      color: var(--muted);
+      font-size: 17px;
+      letter-spacing: 0.3px;
+    }
+
+    .machine-svg {
+      position: absolute;
+      inset: 58px 22px 88px 22px;
+      background: #13202a;
+      border: 1px solid #365061;
+      border-radius: 20px;
+      padding: 12px;
+    }
+
+    .machine-zone {
+      position: absolute;
+      height: 160px;
+      border: 2px solid #526a7b;
+      background: linear-gradient(180deg, #273b4a, #1c2a34);
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 8px 20px var(--shadow);
+    }
+
+    .machine-zone:hover,
+    .button:hover,
+    .nav-button:hover,
+    .quick-button:hover,
+    .adjust-button:hover {
+      filter: brightness(1.12);
+    }
+
+    .machine-zone .title {
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .machine-zone .subtitle {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .zone-digger {
+      left: 48px;
+      top: 118px;
+      width: 190px;
+      border-color: var(--green);
+    }
+
+    .zone-cleaning {
+      left: 280px;
+      top: 92px;
+      width: 250px;
+      height: 212px;
+      border-color: var(--amber);
+    }
+
+    .zone-tank {
+      left: 576px;
+      top: 118px;
+      width: 190px;
+      border-color: var(--green);
+    }
+
+    .flow-arrow {
+      position: absolute;
+      top: 185px;
+      color: var(--blue);
+      font-size: 48px;
+      font-weight: 800;
+    }
+
+    .arrow-1 { left: 245px; }
+    .arrow-2 { left: 536px; }
+
+    .machine-footer {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .button {
+      min-height: 64px;
+      border-radius: 14px;
+      background: var(--button);
+      border: 1px solid #526a7b;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .values-card {
+      grid-column: 2;
+      grid-row: 1;
+      display: grid;
+      grid-template-rows: 48px 1fr;
+    }
+
+    .value-grid {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 118px;
+      gap: 12px;
+    }
+
+    .value-tile {
+      background: var(--panel-2);
+      border: 1px solid #526a7b;
+      border-radius: 16px;
+      padding: 12px;
+      display: grid;
+      grid-template-rows: 28px 1fr 24px;
+    }
+
+    .value-title {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .value-main {
+      display: flex;
+      align-items: center;
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .value-status {
+      color: var(--green);
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .value-status.warn {
+      color: var(--amber);
+    }
+
+    .quick-card {
+      grid-column: 2;
+      grid-row: 2;
+      display: grid;
+      grid-template-rows: 48px 1fr;
+    }
+
+    .quick-grid {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .quick-button {
+      border-radius: 14px;
+      background: var(--button);
+      border: 1px solid #526a7b;
+      color: var(--text);
+      font-size: 19px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .quick-button.active {
+      background: var(--button-active);
+      border-color: var(--blue);
+    }
+
+    .alarm-band {
+      grid-column: 1;
+      grid-row: 3;
+      margin: 0 16px;
+      background: #3a2a11;
+      border: 1px solid #835f1e;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: 150px 1fr 150px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .alarm-severity {
+      height: 100%;
+      background: var(--amber);
+      color: #231700;
+      font-size: 20px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .alarm-message {
+      font-size: 21px;
+      font-weight: 700;
+      padding-left: 18px;
+    }
+
+    .alarm-action {
+      height: 40px;
+      margin-right: 8px;
+      border-radius: 10px;
+      background: #654a1d;
+      border: 1px solid #b9892a;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bottom-strip {
+      grid-column: 1;
+      grid-row: 4;
+      padding: 12px 16px 14px 16px;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 12px;
+      background: #14202a;
+      border-top: 1px solid var(--line);
+    }
+
+    .strip-button {
+      border-radius: 16px;
+      background: var(--button);
+      border: 1px solid #526a7b;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .strip-button.primary {
+      background: #264e37;
+      border-color: var(--green);
+    }
+
+    .strip-button.warn {
+      background: #594013;
+      border-color: var(--amber);
+    }
+
+    .nav {
+      grid-column: 2;
+      grid-row: 2 / 5;
+      background: #101922;
+      border-left: 2px solid var(--line);
+      padding: 12px 10px;
+      display: grid;
+      grid-template-rows: repeat(8, 1fr);
+      gap: 10px;
+    }
+
+    .nav-button {
+      border-radius: 14px;
+      background: var(--button);
+      border: 1px solid #526a7b;
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .nav-button.active {
+      background: var(--blue);
+      color: #06111a;
+      border: none;
+    }
+
+    .subsystem-preview {
+      position: absolute;
+      left: 34px;
+      bottom: 124px;
+      width: 560px;
+      height: 110px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .mini-adjust {
+      background: rgba(38, 53, 66, 0.92);
+      border: 1px solid #526a7b;
+      border-radius: 16px;
+      padding: 10px;
+      display: grid;
+      grid-template-rows: 25px 1fr;
+      gap: 6px;
+    }
+
+    .mini-title {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .adjust-row {
+      display: grid;
+      grid-template-columns: 48px 1fr 48px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .adjust-button {
+      height: 48px;
+      border-radius: 12px;
+      background: var(--button);
+      border: 1px solid #526a7b;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .adjust-value {
+      text-align: center;
+      font-size: 27px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1280px), (max-height: 800px) {
+      body {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
+      .screen {
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="screen" aria-label="1280 by 800 landscape harvester HMI mockup">
+    <header class="topbar">
+      <div class="top-pill run">RUN</div>
+      <div class="top-pill">Preset 2</div>
+      <div class="top-pill">Auto</div>
+      <div class="top-pill">Hyd OK</div>
+      <div class="top-pill warning">Warning: Tank nearing full</div>
+      <div class="top-pill clock">14:32</div>
+    </header>
+
+    <section class="main">
+      <article class="panel machine-card">
+        <div class="panel-header">
+          <span>Machine Overview</span>
+          <span>Tap zone to open subsystem page</span>
+        </div>
+        <div class="machine-area">
+          <div class="flow-label">Crop flow: Digger → Cleaning → Tank</div>
+
+          <div class="machine-svg">
+            <div class="machine-zone zone-digger">
+              <div class="title">Digger</div>
+              <div class="subtitle">Height 42% · Auto</div>
+            </div>
+            <div class="flow-arrow arrow-1">→</div>
+            <div class="machine-zone zone-cleaning">
+              <div class="title">Cleaning</div>
+              <div class="subtitle">Load rising · Fan 62%</div>
+            </div>
+            <div class="flow-arrow arrow-2">→</div>
+            <div class="machine-zone zone-tank">
+              <div class="title">Tank</div>
+              <div class="subtitle">78% · High pile</div>
+            </div>
+          </div>
+
+          <div class="subsystem-preview">
+            <div class="mini-adjust">
+              <div class="mini-title">Digger Height</div>
+              <div class="adjust-row">
+                <div class="adjust-button">−</div>
+                <div class="adjust-value">42%</div>
+                <div class="adjust-button">+</div>
+              </div>
+            </div>
+            <div class="mini-adjust">
+              <div class="mini-title">Fan Speed</div>
+              <div class="adjust-row">
+                <div class="adjust-button">−</div>
+                <div class="adjust-value">62%</div>
+                <div class="adjust-button">+</div>
+              </div>
+            </div>
+            <div class="mini-adjust">
+              <div class="mini-title">Main Chain</div>
+              <div class="adjust-row">
+                <div class="adjust-button">−</div>
+                <div class="adjust-value">44%</div>
+                <div class="adjust-button">+</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="machine-footer">
+            <div class="button">Open Digger</div>
+            <div class="button">Open Cleaning</div>
+            <div class="button">Open Tank</div>
+            <div class="button">Open Alarms</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel values-card">
+        <div class="panel-header">
+          <span>Critical Values</span>
+          <span>Runtime</span>
+        </div>
+        <div class="value-grid">
+          <div class="value-tile">
+            <div class="value-title">Digger Height</div>
+            <div class="value-main">42%</div>
+            <div class="value-status">Auto active</div>
+          </div>
+          <div class="value-tile">
+            <div class="value-title">Main Chain</div>
+            <div class="value-main">44%</div>
+            <div class="value-status">Normal</div>
+          </div>
+          <div class="value-tile">
+            <div class="value-title">Fan Speed</div>
+            <div class="value-main">62%</div>
+            <div class="value-status warn">Load rising</div>
+          </div>
+          <div class="value-tile">
+            <div class="value-title">Tank Fill</div>
+            <div class="value-main">78%</div>
+            <div class="value-status warn">Near full</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel quick-card">
+        <div class="panel-header">
+          <span>Quick Actions</span>
+          <span>1-tap</span>
+        </div>
+        <div class="quick-grid">
+          <div class="quick-button">Preset 1</div>
+          <div class="quick-button active">Preset 2</div>
+          <div class="quick-button">Preset 3</div>
+          <div class="quick-button">Fan −</div>
+          <div class="quick-button">Fan +</div>
+          <div class="quick-button">Unload</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="alarm-band">
+      <div class="alarm-severity">WARNING</div>
+      <div class="alarm-message">Tank nearing full — prepare to unload</div>
+      <div class="alarm-action">ACK</div>
+    </section>
+
+    <section class="bottom-strip">
+      <div class="strip-button primary">Home</div>
+      <div class="strip-button">Preset −</div>
+      <div class="strip-button">Preset +</div>
+      <div class="strip-button">Fan −</div>
+      <div class="strip-button">Fan +</div>
+      <div class="strip-button">Chain −</div>
+      <div class="strip-button">Chain +</div>
+      <div class="strip-button warn">Ack</div>
+    </section>
+
+    <nav class="nav" aria-label="Page navigation">
+      <div class="nav-button active">Home</div>
+      <div class="nav-button">Digger</div>
+      <div class="nav-button">Cleaning</div>
+      <div class="nav-button">Tank</div>
+      <div class="nav-button">Machine</div>
+      <div class="nav-button">Presets</div>
+      <div class="nav-button">Alarms</div>
+      <div class="nav-button">Setup</div>
+    </nav>
+  </main>
+</body>
+</html>
