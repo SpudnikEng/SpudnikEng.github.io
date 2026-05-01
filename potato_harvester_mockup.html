@@ -69,11 +69,257 @@
             width: 1280px;
             height: 800px;
             display: grid;
-            grid-template-rows: 90px 80px 1fr 110px;
+            grid-template-rows: 90px 1fr;
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow: hidden;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .view-shell {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .view {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .view.active {
+            display: flex;
+        }
+
+        .mode-select {
+            height: 50px;
+            min-width: 180px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 12px;
+            border: 2px solid var(--btn-border);
+            border-radius: 8px;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+        }
+
+        .btn-run {
+            height: 50px;
+            min-width: 72px;
+            padding: 6px 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .btn-run-icon {
+            display: block;
+            height: 26px;
+            width: auto;
+        }
+
+        .workspace-wrap {
+            flex: 1;
+            position: relative;
+            min-height: 0;
+            background-color: var(--bg-color);
+        }
+
+        .ctrl-tab-content {
+            display: none;
+            position: absolute;
+            inset: 0;
+            padding: 30px;
+            overflow-y: auto;
+            align-content: start;
+        }
+
+        .ctrl-tab-content.active {
+            display: grid;
+        }
+
+        #ctrl-tab-home {
+            grid-template-columns: 1fr minmax(240px, 340px);
+            grid-template-rows: minmax(0, 1fr);
+            gap: 24px;
+            align-items: stretch;
+            text-align: left;
+        }
+
+        .home-workspace-visual {
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0d0d0d;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .home-harvester-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .home-auto-panel {
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 12px 14px;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .home-auto-heading {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-color);
+            flex-shrink: 0;
+        }
+
+        .home-auto-toggles {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 12px;
+            align-content: start;
+        }
+
+        .auto-mode-toggle {
+            min-width: 0;
+            min-height: 65px;
+            padding: 10px 12px;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        .auto-mode-toggle.on {
+            border-color: var(--btn-active-bg);
+            box-shadow: 0 0 0 1px var(--btn-active-bg);
+            color: var(--btn-active-bg);
+        }
+
+        #ctrl-tab-chains,
+        #ctrl-tab-table,
+        #ctrl-tab-boom,
+        #ctrl-tab-axle {
+            grid-template-columns: 1fr;
+            place-content: center;
+            text-align: center;
+        }
+
+        #ctrl-tab-digger {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .tab-placeholder {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .diag-row {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            min-height: 0;
+            background-color: var(--bg-color);
+        }
+
+        .diag-half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .settings-row {
+            flex: 1;
+            display: flex;
+            min-height: 0;
+        }
+
+        .set-workspace {
+            flex: 1;
+            position: relative;
+            min-width: 0;
+            background-color: var(--bg-color);
+        }
+
+        .set-tab-content {
+            display: none;
+            position: absolute;
+            inset: 0;
+            padding: 30px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .set-tab-content.active {
+            display: flex;
+        }
+
+        .help-panel {
+            flex: 1;
+            display: flex;
+            min-height: 0;
+            background-color: var(--bg-color);
+            padding: 20px;
+        }
+
+        .help-panel-inner {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .preset-spacer {
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .night-mode-btn {
+            width: 140px;
+            height: 60px;
+            flex-shrink: 0;
+            margin-left: auto;
         }
 
         /* --- Buttons --- */
@@ -117,14 +363,12 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            gap: 6px;
         }
-        .brand-area h1 {
-            color: var(--spudnik-red);
-            margin: 0;
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        .brand-logo {
+            display: block;
+            height: 32px;
+            width: auto;
         }
         .machine-meta {
             font-size: 14px;
@@ -165,6 +409,8 @@
         .info-action-bar {
             display: flex;
             border-bottom: 2px solid var(--border-color);
+            flex-shrink: 0;
+            min-height: 80px;
         }
         .message-area {
             flex: 2;
@@ -199,11 +445,12 @@
         /* --- Row 3: Main Content (Tabs + Workspace) --- */
         .main-row {
             display: flex;
+            flex: 1;
+            min-height: 0;
             background-color: var(--bg-color);
         }
         .workspace {
             flex: 1;
-            padding: 30px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
@@ -250,19 +497,18 @@
             border-left: 2px solid var(--border-color);
             display: flex;
             flex-direction: column;
+            gap: 10px;
+            padding: 10px 8px;
+            box-sizing: border-box;
         }
         .tab-btn {
             flex: 1;
             border: none;
-            border-bottom: 1px solid var(--border-color);
-            border-radius: 0;
+            border-radius: 8px;
             font-size: 22px;
             box-shadow: none;
             background-color: transparent;
             color: var(--text-color);
-        }
-        .tab-btn:last-child {
-            border-bottom: none;
         }
         .tab-btn.active {
             background-color: var(--btn-active-bg);
@@ -275,30 +521,25 @@
             background-color: var(--panel-bg);
             border-top: 2px solid var(--border-color);
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             padding: 0 20px;
-            gap: 30px;
+            gap: 15px;
+            flex-shrink: 0;
+            min-height: 110px;
         }
         .preset-group {
             display: flex;
-            gap: 20px;
-            flex: 1;
+            gap: 15px;
+            flex: 0 1 auto;
             justify-content: center;
         }
-        .preset-group-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-        }
         .preset-btn {
-            flex: 1;
-            max-width: 180px;
-            height: 80px;
-            font-size: 24px;
+            width: 120px;
+            max-width: none;
+            flex: 0 0 auto;
+            height: 60px;
+            font-size: 16px;
             border: none;
             color: white;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -318,18 +559,17 @@
 <body data-theme="night"> <!-- Default to night mode -->
 
     <div class="hmi-container">
-        
-        <!-- Row 1 -->
+
         <header class="top-bar">
             <div class="brand-area">
-                <h1>SPUDNIK</h1>
-                <div class="machine-meta">SN: 6844-23091 | SW: v2.4.1</div>
+                <img class="brand-logo" src="Harvester6844UI/icons/SpudnikLogo.svg" alt="Spudnik" width="206" height="50" />
+                <div class="machine-meta">SN: 6844-55-28 | SW: v2.5.1</div>
             </div>
-            
+
             <div class="status-indicators">
                 <div class="status-item">
                     <div class="indicator-dot dot-ok"></div>
-                    Engine
+                    Chains
                 </div>
                 <div class="status-item">
                     <div class="indicator-dot dot-warn"></div>
@@ -342,97 +582,192 @@
             </div>
 
             <div class="top-actions">
-                <button class="top-btn" onclick="toggleTheme()">
-                    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                    Day/Night
-                </button>
-                <button class="top-btn">
-                    <svg viewBox="0 0 24 24"><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/><circle cx="12" cy="12" r="3"/></svg>
-                    Settings
+                <select id="modeSelect" class="mode-select" onchange="switchView(this.value)">
+                    <option value="control" selected>Control</option>
+                    <option value="diagnostic">Diagnostic</option>
+                    <option value="settings">Settings</option>
+                    <option value="help">Help</option>
+                </select>
+                <button type="button" class="btn-run" aria-label="Run">
+                    <img class="btn-run-icon" src="Harvester6844UI/icons/RUN_Sm.png" alt="" />
                 </button>
             </div>
         </header>
 
-        <!-- Row 2 -->
-        <div class="info-action-bar">
-            <div class="message-area">
-                <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
-                WARNING: Primary Web Conveyor Slip Detected
+        <div class="view-shell">
+            <div id="view-control" class="view active">
+                <div class="info-action-bar">
+                    <div class="message-area">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
+                        Boom folded; unfold to operate
+                    </div>
+                    <div class="quick-actions">
+                        <button type="button" class="quick-btn">Action 1</button>
+                        <button type="button" class="quick-btn">Action 2</button>
+                        <button type="button" class="quick-btn">Action 3</button>
+                    </div>
+                </div>
+
+                <main class="main-row">
+                    <div class="workspace-wrap">
+                        <div id="ctrl-tab-home" class="ctrl-tab-content active">
+                            <div class="home-workspace-visual">
+                                <img class="home-harvester-img" src="6844_Right ISO Front Quarter (3307 x 4677).png" alt="Spudnik 6844 MultiSep harvester" />
+                            </div>
+                            <div class="home-auto-panel">
+                                <h2 class="home-auto-heading">Auto mode:</h2>
+                                <div class="home-auto-toggles">
+                                    <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Chains, off" onclick="toggleAutoMode(this)">Chains</button>
+                                    <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Digger, off" onclick="toggleAutoMode(this)">Digger</button>
+                                    <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Hump, off" onclick="toggleAutoMode(this)">Hump</button>
+                                    <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Depth Wheels, off" onclick="toggleAutoMode(this)">Depth Wheels</button>
+                                    <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Primary Shaker, off" onclick="toggleAutoMode(this)">Primary Shaker</button>
+                                    <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Secondary Shaker, off" onclick="toggleAutoMode(this)">Secondary Shaker</button>
+                                    <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Axle, off" onclick="toggleAutoMode(this)">Axle</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ctrl-tab-digger" class="ctrl-tab-content">
+                            <div class="control-widget">
+                                <div class="widget-title">Primary Chain Speed</div>
+                                <div class="widget-value">65%</div>
+                                <div class="widget-controls">
+                                    <button type="button" class="widget-btn">-</button>
+                                    <button type="button" class="widget-btn">+</button>
+                                </div>
+                            </div>
+                            <div class="control-widget">
+                                <div class="widget-title">Secondary Chain Speed</div>
+                                <div class="widget-value">72%</div>
+                                <div class="widget-controls">
+                                    <button type="button" class="widget-btn">-</button>
+                                    <button type="button" class="widget-btn">+</button>
+                                </div>
+                            </div>
+                            <div class="control-widget">
+                                <div class="widget-title">Blade Depth</div>
+                                <div class="widget-value">4.2 in</div>
+                                <div class="widget-controls">
+                                    <button type="button" class="widget-btn">Up</button>
+                                    <button type="button" class="widget-btn">Down</button>
+                                </div>
+                            </div>
+                            <div class="control-widget">
+                                <div class="widget-title">Agitator Intensity</div>
+                                <div class="widget-value">3</div>
+                                <div class="widget-controls">
+                                    <button type="button" class="widget-btn">-</button>
+                                    <button type="button" class="widget-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ctrl-tab-chains" class="ctrl-tab-content">
+                            <p class="tab-placeholder">Chains Workspace</p>
+                        </div>
+                        <div id="ctrl-tab-table" class="ctrl-tab-content">
+                            <p class="tab-placeholder">Table Workspace</p>
+                        </div>
+                        <div id="ctrl-tab-boom" class="ctrl-tab-content">
+                            <p class="tab-placeholder">Boom Workspace</p>
+                        </div>
+                        <div id="ctrl-tab-axle" class="ctrl-tab-content">
+                            <p class="tab-placeholder">Axle Workspace</p>
+                        </div>
+                    </div>
+                    <nav class="tabs-container">
+                        <button type="button" class="tab-btn ctrl-tab active" onclick="switchCtrlTab('home', this)">Home</button>
+                        <button type="button" class="tab-btn ctrl-tab" onclick="switchCtrlTab('digger', this)">Digger</button>
+                        <button type="button" class="tab-btn ctrl-tab" onclick="switchCtrlTab('chains', this)">Chains</button>
+                        <button type="button" class="tab-btn ctrl-tab" onclick="switchCtrlTab('table', this)">Table</button>
+                        <button type="button" class="tab-btn ctrl-tab" onclick="switchCtrlTab('boom', this)">Boom</button>
+                        <button type="button" class="tab-btn ctrl-tab" onclick="switchCtrlTab('axle', this)">Axle</button>
+                    </nav>
+                </main>
+
+                <footer class="bottom-bar">
+                    <div class="preset-group">
+                        <button type="button" class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup.html'">Flat UI</button>
+                        <button type="button" class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup_3d.html'">3D UI</button>
+                        <button type="button" class="preset-btn dig" onclick="window.location.href='potato_harvester_wireframe.html'">Wireframe</button>
+                    </div>
+                    <div class="preset-spacer"></div>
+                    <div class="preset-group">
+                        <button type="button" class="preset-btn clean">CLEAN 1</button>
+                        <button type="button" class="preset-btn clean">CLEAN 2</button>
+                        <button type="button" class="preset-btn clean">CLEAN 3</button>
+                    </div>
+                    <button type="button" class="night-mode-btn" onclick="toggleTheme()">NIGHT MODE</button>
+                </footer>
             </div>
-            <div class="quick-actions">
-                <button class="quick-btn">Reset Alarms</button>
-                <button class="quick-btn" style="background-color: var(--btn-active-bg); color: white;">All Start</button>
-                <button class="quick-btn" style="background-color: var(--spudnik-red); color: white;">E-STOP</button>
+
+            <div id="view-diagnostic" class="view">
+                <div class="info-action-bar">
+                    <div class="message-area">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
+                        Boom folded; unfold to operate
+                    </div>
+                    <div class="quick-actions">
+                        <button type="button" class="quick-btn">Action 1</button>
+                        <button type="button" class="quick-btn">Action 2</button>
+                        <button type="button" class="quick-btn">Action 3</button>
+                    </div>
+                </div>
+                <div class="diag-row">
+                    <div class="diag-half">INPUTS</div>
+                    <div class="diag-half">OUTPUTS</div>
+                </div>
+            </div>
+
+            <div id="view-settings" class="view">
+                <div class="settings-row">
+                    <div class="set-workspace">
+                        <div id="set-tab-general" class="set-tab-content active">
+                            <p class="tab-placeholder">General Setup</p>
+                        </div>
+                        <div id="set-tab-chains" class="set-tab-content">
+                            <p class="tab-placeholder">Chains Setup</p>
+                        </div>
+                        <div id="set-tab-joystick" class="set-tab-content">
+                            <p class="tab-placeholder">Joystick Setup</p>
+                        </div>
+                        <div id="set-tab-start-row" class="set-tab-content">
+                            <p class="tab-placeholder">Start Row Setup</p>
+                        </div>
+                        <div id="set-tab-end-row" class="set-tab-content">
+                            <p class="tab-placeholder">End Row Setup</p>
+                        </div>
+                        <div id="set-tab-telematics" class="set-tab-content">
+                            <p class="tab-placeholder">Telematics Setup</p>
+                        </div>
+                    </div>
+                    <nav class="tabs-container set-tabs">
+                        <button type="button" class="tab-btn set-tab active" onclick="switchSetTab('general', this)">General</button>
+                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('chains', this)">Chains</button>
+                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('joystick', this)">Joystick</button>
+                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('start-row', this)">Start Row</button>
+                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('end-row', this)">End Row</button>
+                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('telematics', this)">Telematics</button>
+                    </nav>
+                </div>
+            </div>
+
+            <div id="view-help" class="view">
+                <div class="info-action-bar">
+                    <div class="message-area">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
+                        Boom folded; unfold to operate
+                    </div>
+                    <div class="quick-actions">
+                        <button type="button" class="quick-btn">Action 1</button>
+                        <button type="button" class="quick-btn">Action 2</button>
+                        <button type="button" class="quick-btn">Action 3</button>
+                    </div>
+                </div>
+                <div class="help-panel">
+                    <div class="help-panel-inner">HELP DOCUMENTATION &amp; DIAGRAMS</div>
+                </div>
             </div>
         </div>
-
-        <!-- Row 3 -->
-        <main class="main-row">
-            <div class="workspace">
-                <!-- Mockup Controls for Digger -->
-                <div class="control-widget">
-                    <div class="widget-title">Primary Chain Speed</div>
-                    <div class="widget-value">65%</div>
-                    <div class="widget-controls">
-                        <button class="widget-btn">-</button>
-                        <button class="widget-btn">+</button>
-                    </div>
-                </div>
-
-                <div class="control-widget">
-                    <div class="widget-title">Secondary Chain Speed</div>
-                    <div class="widget-value">72%</div>
-                    <div class="widget-controls">
-                        <button class="widget-btn">-</button>
-                        <button class="widget-btn">+</button>
-                    </div>
-                </div>
-
-                <div class="control-widget">
-                    <div class="widget-title">Blade Depth</div>
-                    <div class="widget-value">4.2 in</div>
-                    <div class="widget-controls">
-                        <button class="widget-btn">Up</button>
-                        <button class="widget-btn">Down</button>
-                    </div>
-                </div>
-                
-                <div class="control-widget">
-                    <div class="widget-title">Agitator Intensity</div>
-                    <div class="widget-value">3</div>
-                    <div class="widget-controls">
-                        <button class="widget-btn">-</button>
-                        <button class="widget-btn">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <nav class="tabs-container">
-                <button class="tab-btn">Home</button>
-                <button class="tab-btn active">Digger</button>
-                <button class="tab-btn">Chains</button>
-                <button class="tab-btn">Table</button>
-                <button class="tab-btn">Boom</button>
-                <button class="tab-btn">Axle</button>
-            </nav>
-        </main>
-
-        <!-- Row 4 -->
-        <footer class="bottom-bar">
-            <div class="preset-group">
-                <div class="preset-group-title">DIG:</div>
-                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup.html'">Flat UI</button>
-                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_mockup_3d.html'">3D UI</button>
-                <button class="preset-btn dig" onclick="window.location.href='potato_harvester_wireframe.html'">Wireframe</button>
-            </div>
-            
-            <div class="preset-group">
-                <div class="preset-group-title">CLEAN:</div>
-                <button class="preset-btn clean">Light</button>
-                <button class="preset-btn clean">Medium</button>
-                <button class="preset-btn clean">Aggressive</button>
-            </div>
-        </footer>
 
     </div>
 
@@ -446,14 +781,31 @@
             }
         }
 
-        // Add simple active state toggling for tabs
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                // Could update workspace content here based on tab
-            });
-        });
+        function switchCtrlTab(tabName, element) {
+            document.querySelectorAll('#view-control .ctrl-tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#view-control .ctrl-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('ctrl-tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function switchSetTab(tabName, element) {
+            document.querySelectorAll('.set-tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.set-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('set-tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function switchView(viewName) {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewName).classList.add('active');
+        }
+
+        function toggleAutoMode(btn) {
+            const on = btn.classList.toggle('on');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            const name = btn.textContent.trim();
+            btn.setAttribute('aria-label', `Auto mode: ${name}, ${on ? 'on' : 'off'}`);
+        }
     </script>
 </body>
 </html>
