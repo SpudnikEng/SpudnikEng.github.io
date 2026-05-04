@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spudnik Harvester Wireframe</title>
+    <title>Spudnik Generic Wireframe</title>
     <style>
         * {
             box-sizing: border-box;
@@ -59,6 +59,17 @@
             height: 90px;
             display: flex;
             width: 100%;
+        }
+        .brand-home-link {
+            flex: 1;
+            display: flex;
+            min-width: 0;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        .brand-home-link:hover .top-left {
+            background-color: #f0f0f0;
         }
         .top-left {
             flex: 1;
@@ -184,32 +195,47 @@
             flex-direction: column;
         }
 
-        /* --- Help Page --- */
-        .help-row-3 {
+        /* --- Help Page (tabbed, mirrors Settings layout) --- */
+        .help-main-row {
             height: 630px;
+            display: flex;
             width: 100%;
+        }
+        .help-main-left {
+            width: 1100px;
+        }
+        .help-main-right {
+            width: 180px;
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- Tab Styles --- */
         .tab-item {
             flex: 1;
             border: 1px solid #666;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: grid;
+            place-content: center;
+            justify-items: center;
+            text-align: center;
             background: #eee;
             font-weight: bold;
             font-size: 18px;
             cursor: pointer;
+            box-sizing: border-box;
+            min-width: 0;
+            width: 100%;
+            padding: 12px 14px;
         }
         .tab-item:hover {
             background: #ddd;
         }
         .tab-item.active {
             background: #ccc;
-            border-left: 6px solid #333;
+            /* Inset stripe instead of thicker border-left so text width matches inactive tabs */
+            box-shadow: inset 6px 0 0 #333;
         }
-        .ctrl-tab-content, .set-tab-content {
+        .ctrl-tab-content, .set-tab-content, .help-tab-content {
             display: none;
             width: 100%;
             height: 100%;
@@ -217,7 +243,7 @@
             justify-content: center;
             align-items: center;
         }
-        .ctrl-tab-content.active, .set-tab-content.active {
+        .ctrl-tab-content.active, .set-tab-content.active, .help-tab-content.active {
             display: flex;
         }
 
@@ -240,11 +266,13 @@
         
         <!-- Common Top Row: 90px -->
         <div class="top-row">
-            <div class="top-left box">
-                <div class="box-label">Logo / SN / SW Version</div>
-                <h2>[LOGO]</h2>
-                <p>SN: XXXXX | SW: vX.X</p>
-            </div>
+            <a href="equipment_ui_mockups.html" class="brand-home-link" title="Back to Equipment UI Mockups">
+                <div class="top-left box">
+                    <div class="box-label">Logo / SN / SW Version</div>
+                    <h2>[LOGO]</h2>
+                    <p>SN: XXXXX | SW: vX.X</p>
+                </div>
+            </a>
             <div class="top-mid box crossed">
                 <div class="box-label">Status Information</div>
                 <p>Status Indicators</p>
@@ -278,35 +306,35 @@
             <div class="ctrl-row-3">
                 <div class="ctrl-row-3-left box">
                     <div class="box-label">1100px - Function Specific Controls</div>
-                    <div id="ctrl-tab-home" class="ctrl-tab-content active crossed"><h2>Home Workspace</h2></div>
-                    <div id="ctrl-tab-digger" class="ctrl-tab-content crossed"><h2>Digger Workspace</h2></div>
-                    <div id="ctrl-tab-chains" class="ctrl-tab-content crossed"><h2>Chains Workspace</h2></div>
-                    <div id="ctrl-tab-table" class="ctrl-tab-content crossed"><h2>Table Workspace</h2></div>
-                    <div id="ctrl-tab-boom" class="ctrl-tab-content crossed"><h2>Boom Workspace</h2></div>
-                    <div id="ctrl-tab-axle" class="ctrl-tab-content crossed"><h2>Axle Workspace</h2></div>
+                    <div id="ctrl-tab-home" class="ctrl-tab-content active crossed"><h2>Default</h2></div>
+                    <div id="ctrl-tab-digger" class="ctrl-tab-content crossed"><h2>Control Grp 1</h2></div>
+                    <div id="ctrl-tab-chains" class="ctrl-tab-content crossed"><h2>Control Grp 2</h2></div>
+                    <div id="ctrl-tab-table" class="ctrl-tab-content crossed"><h2>Control Grp 3</h2></div>
+                    <div id="ctrl-tab-boom" class="ctrl-tab-content crossed"><h2>Control Grp 4</h2></div>
+                    <div id="ctrl-tab-axle" class="ctrl-tab-content crossed"><h2>Control Grp 5</h2></div>
                 </div>
                 <div class="ctrl-row-3-right">
-                    <div class="tab-item ctrl-tab active" onclick="switchCtrlTab('home', this)">Home</div>
-                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('digger', this)">Digger</div>
-                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('chains', this)">Chains</div>
-                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('table', this)">Table</div>
-                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('boom', this)">Boom</div>
-                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('axle', this)">Axle</div>
+                    <div class="tab-item ctrl-tab active" onclick="switchCtrlTab('home', this)">Default</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('digger', this)">Control Grp 1</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('chains', this)">Control Grp 2</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('table', this)">Control Grp 3</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('boom', this)">Control Grp 4</div>
+                    <div class="tab-item ctrl-tab" onclick="switchCtrlTab('axle', this)">Control Grp 5</div>
                 </div>
             </div>
             <!-- Row 4: 110px -->
             <div class="ctrl-row-4 box">
                 <div class="box-label">110px - Presets & Night Mode</div>
                 <div class="preset-group">
-                    <button class="preset-btn" onclick="window.location.href='potato_harvester_mockup.html'">Flat UI</button>
-                    <button class="preset-btn" onclick="window.location.href='potato_harvester_mockup_3d.html'">3D UI</button>
-                    <button class="preset-btn" onclick="window.location.href='potato_harvester_wireframe.html'">Wireframe</button>
+                    <button type="button" class="preset-btn">Preset 1</button>
+                    <button type="button" class="preset-btn">Preset 2</button>
+                    <button type="button" class="preset-btn">Preset 3</button>
                 </div>
                 <div class="preset-spacer"></div>
                 <div class="preset-group">
-                    <button class="preset-btn">CLEAN 1</button>
-                    <button class="preset-btn">CLEAN 2</button>
-                    <button class="preset-btn">CLEAN 3</button>
+                    <button type="button" class="preset-btn">Preset A</button>
+                    <button type="button" class="preset-btn">Preset B</button>
+                    <button type="button" class="preset-btn">Preset C</button>
                 </div>
                 <button class="night-mode-btn">NIGHT MODE</button>
             </div>
@@ -345,18 +373,18 @@
                 <div class="set-row-2-left box">
                     <div class="box-label">1100px - Specific Setup Areas</div>
                     <div id="set-tab-general" class="set-tab-content active crossed"><h2>General Setup</h2></div>
-                    <div id="set-tab-chains" class="set-tab-content crossed"><h2>Chains Setup</h2></div>
-                    <div id="set-tab-joystick" class="set-tab-content crossed"><h2>Joystick Setup</h2></div>
-                    <div id="set-tab-start-row" class="set-tab-content crossed"><h2>Start Row Setup</h2></div>
-                    <div id="set-tab-end-row" class="set-tab-content crossed"><h2>End Row Setup</h2></div>
+                    <div id="set-tab-chains" class="set-tab-content crossed"><h2>Subgroup 1</h2></div>
+                    <div id="set-tab-joystick" class="set-tab-content crossed"><h2>Subgroup 2</h2></div>
+                    <div id="set-tab-start-row" class="set-tab-content crossed"><h2>Subgroup 3</h2></div>
+                    <div id="set-tab-end-row" class="set-tab-content crossed"><h2>Subgroup 4</h2></div>
                     <div id="set-tab-telematics" class="set-tab-content crossed"><h2>Telematics Setup</h2></div>
                 </div>
                 <div class="set-row-2-right">
                     <div class="tab-item set-tab active" onclick="switchSetTab('general', this)">General</div>
-                    <div class="tab-item set-tab" onclick="switchSetTab('chains', this)">Chains</div>
-                    <div class="tab-item set-tab" onclick="switchSetTab('joystick', this)">Joystick</div>
-                    <div class="tab-item set-tab" onclick="switchSetTab('start-row', this)">Start Row</div>
-                    <div class="tab-item set-tab" onclick="switchSetTab('end-row', this)">End Row</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('chains', this)">Subgroup 1</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('joystick', this)">Subgroup 2</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('start-row', this)">Subgroup 3</div>
+                    <div class="tab-item set-tab" onclick="switchSetTab('end-row', this)">Subgroup 4</div>
                     <div class="tab-item set-tab" onclick="switchSetTab('telematics', this)">Telematics</div>
                 </div>
             </div>
@@ -375,10 +403,23 @@
                     <p>[Action 1] [Action 2] [Action 3]</p>
                 </div>
             </div>
-            <!-- Row 3: 630px -->
-            <div class="help-row-3 box crossed">
-                <div class="box-label">1280px x 630px - Help Documentation</div>
-                <h2>HELP DOCUMENTATION & DIAGRAMS</h2>
+            <!-- Row 3: 630px — Help tabs (same pattern as Settings) -->
+            <div class="help-main-row">
+                <div class="help-main-left box">
+                    <div class="box-label">1100px - Help Documentation</div>
+                    <div id="help-tab-overview" class="help-tab-content active crossed"><h2>Overview</h2></div>
+                    <div id="help-tab-quickstart" class="help-tab-content crossed"><h2>Quickstart Guide</h2></div>
+                    <div id="help-tab-operating" class="help-tab-content crossed"><h2>Operating procedures</h2></div>
+                    <div id="help-tab-io" class="help-tab-content crossed"><h2>I/O Chart</h2></div>
+                    <div id="help-tab-wiring" class="help-tab-content crossed"><h2>Wiring</h2></div>
+                </div>
+                <div class="help-main-right">
+                    <div class="tab-item help-tab active" onclick="switchHelpTab('overview', this)">Overview</div>
+                    <div class="tab-item help-tab" onclick="switchHelpTab('quickstart', this)">Quickstart Guide</div>
+                    <div class="tab-item help-tab" onclick="switchHelpTab('operating', this)">Operating procedures</div>
+                    <div class="tab-item help-tab" onclick="switchHelpTab('io', this)">I/O Chart</div>
+                    <div class="tab-item help-tab" onclick="switchHelpTab('wiring', this)">Wiring</div>
+                </div>
             </div>
         </div>
 
@@ -396,6 +437,13 @@
             document.querySelectorAll('.set-tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.set-tab').forEach(el => el.classList.remove('active'));
             document.getElementById('set-tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function switchHelpTab(tabName, element) {
+            document.querySelectorAll('.help-tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.help-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('help-tab-' + tabName).classList.add('active');
             element.classList.add('active');
         }
 
