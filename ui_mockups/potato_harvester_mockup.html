@@ -26,6 +26,15 @@
             --preset-dig-bg: #fd7e14;
             --preset-clean-bg: #0dcaf0;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Diagram wells & gauge semantics (day) */
+            --diagram-well: #0a0a0a;
+            --diagram-well-home: #0d0d0d;
+            --hmi-gauge-danger: #c62828;
+            --hmi-gauge-cool: #1565c0;
+            --hmi-steer-fill: #1976d2;
+            --hmi-steer-axis: #c62828;
+            --tab-rail-accent: #1b5e20;
+            --focus-ring-color: var(--btn-active-bg);
         }
 
         [data-theme="night"] {
@@ -48,6 +57,14 @@
             --preset-dig-bg: #e65100;
             --preset-clean-bg: #0097a7;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            --diagram-well: #0a0a0a;
+            --diagram-well-home: #0d0d0d;
+            --hmi-gauge-danger: #ef5350;
+            --hmi-gauge-cool: #64b5f6;
+            --hmi-steer-fill: #42a5f5;
+            --hmi-steer-axis: #ff8a80;
+            --tab-rail-accent: #81c784;
+            --focus-ring-color: var(--btn-active-bg);
         }
 
         * {
@@ -91,6 +108,39 @@
         }
 
         .view.active {
+            display: flex;
+        }
+
+        /* Shared HMI panel / schematic / control-row primitives */
+        .hmi-panel {
+            background-color: var(--panel-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .hmi-schematic {
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--diagram-well);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .hmi-control-row {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .view-shell > .info-action-bar.shared-info-action-bar {
+            display: none;
+        }
+
+        .view-shell:has(#view-control.active) > .info-action-bar.shared-info-action-bar,
+        .view-shell:has(#view-diagnostic.active) > .info-action-bar.shared-info-action-bar,
+        .view-shell:has(#view-help.active) > .info-action-bar.shared-info-action-bar {
             display: flex;
         }
 
@@ -158,7 +208,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0d0d0d;
+            background: var(--diagram-well-home);
             border-radius: 12px;
             border: 2px solid var(--border-color);
             overflow: hidden;
@@ -286,10 +336,6 @@
             flex-direction: column;
             gap: 10px;
             padding: 12px 14px;
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
             overflow: hidden;
         }
 
@@ -383,11 +429,7 @@
         }
 
         .axle-panel {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
             padding: 10px 12px 12px;
-            box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -449,11 +491,11 @@
         }
 
         .axle-vgauge-num--top {
-            color: #c62828;
+            color: var(--hmi-gauge-danger);
         }
 
         .axle-vgauge-num--bottom {
-            color: #1565c0;
+            color: var(--hmi-gauge-cool);
         }
 
         .axle-vgauge-track {
@@ -477,7 +519,7 @@
             left: 3px;
             right: 3px;
             height: 2px;
-            background: #c62828;
+            background: var(--hmi-gauge-danger);
             border-radius: 1px;
         }
 
@@ -553,7 +595,7 @@
             top: 0;
             bottom: 0;
             width: 50%;
-            background: #1976d2;
+            background: var(--hmi-steer-fill);
         }
 
         .axle-steer-center {
@@ -563,7 +605,7 @@
             bottom: 0;
             width: 3px;
             margin-left: -1.5px;
-            background: #c62828;
+            background: var(--hmi-steer-axis);
             z-index: 1;
             border-radius: 1px;
         }
@@ -622,15 +664,7 @@
         }
 
         .axle-diagram-wrap {
-            min-height: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #0a0a0a;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
             padding: 8px;
-            box-shadow: var(--shadow);
         }
 
         .axle-diagram-img {
@@ -690,15 +724,7 @@
         }
 
         .table-diagram-wrap {
-            min-height: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #0a0a0a;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
             padding: 8px;
-            box-shadow: var(--shadow);
         }
 
         .table-diagram-img {
@@ -711,14 +737,10 @@
         }
 
         .table-controls-panel {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
             padding: 10px 12px;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            box-shadow: var(--shadow);
             min-height: 0;
             overflow: auto;
         }
@@ -817,14 +839,7 @@
         }
 
         .boom-diagram-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #0a0a0a;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
             padding: 6px 10px;
-            box-shadow: var(--shadow);
         }
 
         .boom-diagram-img {
@@ -841,11 +856,7 @@
             min-height: 0;
             display: flex;
             flex-direction: column;
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow);
         }
 
         .boom-move-grid {
@@ -911,10 +922,6 @@
         }
 
         .boom-fill-elevator--top {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
             padding: 8px 10px 10px;
             min-width: 0;
         }
@@ -1198,11 +1205,7 @@
         }
 
         .chains-panel {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
             padding: 6px 10px 8px;
-            box-shadow: var(--shadow);
         }
 
         .chains-adjust-row {
@@ -1927,10 +1930,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
             font-size: 24px;
             font-weight: 700;
             color: var(--text-muted);
@@ -1976,13 +1975,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
             font-size: 24px;
             font-weight: 600;
             color: var(--text-muted);
+            user-select: text;
         }
 
         .preset-spacer {
@@ -2086,8 +2082,21 @@
             background-color: rgba(0, 0, 0, 0.05);
         }
         .brand-home-link:focus-visible {
-            outline: 2px solid var(--btn-active-bg);
+            outline: 2px solid var(--focus-ring-color);
             outline-offset: 2px;
+        }
+
+        button:focus-visible,
+        .tab-btn:focus-visible,
+        .mode-select:focus-visible,
+        .js-user-select:focus-visible,
+        .home-hotspot:focus-visible {
+            outline: 2px solid var(--focus-ring-color);
+            outline-offset: 2px;
+        }
+
+        .tab-btn:focus-visible {
+            outline-offset: -2px;
         }
         .brand-area {
             display: flex;
@@ -2231,46 +2240,6 @@
             min-height: 0;
             background-color: var(--bg-color);
         }
-        .workspace {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            align-content: start;
-        }
-        
-        /* Sample Control Widget */
-        .control-widget {
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            box-shadow: var(--shadow);
-        }
-        .widget-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-        .widget-value {
-            font-size: 42px;
-            font-weight: 700;
-            color: var(--btn-active-bg);
-        }
-        .widget-controls {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-        }
-        .widget-btn {
-            flex: 1;
-            height: 70px;
-            font-size: 24px;
-        }
 
         /* Tabs on the Right */
         .tabs-container {
@@ -2295,7 +2264,7 @@
         .tab-btn.active {
             background-color: var(--btn-active-bg);
             color: var(--btn-active-text);
-            border-left: 6px solid #1b5e20;
+            border-left: 6px solid var(--tab-rail-accent);
         }
 
         /* --- Row 4: Presets --- */
@@ -2381,26 +2350,26 @@
         </header>
 
         <div class="view-shell">
-            <div id="view-control" class="view active">
-                <div class="info-action-bar">
-                    <div class="message-area">
-                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
-                        Boom folded; unfold to operate
-                    </div>
-                    <div class="quick-actions">
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
-                        <div class="quick-fill-block">
-                            <span class="quick-fill-label">Fill</span>
-                            <div class="quick-fill-pair">
-                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
-                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
-                            </div>
+            <div class="info-action-bar shared-info-action-bar" aria-label="Status and quick actions">
+                <div class="message-area">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
+                    Boom folded; unfold to operate
+                </div>
+                <div class="quick-actions">
+                    <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
+                    <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
+                    <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
+                    <div class="quick-fill-block">
+                        <span class="quick-fill-label">Fill</span>
+                        <div class="quick-fill-pair">
+                            <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
+                            <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div id="view-control" class="view active">
                 <main class="main-row">
                     <div class="workspace-wrap">
                         <div id="ctrl-tab-home" class="ctrl-tab-content active">
@@ -2430,7 +2399,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="home-auto-panel">
+                            <div class="home-auto-panel hmi-panel">
                                 <h2 class="home-auto-heading">Auto mode:</h2>
                                 <div class="home-auto-toggles">
                                     <button type="button" class="auto-mode-toggle" aria-pressed="false" aria-label="Auto mode: Chains, off" onclick="toggleAutoMode(this)">Chains</button>
@@ -2477,7 +2446,7 @@
                                 <div class="digger-quad-body digger-hump-body">
                                     <div class="digger-gauge-stack" role="group" aria-label="Hump depth gauge">
                                         <span class="digger-gauge-num digger-gauge-num--target" data-gauge-role="target">52</span>
-                                        <div id="humpGauge" class="digger-gauge" data-actual="47" data-target="52" style="--actual: 47; --target: 52;" aria-hidden="true">
+                                        <div id="humpGauge" class="digger-gauge" data-actual="47" data-target="52" style="--actual: 47; --target: 52;" role="meter" aria-label="Hump depth" aria-valuemin="0" aria-valuemax="100" aria-valuenow="47" aria-valuetext="Actual 47%, target 52%.">
                                             <div class="digger-gauge-track"></div>
                                             <div class="digger-gauge-fill"></div>
                                             <div class="digger-gauge-target"></div>
@@ -2534,7 +2503,7 @@
                                     <div class="digger-depth-layout" role="group" aria-label="Depth wheel position">
                                         <div class="digger-gauge-stack digger-depth-gauge-col digger-depth-gauge-col--left">
                                             <span class="digger-gauge-num digger-gauge-num--target" data-gauge-role="target">70</span>
-                                            <div id="depthGaugeLeft" class="digger-gauge" data-actual="58" data-target="70" style="--actual: 58; --target: 70;" aria-hidden="true">
+                                            <div id="depthGaugeLeft" class="digger-gauge" data-actual="58" data-target="70" style="--actual: 58; --target: 70;" role="meter" aria-label="Left depth wheels" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58" aria-valuetext="Actual 58%, target 70%.">
                                                 <div class="digger-gauge-track"></div>
                                                 <div class="digger-gauge-fill"></div>
                                                 <div class="digger-gauge-target"></div>
@@ -2575,7 +2544,7 @@
                                         </div>
                                         <div class="digger-gauge-stack digger-depth-gauge-col digger-depth-gauge-col--right">
                                             <span class="digger-gauge-num digger-gauge-num--target" data-gauge-role="target">65</span>
-                                            <div id="depthGaugeRight" class="digger-gauge" data-actual="52" data-target="65" style="--actual: 52; --target: 65;" aria-hidden="true">
+                                            <div id="depthGaugeRight" class="digger-gauge" data-actual="52" data-target="65" style="--actual: 52; --target: 65;" role="meter" aria-label="Right depth wheels" aria-valuemin="0" aria-valuemax="100" aria-valuenow="52" aria-valuetext="Actual 52%, target 65%.">
                                                 <div class="digger-gauge-track"></div>
                                                 <div class="digger-gauge-fill"></div>
                                                 <div class="digger-gauge-target"></div>
@@ -2592,7 +2561,7 @@
                         <div id="ctrl-tab-chains" class="ctrl-tab-content">
                             <div class="chains-page">
                                 <h2 class="chains-page-title">Chains</h2>
-                                <section class="chains-panel" aria-label="Adjust all chain speeds">
+                                <section class="chains-panel hmi-panel" aria-label="Adjust all chain speeds">
                                     <div class="chains-adjust-row">
                                         <span class="chains-adjust-label">Adjust all</span>
                                         <div class="chains-speed-master">
@@ -2612,7 +2581,7 @@
                                         </div>
                                     </div>
                                 </section>
-                                <section class="chains-panel" aria-label="Individual chain controls">
+                                <section class="chains-panel hmi-panel" aria-label="Individual chain controls">
                                     <div class="chains-split">
                                         <div class="chains-col">
                                             <div class="chains-table-head">
@@ -2621,7 +2590,7 @@
                                                 <span>Actual Speed</span>
                                                 <span>Override</span>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Intake</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point minus 10">-10</button>
@@ -2634,7 +2603,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Intake forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Primary</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point minus 10">-10</button>
@@ -2647,7 +2616,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Primary forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Secondary/Vine</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point minus 10">-10</button>
@@ -2660,7 +2629,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Segment Rollers</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point minus 10">-10</button>
@@ -2673,7 +2642,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Clod Rollers</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point minus 10">-10</button>
@@ -2693,7 +2662,7 @@
                                                 <span>Actual Speed</span>
                                                 <span>Override</span>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Transfer Roller</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point minus 10">-10</button>
@@ -2705,7 +2674,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Transfer roller forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Rear Cross</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point minus 10">-10</button>
@@ -2718,7 +2687,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Side Elev</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point minus 10">-10</button>
@@ -2731,7 +2700,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Fill Elevator</span>
                                                 <div class="chains-setpoints">
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point minus 10">-10</button>
@@ -2744,7 +2713,7 @@
                                                     <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator forward">⟳ Fwd</button>
                                                 </div>
                                             </div>
-                                            <div class="chains-row">
+                                            <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Hopper Chain</span>
                                                 <div class="chains-setpoints chains-setpoints--hopper-na">
                                                     <span class="chains-set-display" aria-hidden="true">—</span>
@@ -2757,8 +2726,8 @@
                                         </div>
                                     </div>
                                 </section>
-                                <section class="chains-panel chains-aux-panel" aria-label="Shakers and stripper kit">
-                                    <div class="chains-shaker-row">
+                                <section class="chains-panel chains-aux-panel hmi-panel" aria-label="Shakers and stripper kit">
+                                    <div class="chains-shaker-row hmi-control-row">
                                         <span class="chains-row-label">Primary Shakers</span>
                                         <div class="chains-setpoints">
                                             <button type="button" class="chains-btn chains-btn-step" aria-label="Primary shakers minus 5">-5</button>
@@ -2771,7 +2740,7 @@
                                             <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
                                         </div>
                                     </div>
-                                    <div class="chains-shaker-row">
+                                    <div class="chains-shaker-row hmi-control-row">
                                         <span class="chains-row-label">Secondary Shakers</span>
                                         <div class="chains-setpoints">
                                             <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary shakers minus 5">-5</button>
@@ -2784,7 +2753,7 @@
                                             <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
                                         </div>
                                     </div>
-                                    <div class="chains-shaker-row chains-stripper-row">
+                                    <div class="chains-shaker-row chains-stripper-row hmi-control-row">
                                         <span class="chains-row-label">Stripper Kit</span>
                                         <div class="chains-stripper-pair">
                                             <button type="button" class="chains-btn chains-btn-step" aria-label="Stripper kit down">↓</button>
@@ -2798,54 +2767,54 @@
                             <div class="table-workspace">
                                 <h2 class="table-workspace-title">Table — Cleaning</h2>
                                 <div class="table-workspace-main">
-                                    <div class="table-diagram-wrap">
+                                    <div class="table-diagram-wrap hmi-schematic">
                                         <img class="table-diagram-img" src="../6844/tableControlsCleaningMode.png" width="960" height="360" alt="Cleaning table diagram: segment rollers, clod rollers, gap and height adjustment, transfer roller" />
                                     </div>
-                                    <aside class="table-controls-panel" aria-label="Cleaning table controls">
-                                        <div class="table-ctrl-row table-ctrl-row--segment">
+                                    <aside class="table-controls-panel hmi-panel" aria-label="Cleaning table controls">
+                                        <div class="table-ctrl-row table-ctrl-row--segment hmi-control-row">
                                             <span class="table-ctrl-label">Segment speed</span>
                                             <div class="table-ctrl-setpoints">
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease segment speed">−10</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease segment speed">-10</button>
                                                 <span class="chains-set-display table-set-wide">118</span>
                                                 <span class="table-ctrl-unit">RPM</span>
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Increase segment speed">+10</button>
                                             </div>
                                         </div>
-                                        <div class="table-ctrl-row table-ctrl-row--clod">
+                                        <div class="table-ctrl-row table-ctrl-row--clod hmi-control-row">
                                             <span class="table-ctrl-label">Clod speed</span>
                                             <div class="table-ctrl-setpoints">
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease clod speed">−10</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease clod speed">-10</button>
                                                 <span class="chains-set-display table-set-wide">94</span>
                                                 <span class="table-ctrl-unit">RPM</span>
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Increase clod speed">+10</button>
                                             </div>
                                         </div>
-                                        <div class="table-ctrl-row table-ctrl-row--adjust">
+                                        <div class="table-ctrl-row table-ctrl-row--adjust hmi-control-row">
                                             <span class="table-ctrl-label">Gap</span>
                                             <div class="table-ctrl-setpoints">
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease gap">−</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease gap">-</button>
                                                 <span class="chains-set-display table-set-wide">3.2</span>
                                                 <span class="table-ctrl-unit">in</span>
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Increase gap">+</button>
                                             </div>
                                         </div>
-                                        <div class="table-ctrl-row table-ctrl-row--adjust">
+                                        <div class="table-ctrl-row table-ctrl-row--adjust hmi-control-row">
                                             <span class="table-ctrl-label">Height</span>
                                             <div class="table-ctrl-setpoints">
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease height">−</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease height">-</button>
                                                 <span class="chains-set-display table-set-wide">0.5</span>
                                                 <span class="table-ctrl-unit">in</span>
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Increase height">+</button>
                                             </div>
                                         </div>
-                                        <div class="table-ctrl-row table-ctrl-row--transfer">
+                                        <div class="table-ctrl-row table-ctrl-row--transfer hmi-control-row">
                                             <span class="table-ctrl-label">Transfer</span>
                                             <div class="table-ctrl-setpoints">
                                                 <div class="chains-toggle-pair" data-chains-exclusive="1" role="group" aria-label="Transfer speed mode">
                                                     <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
                                                     <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
                                                 </div>
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease transfer speed">−5</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease transfer speed">-5</button>
                                                 <span class="chains-set-display table-set-wide">62</span>
                                                 <span class="table-ctrl-unit">%</span>
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Increase transfer speed">+5</button>
@@ -2859,10 +2828,10 @@
                             <div class="boom-workspace">
                                 <h2 class="boom-workspace-title">Boom</h2>
                                 <div class="boom-top-row">
-                                    <div class="boom-diagram-wrap">
+                                    <div class="boom-diagram-wrap hmi-schematic">
                                         <img class="boom-diagram-img" src="../6844/BoomWithLabels.png" width="900" height="280" alt="Boom assembly: outer boom, inner boom, hopper chain, fill elevator" />
                                     </div>
-                                    <div class="boom-fill-elevator boom-fill-elevator--top" aria-label="Fill elevator">
+                                    <div class="boom-fill-elevator boom-fill-elevator--top hmi-panel" aria-label="Fill elevator">
                                         <h3 class="boom-section-title">Fill Elevator</h3>
                                         <div class="boom-fill-inner">
                                             <div class="boom-fill-inputs">
@@ -2894,7 +2863,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <section class="boom-panel" aria-label="Boom movement and fold">
+                                <section class="boom-panel hmi-panel" aria-label="Boom movement and fold">
                                     <div class="boom-move-grid">
                                         <div class="boom-move-cell">
                                             <span class="boom-move-title">Boom In / Out</span>
@@ -2956,12 +2925,12 @@
                                 <h2 class="axle-workspace-title">Axle</h2>
                                 <div class="axle-main-grid">
                                     <div class="axle-diagram-row">
-                                        <div class="axle-diagram-wrap">
+                                        <div class="axle-diagram-wrap hmi-schematic">
                                             <img class="axle-diagram-img" src="../6844/6844rear-view.png" width="960" height="720" alt="6844 harvester rear view: left and right axle, tires, and SPUDNIK rear panel" />
                                         </div>
                                     </div>
                                     <div class="axle-controls-row">
-                                        <section class="axle-panel axle-panel--height" aria-label="Machine height and roll">
+                                        <section class="axle-panel axle-panel--height hmi-panel" aria-label="Machine height and roll">
                                             <h3 class="axle-section-title">Machine height / roll</h3>
                                             <div class="axle-height-body">
                                                 <div class="axle-vgauge" aria-label="Height gauge left">
@@ -2987,7 +2956,7 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <section class="axle-panel axle-panel--steer" aria-label="Steering">
+                                        <section class="axle-panel axle-panel--steer hmi-panel" aria-label="Steering">
                                             <h3 class="axle-section-title">Steering</h3>
                                             <div class="axle-steer-bar" role="img" aria-label="Steering position centered">
                                                 <div class="axle-steer-fill"></div>
@@ -2999,7 +2968,7 @@
                                                 <button type="button" class="axle-dpad-btn" aria-label="Steer right">→</button>
                                             </div>
                                         </section>
-                                        <section class="axle-panel axle-panel--drive" aria-label="Wheel drive">
+                                        <section class="axle-panel axle-panel--drive hmi-panel" aria-label="Wheel drive">
                                             <h3 class="axle-section-title">Wheel drive</h3>
                                             <div class="axle-drive-rows">
                                                 <div class="axle-drive-row">
@@ -3051,27 +3020,9 @@
             </div>
 
             <div id="view-diagnostic" class="view">
-                <div class="info-action-bar">
-                    <div class="message-area">
-                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
-                        Boom folded; unfold to operate
-                    </div>
-                    <div class="quick-actions">
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
-                        <div class="quick-fill-block">
-                            <span class="quick-fill-label">Fill</span>
-                            <div class="quick-fill-pair">
-                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
-                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="diag-row">
-                    <div class="diag-half">INPUTS</div>
-                    <div class="diag-half">OUTPUTS</div>
+                    <div class="diag-half hmi-panel">INPUTS</div>
+                    <div class="diag-half hmi-panel">OUTPUTS</div>
                 </div>
             </div>
 
@@ -3109,26 +3060,8 @@
             </div>
 
             <div id="view-help" class="view">
-                <div class="info-action-bar">
-                    <div class="message-area">
-                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/></svg>
-                        Boom folded; unfold to operate
-                    </div>
-                    <div class="quick-actions">
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
-                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
-                        <div class="quick-fill-block">
-                            <span class="quick-fill-label">Fill</span>
-                            <div class="quick-fill-pair">
-                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
-                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="help-panel">
-                    <div class="help-panel-inner">HELP DOCUMENTATION &amp; DIAGRAMS</div>
+                    <div class="help-panel-inner hmi-panel">HELP DOCUMENTATION &amp; DIAGRAMS</div>
                 </div>
             </div>
         </div>
@@ -3274,6 +3207,8 @@
                 if (act) act.textContent = String(Math.round(a));
                 if (tgt) tgt.textContent = String(Math.round(t));
             }
+            gaugeEl.setAttribute('aria-valuenow', String(Math.round(a)));
+            gaugeEl.setAttribute('aria-valuetext', 'Actual ' + Math.round(a) + '%, target ' + Math.round(t) + '%.');
         }
 
         function nudgeDiggerGaugeById(id, delta) {
