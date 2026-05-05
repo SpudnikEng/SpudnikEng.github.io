@@ -188,6 +188,7 @@
         }
 
         .home-workspace-visual {
+            position: relative;
             min-height: 0;
             display: flex;
             align-items: center;
@@ -197,6 +198,71 @@
             border: 2px solid var(--border-color);
             overflow: hidden;
             box-shadow: inset 0 0 24px rgba(0,0,0,0.5);
+        }
+
+        .home-speed-readouts {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .home-speed-card {
+            flex: 1 1 auto;
+            min-width: 0;
+            max-width: 168px;
+            padding: 8px 10px 10px;
+            border-radius: 12px;
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            box-shadow: var(--widget-inset);
+            text-align: center;
+        }
+
+        .home-speed-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
+            line-height: 1.2;
+        }
+
+        .home-speed-readout-value {
+            margin-top: 6px;
+            padding: 8px 6px;
+            border-radius: 6px;
+            background: #000;
+            border: 2px solid #333;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(255, 255, 255, 0.12);
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+        }
+
+        .home-speed-num {
+            font-family: monospace;
+            font-size: 22px;
+            font-weight: 700;
+            color: #48bb78;
+            text-shadow: 0 0 8px rgba(72, 187, 120, 0.55);
+        }
+
+        .home-speed-unit {
+            font-family: monospace;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 4px;
+            color: #68d391;
+            text-shadow: 0 0 6px rgba(104, 211, 145, 0.45);
+            text-transform: uppercase;
         }
 
         .home-harvester-stack {
@@ -320,18 +386,1604 @@
             box-shadow: var(--btn-active-shadow);
         }
 
-        #ctrl-tab-chains,
-        #ctrl-tab-table,
-        #ctrl-tab-boom,
         #ctrl-tab-axle {
             grid-template-columns: 1fr;
-            place-content: center;
+            place-content: start;
+            justify-items: stretch;
+            align-content: start;
+            text-align: left;
+            overflow-x: hidden;
+        }
+
+        .axle-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            min-height: 0;
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        .axle-workspace-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .axle-main-grid {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .axle-diagram-row {
+            flex-shrink: 0;
+            min-height: 0;
+        }
+
+        .axle-diagram-row .axle-diagram-wrap {
+            max-height: min(240px, 34vh);
+        }
+
+        .axle-controls-row {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .axle-panel {
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 10px 12px 12px;
+            box-shadow: var(--widget-inset);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 0;
+            min-width: 0;
+        }
+
+        .axle-section-title {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .axle-height-body {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            gap: 8px 10px;
+        }
+
+        .axle-panel--height {
+            overflow: visible;
+        }
+
+        .axle-panel--height .axle-dpad {
+            grid-template-columns: 40px minmax(60px, auto) 40px;
+            grid-template-rows: 36px 36px 36px;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .axle-panel--height .axle-dpad-btn {
+            min-width: 40px;
+            min-height: 34px;
+            font-size: 16px;
+        }
+
+        .axle-panel--height .axle-dpad-btn--auto {
+            min-width: 60px;
+            font-size: 11px;
+        }
+
+        .axle-vgauge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            width: 40px;
+        }
+
+        .axle-vgauge-num {
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .axle-vgauge-num--top {
+            color: #c62828;
+        }
+
+        .axle-vgauge-num--bottom {
+            color: #1565c0;
+        }
+
+        .axle-vgauge-track {
+            flex: none;
+            height: 90px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="day"] .axle-vgauge-track {
+            background: #fff;
+        }
+
+        .axle-vgauge-redline {
+            position: absolute;
+            bottom: 6px;
+            left: 3px;
+            right: 3px;
+            height: 2px;
+            background: #c62828;
+            border-radius: 1px;
+        }
+
+        .axle-dpad {
+            display: grid;
+            grid-template-areas:
+                ". up ."
+                "left mid right"
+                ". down .";
+            grid-template-columns: 48px minmax(72px, auto) 48px;
+            grid-template-rows: 44px 44px 44px;
+            gap: 6px;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .axle-dpad-btn {
+            min-width: 48px;
+            min-height: 42px;
+            padding: 0 8px;
+            font-size: 18px;
+            font-weight: 800;
+            border-radius: 12px;
+            border: 2px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            box-shadow: var(--btn-shadow);
+        }
+
+        .axle-dpad-btn--auto {
+            font-size: 12px;
+            min-width: 76px;
+        }
+
+        .axle-dpad-btn[data-area="up"] {
+            grid-area: up;
+        }
+
+        .axle-dpad-btn[data-area="down"] {
+            grid-area: down;
+        }
+
+        .axle-dpad-btn[data-area="left"] {
+            grid-area: left;
+        }
+
+        .axle-dpad-btn[data-area="right"] {
+            grid-area: right;
+        }
+
+        .axle-dpad-btn[data-area="center"] {
+            grid-area: mid;
+        }
+
+        .axle-steer-bar {
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12);
+        }
+
+        [data-theme="day"] .axle-steer-bar {
+            background: #fff;
+        }
+
+        .axle-steer-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: #1976d2;
+        }
+
+        .axle-steer-center {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            margin-left: -1.5px;
+            background: #c62828;
+            z-index: 1;
+            border-radius: 1px;
+        }
+
+        .axle-steer-btns {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .axle-steer-btns .axle-dpad-btn {
+            min-width: 64px;
+            font-size: 14px;
+        }
+
+        .axle-steer-btns .axle-dpad-btn--wide {
+            min-width: 88px;
+            font-size: 12px;
+        }
+
+        .axle-drive-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .axle-drive-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .axle-drive-row--split {
+            justify-content: space-between;
+        }
+
+        .axle-pressure-readout {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-color);
+            font-variant-numeric: tabular-nums;
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.06);
+            min-width: 0;
             text-align: center;
         }
 
+        [data-theme="day"] .axle-pressure-readout {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .axle-diagram-wrap {
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0a;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: var(--widget-inset);
+        }
+
+        .axle-diagram-img {
+            display: block;
+            max-width: 100%;
+            max-height: min(220px, 32vh);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        #ctrl-tab-boom {
+            grid-template-columns: 1fr;
+            place-content: start;
+            justify-items: stretch;
+            align-content: start;
+            text-align: left;
+            overflow-x: hidden;
+        }
+
+        #ctrl-tab-table {
+            grid-template-columns: 1fr;
+            place-content: start;
+            justify-items: stretch;
+            align-content: start;
+            text-align: left;
+            overflow-x: hidden;
+        }
+
+        .table-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            min-height: 0;
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        .table-workspace-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .table-workspace-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(260px, 360px);
+            gap: 14px;
+            align-items: stretch;
+            min-height: 0;
+            flex: 1;
+        }
+
+        .table-diagram-wrap {
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0a;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: var(--widget-inset);
+        }
+
+        .table-diagram-img {
+            display: block;
+            max-width: 100%;
+            max-height: min(400px, 52vh);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .table-controls-panel {
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: var(--widget-inset);
+            min-height: 0;
+            overflow: auto;
+        }
+
+        .table-ctrl-row {
+            display: grid;
+            grid-template-columns: minmax(7.5rem, 0.42fr) minmax(0, 1fr);
+            gap: 8px 12px;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        [data-theme="night"] .table-ctrl-row {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .table-ctrl-row--segment {
+            border-left: 4px solid #2e7d32;
+        }
+
+        .table-ctrl-row--clod {
+            border-left: 4px solid #e65100;
+        }
+
+        .table-ctrl-row--adjust {
+            border-left: 4px solid #c62828;
+        }
+
+        .table-ctrl-row--transfer {
+            border-left: 4px solid #00897b;
+        }
+
+        .table-ctrl-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .table-ctrl-setpoints {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+
+        .table-ctrl-setpoints .chains-toggle-pair {
+            margin-right: auto;
+        }
+
+        .table-set-wide {
+            min-width: 48px;
+        }
+
+        .table-ctrl-unit {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-right: 2px;
+        }
+
+        .boom-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            min-height: 0;
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        .boom-workspace-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .boom-top-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(200px, 300px);
+            gap: 10px;
+            align-items: stretch;
+            min-height: 0;
+        }
+
+        .boom-top-row .boom-diagram-wrap {
+            min-width: 0;
+        }
+
+        .boom-diagram-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0a;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 6px 10px;
+            box-shadow: var(--widget-inset);
+        }
+
+        .boom-diagram-img {
+            display: block;
+            max-width: 100%;
+            max-height: min(200px, 30vh);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .boom-panel {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--widget-inset);
+        }
+
+        .boom-move-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .boom-move-cell {
+            padding: 8px 6px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border-right: 1px solid var(--border-color);
+            min-width: 0;
+        }
+
+        .boom-move-cell:last-child {
+            border-right: none;
+        }
+
+        .boom-move-title {
+            font-size: 11px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+            line-height: 1.15;
+        }
+
+        .boom-move-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            max-width: 112px;
+        }
+
+        .boom-jog-btn {
+            width: 100%;
+            min-height: 46px;
+            padding: 4px 8px;
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1;
+            border-radius: 12px;
+            border: 2px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            box-shadow: var(--btn-shadow);
+        }
+
+        .boom-jog-btn:active {
+            transform: translateY(1px);
+        }
+
+        .boom-fill-elevator {
+            padding: 10px 12px 12px;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .boom-fill-elevator--top {
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--widget-inset);
+            padding: 8px 10px 10px;
+            min-width: 0;
+        }
+
+        .boom-fill-elevator--top .boom-fill-inner {
+            gap: 8px 10px;
+        }
+
+        .boom-fill-elevator--top .boom-gauge-track {
+            height: 100px;
+        }
+
+        .boom-move-cell--fold {
+            gap: 6px;
+        }
+
+        .boom-fold-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+            max-width: 132px;
+        }
+
+        .boom-move-cell--fold .boom-fold-actions {
+            width: 100%;
+            gap: 6px;
+        }
+
+        .boom-move-cell--fold .boom-fold-btn {
+            max-width: none;
+            min-width: 0;
+            min-height: 34px;
+            font-size: 11px;
+            padding: 0 6px;
+        }
+
+        .boom-move-cell--fold .boom-fold-status {
+            margin-top: 0;
+        }
+
+        .boom-move-cell--fold .boom-status-text {
+            font-size: 11px;
+        }
+
+        .boom-move-cell--fold .boom-speed-block {
+            margin-top: 0;
+            padding-top: 4px;
+            align-items: center;
+            font-size: 10px;
+            width: 100%;
+        }
+
+        .boom-move-cell--fold .boom-speed-line {
+            justify-content: center;
+        }
+
+        .boom-section-title {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .boom-fill-inner {
+            flex: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 0.85fr);
+            gap: 10px 12px;
+            align-items: stretch;
+            min-height: 0;
+        }
+
+        .boom-fill-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .boom-field-row {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 6px 8px;
+            align-items: center;
+        }
+
+        .boom-field-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-color);
+            white-space: nowrap;
+        }
+
+        .boom-value-box {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            padding: 4px 8px;
+            min-height: 32px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        [data-theme="day"] .boom-value-box {
+            background: #fff;
+        }
+
+        .boom-value-unit {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .boom-fill-gauge-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .boom-gauge-track {
+            width: 22px;
+            height: 120px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        [data-theme="night"] .boom-gauge-track {
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .boom-gauge-fill {
+            width: 100%;
+            background: linear-gradient(to top, #1565c0, #42a5f5);
+            border-radius: 0 0 4px 4px;
+            min-height: 4px;
+        }
+
+        .boom-gauge-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1565c0;
+        }
+
+        [data-theme="night"] .boom-gauge-val {
+            color: #64b5f6;
+        }
+
+        .boom-fill-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .boom-fill-btns .boom-jog-btn {
+            max-width: none;
+        }
+
+        .boom-fold-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .boom-fold-btn {
+            flex: 1;
+            max-width: 120px;
+            min-height: 40px;
+            padding: 0 10px;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 12px;
+            border: 2px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            box-shadow: var(--btn-shadow);
+        }
+
+        .boom-fold-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .boom-status-led {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #333;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+            flex-shrink: 0;
+        }
+
+        .boom-status-led--ok {
+            background: radial-gradient(circle at 30% 30%, #81c784, #2e7d32 45%, #1b5e20);
+            box-shadow: 0 0 10px #4caf50, inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .boom-status-text {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        .boom-speed-block {
+            margin-top: auto;
+            padding-top: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-color);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .boom-speed-line {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        .boom-speed-label {
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .boom-onoff-btn {
+            min-height: 40px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        #ctrl-tab-chains {
+            grid-template-columns: 1fr;
+            place-content: start;
+            justify-items: stretch;
+            align-content: start;
+            text-align: left;
+        }
+
+        .chains-page {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            min-height: 0;
+            max-height: 100%;
+            overflow: hidden;
+            padding-bottom: 2px;
+        }
+
+        .chains-page-title {
+            margin: 0 0 2px;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .chains-panel {
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 6px 10px 8px;
+            box-shadow: var(--widget-inset);
+        }
+
+        .chains-adjust-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px 10px;
+        }
+
+        .chains-adjust-end {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 12px;
+        }
+
+        .chains-all-chains-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .chains-all-chains-block .chains-footer-label {
+            margin: 0;
+            font-size: 10px;
+        }
+
+        .chains-all-auto-btn {
+            min-width: 88px;
+            min-height: 32px;
+            padding: 0 12px;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 10px;
+            border: 2px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            box-shadow: var(--widget-inset);
+        }
+
+        .chains-all-auto-btn.on {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: #22543d;
+            box-shadow: var(--btn-active-shadow);
+        }
+
+        .chains-adjust-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .chains-speed-master {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .chains-speed-label {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: var(--text-color);
+            white-space: nowrap;
+        }
+
+        .chains-toggle-pair {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .chains-mode-btn {
+            min-height: 32px;
+            min-width: 100px;
+            padding: 0 10px;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 10px;
+            border: 2px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            box-shadow: var(--widget-inset);
+        }
+
+        .chains-mode-btn.on {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: #22543d;
+            box-shadow: var(--btn-active-shadow);
+        }
+
+        .chains-btn {
+            min-height: 30px;
+            padding: 0 8px;
+            font-size: 11px;
+            font-weight: 800;
+            border-radius: 10px;
+            border: 2px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .chains-btn-step {
+            min-width: 44px;
+        }
+
+        .chains-btn-override {
+            min-width: 52px;
+            font-size: 11px;
+        }
+
+        .chains-btn-override svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .chains-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 12px;
+            align-items: start;
+        }
+
+        .chains-col {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chains-table-head {
+            display: grid;
+            grid-template-columns: minmax(4.75rem, 0.85fr) minmax(0, 1.35fr) minmax(4.25rem, 0.7fr) minmax(0, 1.15fr);
+            gap: 4px;
+            align-items: end;
+            padding: 0 2px 4px;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        .chains-table-head span:nth-child(1) {
+            visibility: hidden;
+        }
+
+        .chains-row {
+            display: grid;
+            grid-template-columns: minmax(4.75rem, 0.85fr) minmax(0, 1.35fr) minmax(4.25rem, 0.7fr) minmax(0, 1.15fr);
+            gap: 4px;
+            align-items: center;
+            padding: 3px 2px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .chains-col .chains-row:first-of-type {
+            border-top: none;
+        }
+
+        .chains-row-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .chains-setpoints {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .chains-set-display {
+            min-width: 42px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2px 5px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        [data-theme="day"] .chains-set-display {
+            background: #fff;
+        }
+
+        .chains-actual {
+            font-size: 11px;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .chains-override {
+            display: flex;
+            justify-content: flex-end;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .chains-override--fwd-only {
+            justify-content: flex-end;
+        }
+
+        .chains-setpoints--hopper-na {
+            justify-content: center;
+        }
+
+        .chains-aux-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .chains-shaker-row {
+            display: grid;
+            grid-template-columns: minmax(4.75rem, 0.85fr) minmax(0, 1.35fr) minmax(4.25rem, 0.7fr) minmax(0, 1.15fr);
+            gap: 4px;
+            align-items: center;
+            padding: 3px 2px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .chains-shaker-row:first-of-type {
+            border-top: none;
+        }
+
+        .chains-shaker-modes {
+            display: flex;
+            justify-content: flex-end;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .chains-shaker-modes .chains-mode-btn {
+            min-width: 72px;
+            min-height: 28px;
+            font-size: 11px;
+            padding: 0 8px;
+        }
+
+        .chains-stripper-row .chains-stripper-pair {
+            grid-column: 2 / span 3;
+            justify-content: flex-start;
+        }
+
+        .chains-footer-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--text-muted);
+        }
+
+        .chains-stripper-pair {
+            display: flex;
+            gap: 6px;
+        }
+
         #ctrl-tab-digger {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: minmax(0, 1fr) minmax(120px, 1.1fr) minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 10px 12px;
+            align-items: stretch;
+        }
+
+        #ctrl-tab-digger .digger-quad--nose {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        #ctrl-tab-digger .digger-quad--reference {
+            grid-column: 2;
+            grid-row: 1;
+            padding: 8px 10px 10px;
+        }
+
+        #ctrl-tab-digger .digger-quad--hump {
+            grid-column: 3;
+            grid-row: 1;
+        }
+
+        #ctrl-tab-digger .digger-bottom-row {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 12px;
+            min-height: 0;
+        }
+
+        #ctrl-tab-digger .digger-bottom-row > .digger-quad {
+            min-height: 0;
+        }
+
+        .digger-reference-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 0;
+            padding: 2px 0 0;
+        }
+
+        .digger-reference-img {
+            max-width: 100%;
+            max-height: min(220px, 100%);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        #ctrl-tab-digger .digger-quad {
+            padding: 8px 10px 10px;
+        }
+
+        #ctrl-tab-digger .digger-quad-title {
+            font-size: 15px;
+            margin: 0 0 6px;
+        }
+
+        #ctrl-tab-digger .digger-btn {
+            min-height: 42px;
+            height: 42px;
+            font-size: 14px;
+        }
+
+        #ctrl-tab-digger .digger-btn-icon {
+            min-width: 48px;
+            width: 48px;
+        }
+
+        #ctrl-tab-digger .digger-btn-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        #ctrl-tab-digger .digger-auto-btn {
+            min-height: 42px;
+        }
+
+        #ctrl-tab-digger .digger-nose-readout {
+            font-size: 17px;
+            padding: 2px 0;
+        }
+
+        #ctrl-tab-digger .digger-gauge {
+            height: 118px;
+            width: 34px;
+        }
+
+        #ctrl-tab-digger .digger-depth-layout .digger-gauge {
+            height: 112px;
+            width: 32px;
+        }
+
+        #ctrl-tab-digger .digger-sync-btn {
+            min-width: 76px;
+            min-height: 48px;
+            padding: 4px 8px;
+        }
+
+        #ctrl-tab-digger .digger-sync-btn-text {
+            font-size: 11px;
+        }
+
+        .digger-quad {
+            background: var(--widget-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 10px 12px 14px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            box-shadow: var(--widget-inset);
+        }
+
+        .digger-quad-title {
+            margin: 0 0 8px;
+            font-size: 17px;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.12);
+        }
+
+        [data-theme="night"] .digger-quad-title {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+        }
+
+        .digger-quad-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            min-height: 0;
+        }
+
+        .digger-quad-body--stack {
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .digger-quad-body--sync {
+            align-items: stretch;
+        }
+
+        .digger-btn {
+            min-width: 52px;
+            height: 48px;
+            padding: 0 12px;
+            font-size: 15px;
+            font-weight: 800;
+            border-radius: 10px;
+            gap: 6px;
+        }
+
+        .digger-btn-icon {
+            min-width: 56px;
+            width: 56px;
+            padding: 0;
+        }
+
+        .digger-btn-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .digger-auto-btn {
+            min-height: 48px;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .digger-auto-btn.on,
+        .digger-sync-btn.on {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: #22543d;
+            box-shadow: var(--btn-active-shadow);
+        }
+
+        .digger-nose-body {
+            justify-content: space-around;
             gap: 20px;
+        }
+
+        .digger-nose-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .digger-nose-readout {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-color);
+            line-height: 1.2;
+            padding: 4px 0;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="night"] .digger-nose-readout {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .digger-hump-body {
+            justify-content: space-between;
+            gap: 18px;
+            padding: 0 8px;
+        }
+
+        .digger-hump-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .digger-gauge-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .digger-gauge-num {
+            font-size: 15px;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        .digger-gauge-num--target {
+            color: var(--alarm-text);
+        }
+
+        .digger-gauge-num--actual {
+            color: #2b6cb0;
+        }
+
+        [data-theme="night"] .digger-gauge-num--actual {
+            color: #63b3ed;
+        }
+
+        .digger-gauge {
+            --actual: 47;
+            --target: 52;
+            position: relative;
+            width: 40px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: #0a1f38;
+            flex-shrink: 0;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.65);
+        }
+
+        .digger-gauge-track {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #0a1f38 0%, #1e3a5f 100%);
+        }
+
+        .digger-gauge-fill {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: calc(var(--actual) * 1%);
+            background: linear-gradient(to top, #2b6cb0, #63b3ed);
+            transition: height 0.28s ease-out;
+        }
+
+        .digger-gauge-target {
+            position: absolute;
+            left: -2px;
+            right: -2px;
+            bottom: calc(var(--target) * 1%);
+            height: 4px;
+            background: #e53e3e;
+            border-radius: 2px;
+            z-index: 2;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55);
+            transform: translateY(50%);
+        }
+
+        .digger-gauge-tick {
+            position: absolute;
+            font-size: 9px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.78);
+            z-index: 3;
+            pointer-events: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+        }
+
+        .digger-gauge-tick--max {
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .digger-gauge-tick--min {
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .digger-quad-body--depth-wheels {
+            gap: 0;
+        }
+
+        .digger-depth-layout {
+            display: grid;
+            grid-template-columns: auto minmax(0, max-content) auto;
+            grid-template-rows: 1fr auto;
+            column-gap: 0;
+            row-gap: 0;
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .digger-depth-gauge-col--left {
+            grid-column: 1;
+            grid-row: 1 / -1;
+            align-self: end;
+            justify-self: end;
+        }
+
+        .digger-depth-gauge-col--right {
+            grid-column: 3;
+            grid-row: 1 / -1;
+            align-self: end;
+            justify-self: start;
+        }
+
+        .digger-depth-layout .digger-gauge {
+            height: 130px;
+            width: 36px;
+        }
+
+        .digger-depth-center-col {
+            grid-column: 2;
+            grid-row: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-width: 0;
+            height: 100%;
+            min-height: 0;
+        }
+
+        .digger-depth-center-col .digger-sync-panel--depth {
+            width: auto;
+            flex: 0 0 auto;
+        }
+
+        .digger-depth-center-col .digger-sync-cols {
+            width: auto;
+            max-width: min(100%, 340px);
+            column-gap: 2px;
+        }
+
+        .digger-depth-lower {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .digger-sync-panel {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .digger-sync-cols {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            justify-items: center;
+            column-gap: 4px;
+            width: min(100%, 340px);
+            padding: 4px 2px 8px;
+        }
+
+        .digger-lr-col {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .digger-lr-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .digger-sync-btn {
+            align-self: center;
+            margin-bottom: 0;
+            min-width: 88px;
+            min-height: 56px;
+            height: auto;
+            padding: 6px 10px;
+            font-size: 14px;
+            font-weight: 800;
+            gap: 0;
+        }
+
+        .digger-sync-btn-text {
+            text-align: center;
+            line-height: 1.15;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .digger-sync-arrow.digger-arrow-pressed {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: #22543d;
+            box-shadow: var(--btn-active-shadow);
         }
 
         .tab-placeholder {
@@ -418,11 +2070,54 @@
             flex-shrink: 0;
         }
 
-        .night-mode-btn {
-            width: 140px;
-            height: 60px;
-            flex-shrink: 0;
+        .bottom-bar-end {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .js-user-select {
+            height: 60px;
+            min-width: 132px;
+            max-width: 168px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 0 12px;
+            border: 1px solid var(--border-color);
+            border-top: 2px solid var(--btn-border-top);
+            border-bottom: 2px solid var(--btn-border-bottom);
+            border-radius: 10px;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            box-shadow: var(--btn-shadow);
+        }
+
+        [data-theme="night"] .js-user-select {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .night-mode-btn {
+            width: auto;
+            min-width: 0;
+            max-width: 90px;
+            height: 60px;
+            padding: 4px 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            line-height: 1.12;
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .night-mode-btn-lines {
+            display: block;
+            text-shadow: inherit;
         }
 
         /* --- Skeuomorphic Buttons --- */
@@ -583,16 +2278,18 @@
             min-height: 85px;
         }
         .message-area {
-            flex: 2;
+            flex: 1;
+            min-width: 0;
+            max-width: 42%;
             background: var(--alarm-bg);
             color: var(--alarm-text);
             display: flex;
             align-items: center;
-            padding: 0 30px;
-            font-size: 24px;
+            padding: 0 18px;
+            font-size: 21px;
             font-weight: 800;
             border-right: 2px solid var(--border-color);
-            gap: 20px;
+            gap: 14px;
             box-shadow: var(--alarm-shadow);
             text-shadow: 0 1px 1px rgba(255,255,255,0.2);
         }
@@ -606,16 +2303,63 @@
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
         }
         .quick-actions {
-            flex: 1;
+            flex: 1.35;
+            min-width: 0;
             display: flex;
             align-items: center;
-            justify-content: space-around;
-            padding: 0 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 10px;
+            padding: 8px 14px;
         }
         .quick-btn {
             height: 60px;
-            min-width: 150px;
+            min-width: 104px;
             border-radius: 10px;
+        }
+        .quick-btn.quick-toggle.on {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: #22543d;
+            box-shadow: var(--btn-active-shadow);
+        }
+        .quick-fill-block {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding-left: 14px;
+            margin-left: 6px;
+            border-left: 2px solid var(--border-color);
+        }
+        .quick-fill-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.08);
+            white-space: nowrap;
+        }
+        .quick-fill-pair {
+            display: flex;
+            gap: 10px;
+        }
+        .quick-fill-btn {
+            height: 60px;
+            min-width: 56px;
+            padding: 0 12px;
+            font-size: 16px;
+            font-weight: 800;
+        }
+        /* Momentary green while pressed (same idea as global button:active, scoped for clarity) */
+        button.quick-fill-btn:active {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: #22543d;
+            box-shadow: var(--btn-active-shadow);
+            text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
         }
 
         /* --- Row 3: Main Content (Tabs + Workspace) --- */
@@ -827,9 +2571,16 @@
                         Boom folded; unfold to operate
                     </div>
                     <div class="quick-actions">
-                        <button type="button" class="quick-btn">Action 1</button>
-                        <button type="button" class="quick-btn">Action 2</button>
-                        <button type="button" class="quick-btn">Action 3</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
+                        <div class="quick-fill-block">
+                            <span class="quick-fill-label">Fill</span>
+                            <div class="quick-fill-pair">
+                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
+                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -837,6 +2588,20 @@
                     <div class="workspace-wrap">
                         <div id="ctrl-tab-home" class="ctrl-tab-content active">
                             <div class="home-workspace-visual">
+                                <div class="home-speed-readouts" aria-label="Machine speeds">
+                                    <div class="home-speed-card">
+                                        <span class="home-speed-label">Chain speed</span>
+                                        <div class="home-speed-readout-value"><span class="home-speed-num">265</span><span class="home-speed-unit">FPM</span></div>
+                                    </div>
+                                    <div class="home-speed-card">
+                                        <span class="home-speed-label">PTO speed</span>
+                                        <div class="home-speed-readout-value"><span class="home-speed-num">535</span><span class="home-speed-unit">RPM</span></div>
+                                    </div>
+                                    <div class="home-speed-card">
+                                        <span class="home-speed-label">Boom speed</span>
+                                        <div class="home-speed-readout-value"><span class="home-speed-num">18</span><span class="home-speed-unit">FPM</span></div>
+                                    </div>
+                                </div>
                                 <div class="home-harvester-stack">
                                     <img class="home-harvester-img" src="../6844_Right ISO Front Quarter (3307 x 4677).png" alt="Spudnik 6844 MultiSep harvester" />
                                     <div class="home-hotspot-layer">
@@ -862,58 +2627,577 @@
                             </div>
                         </div>
                         <div id="ctrl-tab-digger" class="ctrl-tab-content">
-                            <div class="control-widget">
-                                <div class="widget-title">Primary Chain Speed</div>
-                                <div class="widget-display">
-                                    <div class="widget-value">65<span style="font-size: 24px">%</span></div>
+                            <section class="digger-quad digger-quad--nose" aria-labelledby="digger-quad-nose-title">
+                                <h3 class="digger-quad-title" id="digger-quad-nose-title">Digger Nose</h3>
+                                <div class="digger-quad-body digger-nose-body">
+                                    <div class="digger-nose-col digger-nose-col--psi">
+                                        <button type="button" class="digger-btn digger-btn-icon" id="nosePsiPlus" aria-label="Increase nose pressure">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                        </button>
+                                        <div class="digger-nose-readout" id="diggerNosePsi">0 PSI</div>
+                                        <button type="button" class="digger-btn digger-btn-icon" id="nosePsiMinus" aria-label="Decrease nose pressure">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 13H5v-2h14v2z"/></svg>
+                                        </button>
+                                    </div>
+                                    <div class="digger-nose-col digger-hump-controls">
+                                        <button type="button" class="digger-btn digger-btn-icon" aria-label="Nose up">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                        </button>
+                                        <button type="button" class="digger-btn digger-auto-btn" aria-pressed="false" onclick="toggleDiggerAuto(this)">Auto</button>
+                                        <button type="button" class="digger-btn digger-btn-icon" aria-label="Nose down">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="widget-controls">
-                                    <button type="button" class="widget-btn">-</button>
-                                    <button type="button" class="widget-btn">+</button>
+                            </section>
+                            <section class="digger-quad digger-quad--reference" aria-label="Spudnik 6844 digger left-side reference">
+                                <div class="digger-reference-body">
+                                    <img class="digger-reference-img" src="../6844/6844left-side-view.png" alt="Spudnik 6844 digger left-side view showing depth wheel, coulter, digger nose, and hump" />
                                 </div>
-                            </div>
-                            <div class="control-widget">
-                                <div class="widget-title">Secondary Chain Speed</div>
-                                <div class="widget-display">
-                                    <div class="widget-value">72<span style="font-size: 24px">%</span></div>
+                            </section>
+                            <section class="digger-quad digger-quad--hump" aria-labelledby="digger-quad-hump-title">
+                                <h3 class="digger-quad-title" id="digger-quad-hump-title">Hump</h3>
+                                <div class="digger-quad-body digger-hump-body">
+                                    <div class="digger-gauge-stack" role="group" aria-label="Hump depth gauge">
+                                        <span class="digger-gauge-num digger-gauge-num--target" data-gauge-role="target">52</span>
+                                        <div id="humpGauge" class="digger-gauge" data-actual="47" data-target="52" style="--actual: 47; --target: 52;" aria-hidden="true">
+                                            <div class="digger-gauge-track"></div>
+                                            <div class="digger-gauge-fill"></div>
+                                            <div class="digger-gauge-target"></div>
+                                            <span class="digger-gauge-tick digger-gauge-tick--max">100</span>
+                                            <span class="digger-gauge-tick digger-gauge-tick--min">0</span>
+                                        </div>
+                                        <span class="digger-gauge-num digger-gauge-num--actual" data-gauge-role="actual">47</span>
+                                    </div>
+                                    <div class="digger-hump-controls">
+                                        <button type="button" class="digger-btn digger-btn-icon" id="humpGaugeUpBtn" aria-label="Hump up">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                        </button>
+                                        <button type="button" class="digger-btn digger-auto-btn on" aria-pressed="true" onclick="toggleDiggerAuto(this)">Auto</button>
+                                        <button type="button" class="digger-btn digger-btn-icon" id="humpGaugeDownBtn" aria-label="Hump down">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="widget-controls">
-                                    <button type="button" class="widget-btn">-</button>
-                                    <button type="button" class="widget-btn">+</button>
+                            </section>
+                            <div class="digger-bottom-row">
+                            <section class="digger-quad" aria-labelledby="digger-quad-coulters-title">
+                                <h3 class="digger-quad-title" id="digger-quad-coulters-title">Coulters</h3>
+                                <div class="digger-quad-body digger-quad-body--sync">
+                                    <div class="digger-sync-panel">
+                                        <div class="digger-sync-cols" id="diggerSyncCoulters">
+                                            <div class="digger-lr-col" data-side="left">
+                                                <span class="digger-lr-label">Left</span>
+                                                <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Left coulters up">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                </button>
+                                                <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Left coulters down">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                </button>
+                                            </div>
+                                            <button type="button" class="digger-btn digger-sync-btn" aria-pressed="false" aria-label="Sync left and right coulters" onclick="toggleDiggerSync(this)">
+                                                <span class="digger-sync-btn-text">Sync<br>L/R</span>
+                                            </button>
+                                            <div class="digger-lr-col" data-side="right">
+                                                <span class="digger-lr-label">Right</span>
+                                                <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Right coulters up">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                </button>
+                                                <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Right coulters down">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="control-widget">
-                                <div class="widget-title">Blade Depth</div>
-                                <div class="widget-display">
-                                    <div class="widget-value">4.2<span style="font-size: 24px">in</span></div>
+                            </section>
+                            <section class="digger-quad" aria-labelledby="digger-quad-depth-title">
+                                <h3 class="digger-quad-title" id="digger-quad-depth-title">Depth Wheels</h3>
+                                <div class="digger-quad-body digger-quad-body--stack digger-quad-body--depth-wheels">
+                                    <div class="digger-depth-layout" role="group" aria-label="Depth wheel position">
+                                        <div class="digger-gauge-stack digger-depth-gauge-col digger-depth-gauge-col--left">
+                                            <span class="digger-gauge-num digger-gauge-num--target" data-gauge-role="target">70</span>
+                                            <div id="depthGaugeLeft" class="digger-gauge" data-actual="58" data-target="70" style="--actual: 58; --target: 70;" aria-hidden="true">
+                                                <div class="digger-gauge-track"></div>
+                                                <div class="digger-gauge-fill"></div>
+                                                <div class="digger-gauge-target"></div>
+                                                <span class="digger-gauge-tick digger-gauge-tick--max">100</span>
+                                                <span class="digger-gauge-tick digger-gauge-tick--min">0</span>
+                                            </div>
+                                            <span class="digger-gauge-num digger-gauge-num--actual" data-gauge-role="actual">58</span>
+                                        </div>
+                                        <div class="digger-depth-center-col">
+                                            <div class="digger-sync-panel digger-sync-panel--depth">
+                                                <div class="digger-sync-cols" id="diggerSyncDepthUpper">
+                                                    <div class="digger-lr-col" data-side="left">
+                                                        <span class="digger-lr-label">Left</span>
+                                                        <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Left depth wheels up">
+                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                        </button>
+                                                        <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Left depth wheels down">
+                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                        </button>
+                                                    </div>
+                                                    <button type="button" class="digger-btn digger-sync-btn" aria-pressed="false" aria-label="Sync left and right depth wheels" onclick="toggleDiggerSync(this)">
+                                                        <span class="digger-sync-btn-text">Sync<br>L/R</span>
+                                                    </button>
+                                                    <div class="digger-lr-col" data-side="right">
+                                                        <span class="digger-lr-label">Right</span>
+                                                        <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Right depth wheels up">
+                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                        </button>
+                                                        <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Right depth wheels down">
+                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="digger-depth-lower">
+                                                <button type="button" class="digger-btn digger-auto-btn" style="min-width: 120px;" aria-pressed="false" onclick="toggleDiggerAuto(this)">Auto</button>
+                                            </div>
+                                        </div>
+                                        <div class="digger-gauge-stack digger-depth-gauge-col digger-depth-gauge-col--right">
+                                            <span class="digger-gauge-num digger-gauge-num--target" data-gauge-role="target">65</span>
+                                            <div id="depthGaugeRight" class="digger-gauge" data-actual="52" data-target="65" style="--actual: 52; --target: 65;" aria-hidden="true">
+                                                <div class="digger-gauge-track"></div>
+                                                <div class="digger-gauge-fill"></div>
+                                                <div class="digger-gauge-target"></div>
+                                                <span class="digger-gauge-tick digger-gauge-tick--max">100</span>
+                                                <span class="digger-gauge-tick digger-gauge-tick--min">0</span>
+                                            </div>
+                                            <span class="digger-gauge-num digger-gauge-num--actual" data-gauge-role="actual">52</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="widget-controls">
-                                    <button type="button" class="widget-btn">Up</button>
-                                    <button type="button" class="widget-btn">Down</button>
-                                </div>
-                            </div>
-                            <div class="control-widget">
-                                <div class="widget-title">Agitator Intensity</div>
-                                <div class="widget-display">
-                                    <div class="widget-value">3</div>
-                                </div>
-                                <div class="widget-controls">
-                                    <button type="button" class="widget-btn">-</button>
-                                    <button type="button" class="widget-btn">+</button>
-                                </div>
+                            </section>
                             </div>
                         </div>
                         <div id="ctrl-tab-chains" class="ctrl-tab-content">
-                            <p class="tab-placeholder">Chains Workspace</p>
+                            <div class="chains-page">
+                                <h2 class="chains-page-title">Chains</h2>
+                                <section class="chains-panel" aria-label="Adjust all chain speeds">
+                                    <div class="chains-adjust-row">
+                                        <span class="chains-adjust-label">Adjust all</span>
+                                        <div class="chains-speed-master">
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease all chain speeds by 10">-10</button>
+                                            <span class="chains-speed-label">CHAIN SPEEDS</span>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Increase all chain speeds by 10">+10</button>
+                                        </div>
+                                        <div class="chains-adjust-end">
+                                            <div class="chains-toggle-pair" data-chains-exclusive="1" role="group" aria-label="Chain speed reference">
+                                                <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Ground Speed</button>
+                                                <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Fixed Speed</button>
+                                            </div>
+                                            <div class="chains-all-chains-block">
+                                                <span class="chains-footer-label">All Chains</span>
+                                                <button type="button" class="chains-all-auto-btn" aria-pressed="false" aria-label="All chains auto" onclick="toggleChainsAllAuto(this)">Auto</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="chains-panel" aria-label="Individual chain controls">
+                                    <div class="chains-split">
+                                        <div class="chains-col">
+                                            <div class="chains-table-head">
+                                                <span>—</span>
+                                                <span>Set Points</span>
+                                                <span>Actual Speed</span>
+                                                <span>Override</span>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Intake</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake reverse">⟲ Rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Primary</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary reverse">⟲ Rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Secondary/Vine</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary reverse">⟲ Rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Segment Rollers</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 | 0 FPM</span>
+                                                <div class="chains-override">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers reverse">⟲ Rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Clod Rollers</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 | 0 FPM</span>
+                                                <div class="chains-override chains-override--fwd-only">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Clod rollers forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chains-col">
+                                            <div class="chains-table-head">
+                                                <span>—</span>
+                                                <span>Set Points</span>
+                                                <span>Actual Speed</span>
+                                                <span>Override</span>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Transfer Roller</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override chains-override--fwd-only">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Transfer roller forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Rear Cross</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross reverse">⟲ Rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Side Elev</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev reverse">⟲ Rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Fill Elevator</span>
+                                                <div class="chains-setpoints">
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point minus 10">-10</button>
+                                                    <span class="chains-set-display">100%</span>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point plus 10">+10</button>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator reverse">⟲ Rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                            <div class="chains-row">
+                                                <span class="chains-row-label">Hopper Chain</span>
+                                                <div class="chains-setpoints chains-setpoints--hopper-na">
+                                                    <span class="chains-set-display" aria-hidden="true">—</span>
+                                                </div>
+                                                <span class="chains-actual">0 FPM</span>
+                                                <div class="chains-override chains-override--fwd-only">
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Hopper chain forward">⟳ Fwd</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="chains-panel chains-aux-panel" aria-label="Shakers and stripper kit">
+                                    <div class="chains-shaker-row">
+                                        <span class="chains-row-label">Primary Shakers</span>
+                                        <div class="chains-setpoints">
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Primary shakers minus 5">-5</button>
+                                            <span class="chains-set-display">41%</span>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Primary shakers plus 5">+5</button>
+                                        </div>
+                                        <span class="chains-actual" aria-hidden="true"> </span>
+                                        <div class="chains-shaker-modes" data-chains-exclusive="1" role="group" aria-label="Primary shaker mode">
+                                            <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
+                                            <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
+                                        </div>
+                                    </div>
+                                    <div class="chains-shaker-row">
+                                        <span class="chains-row-label">Secondary Shakers</span>
+                                        <div class="chains-setpoints">
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary shakers minus 5">-5</button>
+                                            <span class="chains-set-display">0%</span>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary shakers plus 5">+5</button>
+                                        </div>
+                                        <span class="chains-actual" aria-hidden="true"> </span>
+                                        <div class="chains-shaker-modes" data-chains-exclusive="1" role="group" aria-label="Secondary shaker mode">
+                                            <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
+                                            <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
+                                        </div>
+                                    </div>
+                                    <div class="chains-shaker-row chains-stripper-row">
+                                        <span class="chains-row-label">Stripper Kit</span>
+                                        <div class="chains-stripper-pair">
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Stripper kit down">↓</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Stripper kit up">↑</button>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
                         <div id="ctrl-tab-table" class="ctrl-tab-content">
-                            <p class="tab-placeholder">Table Workspace</p>
+                            <div class="table-workspace">
+                                <h2 class="table-workspace-title">Table — Cleaning</h2>
+                                <div class="table-workspace-main">
+                                    <div class="table-diagram-wrap">
+                                        <img class="table-diagram-img" src="../6844/tableControlsCleaningMode.png" width="960" height="360" alt="Cleaning table diagram: segment rollers, clod rollers, gap and height adjustment, transfer roller" />
+                                    </div>
+                                    <aside class="table-controls-panel" aria-label="Cleaning table controls">
+                                        <div class="table-ctrl-row table-ctrl-row--segment">
+                                            <span class="table-ctrl-label">Segment speed</span>
+                                            <div class="table-ctrl-setpoints">
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease segment speed">−10</button>
+                                                <span class="chains-set-display table-set-wide">118</span>
+                                                <span class="table-ctrl-unit">RPM</span>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase segment speed">+10</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-ctrl-row table-ctrl-row--clod">
+                                            <span class="table-ctrl-label">Clod speed</span>
+                                            <div class="table-ctrl-setpoints">
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease clod speed">−10</button>
+                                                <span class="chains-set-display table-set-wide">94</span>
+                                                <span class="table-ctrl-unit">RPM</span>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase clod speed">+10</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-ctrl-row table-ctrl-row--adjust">
+                                            <span class="table-ctrl-label">Gap</span>
+                                            <div class="table-ctrl-setpoints">
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease gap">−</button>
+                                                <span class="chains-set-display table-set-wide">3.2</span>
+                                                <span class="table-ctrl-unit">in</span>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase gap">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-ctrl-row table-ctrl-row--adjust">
+                                            <span class="table-ctrl-label">Height</span>
+                                            <div class="table-ctrl-setpoints">
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease height">−</button>
+                                                <span class="chains-set-display table-set-wide">0.5</span>
+                                                <span class="table-ctrl-unit">in</span>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase height">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-ctrl-row table-ctrl-row--transfer">
+                                            <span class="table-ctrl-label">Transfer</span>
+                                            <div class="table-ctrl-setpoints">
+                                                <div class="chains-toggle-pair" data-chains-exclusive="1" role="group" aria-label="Transfer speed mode">
+                                                    <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
+                                                    <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
+                                                </div>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease transfer speed">−5</button>
+                                                <span class="chains-set-display table-set-wide">62</span>
+                                                <span class="table-ctrl-unit">%</span>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase transfer speed">+5</button>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
                         </div>
                         <div id="ctrl-tab-boom" class="ctrl-tab-content">
-                            <p class="tab-placeholder">Boom Workspace</p>
+                            <div class="boom-workspace">
+                                <h2 class="boom-workspace-title">Boom</h2>
+                                <div class="boom-top-row">
+                                    <div class="boom-diagram-wrap">
+                                        <img class="boom-diagram-img" src="../6844/BoomWithLabels.png" width="900" height="280" alt="Boom assembly: outer boom, inner boom, hopper chain, fill elevator" />
+                                    </div>
+                                    <div class="boom-fill-elevator boom-fill-elevator--top" aria-label="Fill elevator">
+                                        <h3 class="boom-section-title">Fill Elevator</h3>
+                                        <div class="boom-fill-inner">
+                                            <div class="boom-fill-inputs">
+                                                <div class="boom-field-row">
+                                                    <span class="boom-field-label">Drop</span>
+                                                    <div class="boom-value-box" aria-label="Drop height">
+                                                        <span>0</span>
+                                                        <span class="boom-value-unit">IN</span>
+                                                    </div>
+                                                </div>
+                                                <div class="boom-field-row">
+                                                    <span class="boom-field-label">Force Up</span>
+                                                    <div class="boom-value-box" aria-label="Force up">
+                                                        <span>40</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="boom-fill-gauge-block">
+                                                <div class="boom-gauge-track" aria-hidden="true">
+                                                    <div class="boom-gauge-fill" style="height: 100%;"></div>
+                                                </div>
+                                                <span class="boom-gauge-val">100</span>
+                                            </div>
+                                            <div class="boom-fill-btns">
+                                                <button type="button" class="boom-jog-btn" aria-label="Fill elevator up">↑</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Fill elevator down">↓</button>
+                                                <button type="button" class="boom-jog-btn boom-onoff-btn" aria-pressed="true">On / Off</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <section class="boom-panel" aria-label="Boom movement and fold">
+                                    <div class="boom-move-grid">
+                                        <div class="boom-move-cell">
+                                            <span class="boom-move-title">Boom In / Out</span>
+                                            <div class="boom-move-stack">
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom out">←</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom in">→</button>
+                                            </div>
+                                        </div>
+                                        <div class="boom-move-cell">
+                                            <span class="boom-move-title">Outer Boom</span>
+                                            <div class="boom-move-stack">
+                                                <button type="button" class="boom-jog-btn" aria-label="Outer boom up">↑</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Outer boom down">↓</button>
+                                            </div>
+                                        </div>
+                                        <div class="boom-move-cell">
+                                            <span class="boom-move-title">Inner Boom</span>
+                                            <div class="boom-move-stack">
+                                                <button type="button" class="boom-jog-btn" aria-label="Inner boom up">↑</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Inner boom down">↓</button>
+                                            </div>
+                                        </div>
+                                        <div class="boom-move-cell">
+                                            <span class="boom-move-title">Boom Swing</span>
+                                            <div class="boom-move-stack">
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom swing">↖</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom swing">↘</button>
+                                            </div>
+                                        </div>
+                                        <div class="boom-move-cell boom-move-cell--fold">
+                                            <span class="boom-move-title">Boom Fold</span>
+                                            <div class="boom-fold-stack">
+                                                <div class="boom-fold-actions">
+                                                    <button type="button" class="boom-fold-btn" aria-label="Fold boom">Fold</button>
+                                                    <button type="button" class="boom-fold-btn" aria-label="Unfold boom">Unfold</button>
+                                                </div>
+                                                <div class="boom-fold-status">
+                                                    <span class="boom-status-led boom-status-led--ok" aria-hidden="true"></span>
+                                                    <span class="boom-status-text">Unfolded</span>
+                                                </div>
+                                                <div class="boom-speed-block">
+                                                    <div class="boom-speed-line">
+                                                        <span class="boom-speed-label">Boom</span>
+                                                        <span>0 FPM</span>
+                                                    </div>
+                                                    <div class="boom-speed-line">
+                                                        <span class="boom-speed-label">Hopper</span>
+                                                        <span>0 FPM</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
                         <div id="ctrl-tab-axle" class="ctrl-tab-content">
-                            <p class="tab-placeholder">Axle Workspace</p>
+                            <div class="axle-workspace">
+                                <h2 class="axle-workspace-title">Axle</h2>
+                                <div class="axle-main-grid">
+                                    <div class="axle-diagram-row">
+                                        <div class="axle-diagram-wrap">
+                                            <img class="axle-diagram-img" src="../6844/6844rear-view.png" width="960" height="720" alt="6844 harvester rear view: left and right axle, tires, and SPUDNIK rear panel" />
+                                        </div>
+                                    </div>
+                                    <div class="axle-controls-row">
+                                        <section class="axle-panel axle-panel--height" aria-label="Machine height and roll">
+                                            <h3 class="axle-section-title">Machine height / roll</h3>
+                                            <div class="axle-height-body">
+                                                <div class="axle-vgauge" aria-label="Height gauge left">
+                                                    <span class="axle-vgauge-num axle-vgauge-num--top">0</span>
+                                                    <div class="axle-vgauge-track">
+                                                        <div class="axle-vgauge-redline"></div>
+                                                    </div>
+                                                    <span class="axle-vgauge-num axle-vgauge-num--bottom">0</span>
+                                                </div>
+                                                <div class="axle-dpad" role="group" aria-label="Height and roll jog">
+                                                    <button type="button" class="axle-dpad-btn" data-area="up" aria-label="Raise machine">↑</button>
+                                                    <button type="button" class="axle-dpad-btn" data-area="left" aria-label="Roll left">↶</button>
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--auto" data-area="center" aria-pressed="true">Auto</button>
+                                                    <button type="button" class="axle-dpad-btn" data-area="right" aria-label="Roll right">↷</button>
+                                                    <button type="button" class="axle-dpad-btn" data-area="down" aria-label="Lower machine">↓</button>
+                                                </div>
+                                                <div class="axle-vgauge" aria-label="Height gauge right">
+                                                    <span class="axle-vgauge-num axle-vgauge-num--top">0</span>
+                                                    <div class="axle-vgauge-track">
+                                                        <div class="axle-vgauge-redline"></div>
+                                                    </div>
+                                                    <span class="axle-vgauge-num axle-vgauge-num--bottom">0</span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section class="axle-panel axle-panel--steer" aria-label="Steering">
+                                            <h3 class="axle-section-title">Steering</h3>
+                                            <div class="axle-steer-bar" role="img" aria-label="Steering position centered">
+                                                <div class="axle-steer-fill"></div>
+                                                <div class="axle-steer-center"></div>
+                                            </div>
+                                            <div class="axle-steer-btns">
+                                                <button type="button" class="axle-dpad-btn" aria-label="Steer left">←</button>
+                                                <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Center steering">Center</button>
+                                                <button type="button" class="axle-dpad-btn" aria-label="Steer right">→</button>
+                                            </div>
+                                        </section>
+                                        <section class="axle-panel axle-panel--drive" aria-label="Wheel drive">
+                                            <h3 class="axle-section-title">Wheel drive</h3>
+                                            <div class="axle-drive-rows">
+                                                <div class="axle-drive-row">
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Drive forward">FWD</button>
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Drive reverse">REV</button>
+                                                </div>
+                                                <div class="axle-drive-row axle-drive-row--split">
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-pressed="false">ON / OFF</button>
+                                                    <span class="axle-pressure-readout">Pressure: 687 psi</span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <nav class="tabs-container">
@@ -938,7 +3222,14 @@
                         <button type="button" class="preset-btn clean">CLEAN 2</button>
                         <button type="button" class="preset-btn clean">CLEAN 3</button>
                     </div>
-                    <button type="button" class="night-mode-btn" onclick="toggleTheme()">NIGHT MODE</button>
+                    <div class="bottom-bar-end">
+                        <select id="jsUserSelect" class="js-user-select" aria-label="Joystick script user" title="Joystick script user">
+                            <option value="1" selected>JS User 1</option>
+                            <option value="2">JS User 2</option>
+                            <option value="3">JS User 3</option>
+                        </select>
+                        <button type="button" class="night-mode-btn" onclick="toggleTheme()"><span class="night-mode-btn-lines">NIGHT<br />MODE</span></button>
+                    </div>
                 </footer>
             </div>
 
@@ -949,9 +3240,16 @@
                         Boom folded; unfold to operate
                     </div>
                     <div class="quick-actions">
-                        <button type="button" class="quick-btn">Action 1</button>
-                        <button type="button" class="quick-btn">Action 2</button>
-                        <button type="button" class="quick-btn">Action 3</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
+                        <div class="quick-fill-block">
+                            <span class="quick-fill-label">Fill</span>
+                            <div class="quick-fill-pair">
+                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
+                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="diag-row">
@@ -1000,9 +3298,16 @@
                         Boom folded; unfold to operate
                     </div>
                     <div class="quick-actions">
-                        <button type="button" class="quick-btn">Action 1</button>
-                        <button type="button" class="quick-btn">Action 2</button>
-                        <button type="button" class="quick-btn">Action 3</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
+                        <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
+                        <div class="quick-fill-block">
+                            <span class="quick-fill-label">Fill</span>
+                            <div class="quick-fill-pair">
+                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
+                                <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="help-panel">
@@ -1053,6 +3358,206 @@
             const name = btn.textContent.trim();
             btn.setAttribute('aria-label', `Auto mode: ${name}, ${on ? 'on' : 'off'}`);
         }
+
+        function toggleQuickBtn(btn) {
+            const on = btn.classList.toggle('on');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        }
+
+        function chainsExclusiveGroup(btn) {
+            var g = btn.closest('[data-chains-exclusive]');
+            if (!g) return;
+            g.querySelectorAll('button').forEach(function (b) {
+                var on = b === btn;
+                b.classList.toggle('on', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+        }
+
+        function toggleChainsAllAuto(btn) {
+            var on = btn.classList.toggle('on');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        }
+
+        let diggerNosePsi = 0;
+
+        function adjustDiggerNosePsi(delta) {
+            diggerNosePsi = Math.max(0, Math.min(200, diggerNosePsi + delta));
+            const el = document.getElementById('diggerNosePsi');
+            if (el) el.textContent = diggerNosePsi + ' PSI';
+        }
+
+        function toggleDiggerAuto(btn) {
+            const on = btn.classList.toggle('on');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        }
+
+        function toggleDiggerSync(btn) {
+            const cols = btn.closest('.digger-sync-cols');
+            if (!cols) return;
+            cols.classList.toggle('sync-active');
+            const on = cols.classList.contains('sync-active');
+            btn.classList.toggle('on', on);
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        }
+
+        var DIGGER_GAUGE_STEP = 2;
+        var DIGGER_HOLD_DELAY_MS = 420;
+        var DIGGER_HOLD_INTERVAL_MS = 120;
+        var diggerHoldState = null;
+
+        function diggerHoldEnd() {
+            if (!diggerHoldState) return;
+            clearTimeout(diggerHoldState.delayId);
+            if (diggerHoldState.intervalId) clearInterval(diggerHoldState.intervalId);
+            diggerHoldState = null;
+        }
+
+        function diggerHoldStart(btn, fn) {
+            diggerHoldEnd();
+            fn();
+            var state = { btn: btn, delayId: null, intervalId: null };
+            state.delayId = setTimeout(function () {
+                if (diggerHoldState !== state) return;
+                state.intervalId = setInterval(fn, DIGGER_HOLD_INTERVAL_MS);
+            }, DIGGER_HOLD_DELAY_MS);
+            diggerHoldState = state;
+        }
+
+        function wireDiggerHoldEndOn(el) {
+            ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) {
+                el.addEventListener(ev, diggerHoldEnd);
+            });
+        }
+
+        function depthArrowNudge(cols, btn) {
+            var dir = btn.getAttribute('data-dir');
+            var delta = dir === 'up' ? DIGGER_GAUGE_STEP : -DIGGER_GAUGE_STEP;
+            var sideCol = btn.closest('.digger-lr-col');
+            var side = sideCol ? sideCol.getAttribute('data-side') : 'left';
+            nudgeDepthWheelGaugesFromPanel(cols, side, delta);
+        }
+
+        function nudgeDiggerGauge(gaugeEl, delta) {
+            if (!gaugeEl) return;
+            var t = parseFloat(gaugeEl.dataset.target);
+            if (Number.isNaN(t)) t = parseFloat(gaugeEl.style.getPropertyValue('--target')) || 0;
+            var a = parseFloat(gaugeEl.dataset.actual);
+            if (Number.isNaN(a)) a = parseFloat(gaugeEl.style.getPropertyValue('--actual')) || 0;
+            a = Math.max(0, Math.min(100, a + delta));
+            t = Math.max(0, Math.min(100, t));
+            gaugeEl.style.setProperty('--actual', String(a));
+            gaugeEl.style.setProperty('--target', String(t));
+            gaugeEl.dataset.actual = String(a);
+            gaugeEl.dataset.target = String(t);
+            var stack = gaugeEl.closest('.digger-gauge-stack');
+            if (stack) {
+                var act = stack.querySelector('[data-gauge-role="actual"]');
+                var tgt = stack.querySelector('[data-gauge-role="target"]');
+                if (act) act.textContent = String(Math.round(a));
+                if (tgt) tgt.textContent = String(Math.round(t));
+            }
+        }
+
+        function nudgeDiggerGaugeById(id, delta) {
+            nudgeDiggerGauge(document.getElementById(id), delta);
+        }
+
+        function nudgeDepthWheelGaugesFromPanel(cols, side, delta) {
+            var sync = cols.classList.contains('sync-active');
+            if (sync) {
+                nudgeDiggerGaugeById('depthGaugeLeft', delta);
+                nudgeDiggerGaugeById('depthGaugeRight', delta);
+            } else {
+                nudgeDiggerGaugeById(side === 'left' ? 'depthGaugeLeft' : 'depthGaugeRight', delta);
+            }
+        }
+
+        function wireDiggerSyncPanel(cols) {
+            if (!cols) return;
+            var arrows = cols.querySelectorAll('.digger-sync-arrow');
+            var isDepth = cols.id === 'diggerSyncDepthUpper';
+
+            function clearPressed() {
+                arrows.forEach(function (a) { a.classList.remove('digger-arrow-pressed'); });
+            }
+
+            arrows.forEach(function (btn) {
+                btn.addEventListener('pointerdown', function (e) {
+                    clearPressed();
+                    var dir = btn.getAttribute('data-dir');
+                    if (cols.classList.contains('sync-active')) {
+                        cols.querySelectorAll('.digger-sync-arrow[data-dir="' + dir + '"]').forEach(function (x) {
+                            x.classList.add('digger-arrow-pressed');
+                        });
+                    } else {
+                        btn.classList.add('digger-arrow-pressed');
+                    }
+                    if (isDepth) {
+                        diggerHoldStart(btn, function () {
+                            depthArrowNudge(cols, btn);
+                        });
+                    }
+                    try { btn.setPointerCapture(e.pointerId); } catch (_) {}
+                });
+                function endPress() {
+                    diggerHoldEnd();
+                    clearPressed();
+                }
+                btn.addEventListener('pointerup', endPress);
+                btn.addEventListener('pointercancel', endPress);
+                btn.addEventListener('lostpointercapture', endPress);
+            });
+        }
+
+        function wireDiggerTabHoldRepeats() {
+            var hUp = document.getElementById('humpGaugeUpBtn');
+            var hDn = document.getElementById('humpGaugeDownBtn');
+            if (hUp) {
+                hUp.addEventListener('pointerdown', function (e) {
+                    diggerHoldStart(hUp, function () {
+                        nudgeDiggerGaugeById('humpGauge', DIGGER_GAUGE_STEP);
+                    });
+                    try { hUp.setPointerCapture(e.pointerId); } catch (_) {}
+                });
+                wireDiggerHoldEndOn(hUp);
+            }
+            if (hDn) {
+                hDn.addEventListener('pointerdown', function (e) {
+                    diggerHoldStart(hDn, function () {
+                        nudgeDiggerGaugeById('humpGauge', -DIGGER_GAUGE_STEP);
+                    });
+                    try { hDn.setPointerCapture(e.pointerId); } catch (_) {}
+                });
+                wireDiggerHoldEndOn(hDn);
+            }
+            var np = document.getElementById('nosePsiPlus');
+            var nm = document.getElementById('nosePsiMinus');
+            if (np) {
+                np.addEventListener('pointerdown', function (e) {
+                    diggerHoldStart(np, function () {
+                        adjustDiggerNosePsi(1);
+                    });
+                    try { np.setPointerCapture(e.pointerId); } catch (_) {}
+                });
+                wireDiggerHoldEndOn(np);
+            }
+            if (nm) {
+                nm.addEventListener('pointerdown', function (e) {
+                    diggerHoldStart(nm, function () {
+                        adjustDiggerNosePsi(-1);
+                    });
+                    try { nm.setPointerCapture(e.pointerId); } catch (_) {}
+                });
+                wireDiggerHoldEndOn(nm);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            wireDiggerSyncPanel(document.getElementById('diggerSyncCoulters'));
+            wireDiggerSyncPanel(document.getElementById('diggerSyncDepthUpper'));
+            wireDiggerTabHoldRepeats();
+        });
 
         function scaleFit() {
             const container = document.querySelector('.hmi-container');
