@@ -3,94 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spudnik Potato Harvester UI Mockup</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Spudnik Harvester UI — Material 3–style HMI</title>
+    <!-- Typography & density aligned with Material Design 3 (m3.material.io); palette avoids default M3 purple/blue. -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Day Theme (Industrial Skeuomorphic) */
-            --bg-color: #8c9398;
-            --panel-bg: linear-gradient(135deg, #e0e5ec, #a3b1c6);
-            --text-color: #2d3748;
-            --text-muted: #4a5568;
-            --border-color: #8a94a5;
-            
-            --btn-bg: linear-gradient(to bottom, #f7fafc, #cbd5e0);
-            --btn-border-top: #ffffff;
-            --btn-border-bottom: #718096;
-            --btn-text: #2d3748;
-            --btn-shadow: 0 6px 10px rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.8);
-            
-            --btn-active-bg: linear-gradient(to bottom, #48bb78, #2f855a);
-            --btn-active-shadow: inset 0 4px 8px rgba(0,0,0,0.4), 0 1px 1px rgba(255,255,255,0.4);
+            /* Day — grouped dark surfaces (no floating white cards) */
+            --m3-radius-sm: 4px;
+            --m3-radius-md: 6px;
+            --m3-panel-border: 3px solid;
+            --bg-color: #1a1c1e;
+            --panel-bg: #25282b;
+            --panel-elev: #2d3135;
+            --text-color: #e2e2e6;
+            --text-muted: #a9adb2;
+            --border-color: #5c6167;
+            --btn-bg: #35393e;
+            --btn-text: #eceef1;
+            --btn-border: #6b7078;
+            --btn-active-bg: #2e7d32;
             --btn-active-text: #ffffff;
-            
-            --spudnik-red: #e53e3e;
-            --alarm-bg: linear-gradient(135deg, #feb2b2, #fc8181);
-            --alarm-text: #742a2a;
-            --alarm-shadow: inset 0 2px 5px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
-            
-            --status-ok: #48bb78;
-            --status-warn: #ecc94b;
-            
-            --preset-dig-bg: linear-gradient(to bottom, #ed8936, #c05621);
-            --preset-clean-bg: linear-gradient(to bottom, #4299e1, #2b6cb0);
-            
-            --panel-shadow: inset 0 1px 2px rgba(255,255,255,0.6), 0 6px 12px rgba(0,0,0,0.3);
-            
-            --widget-bg: linear-gradient(135deg, #c3cbdc, #edf2f7);
-            --widget-inset: inset 0 3px 6px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.8);
-            /* Diagram wells & gauge semantics */
-            --diagram-well: #0a0a0a;
-            --diagram-well-home: #0d0d0d;
-            --hmi-gauge-danger: #c62828;
-            --hmi-gauge-cool: #1565c0;
-            --hmi-steer-fill: #1976d2;
-            --hmi-steer-axis: #c62828;
-            --tab-rail-accent: #22543d;
-            --focus-ring-color: #48bb78;
+            --spudnik-red: #e53935;
+            --alarm-bg: #3d1a1a;
+            --alarm-text: #ffb4a9;
+            --status-ok: #69f0ae;
+            --status-warn: #ffe082;
+            --preset-dig-bg: #e65100;
+            --preset-clean-bg: #00838f;
+            --shadow: none;
+            --diagram-well: #0d0f12;
+            --diagram-well-home: #101318;
+            --hmi-gauge-danger: #ff6b6b;
+            --hmi-gauge-cool: #7ec8ff;
+            --hmi-steer-fill: #4fc3f7;
+            --hmi-steer-axis: #ff8a80;
+            --tab-rail-accent: #a5d6a7;
+            --focus-ring-color: #ffcc00;
+            --state-on-outline: #b8f397;
         }
 
         [data-theme="night"] {
-            /* Night Theme (Industrial Skeuomorphic) */
-            --bg-color: #1a1c23;
-            --panel-bg: linear-gradient(135deg, #2d3748, #1a202c);
-            --text-color: #e2e8f0;
-            --text-muted: #a0aec0;
-            --border-color: #11141a;
-            
-            --btn-bg: linear-gradient(to bottom, #4a5568, #2d3748);
-            --btn-border-top: #718096;
-            --btn-border-bottom: #0f1218;
-            --btn-text: #f7fafc;
-            --btn-shadow: 0 6px 10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.15);
-            
-            --btn-active-bg: linear-gradient(to bottom, #2f855a, #22543d);
-            --btn-active-shadow: inset 0 4px 8px rgba(0,0,0,0.8), 0 1px 1px rgba(255,255,255,0.1);
+            --bg-color: #101418;
+            --panel-bg: #1c2127;
+            --panel-elev: #252b32;
+            --text-color: #e8eaed;
+            --text-muted: #9aa0a6;
+            --border-color: #4a5058;
+            --btn-bg: #2a3038;
+            --btn-text: #e8eaed;
+            --btn-border: #5e656e;
+            --btn-active-bg: #1b5e20;
             --btn-active-text: #ffffff;
-            
-            --spudnik-red: #fc8181;
-            --alarm-bg: linear-gradient(135deg, #742a2a, #451a1a);
-            --alarm-text: #fed7d7;
-            --alarm-shadow: inset 0 2px 5px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
-            
-            --status-ok: #48bb78;
-            --status-warn: #ecc94b;
-            
-            --preset-dig-bg: linear-gradient(to bottom, #c05621, #7b341e);
-            --preset-clean-bg: linear-gradient(to bottom, #2b6cb0, #1a365d);
-            
-            --panel-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.7);
-            
-            --widget-bg: linear-gradient(135deg, #171923, #2d3748);
-            --widget-inset: inset 0 4px 8px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.05);
-            --diagram-well: #0a0a0a;
-            --diagram-well-home: #0d0d0d;
-            --hmi-gauge-danger: #ef5350;
-            --hmi-gauge-cool: #64b5f6;
-            --hmi-steer-fill: #42a5f5;
-            --hmi-steer-axis: #ff8a80;
-            --tab-rail-accent: #68d391;
-            --focus-ring-color: #68d391;
+            --spudnik-red: #ff5449;
+            --alarm-bg: #3b0808;
+            --alarm-text: #ffb4ab;
+            --status-ok: #7ee787;
+            --status-warn: #fde047;
+            --preset-dig-bg: #bf360c;
+            --preset-clean-bg: #006978;
+            --shadow: none;
+            --diagram-well: #0a0c0f;
+            --diagram-well-home: #0d1014;
+            --hmi-gauge-danger: #ff8a80;
+            --hmi-gauge-cool: #82b1ff;
+            --hmi-steer-fill: #64b5f6;
+            --hmi-steer-axis: #ffab91;
+            --tab-rail-accent: #c8e6c9;
+            --focus-ring-color: #ffcc00;
+            --state-on-outline: #c5e1a5;
         }
 
         * {
@@ -103,26 +83,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            background-color: #000;
-            font-family: 'Inter', sans-serif;
-            background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px);
-            background-size: 20px 20px;
+            min-height: 100vh;
+            background-color: #050607;
+            font-family: 'Roboto', system-ui, sans-serif;
         }
 
         .hmi-container {
             width: 1280px;
             height: 800px;
-            flex-shrink: 0;
             display: grid;
-            grid-template-rows: 95px 1fr;
+            grid-template-rows: 90px 1fr;
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0,0,0,0.5);
-            border: 8px solid #111;
-            border-radius: 12px;
+            border: var(--m3-panel-border) var(--border-color);
+            box-shadow: none;
         }
 
         .view-shell {
@@ -143,12 +118,12 @@
             display: flex;
         }
 
-        /* Shared HMI primitives (aligned with flat mockup patterns) */
+        /* Shared HMI panel / schematic / control-row primitives */
         .hmi-panel {
-            background: var(--widget-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: var(--widget-inset);
+            background-color: var(--panel-bg);
+            border: var(--m3-panel-border) var(--border-color);
+            border-radius: var(--m3-radius-md);
+            box-shadow: none;
         }
 
         .hmi-schematic {
@@ -157,9 +132,9 @@
             align-items: center;
             justify-content: center;
             background: var(--diagram-well);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: var(--widget-inset);
+            border: var(--m3-panel-border) var(--border-color);
+            border-radius: var(--m3-radius-md);
+            box-shadow: none;
         }
 
         .hmi-control-row {
@@ -177,35 +152,52 @@
         }
 
         .mode-select {
-            height: 50px;
+            height: 52px;
             min-width: 180px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 600;
             padding: 0 12px;
-            border: 1px solid var(--border-color);
-            border-top: 2px solid var(--btn-border-top);
-            border-bottom: 2px solid var(--btn-border-bottom);
-            border-radius: 10px;
-            background: var(--btn-bg);
+            border: 2px solid var(--btn-border);
+            border-radius: var(--m3-radius-md);
+            background-color: var(--btn-bg);
             color: var(--btn-text);
             cursor: pointer;
-            box-shadow: var(--btn-shadow);
         }
 
         .btn-run {
-            height: 50px;
-            min-width: 72px;
-            padding: 6px 14px;
+            height: 52px;
+            min-width: 52px;
+            padding: 6px 12px;
             display: inline-flex;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
+            gap: 0;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: 2px solid var(--btn-border);
+        }
+
+        .btn-run.on {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: #0f3d12;
+        }
+
+        .btn-run:hover {
+            filter: brightness(1.08);
+        }
+
+        .btn-run:active {
+            filter: brightness(0.95);
         }
 
         .btn-run-icon {
             display: block;
-            height: 26px;
+            height: 28px;
             width: auto;
+            flex-shrink: 0;
         }
 
         .workspace-wrap {
@@ -213,7 +205,6 @@
             position: relative;
             min-height: 0;
             background-color: var(--bg-color);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
         }
 
         .ctrl-tab-content {
@@ -244,75 +235,62 @@
             align-items: center;
             justify-content: center;
             background: var(--diagram-well-home);
-            border-radius: 16px;
-            border: 2px solid var(--border-color);
+            border-radius: var(--m3-radius-md);
+            border: var(--m3-panel-border) var(--border-color);
             overflow: hidden;
-            box-shadow: inset 0 0 24px rgba(0,0,0,0.5);
         }
 
-        .home-speed-readouts {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            right: 12px;
+        .top-bar-speed-readouts {
+            flex: 1;
+            min-width: 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            align-items: center;
             justify-content: center;
-            z-index: 4;
+            gap: 10px;
+            padding: 0 16px;
             pointer-events: none;
         }
 
-        .home-speed-card {
-            flex: 1 1 auto;
+        .top-bar-speed-card {
+            flex: 0 1 auto;
             min-width: 0;
-            max-width: 168px;
-            padding: 8px 10px 10px;
-            border-radius: 12px;
-            background: var(--widget-bg);
+            max-width: 140px;
+            padding: 6px 10px;
+            border-radius: var(--m3-radius-md);
+            background: var(--panel-elev);
             border: 2px solid var(--border-color);
-            box-shadow: var(--widget-inset);
+            box-shadow: none;
             text-align: center;
         }
 
-        .home-speed-label {
+        .top-bar-speed-label {
             display: block;
             font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            font-weight: 700;
+            letter-spacing: 0.06em;
             color: var(--text-muted);
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
             line-height: 1.2;
         }
 
-        .home-speed-readout-value {
-            margin-top: 6px;
-            padding: 8px 6px;
-            border-radius: 6px;
-            background: #000;
-            border: 2px solid #333;
-            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(255, 255, 255, 0.12);
+        .top-bar-speed-value {
+            margin-top: 4px;
             font-variant-numeric: tabular-nums;
-            line-height: 1.1;
+            line-height: 1.15;
         }
 
-        .home-speed-num {
-            font-family: monospace;
-            font-size: 22px;
-            font-weight: 700;
-            color: #48bb78;
-            text-shadow: 0 0 8px rgba(72, 187, 120, 0.55);
+        .top-bar-speed-num {
+            font-size: 20px;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: var(--status-ok);
         }
 
-        .home-speed-unit {
-            font-family: monospace;
-            font-size: 12px;
-            font-weight: 700;
-            margin-left: 4px;
-            color: #68d391;
-            text-shadow: 0 0 6px rgba(104, 211, 145, 0.45);
-            text-transform: uppercase;
+        .top-bar-speed-unit {
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 3px;
+            color: var(--text-color);
         }
 
         .home-harvester-stack {
@@ -344,44 +322,36 @@
             top: var(--hy, 50%);
             transform: translate(-50%, -50%);
             pointer-events: auto;
-            min-width: 44px;
-            min-height: 44px;
-            padding: 6px 12px;
-            border-radius: 999px;
-            font-size: 11px;
+            min-width: 56px;
+            min-height: 48px;
+            padding: 8px 14px;
+            border-radius: var(--m3-radius-md);
+            font-size: 12px;
             font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to bottom, rgba(45, 55, 72, 0.92), rgba(26, 32, 44, 0.95));
-            color: #f7fafc;
-            border: 1px solid var(--border-color);
-            border-top: 2px solid rgba(255, 255, 255, 0.35);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.45);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+            letter-spacing: 0.05em;
+            font-family: 'Roboto', sans-serif;
+            background: rgba(12, 14, 18, 0.88);
+            color: #fff;
+            border: 3px solid rgba(255, 255, 255, 0.85);
+            box-shadow: none;
             cursor: pointer;
-            transition: transform 0.1s ease, filter 0.1s ease;
+            transition: background-color 0.08s ease, border-color 0.08s ease, color 0.08s ease;
         }
 
         .home-hotspot:hover {
-            filter: brightness(1.15);
+            background: rgba(46, 125, 50, 0.95);
+            border-color: #fff;
+            color: #fff;
         }
 
         .home-hotspot:active {
-            transform: translate(-50%, -50%) translateY(2px);
+            background: rgba(27, 94, 32, 1);
+            border-color: var(--focus-ring-color);
         }
 
-        /* Keep hotspot look; global button:active would otherwise apply primary “pressed” style */
         button.home-hotspot:active {
-            background: linear-gradient(to bottom, rgba(45, 55, 72, 0.92), rgba(26, 32, 44, 0.95));
-            color: #f7fafc;
-            border: 1px solid var(--border-color);
-            border-top: 2px solid rgba(255, 255, 255, 0.35);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.45);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
-            transform: translate(-50%, -50%) translateY(2px);
+            background: rgba(27, 94, 32, 1);
+            border-color: var(--focus-ring-color);
         }
 
         .home-auto-panel {
@@ -389,18 +359,16 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            padding: 14px 16px;
+            padding: 12px 14px;
             overflow: hidden;
+            background-color: var(--panel-elev);
         }
 
         .home-auto-heading {
             margin: 0;
-            font-size: 18px;
-            font-weight: 800;
+            font-size: 17px;
+            font-weight: 700;
             color: var(--text-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
             flex-shrink: 0;
         }
 
@@ -419,17 +387,16 @@
             padding: 10px 12px;
             justify-content: center;
             text-align: center;
-            font-weight: 700;
-            font-size: 13px;
-            line-height: 1.25;
-            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.2;
         }
 
         .auto-mode-toggle.on {
-            background: var(--btn-active-bg);
-            color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
+            border-color: var(--state-on-outline);
+            box-shadow: inset 0 0 0 2px var(--btn-active-bg);
+            background-color: color-mix(in srgb, var(--btn-active-bg) 22%, var(--panel-bg));
+            color: var(--status-ok);
         }
 
         #ctrl-tab-axle {
@@ -456,10 +423,9 @@
         .axle-workspace-title {
             margin: 0;
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
         }
 
         .axle-main-grid {
@@ -500,7 +466,7 @@
         .axle-section-title {
             margin: 0;
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
         }
@@ -546,7 +512,7 @@
 
         .axle-vgauge-num {
             font-size: 14px;
-            font-weight: 800;
+            font-weight: 700;
             line-height: 1;
         }
 
@@ -562,15 +528,15 @@
             flex: none;
             height: 90px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.08);
+            background: #fff;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 4px;
             position: relative;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
         }
 
-        [data-theme="day"] .axle-vgauge-track {
-            background: #fff;
+        [data-theme="night"] .axle-vgauge-track {
+            background: #2d2d2d;
         }
 
         .axle-vgauge-redline {
@@ -597,17 +563,17 @@
         }
 
         .axle-dpad-btn {
-            min-width: 48px;
-            min-height: 42px;
+            min-width: 52px;
+            min-height: 48px;
             padding: 0 8px;
             font-size: 18px;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: var(--m3-radius-md);
             border: 2px solid var(--btn-border);
             background: var(--btn-bg);
             color: var(--btn-text);
             cursor: pointer;
-            box-shadow: var(--btn-shadow);
+            box-shadow: none;
         }
 
         .axle-dpad-btn--auto {
@@ -637,16 +603,16 @@
 
         .axle-steer-bar {
             height: 28px;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.08);
+            background: #fff;
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
         }
 
-        [data-theme="day"] .axle-steer-bar {
-            background: #fff;
+        [data-theme="night"] .axle-steer-bar {
+            background: #2d2d2d;
         }
 
         .axle-steer-fill {
@@ -708,19 +674,19 @@
 
         .axle-pressure-readout {
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-color);
             font-variant-numeric: tabular-nums;
             padding: 6px 8px;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.03);
             min-width: 0;
             text-align: center;
         }
 
-        [data-theme="day"] .axle-pressure-readout {
-            background: rgba(255, 255, 255, 0.5);
+        [data-theme="night"] .axle-pressure-readout {
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .axle-diagram-wrap {
@@ -769,10 +735,9 @@
         .table-workspace-title {
             margin: 0;
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
         }
 
         .table-workspace-main {
@@ -812,13 +777,13 @@
             gap: 8px 12px;
             align-items: center;
             padding: 8px 10px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background: rgba(0, 0, 0, 0.04);
+            border-radius: var(--m3-radius-md);
+            border: 2px solid var(--border-color);
+            background: var(--panel-elev);
         }
 
         [data-theme="night"] .table-ctrl-row {
-            background: rgba(255, 255, 255, 0.04);
+            background: var(--panel-elev);
         }
 
         .table-ctrl-row--segment {
@@ -830,7 +795,7 @@
         }
 
         .table-ctrl-row--adjust {
-            border-left: 4px solid var(--hmi-gauge-danger);
+            border-left: 4px solid #c62828;
         }
 
         .table-ctrl-row--transfer {
@@ -839,7 +804,7 @@
 
         .table-ctrl-label {
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-color);
             line-height: 1.2;
         }
@@ -862,7 +827,7 @@
 
         .table-ctrl-unit {
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-muted);
             margin-right: 2px;
         }
@@ -882,10 +847,9 @@
         .boom-workspace-title {
             margin: 0;
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
         }
 
         .boom-top-row {
@@ -942,7 +906,7 @@
 
         .boom-move-title {
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
             line-height: 1.15;
@@ -958,21 +922,21 @@
 
         .boom-jog-btn {
             width: 100%;
-            min-height: 46px;
+            min-height: 52px;
             padding: 4px 8px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             line-height: 1;
-            border-radius: 12px;
+            border-radius: var(--m3-radius-md);
             border: 2px solid var(--btn-border);
             background: var(--btn-bg);
             color: var(--btn-text);
             cursor: pointer;
-            box-shadow: var(--btn-shadow);
+            box-shadow: none;
         }
 
         .boom-jog-btn:active {
-            transform: translateY(1px);
+            border-color: var(--focus-ring-color);
         }
 
         .boom-fill-elevator {
@@ -1045,7 +1009,7 @@
         .boom-section-title {
             margin: 0;
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
         }
@@ -1075,7 +1039,7 @@
 
         .boom-field-label {
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-color);
             white-space: nowrap;
         }
@@ -1087,20 +1051,21 @@
             padding: 4px 8px;
             min-height: 32px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            background: #fff;
             font-size: 14px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-color);
         }
 
-        [data-theme="day"] .boom-value-box {
-            background: #fff;
+        [data-theme="night"] .boom-value-box {
+            background: #2d2d2d;
+            color: var(--text-color);
         }
 
         .boom-value-unit {
             font-size: 10px;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-muted);
         }
 
@@ -1115,9 +1080,9 @@
         .boom-gauge-track {
             width: 22px;
             height: 120px;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 2px solid var(--border-color);
-            background: rgba(0, 0, 0, 0.08);
+            background: rgba(0, 0, 0, 0.06);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -1131,18 +1096,19 @@
         .boom-gauge-fill {
             width: 100%;
             background: linear-gradient(to top, #1565c0, #42a5f5);
-            border-radius: 0 0 4px 4px;
+            border-radius: 0 0 3px 3px;
             min-height: 4px;
         }
 
         .boom-gauge-val {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 800;
-            color: #1565c0;
+            font-variant-numeric: tabular-nums;
+            color: #4db6ac;
         }
 
         [data-theme="night"] .boom-gauge-val {
-            color: #64b5f6;
+            color: #80cbc4;
         }
 
         .boom-fill-btns {
@@ -1165,16 +1131,16 @@
         .boom-fold-btn {
             flex: 1;
             max-width: 120px;
-            min-height: 40px;
+            min-height: 48px;
             padding: 0 10px;
             font-size: 12px;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: var(--m3-radius-md);
             border: 2px solid var(--btn-border);
             background: var(--btn-bg);
             color: var(--btn-text);
             cursor: pointer;
-            box-shadow: var(--btn-shadow);
+            box-shadow: none;
         }
 
         .boom-fold-status {
@@ -1201,7 +1167,7 @@
 
         .boom-status-text {
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-color);
         }
 
@@ -1213,7 +1179,7 @@
             align-items: flex-end;
             gap: 2px;
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-color);
             font-variant-numeric: tabular-nums;
         }
@@ -1227,13 +1193,13 @@
 
         .boom-speed-label {
             color: var(--text-muted);
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .boom-onoff-btn {
             min-height: 40px;
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
         }
 
         #ctrl-tab-chains {
@@ -1260,10 +1226,9 @@
         .chains-page-title {
             margin: 0 0 2px;
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
         }
 
         .chains-panel {
@@ -1299,31 +1264,29 @@
 
         .chains-all-auto-btn {
             min-width: 88px;
-            min-height: 32px;
+            min-height: 48px;
             padding: 0 12px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
-            border-radius: 10px;
+            border-radius: var(--m3-radius-md);
             border: 2px solid var(--btn-border);
             background: var(--btn-bg);
             color: var(--btn-text);
             cursor: pointer;
-            box-shadow: var(--widget-inset);
+            box-shadow: none;
         }
 
         .chains-all-auto-btn.on {
-            background: var(--btn-active-bg);
+            background-color: var(--btn-active-bg);
             color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
+            border-color: var(--btn-active-bg);
         }
 
         .chains-adjust-label {
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.04em;
         }
 
         .chains-speed-master {
@@ -1348,32 +1311,31 @@
         }
 
         .chains-mode-btn {
-            min-height: 32px;
+            min-height: 48px;
             min-width: 100px;
             padding: 0 10px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
-            border-radius: 10px;
+            border-radius: var(--m3-radius-md);
             border: 2px solid var(--btn-border);
             background: var(--btn-bg);
             color: var(--btn-text);
             cursor: pointer;
-            box-shadow: var(--widget-inset);
+            box-shadow: none;
         }
 
         .chains-mode-btn.on {
-            background: var(--btn-active-bg);
+            background-color: var(--btn-active-bg);
             color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
+            border-color: var(--btn-active-bg);
         }
 
         .chains-btn {
-            min-height: 30px;
-            padding: 0 8px;
-            font-size: 11px;
+            min-height: 44px;
+            padding: 0 10px;
+            font-size: 12px;
             font-weight: 800;
-            border-radius: 10px;
+            border-radius: var(--m3-radius-md);
             border: 2px solid var(--btn-border);
             background: var(--btn-bg);
             color: var(--btn-text);
@@ -1382,7 +1344,7 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: none;
         }
 
         .chains-btn-step {
@@ -1395,8 +1357,8 @@
         }
 
         .chains-btn-override svg {
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
         }
 
         .chains-split {
@@ -1421,9 +1383,8 @@
             margin-bottom: 0;
             border-bottom: 1px solid var(--border-color);
             font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            font-weight: 700;
+            letter-spacing: 0.05em;
             color: var(--text-muted);
         }
 
@@ -1446,7 +1407,7 @@
 
         .chains-row-label {
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-color);
             line-height: 1.2;
         }
@@ -1462,22 +1423,24 @@
         .chains-set-display {
             min-width: 42px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            background: var(--panel-elev);
+            border: 2px solid var(--border-color);
+            border-radius: var(--m3-radius-sm);
             padding: 2px 5px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
+            font-variant-numeric: tabular-nums;
             color: var(--text-color);
         }
 
-        [data-theme="day"] .chains-set-display {
-            background: #fff;
+        [data-theme="night"] .chains-set-display {
+            background: var(--panel-elev);
+            color: var(--text-color);
         }
 
         .chains-actual {
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 700;
             font-variant-numeric: tabular-nums;
             text-align: center;
             color: var(--text-color);
@@ -1524,13 +1487,6 @@
             flex-wrap: wrap;
         }
 
-        .chains-shaker-modes .chains-mode-btn {
-            min-width: 72px;
-            min-height: 28px;
-            font-size: 11px;
-            padding: 0 8px;
-        }
-
         .chains-stripper-row .chains-stripper-pair {
             grid-column: 2 / span 3;
             justify-content: flex-start;
@@ -1538,7 +1494,7 @@
 
         .chains-footer-label {
             font-size: 10px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-muted);
         }
 
@@ -1611,23 +1567,24 @@
         }
 
         #ctrl-tab-digger .digger-btn {
-            min-height: 42px;
-            height: 42px;
+            min-height: 48px;
+            height: auto;
             font-size: 14px;
         }
 
         #ctrl-tab-digger .digger-btn-icon {
-            min-width: 48px;
-            width: 48px;
+            min-width: 52px;
+            width: 52px;
+            min-height: 54px;
         }
 
         #ctrl-tab-digger .digger-btn-icon svg {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
 
         #ctrl-tab-digger .digger-auto-btn {
-            min-height: 42px;
+            min-height: 48px;
         }
 
         #ctrl-tab-digger .digger-nose-readout {
@@ -1656,27 +1613,22 @@
         }
 
         .digger-quad {
-            background: var(--widget-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
+            background-color: var(--panel-elev);
+            border: var(--m3-panel-border) var(--border-color);
+            border-radius: var(--m3-radius-md);
             padding: 10px 12px 14px;
             display: flex;
             flex-direction: column;
             min-height: 0;
-            box-shadow: var(--widget-inset);
+            box-shadow: none;
         }
 
         .digger-quad-title {
             margin: 0 0 8px;
             font-size: 17px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
             color: var(--text-color);
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.12);
-        }
-
-        [data-theme="night"] .digger-quad-title {
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
         }
 
         .digger-quad-body {
@@ -1703,34 +1655,52 @@
             height: 48px;
             padding: 0 12px;
             font-size: 15px;
-            font-weight: 800;
-            border-radius: 10px;
+            font-weight: 700;
+            border-radius: var(--m3-radius-md);
             gap: 6px;
         }
 
         .digger-btn-icon {
             min-width: 56px;
             width: 56px;
-            padding: 0;
+            min-height: 56px;
+            height: auto;
+            padding: 6px 4px 4px;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .digger-btn-icon svg {
-            width: 22px;
-            height: 22px;
+            width: 26px;
+            height: 26px;
+        }
+
+        .m3-icon-label {
+            display: block;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            line-height: 1.1;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .digger-btn-icon:hover .m3-icon-label,
+        .digger-btn-icon:active .m3-icon-label {
+            color: var(--text-color);
         }
 
         .digger-auto-btn {
             min-height: 48px;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 15px;
         }
 
-        .digger-auto-btn.on,
-        .digger-sync-btn.on {
-            background: var(--btn-active-bg);
+        .digger-auto-btn.on {
+            background-color: var(--btn-active-bg);
             color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
+            border-color: var(--btn-active-bg);
         }
 
         .digger-nose-body {
@@ -1746,16 +1716,12 @@
         }
 
         .digger-nose-readout {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
+            font-variant-numeric: tabular-nums;
             color: var(--text-color);
             line-height: 1.2;
             padding: 4px 0;
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="night"] .digger-nose-readout {
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .digger-hump-body {
@@ -1780,7 +1746,7 @@
         }
 
         .digger-gauge-num {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 800;
             font-variant-numeric: tabular-nums;
             line-height: 1;
@@ -1791,11 +1757,12 @@
         }
 
         .digger-gauge-num--actual {
-            color: #2b6cb0;
+            font-weight: 800;
+            color: #26a69a;
         }
 
         [data-theme="night"] .digger-gauge-num--actual {
-            color: #63b3ed;
+            color: #80deea;
         }
 
         .digger-gauge {
@@ -1807,15 +1774,14 @@
             border-radius: 8px;
             overflow: hidden;
             border: 2px solid var(--border-color);
-            background: #0a1f38;
+            background: #0d2847;
             flex-shrink: 0;
-            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.65);
         }
 
         .digger-gauge-track {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, #0a1f38 0%, #1e3a5f 100%);
+            background: linear-gradient(to top, #1a2220 0%, #2e3d38 100%);
         }
 
         .digger-gauge-fill {
@@ -1824,8 +1790,8 @@
             right: 0;
             bottom: 0;
             height: calc(var(--actual) * 1%);
-            background: linear-gradient(to top, #2b6cb0, #63b3ed);
-            transition: height 0.28s ease-out;
+            background: linear-gradient(to top, #1b5e20, #66bb6a);
+            transition: height 0.1s linear;
         }
 
         .digger-gauge-target {
@@ -1834,21 +1800,20 @@
             right: -2px;
             bottom: calc(var(--target) * 1%);
             height: 4px;
-            background: #e53e3e;
+            background: #e53935;
             border-radius: 2px;
             z-index: 2;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65);
             transform: translateY(50%);
         }
 
         .digger-gauge-tick {
             position: absolute;
             font-size: 9px;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.78);
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.75);
             z-index: 3;
             pointer-events: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
         }
 
         .digger-gauge-tick--max {
@@ -1957,10 +1922,9 @@
 
         .digger-lr-label {
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.04em;
         }
 
         .digger-sync-btn {
@@ -1971,7 +1935,7 @@
             height: auto;
             padding: 6px 10px;
             font-size: 14px;
-            font-weight: 800;
+            font-weight: 700;
             gap: 0;
         }
 
@@ -1979,21 +1943,26 @@
             text-align: center;
             line-height: 1.15;
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
+        }
+
+        .digger-sync-btn.on {
+            background-color: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: var(--state-on-outline);
+            box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
         }
 
         .digger-sync-arrow.digger-arrow-pressed {
-            background: var(--btn-active-bg);
+            background-color: var(--btn-active-bg);
             color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
+            border-color: var(--btn-active-bg);
         }
 
         .tab-placeholder {
             font-size: 28px;
-            font-weight: 800;
+            font-weight: 600;
             color: var(--text-muted);
-            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
         }
 
         .diag-row {
@@ -2011,7 +1980,7 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-muted);
         }
 
@@ -2056,7 +2025,7 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            font-weight: 800;
+            font-weight: 600;
             color: var(--text-muted);
             user-select: text;
         }
@@ -2069,37 +2038,30 @@
         .bottom-bar-end {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             margin-left: auto;
             flex-shrink: 0;
         }
 
         .js-user-select {
             height: 60px;
-            min-width: 132px;
-            max-width: 168px;
-            font-family: 'Inter', sans-serif;
+            min-width: 128px;
+            max-width: 160px;
+            font-family: 'Roboto', sans-serif;
             font-size: 14px;
-            font-weight: 700;
-            padding: 0 12px;
-            border: 1px solid var(--border-color);
-            border-top: 2px solid var(--btn-border-top);
-            border-bottom: 2px solid var(--btn-border-bottom);
-            border-radius: 10px;
-            background: var(--btn-bg);
+            font-weight: 600;
+            padding: 0 10px;
+            border: 2px solid var(--btn-border);
+            border-radius: var(--m3-radius-md);
+            background-color: var(--btn-bg);
             color: var(--btn-text);
             cursor: pointer;
-            box-shadow: var(--btn-shadow);
-        }
-
-        [data-theme="night"] .js-user-select {
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .night-mode-btn {
             width: auto;
             min-width: 0;
-            max-width: 90px;
+            max-width: 88px;
             height: 60px;
             padding: 4px 10px;
             flex-direction: column;
@@ -2107,75 +2069,63 @@
             align-items: center;
             line-height: 1.12;
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
             text-align: center;
         }
 
         .night-mode-btn-lines {
             display: block;
-            text-shadow: inherit;
         }
 
-        /* --- Skeuomorphic Buttons --- */
+        /* --- Buttons --- */
         button {
-            background: var(--btn-bg);
+            background-color: var(--btn-bg);
             color: var(--btn-text);
-            border: 1px solid var(--border-color);
-            border-top: 2px solid var(--btn-border-top);
-            border-bottom: 2px solid var(--btn-border-bottom);
-            border-radius: 10px;
-            font-family: 'Inter', sans-serif;
+            border: 2px solid var(--btn-border);
+            border-radius: var(--m3-radius-md);
+            font-family: 'Roboto', sans-serif;
             font-size: 18px;
-            font-weight: 700;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.2);
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background-color 0.08s ease, border-color 0.08s ease, color 0.08s ease;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
-            box-shadow: var(--btn-shadow);
+            box-shadow: none;
         }
-        
-        [data-theme="night"] button {
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        button:active {
+            border-color: color-mix(in srgb, var(--focus-ring-color) 85%, var(--btn-border));
         }
-
-        button:active, button.active {
-            background: var(--btn-active-bg);
-            color: var(--btn-active-text);
-            box-shadow: var(--btn-active-shadow);
-            transform: translateY(4px);
-            border-top: 2px solid var(--border-color);
-            border-bottom: 2px solid var(--btn-border-top);
-            text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+        button:disabled,
+        button[disabled] {
+            opacity: 1;
+            color: #5c5f64;
+            background: #2a2c30;
+            border-color: #3f4248;
+            cursor: not-allowed;
         }
-        
+        [data-theme="night"] button:disabled,
+        [data-theme="night"] button[disabled] {
+            color: #8d9199;
+            background: #1a1d22;
+            border-color: #3d4249;
+        }
         button svg {
             width: 28px;
             height: 28px;
             fill: currentColor;
-            filter: drop-shadow(0 1px 1px rgba(255,255,255,0.2));
-        }
-        [data-theme="night"] button svg {
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
-        }
-
-        /* --- Panels --- */
-        .top-bar, .info-action-bar, .bottom-bar, .tabs-container {
-            background: var(--panel-bg);
-            box-shadow: var(--panel-shadow);
-            position: relative;
-            z-index: 5;
         }
 
         /* --- Row 1: Top Bar --- */
         .top-bar {
-            border-bottom: 2px solid var(--border-color);
+            background-color: var(--panel-bg);
+            border-bottom: var(--m3-panel-border) var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 25px;
+            padding: 0 20px;
+            z-index: 10;
         }
         .brand-home-link {
             text-decoration: none;
@@ -2183,15 +2133,15 @@
             display: flex;
             flex-shrink: 0;
             cursor: pointer;
-            border-radius: 10px;
-            padding: 4px 8px;
-            margin: -4px -8px;
+            border-radius: 8px;
+            padding: 4px 6px;
+            margin: -4px -6px;
         }
         .brand-home-link:hover {
             background-color: rgba(255, 255, 255, 0.06);
         }
         [data-theme="day"] .brand-home-link:hover {
-            background-color: rgba(0, 0, 0, 0.08);
+            background-color: rgba(0, 0, 0, 0.05);
         }
         .brand-home-link:focus-visible {
             outline: 2px solid var(--focus-ring-color);
@@ -2202,7 +2152,9 @@
         .tab-btn:focus-visible,
         .mode-select:focus-visible,
         .js-user-select:focus-visible,
-        .home-hotspot:focus-visible {
+        .home-hotspot:focus-visible,
+        .btn-run:focus-visible,
+        .quick-actions-nav-btn:focus-visible {
             outline: 2px solid var(--focus-ring-color);
             outline-offset: 2px;
         }
@@ -2218,157 +2170,115 @@
         }
         .brand-logo {
             display: block;
-            height: 36px;
+            height: 32px;
             width: auto;
         }
         .machine-meta {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-muted);
-            font-weight: 700;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
+            font-weight: 600;
         }
-        .status-indicators {
+        .top-bar-trailing {
             display: flex;
-            gap: 30px;
-            align-items: center;
-            background: var(--widget-bg);
-            padding: 10px 25px;
-            border-radius: 8px;
-            box-shadow: var(--widget-inset);
-            border: 1px solid var(--border-color);
-        }
-        .status-item {
-            display: flex;
-            align-items: center;
             gap: 10px;
-            font-size: 18px;
-            font-weight: 700;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.1);
-        }
-        .indicator-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid rgba(0,0,0,0.3);
-            box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.4);
-        }
-        .dot-ok { 
-            background: radial-gradient(circle at 30% 30%, #68d391, var(--status-ok));
-        }
-        .dot-warn { 
-            background: radial-gradient(circle at 30% 30%, #f6e05e, var(--status-warn));
-        }
-        
-        .top-actions {
-            display: flex;
-            gap: 12px;
             align-items: center;
-        }
-        .top-bar-nav-btn {
-            height: 50px;
-            min-width: 76px;
-            padding: 0 16px;
-            font-size: 15px;
-            border-radius: 10px;
-        }
-        .top-btn {
-            height: 65px;
-            width: 140px;
-            font-size: 16px;
-            border-radius: 12px;
+            flex-shrink: 0;
         }
 
         /* --- Row 2: Info & Quick Actions --- */
         .info-action-bar {
             display: flex;
-            border-bottom: 2px solid var(--border-color);
-            z-index: 4;
+            border-bottom: var(--m3-panel-border) var(--border-color);
             flex-shrink: 0;
-            min-height: 85px;
+            min-height: 80px;
         }
         .message-area {
             flex: 1;
             min-width: 0;
             max-width: 42%;
-            background: var(--alarm-bg);
+            background-color: var(--alarm-bg);
             color: var(--alarm-text);
             display: flex;
             align-items: center;
             padding: 0 18px;
-            font-size: 21px;
-            font-weight: 800;
-            border-right: 2px solid var(--border-color);
-            gap: 14px;
-            box-shadow: var(--alarm-shadow);
-            text-shadow: 0 1px 1px rgba(255,255,255,0.2);
-        }
-        [data-theme="night"] .message-area {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            font-size: 20px;
+            font-weight: 700;
+            border-right: var(--m3-panel-border) var(--border-color);
+            gap: 12px;
         }
         .message-area svg {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             fill: currentColor;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
         }
         .quick-actions {
             flex: 1.35;
             min-width: 0;
+            background-color: var(--panel-bg);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
             gap: 8px 10px;
-            padding: 8px 14px;
+            padding: 8px 12px;
+        }
+        .quick-actions-start-end {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-right: 12px;
+            margin-right: 4px;
+            border-right: var(--m3-panel-border) var(--border-color);
+        }
+        .quick-actions-nav-btn {
+            height: 55px;
+            min-width: 72px;
+            padding: 0 14px;
+            font-size: 15px;
+            font-weight: 600;
         }
         .quick-btn {
-            height: 60px;
-            min-width: 104px;
-            border-radius: 10px;
+            height: 55px;
+            min-width: 100px;
         }
         .quick-btn.quick-toggle.on {
-            background: var(--btn-active-bg);
-            color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
+            border-color: var(--state-on-outline);
+            box-shadow: inset 0 0 0 2px var(--btn-active-bg);
+            background-color: color-mix(in srgb, var(--btn-active-bg) 18%, var(--panel-bg));
+            color: var(--status-ok);
         }
         .quick-fill-block {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding-left: 14px;
-            margin-left: 6px;
-            border-left: 2px solid var(--border-color);
+            gap: 10px;
+            padding-left: 12px;
+            margin-left: 4px;
+            border-left: var(--m3-panel-border) var(--border-color);
         }
         .quick-fill-label {
-            font-size: 11px;
-            font-weight: 800;
+            font-size: 12px;
+            font-weight: 700;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.08);
+            letter-spacing: 0.06em;
             white-space: nowrap;
         }
         .quick-fill-pair {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         .quick-fill-btn {
-            height: 60px;
-            min-width: 56px;
+            height: 55px;
+            min-width: 52px;
             padding: 0 12px;
-            font-size: 16px;
-            font-weight: 800;
+            font-size: 15px;
+            font-weight: 700;
         }
-        /* Momentary green while pressed (same idea as global button:active, scoped for clarity) */
-        button.quick-fill-btn:active {
-            background: var(--btn-active-bg);
-            color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
-            text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+        .quick-fill-btn:active {
+            background-color: var(--btn-active-bg);
+            color: #fff;
+            border-color: var(--btn-active-bg);
         }
 
         /* --- Row 3: Main Content (Tabs + Workspace) --- */
@@ -2377,14 +2287,13 @@
             flex: 1;
             min-height: 0;
             background-color: var(--bg-color);
-            position: relative;
-            z-index: 1;
         }
 
         /* Tabs on the Right */
         .tabs-container {
-            width: 190px;
-            border-left: 2px solid var(--border-color);
+            width: 180px;
+            background-color: var(--panel-elev);
+            border-left: var(--m3-panel-border) var(--border-color);
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -2394,44 +2303,37 @@
         .tab-btn {
             flex: 1;
             border: none;
-            border-radius: 10px;
-            font-size: 24px;
-            box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
-            background: transparent;
+            border-radius: var(--m3-radius-md);
+            font-size: 20px;
+            font-weight: 700;
+            box-shadow: none;
+            background-color: transparent;
             color: var(--text-color);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .tab-btn.active {
-            background: var(--btn-active-bg);
+            background-color: var(--btn-active-bg);
             color: var(--btn-active-text);
-            border-left: 8px solid var(--tab-rail-accent);
-            box-shadow: inset 0 4px 8px rgba(0,0,0,0.5);
-            transform: translateY(0); /* Don't translate tabs */
-            padding-left: 10px; /* Offset the border */
+            border-left: 6px solid var(--tab-rail-accent);
+            box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--focus-ring-color) 55%, transparent);
         }
 
         /* --- Row 4: Presets --- */
         .bottom-bar {
-            border-top: 2px solid var(--border-color);
+            background-color: var(--panel-bg);
+            border-top: var(--m3-panel-border) var(--border-color);
             display: flex;
             justify-content: flex-start;
             align-items: center;
             padding: 0 20px;
             gap: 15px;
-            z-index: 6;
             flex-shrink: 0;
-            min-height: 120px;
+            min-height: 110px;
         }
         .preset-group {
             display: flex;
             gap: 15px;
             flex: 0 1 auto;
             justify-content: center;
-            background: var(--widget-bg);
-            padding: 15px 20px;
-            border-radius: 16px;
-            box-shadow: var(--widget-inset);
-            border: 1px solid var(--border-color);
         }
         .preset-btn {
             width: 120px;
@@ -2439,25 +2341,25 @@
             flex: 0 0 auto;
             height: 60px;
             font-size: 16px;
-            border: 1px solid rgba(0,0,0,0.5);
-            border-top: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
+            font-weight: 800;
+            border: 2px solid rgba(0, 0, 0, 0.35);
+            border-radius: var(--m3-radius-md);
             color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.35);
         }
-        .preset-btn.dig { background: var(--preset-dig-bg); }
-        .preset-btn.clean { background: var(--preset-clean-bg); }
-        
-        .preset-btn:active {
-            transform: translateY(4px);
-            box-shadow: inset 0 4px 8px rgba(0,0,0,0.8);
-            border-top: 1px solid rgba(0,0,0,0.5);
+        .preset-btn.dig {
+            background-color: var(--preset-dig-bg);
+        }
+        .preset-btn.clean {
+            background-color: var(--preset-clean-bg);
+        }
+        .preset-btn:hover {
+            filter: brightness(1.1);
         }
 
     </style>
 </head>
-<body data-theme="night">
+<body data-theme="night"> <!-- Default to night mode -->
 
     <div class="hmi-container">
 
@@ -2465,35 +2367,33 @@
             <a href="equipment_ui_mockups.html" class="brand-home-link" title="Back to Equipment UI Mockups">
                 <div class="brand-area">
                     <img class="brand-logo" src="img/SpudnikLogo.svg" alt="Spudnik" width="206" height="50" />
-                    <div class="machine-meta">SN: 6844-55-28 | SW: v2.5.1</div>
+                    <div class="machine-meta">Sn: 6844-55-28 | Sw: v2.5.1</div>
                 </div>
             </a>
 
-            <div class="status-indicators">
-                <div class="status-item">
-                    <div class="indicator-dot dot-ok"></div>
-                    Chains
+            <div class="top-bar-speed-readouts" aria-label="Machine speeds">
+                <div class="top-bar-speed-card">
+                    <span class="top-bar-speed-label">Chain speed</span>
+                    <div class="top-bar-speed-value"><span class="top-bar-speed-num">265</span><span class="top-bar-speed-unit">fpm</span></div>
                 </div>
-                <div class="status-item">
-                    <div class="indicator-dot dot-warn"></div>
-                    Oil Temp
+                <div class="top-bar-speed-card">
+                    <span class="top-bar-speed-label">Pto speed</span>
+                    <div class="top-bar-speed-value"><span class="top-bar-speed-num">535</span><span class="top-bar-speed-unit">rpm</span></div>
                 </div>
-                <div class="status-item">
-                    <div class="indicator-dot dot-ok"></div>
-                    PTO
+                <div class="top-bar-speed-card">
+                    <span class="top-bar-speed-label">Boom speed</span>
+                    <div class="top-bar-speed-value"><span class="top-bar-speed-num">18</span><span class="top-bar-speed-unit">fpm</span></div>
                 </div>
             </div>
 
-            <div class="top-actions">
-                <button type="button" class="top-bar-nav-btn">Start</button>
-                <button type="button" class="top-bar-nav-btn">End</button>
+            <div class="top-bar-trailing">
                 <select id="modeSelect" class="mode-select" onchange="switchView(this.value)">
                     <option value="control" selected>Control</option>
                     <option value="diagnostic">Diagnostic</option>
                     <option value="settings">Settings</option>
                     <option value="help">Help</option>
                 </select>
-                <button type="button" class="btn-run" aria-label="Run">
+                <button type="button" id="btnRunToggle" class="btn-run" aria-pressed="false" aria-label="Run harvester" onclick="toggleRunBtn(this)">
                     <img class="btn-run-icon" src="img/RUN_Sm.png" alt="" />
                 </button>
             </div>
@@ -2506,6 +2406,10 @@
                     Boom folded; unfold to operate
                 </div>
                 <div class="quick-actions">
+                    <div class="quick-actions-start-end" role="group" aria-label="Start and end">
+                        <button type="button" class="quick-actions-nav-btn">Start</button>
+                        <button type="button" class="quick-actions-nav-btn">End</button>
+                    </div>
                     <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
                     <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
                     <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
@@ -2524,20 +2428,6 @@
                     <div class="workspace-wrap">
                         <div id="ctrl-tab-home" class="ctrl-tab-content active">
                             <div class="home-workspace-visual">
-                                <div class="home-speed-readouts" aria-label="Machine speeds">
-                                    <div class="home-speed-card">
-                                        <span class="home-speed-label">Chain speed</span>
-                                        <div class="home-speed-readout-value"><span class="home-speed-num">265</span><span class="home-speed-unit">FPM</span></div>
-                                    </div>
-                                    <div class="home-speed-card">
-                                        <span class="home-speed-label">PTO speed</span>
-                                        <div class="home-speed-readout-value"><span class="home-speed-num">535</span><span class="home-speed-unit">RPM</span></div>
-                                    </div>
-                                    <div class="home-speed-card">
-                                        <span class="home-speed-label">Boom speed</span>
-                                        <div class="home-speed-readout-value"><span class="home-speed-num">18</span><span class="home-speed-unit">FPM</span></div>
-                                    </div>
-                                </div>
                                 <div class="home-harvester-stack">
                                     <img class="home-harvester-img" src="img/6844_R_ISO_Front.png" alt="Spudnik 6844 MultiSep harvester" />
                                     <div class="home-hotspot-layer">
@@ -2569,19 +2459,23 @@
                                     <div class="digger-nose-col digger-nose-col--psi">
                                         <button type="button" class="digger-btn digger-btn-icon" id="nosePsiPlus" aria-label="Increase nose pressure">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                            <span class="m3-icon-label">More</span>
                                         </button>
-                                        <div class="digger-nose-readout" id="diggerNosePsi">0 PSI</div>
+                                        <div class="digger-nose-readout" id="diggerNosePsi">0 psi</div>
                                         <button type="button" class="digger-btn digger-btn-icon" id="nosePsiMinus" aria-label="Decrease nose pressure">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 13H5v-2h14v2z"/></svg>
+                                            <span class="m3-icon-label">Less</span>
                                         </button>
                                     </div>
                                     <div class="digger-nose-col digger-hump-controls">
                                         <button type="button" class="digger-btn digger-btn-icon" aria-label="Nose up">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                            <span class="m3-icon-label">Up</span>
                                         </button>
                                         <button type="button" class="digger-btn digger-auto-btn" aria-pressed="false" onclick="toggleDiggerAuto(this)">Auto</button>
                                         <button type="button" class="digger-btn digger-btn-icon" aria-label="Nose down">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                            <span class="m3-icon-label">Down</span>
                                         </button>
                                     </div>
                                 </div>
@@ -2608,10 +2502,12 @@
                                     <div class="digger-hump-controls">
                                         <button type="button" class="digger-btn digger-btn-icon" id="humpGaugeUpBtn" aria-label="Hump up">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                            <span class="m3-icon-label">Up</span>
                                         </button>
                                         <button type="button" class="digger-btn digger-auto-btn on" aria-pressed="true" onclick="toggleDiggerAuto(this)">Auto</button>
                                         <button type="button" class="digger-btn digger-btn-icon" id="humpGaugeDownBtn" aria-label="Hump down">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                            <span class="m3-icon-label">Down</span>
                                         </button>
                                     </div>
                                 </div>
@@ -2626,9 +2522,11 @@
                                                 <span class="digger-lr-label">Left</span>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Left coulters up">
                                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                    <span class="m3-icon-label">Up</span>
                                                 </button>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Left coulters down">
                                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                    <span class="m3-icon-label">Down</span>
                                                 </button>
                                             </div>
                                             <button type="button" class="digger-btn digger-sync-btn" aria-pressed="false" aria-label="Sync left and right coulters" onclick="toggleDiggerSync(this)">
@@ -2638,9 +2536,11 @@
                                                 <span class="digger-lr-label">Right</span>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Right coulters up">
                                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                    <span class="m3-icon-label">Up</span>
                                                 </button>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Right coulters down">
                                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                    <span class="m3-icon-label">Down</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -2669,9 +2569,11 @@
                                                         <span class="digger-lr-label">Left</span>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Left depth wheels up">
                                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                            <span class="m3-icon-label">Up</span>
                                                         </button>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Left depth wheels down">
                                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                            <span class="m3-icon-label">Down</span>
                                                         </button>
                                                     </div>
                                                     <button type="button" class="digger-btn digger-sync-btn" aria-pressed="false" aria-label="Sync left and right depth wheels" onclick="toggleDiggerSync(this)">
@@ -2681,9 +2583,11 @@
                                                         <span class="digger-lr-label">Right</span>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Right depth wheels up">
                                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                            <span class="m3-icon-label">Up</span>
                                                         </button>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Right depth wheels down">
                                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                            <span class="m3-icon-label">Down</span>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -2716,7 +2620,7 @@
                                         <span class="chains-adjust-label">Adjust all</span>
                                         <div class="chains-speed-master">
                                             <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease all chain speeds by 10">-10</button>
-                                            <span class="chains-speed-label">CHAIN SPEEDS</span>
+                                            <span class="chains-speed-label">Chain speeds</span>
                                             <button type="button" class="chains-btn chains-btn-step" aria-label="Increase all chain speeds by 10">+10</button>
                                         </div>
                                         <div class="chains-adjust-end">
@@ -2747,10 +2651,10 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake reverse">⟲ rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2760,10 +2664,10 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary reverse">⟲ rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2773,10 +2677,10 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary reverse">⟲ rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2786,10 +2690,10 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 | 0 FPM</span>
+                                                <span class="chains-actual">0 | 0 fpm</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers reverse">⟲ rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2799,9 +2703,9 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 | 0 FPM</span>
+                                                <span class="chains-actual">0 | 0 fpm</span>
                                                 <div class="chains-override chains-override--fwd-only">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Clod rollers forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Clod rollers forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2819,9 +2723,9 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override chains-override--fwd-only">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Transfer roller forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Transfer roller forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2831,10 +2735,10 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross reverse">⟲ rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2844,10 +2748,10 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev reverse">⟲ rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2857,10 +2761,10 @@
                                                     <span class="chains-set-display">100%</span>
                                                     <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point plus 10">+10</button>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator reverse">⟲ rev</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2868,9 +2772,9 @@
                                                 <div class="chains-setpoints chains-setpoints--hopper-na">
                                                     <span class="chains-set-display" aria-hidden="true">—</span>
                                                 </div>
-                                                <span class="chains-actual">0 FPM</span>
+                                                <span class="chains-actual">0 fpm</span>
                                                 <div class="chains-override chains-override--fwd-only">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Hopper chain forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Hopper chain forward">⟳ fwd</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2926,7 +2830,7 @@
                                             <div class="table-ctrl-setpoints">
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease segment speed">-10</button>
                                                 <span class="chains-set-display table-set-wide">118</span>
-                                                <span class="table-ctrl-unit">RPM</span>
+                                                <span class="table-ctrl-unit">rpm</span>
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Increase segment speed">+10</button>
                                             </div>
                                         </div>
@@ -2935,7 +2839,7 @@
                                             <div class="table-ctrl-setpoints">
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease clod speed">-10</button>
                                                 <span class="chains-set-display table-set-wide">94</span>
-                                                <span class="table-ctrl-unit">RPM</span>
+                                                <span class="table-ctrl-unit">rpm</span>
                                                 <button type="button" class="chains-btn chains-btn-step" aria-label="Increase clod speed">+10</button>
                                             </div>
                                         </div>
@@ -2989,7 +2893,7 @@
                                                     <span class="boom-field-label">Drop</span>
                                                     <div class="boom-value-box" aria-label="Drop height">
                                                         <span>0</span>
-                                                        <span class="boom-value-unit">IN</span>
+                                                        <span class="boom-value-unit">in</span>
                                                     </div>
                                                 </div>
                                                 <div class="boom-field-row">
@@ -3057,11 +2961,11 @@
                                                 <div class="boom-speed-block">
                                                     <div class="boom-speed-line">
                                                         <span class="boom-speed-label">Boom</span>
-                                                        <span>0 FPM</span>
+                                                        <span>0 fpm</span>
                                                     </div>
                                                     <div class="boom-speed-line">
                                                         <span class="boom-speed-label">Hopper</span>
-                                                        <span>0 FPM</span>
+                                                        <span>0 fpm</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3076,7 +2980,7 @@
                                 <div class="axle-main-grid">
                                     <div class="axle-diagram-row">
                                         <div class="axle-diagram-wrap hmi-schematic">
-                                            <img class="axle-diagram-img" src="img/6844rear-view.png" width="960" height="720" alt="6844 harvester rear view: left and right axle, tires, and SPUDNIK rear panel" />
+                                            <img class="axle-diagram-img" src="img/6844rear-view.png" width="960" height="720" alt="6844 harvester rear view: left and right axle, tires, and Spudnik rear panel" />
                                         </div>
                                     </div>
                                     <div class="axle-controls-row">
@@ -3122,11 +3026,11 @@
                                             <h3 class="axle-section-title">Wheel drive</h3>
                                             <div class="axle-drive-rows">
                                                 <div class="axle-drive-row">
-                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Drive forward">FWD</button>
-                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Drive reverse">REV</button>
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Drive forward">Fwd</button>
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Drive reverse">Rev</button>
                                                 </div>
                                                 <div class="axle-drive-row axle-drive-row--split">
-                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-pressed="false">ON / OFF</button>
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-pressed="false">On / Off</button>
                                                     <span class="axle-pressure-readout">Pressure: 687 psi</span>
                                                 </div>
                                             </div>
@@ -3154,25 +3058,25 @@
                     </div>
                     <div class="preset-spacer"></div>
                     <div class="preset-group">
-                        <button type="button" class="preset-btn clean">CLEAN 1</button>
-                        <button type="button" class="preset-btn clean">CLEAN 2</button>
-                        <button type="button" class="preset-btn clean">CLEAN 3</button>
+                        <button type="button" class="preset-btn clean">Clean 1</button>
+                        <button type="button" class="preset-btn clean">Clean 2</button>
+                        <button type="button" class="preset-btn clean">Clean 3</button>
                     </div>
                     <div class="bottom-bar-end">
                         <select id="jsUserSelect" class="js-user-select" aria-label="Joystick script user" title="Joystick script user">
-                            <option value="1" selected>JS User 1</option>
-                            <option value="2">JS User 2</option>
-                            <option value="3">JS User 3</option>
+                            <option value="1" selected>Js User 1</option>
+                            <option value="2">Js User 2</option>
+                            <option value="3">Js User 3</option>
                         </select>
-                        <button type="button" class="night-mode-btn" onclick="toggleTheme()"><span class="night-mode-btn-lines">NIGHT<br />MODE</span></button>
+                        <button type="button" class="night-mode-btn" onclick="toggleTheme()"><span class="night-mode-btn-lines">Night<br />mode</span></button>
                     </div>
                 </footer>
             </div>
 
             <div id="view-diagnostic" class="view">
                 <div class="diag-row">
-                    <div class="diag-half hmi-panel">INPUTS</div>
-                    <div class="diag-half hmi-panel">OUTPUTS</div>
+                    <div class="diag-half hmi-panel">Inputs</div>
+                    <div class="diag-half hmi-panel">Outputs</div>
                 </div>
             </div>
 
@@ -3211,7 +3115,7 @@
 
             <div id="view-help" class="view">
                 <div class="help-panel">
-                    <div class="help-panel-inner hmi-panel">HELP DOCUMENTATION &amp; DIAGRAMS</div>
+                    <div class="help-panel-inner hmi-panel">Help documentation &amp; diagrams</div>
                 </div>
             </div>
         </div>
@@ -3264,6 +3168,12 @@
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         }
 
+        function toggleRunBtn(btn) {
+            const on = btn.classList.toggle('on');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            btn.setAttribute('aria-label', on ? 'Stop harvester' : 'Run harvester');
+        }
+
         function chainsExclusiveGroup(btn) {
             var g = btn.closest('[data-chains-exclusive]');
             if (!g) return;
@@ -3284,7 +3194,7 @@
         function adjustDiggerNosePsi(delta) {
             diggerNosePsi = Math.max(0, Math.min(200, diggerNosePsi + delta));
             const el = document.getElementById('diggerNosePsi');
-            if (el) el.textContent = diggerNosePsi + ' PSI';
+            if (el) el.textContent = diggerNosePsi + ' psi';
         }
 
         function toggleDiggerAuto(btn) {
@@ -3460,16 +3370,6 @@
             wireDiggerSyncPanel(document.getElementById('diggerSyncDepthUpper'));
             wireDiggerTabHoldRepeats();
         });
-
-        function scaleFit() {
-            const container = document.querySelector('.hmi-container');
-            const scaleX = window.innerWidth / 1300;
-            const scaleY = window.innerHeight / 820;
-            const scale = Math.min(scaleX, scaleY, 1);
-            container.style.transform = `scale(${scale})`;
-        }
-        window.addEventListener('resize', scaleFit);
-        scaleFit();
     </script>
 </body>
 </html>
