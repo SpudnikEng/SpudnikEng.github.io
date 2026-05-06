@@ -166,6 +166,37 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* Shared pill for every control whose label is “Auto” (aligned with M3 mockup) */
+        .m3-auto-pill {
+            box-sizing: border-box;
+            min-width: 120px;
+            min-height: 44px;
+            height: auto;
+            padding: 0 14px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            border-radius: 6px;
+            border: 2px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            box-shadow: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            gap: 0;
+        }
+
+        .m3-auto-pill.on {
+            background-color: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: var(--btn-active-bg);
+        }
+
         .view-shell > .info-action-bar.shared-info-action-bar {
             display: none;
         }
@@ -206,6 +237,18 @@
             display: block;
             height: 26px;
             width: auto;
+        }
+
+        .btn-run.on {
+            background-color: var(--btn-active-bg);
+            color: var(--btn-active-text);
+            border-color: var(--btn-active-bg);
+        }
+
+        .preset-btn.is-selected {
+            outline: 3px solid var(--focus-ring-color);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 1px var(--btn-active-bg);
         }
 
         .workspace-wrap {
@@ -519,7 +562,7 @@
         }
 
         .axle-panel--height .axle-dpad {
-            grid-template-columns: 40px minmax(60px, auto) 40px;
+            grid-template-columns: 40px minmax(120px, auto) 40px;
             grid-template-rows: 36px 36px 36px;
             gap: 4px;
             flex-shrink: 0;
@@ -531,9 +574,11 @@
             font-size: 16px;
         }
 
-        .axle-panel--height .axle-dpad-btn--auto {
-            min-width: 60px;
-            font-size: 11px;
+        .axle-panel--height .axle-dpad-btn.m3-auto-pill {
+            min-width: 120px;
+            min-height: 44px;
+            font-size: 14px;
+            font-weight: 800;
         }
 
         .axle-vgauge {
@@ -608,11 +653,6 @@
             color: var(--btn-text);
             cursor: pointer;
             box-shadow: var(--btn-shadow);
-        }
-
-        .axle-dpad-btn--auto {
-            font-size: 12px;
-            min-width: 76px;
         }
 
         .axle-dpad-btn[data-area="up"] {
@@ -1297,27 +1337,6 @@
             font-size: 10px;
         }
 
-        .chains-all-auto-btn {
-            min-width: 88px;
-            min-height: 32px;
-            padding: 0 12px;
-            font-size: 12px;
-            font-weight: 800;
-            border-radius: 10px;
-            border: 2px solid var(--btn-border);
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            cursor: pointer;
-            box-shadow: var(--widget-inset);
-        }
-
-        .chains-all-auto-btn.on {
-            background: var(--btn-active-bg);
-            color: var(--btn-active-text);
-            border-color: #22543d;
-            box-shadow: var(--btn-active-shadow);
-        }
-
         .chains-adjust-label {
             font-size: 13px;
             font-weight: 800;
@@ -1368,6 +1387,13 @@
             box-shadow: var(--btn-active-shadow);
         }
 
+        .chains-mode-btn.m3-auto-pill {
+            min-width: 120px;
+            min-height: 44px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
         .chains-btn {
             min-height: 30px;
             padding: 0 8px;
@@ -1392,11 +1418,35 @@
         .chains-btn-override {
             min-width: 52px;
             font-size: 11px;
+            gap: 6px;
         }
 
-        .chains-btn-override svg {
-            width: 16px;
-            height: 16px;
+        .chains-btn-override .m3-chains-override-img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .m3-panel-icon-img {
+            display: block;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        .boom-jog-btn .m3-panel-icon-img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .axle-dpad-btn .m3-panel-icon-img {
+            width: 34px;
+            height: 34px;
+        }
+
+        .chains-btn-step .m3-panel-icon-img {
+            width: 30px;
+            height: 30px;
         }
 
         .chains-split {
@@ -1617,17 +1667,22 @@
         }
 
         #ctrl-tab-digger .digger-btn-icon {
-            min-width: 48px;
-            width: 48px;
+            min-width: 64px;
+            width: 64px;
+            min-height: 64px;
         }
 
-        #ctrl-tab-digger .digger-btn-icon svg {
-            width: 20px;
-            height: 20px;
+        #ctrl-tab-digger .digger-btn-icon svg,
+        #ctrl-tab-digger .digger-btn-icon-img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
         }
 
-        #ctrl-tab-digger .digger-auto-btn {
-            min-height: 42px;
+        #ctrl-tab-digger .digger-btn.m3-auto-pill {
+            min-height: 44px;
+            font-size: 14px;
+            font-weight: 800;
         }
 
         #ctrl-tab-digger .digger-nose-readout {
@@ -1709,23 +1764,23 @@
         }
 
         .digger-btn-icon {
-            min-width: 56px;
-            width: 56px;
-            padding: 0;
+            min-width: 64px;
+            width: 64px;
+            min-height: 64px;
+            height: 64px;
+            padding: 8px;
+            align-items: center;
+            justify-content: center;
         }
 
-        .digger-btn-icon svg {
-            width: 22px;
-            height: 22px;
+        .digger-btn-icon svg,
+        .digger-btn-icon-img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            flex-shrink: 0;
         }
 
-        .digger-auto-btn {
-            min-height: 48px;
-            font-weight: 800;
-            font-size: 15px;
-        }
-
-        .digger-auto-btn.on,
         .digger-sync-btn.on {
             background: var(--btn-active-bg);
             color: var(--btn-active-text);
@@ -1865,15 +1920,20 @@
 
         .digger-quad-body--depth-wheels {
             gap: 0;
+            padding-bottom: 6px;
         }
 
         .digger-depth-layout {
             display: grid;
-            grid-template-columns: auto minmax(0, max-content) auto;
+            grid-template-columns: auto minmax(300px, min(460px, 100%)) auto;
             grid-template-rows: 1fr auto;
-            column-gap: 0;
+            column-gap: 18px;
             row-gap: 0;
             width: 100%;
+            max-width: 760px;
+            margin-inline: auto;
+            padding: 0 8px;
+            box-sizing: border-box;
             flex: 1;
             min-height: 0;
         }
@@ -1881,15 +1941,15 @@
         .digger-depth-gauge-col--left {
             grid-column: 1;
             grid-row: 1 / -1;
-            align-self: end;
-            justify-self: end;
+            align-self: center;
+            justify-self: start;
         }
 
         .digger-depth-gauge-col--right {
             grid-column: 3;
             grid-row: 1 / -1;
-            align-self: end;
-            justify-self: start;
+            align-self: center;
+            justify-self: end;
         }
 
         .digger-depth-layout .digger-gauge {
@@ -1903,32 +1963,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
+            gap: 0;
             min-width: 0;
             height: 100%;
             min-height: 0;
         }
 
-        .digger-depth-center-col .digger-sync-panel--depth {
-            width: auto;
-            flex: 0 0 auto;
-        }
-
-        .digger-depth-center-col .digger-sync-cols {
-            width: auto;
-            max-width: min(100%, 340px);
-            column-gap: 2px;
-        }
-
-        .digger-depth-lower {
-            margin-top: auto;
-            width: 100%;
+        .digger-sync-center-stack {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-top: 8px;
-            border-top: 1px solid var(--border-color);
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .digger-depth-center-col .digger-sync-panel--depth {
+            width: 100%;
+            flex: 0 0 auto;
+        }
+
+        .digger-depth-center-col .digger-sync-cols {
+            width: 100%;
+            max-width: min(100%, 440px);
+            column-gap: 28px;
+            padding-inline: 8px;
         }
 
         .digger-sync-panel {
@@ -2287,9 +2347,9 @@
             min-height: 85px;
         }
         .message-area {
-            flex: 1;
+            flex: 1.05;
             min-width: 0;
-            max-width: 42%;
+            max-width: 62%;
             background: var(--alarm-bg);
             color: var(--alarm-text);
             display: flex;
@@ -2312,7 +2372,7 @@
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
         }
         .quick-actions {
-            flex: 1.35;
+            flex: 1.2;
             min-width: 0;
             display: flex;
             align-items: center;
@@ -2361,6 +2421,10 @@
             padding: 0 12px;
             font-size: 16px;
             font-weight: 800;
+        }
+        .quick-fill-btn .m3-panel-icon-img {
+            width: 32px;
+            height: 32px;
         }
         /* Momentary green while pressed (same idea as global button:active, scoped for clarity) */
         button.quick-fill-btn:active {
@@ -2493,7 +2557,7 @@
                     <option value="settings">Settings</option>
                     <option value="help">Help</option>
                 </select>
-                <button type="button" class="btn-run" aria-label="Run">
+                <button type="button" id="btnRunToggle" class="btn-run" aria-pressed="false" aria-label="Run" onclick="toggleRunBtn(this)">
                     <img class="btn-run-icon" src="img/RUN_Sm.png" alt="" />
                 </button>
             </div>
@@ -2508,12 +2572,11 @@
                 <div class="quick-actions">
                     <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Boom</button>
                     <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Ground Spd</button>
-                    <button type="button" class="quick-btn quick-toggle" aria-pressed="false" onclick="toggleQuickBtn(this)">Clean</button>
                     <div class="quick-fill-block">
                         <span class="quick-fill-label">Fill</span>
                         <div class="quick-fill-pair">
-                            <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up">Up</button>
-                            <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down">Dn</button>
+                            <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill up"><img class="m3-panel-icon-img" src="img/arrow_up_20.png" alt="" /></button>
+                            <button type="button" class="quick-btn quick-fill-btn" aria-label="Fill down"><img class="m3-panel-icon-img" src="img/arrow_down_20.png" alt="" /></button>
                         </div>
                     </div>
                 </div>
@@ -2568,20 +2631,20 @@
                                 <div class="digger-quad-body digger-nose-body">
                                     <div class="digger-nose-col digger-nose-col--psi">
                                         <button type="button" class="digger-btn digger-btn-icon" id="nosePsiPlus" aria-label="Increase nose pressure">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                            <img class="digger-btn-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" />
                                         </button>
                                         <div class="digger-nose-readout" id="diggerNosePsi">0 PSI</div>
                                         <button type="button" class="digger-btn digger-btn-icon" id="nosePsiMinus" aria-label="Decrease nose pressure">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 13H5v-2h14v2z"/></svg>
+                                            <img class="digger-btn-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" />
                                         </button>
                                     </div>
                                     <div class="digger-nose-col digger-hump-controls">
                                         <button type="button" class="digger-btn digger-btn-icon" aria-label="Nose up">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                            <img class="digger-btn-icon-img" src="img/arrow_up_20.png" alt="" aria-hidden="true" />
                                         </button>
-                                        <button type="button" class="digger-btn digger-auto-btn" aria-pressed="false" onclick="toggleDiggerAuto(this)">Auto</button>
+                                        <button type="button" class="digger-btn digger-auto-btn m3-auto-pill" aria-pressed="false" onclick="toggleDiggerAuto(this)">Auto</button>
                                         <button type="button" class="digger-btn digger-btn-icon" aria-label="Nose down">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                            <img class="digger-btn-icon-img" src="img/arrow_down_20.png" alt="" aria-hidden="true" />
                                         </button>
                                     </div>
                                 </div>
@@ -2607,11 +2670,11 @@
                                     </div>
                                     <div class="digger-hump-controls">
                                         <button type="button" class="digger-btn digger-btn-icon" id="humpGaugeUpBtn" aria-label="Hump up">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                            <img class="digger-btn-icon-img" src="img/arrow_up_20.png" alt="" aria-hidden="true" />
                                         </button>
-                                        <button type="button" class="digger-btn digger-auto-btn on" aria-pressed="true" onclick="toggleDiggerAuto(this)">Auto</button>
+                                        <button type="button" class="digger-btn digger-auto-btn m3-auto-pill on" aria-pressed="true" onclick="toggleDiggerAuto(this)">Auto</button>
                                         <button type="button" class="digger-btn digger-btn-icon" id="humpGaugeDownBtn" aria-label="Hump down">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                            <img class="digger-btn-icon-img" src="img/arrow_down_20.png" alt="" aria-hidden="true" />
                                         </button>
                                     </div>
                                 </div>
@@ -2625,10 +2688,10 @@
                                             <div class="digger-lr-col" data-side="left">
                                                 <span class="digger-lr-label">Left</span>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Left coulters up">
-                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                    <img class="digger-btn-icon-img" src="img/arrow_up_20.png" alt="" aria-hidden="true" />
                                                 </button>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Left coulters down">
-                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                    <img class="digger-btn-icon-img" src="img/arrow_down_20.png" alt="" aria-hidden="true" />
                                                 </button>
                                             </div>
                                             <button type="button" class="digger-btn digger-sync-btn" aria-pressed="false" aria-label="Sync left and right coulters" onclick="toggleDiggerSync(this)">
@@ -2637,10 +2700,10 @@
                                             <div class="digger-lr-col" data-side="right">
                                                 <span class="digger-lr-label">Right</span>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Right coulters up">
-                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                    <img class="digger-btn-icon-img" src="img/arrow_up_20.png" alt="" aria-hidden="true" />
                                                 </button>
                                                 <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Right coulters down">
-                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                    <img class="digger-btn-icon-img" src="img/arrow_down_20.png" alt="" aria-hidden="true" />
                                                 </button>
                                             </div>
                                         </div>
@@ -2664,32 +2727,32 @@
                                         </div>
                                         <div class="digger-depth-center-col">
                                             <div class="digger-sync-panel digger-sync-panel--depth">
-                                                <div class="digger-sync-cols" id="diggerSyncDepthUpper">
+                                                <div class="digger-sync-cols digger-sync-cols--depth" id="diggerSyncDepthUpper">
                                                     <div class="digger-lr-col" data-side="left">
                                                         <span class="digger-lr-label">Left</span>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Left depth wheels up">
-                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                            <img class="digger-btn-icon-img" src="img/arrow_up_20.png" alt="" aria-hidden="true" />
                                                         </button>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Left depth wheels down">
-                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                            <img class="digger-btn-icon-img" src="img/arrow_down_20.png" alt="" aria-hidden="true" />
                                                         </button>
                                                     </div>
-                                                    <button type="button" class="digger-btn digger-sync-btn" aria-pressed="false" aria-label="Sync left and right depth wheels" onclick="toggleDiggerSync(this)">
-                                                        <span class="digger-sync-btn-text">Sync<br>L/R</span>
-                                                    </button>
+                                                    <div class="digger-sync-center-stack">
+                                                        <button type="button" class="digger-btn digger-sync-btn" aria-pressed="false" aria-label="Sync left and right depth wheels" onclick="toggleDiggerSync(this)">
+                                                            <span class="digger-sync-btn-text">Sync<br>L/R</span>
+                                                        </button>
+                                                        <button type="button" class="digger-btn digger-auto-btn m3-auto-pill" aria-pressed="false" onclick="toggleDiggerAuto(this)">Auto</button>
+                                                    </div>
                                                     <div class="digger-lr-col" data-side="right">
                                                         <span class="digger-lr-label">Right</span>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="up" aria-label="Right depth wheels up">
-                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+                                                            <img class="digger-btn-icon-img" src="img/arrow_up_20.png" alt="" aria-hidden="true" />
                                                         </button>
                                                         <button type="button" class="digger-btn digger-btn-icon digger-sync-arrow" data-dir="down" aria-label="Right depth wheels down">
-                                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+                                                            <img class="digger-btn-icon-img" src="img/arrow_down_20.png" alt="" aria-hidden="true" />
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="digger-depth-lower">
-                                                <button type="button" class="digger-btn digger-auto-btn" style="min-width: 120px;" aria-pressed="false" onclick="toggleDiggerAuto(this)">Auto</button>
                                             </div>
                                         </div>
                                         <div class="digger-gauge-stack digger-depth-gauge-col digger-depth-gauge-col--right">
@@ -2715,9 +2778,9 @@
                                     <div class="chains-adjust-row">
                                         <span class="chains-adjust-label">Adjust all</span>
                                         <div class="chains-speed-master">
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease all chain speeds by 10">-10</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease all chain speeds by 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                             <span class="chains-speed-label">CHAIN SPEEDS</span>
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Increase all chain speeds by 10">+10</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Increase all chain speeds by 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                         </div>
                                         <div class="chains-adjust-end">
                                             <div class="chains-toggle-pair" data-chains-exclusive="1" role="group" aria-label="Chain speed reference">
@@ -2726,7 +2789,7 @@
                                             </div>
                                             <div class="chains-all-chains-block">
                                                 <span class="chains-footer-label">All Chains</span>
-                                                <button type="button" class="chains-all-auto-btn" aria-pressed="false" aria-label="All chains auto" onclick="toggleChainsAllAuto(this)">Auto</button>
+                                                <button type="button" class="m3-auto-pill" aria-pressed="false" aria-label="All chains auto" onclick="toggleChainsAllAuto(this)">Auto</button>
                                             </div>
                                         </div>
                                     </div>
@@ -2743,65 +2806,65 @@
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Intake</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Intake set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake reverse"><img class="m3-chains-override-img" src="img/counterclockwise_16.png" alt="" /></button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Intake forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Primary</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Primary set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary reverse"><img class="m3-chains-override-img" src="img/counterclockwise_16.png" alt="" /></button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Primary forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Secondary/Vine</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary reverse"><img class="m3-chains-override-img" src="img/counterclockwise_16.png" alt="" /></button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Secondary forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Segment Rollers</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Segment rollers set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 | 0 FPM</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers reverse"><img class="m3-chains-override-img" src="img/counterclockwise_16.png" alt="" /></button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Segment rollers forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Clod Rollers</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Clod rollers set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 | 0 FPM</span>
                                                 <div class="chains-override chains-override--fwd-only">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Clod rollers forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Clod rollers forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2815,52 +2878,52 @@
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Transfer Roller</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Transfer roller set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override chains-override--fwd-only">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Transfer roller forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Transfer roller forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Rear Cross</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Rear cross set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross reverse"><img class="m3-chains-override-img" src="img/counterclockwise_16.png" alt="" /></button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Rear cross forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Side Elev</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Side elev set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev reverse"><img class="m3-chains-override-img" src="img/counterclockwise_16.png" alt="" /></button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Side elev forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
                                                 <span class="chains-row-label">Fill Elevator</span>
                                                 <div class="chains-setpoints">
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point minus 10">-10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point minus 10"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                     <span class="chains-set-display">100%</span>
-                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point plus 10">+10</button>
+                                                    <button type="button" class="chains-btn chains-btn-step" aria-label="Fill elevator set point plus 10"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator reverse">⟲ Rev</button>
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator reverse"><img class="m3-chains-override-img" src="img/counterclockwise_16.png" alt="" /></button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Fill elevator forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                             <div class="chains-row hmi-control-row">
@@ -2870,7 +2933,7 @@
                                                 </div>
                                                 <span class="chains-actual">0 FPM</span>
                                                 <div class="chains-override chains-override--fwd-only">
-                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Hopper chain forward">⟳ Fwd</button>
+                                                    <button type="button" class="chains-btn chains-btn-override" aria-label="Hopper chain forward"><img class="m3-chains-override-img" src="img/clockwise_16.png" alt="" /></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2880,34 +2943,34 @@
                                     <div class="chains-shaker-row hmi-control-row">
                                         <span class="chains-row-label">Primary Shakers</span>
                                         <div class="chains-setpoints">
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Primary shakers minus 5">-5</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Primary shakers minus 5"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                             <span class="chains-set-display">41%</span>
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Primary shakers plus 5">+5</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Primary shakers plus 5"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                         </div>
                                         <span class="chains-actual" aria-hidden="true"> </span>
                                         <div class="chains-shaker-modes" data-chains-exclusive="1" role="group" aria-label="Primary shaker mode">
-                                            <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
+                                            <button type="button" class="chains-mode-btn m3-auto-pill on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
                                             <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
                                         </div>
                                     </div>
                                     <div class="chains-shaker-row hmi-control-row">
                                         <span class="chains-row-label">Secondary Shakers</span>
                                         <div class="chains-setpoints">
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary shakers minus 5">-5</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary shakers minus 5"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                             <span class="chains-set-display">0%</span>
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary shakers plus 5">+5</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Secondary shakers plus 5"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                         </div>
                                         <span class="chains-actual" aria-hidden="true"> </span>
                                         <div class="chains-shaker-modes" data-chains-exclusive="1" role="group" aria-label="Secondary shaker mode">
-                                            <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
+                                            <button type="button" class="chains-mode-btn m3-auto-pill on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
                                             <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
                                         </div>
                                     </div>
                                     <div class="chains-shaker-row chains-stripper-row hmi-control-row">
                                         <span class="chains-row-label">Stripper Kit</span>
                                         <div class="chains-stripper-pair">
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Stripper kit down">↓</button>
-                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Stripper kit up">↑</button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Stripper kit down"><img class="m3-panel-icon-img" src="img/arrow_down_20.png" alt="" /></button>
+                                            <button type="button" class="chains-btn chains-btn-step" aria-label="Stripper kit up"><img class="m3-panel-icon-img" src="img/arrow_up_20.png" alt="" /></button>
                                         </div>
                                     </div>
                                 </section>
@@ -2924,19 +2987,19 @@
                                         <div class="table-ctrl-row table-ctrl-row--segment hmi-control-row">
                                             <span class="table-ctrl-label">Segment speed</span>
                                             <div class="table-ctrl-setpoints">
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease segment speed">-10</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease segment speed"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 <span class="chains-set-display table-set-wide">118</span>
                                                 <span class="table-ctrl-unit">RPM</span>
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase segment speed">+10</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase segment speed"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                             </div>
                                         </div>
                                         <div class="table-ctrl-row table-ctrl-row--clod hmi-control-row">
                                             <span class="table-ctrl-label">Clod speed</span>
                                             <div class="table-ctrl-setpoints">
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease clod speed">-10</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease clod speed"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 <span class="chains-set-display table-set-wide">94</span>
                                                 <span class="table-ctrl-unit">RPM</span>
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase clod speed">+10</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase clod speed"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                             </div>
                                         </div>
                                         <div class="table-ctrl-row table-ctrl-row--adjust hmi-control-row">
@@ -2961,13 +3024,13 @@
                                             <span class="table-ctrl-label">Transfer</span>
                                             <div class="table-ctrl-setpoints">
                                                 <div class="chains-toggle-pair" data-chains-exclusive="1" role="group" aria-label="Transfer speed mode">
-                                                    <button type="button" class="chains-mode-btn on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
+                                                    <button type="button" class="chains-mode-btn m3-auto-pill on" aria-pressed="true" onclick="chainsExclusiveGroup(this)">Auto</button>
                                                     <button type="button" class="chains-mode-btn" aria-pressed="false" onclick="chainsExclusiveGroup(this)">Manual</button>
                                                 </div>
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease transfer speed">-5</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Decrease transfer speed"><img class="m3-panel-icon-img" src="img/minus_sign_16.png" alt="" aria-hidden="true" /></button>
                                                 <span class="chains-set-display table-set-wide">62</span>
                                                 <span class="table-ctrl-unit">%</span>
-                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase transfer speed">+5</button>
+                                                <button type="button" class="chains-btn chains-btn-step" aria-label="Increase transfer speed"><img class="m3-panel-icon-img" src="img/plus_sign_16.png" alt="" aria-hidden="true" /></button>
                                             </div>
                                         </div>
                                     </aside>
@@ -3006,8 +3069,8 @@
                                                 <span class="boom-gauge-val">100</span>
                                             </div>
                                             <div class="boom-fill-btns">
-                                                <button type="button" class="boom-jog-btn" aria-label="Fill elevator up">↑</button>
-                                                <button type="button" class="boom-jog-btn" aria-label="Fill elevator down">↓</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Fill elevator up"><img class="m3-panel-icon-img" src="img/arrow_up_20.png" alt="" /></button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Fill elevator down"><img class="m3-panel-icon-img" src="img/arrow_down_20.png" alt="" /></button>
                                                 <button type="button" class="boom-jog-btn boom-onoff-btn" aria-pressed="true">On / Off</button>
                                             </div>
                                         </div>
@@ -3018,29 +3081,29 @@
                                         <div class="boom-move-cell">
                                             <span class="boom-move-title">Boom In / Out</span>
                                             <div class="boom-move-stack">
-                                                <button type="button" class="boom-jog-btn" aria-label="Boom out">←</button>
-                                                <button type="button" class="boom-jog-btn" aria-label="Boom in">→</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom out"><img class="m3-panel-icon-img" src="img/arrow_rev_20.png" alt="" /></button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom in"><img class="m3-panel-icon-img" src="img/arrow_fwd_20.png" alt="" /></button>
                                             </div>
                                         </div>
                                         <div class="boom-move-cell">
                                             <span class="boom-move-title">Outer Boom</span>
                                             <div class="boom-move-stack">
-                                                <button type="button" class="boom-jog-btn" aria-label="Outer boom up">↑</button>
-                                                <button type="button" class="boom-jog-btn" aria-label="Outer boom down">↓</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Outer boom up"><img class="m3-panel-icon-img" src="img/arrow_up_20.png" alt="" /></button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Outer boom down"><img class="m3-panel-icon-img" src="img/arrow_down_20.png" alt="" /></button>
                                             </div>
                                         </div>
                                         <div class="boom-move-cell">
                                             <span class="boom-move-title">Inner Boom</span>
                                             <div class="boom-move-stack">
-                                                <button type="button" class="boom-jog-btn" aria-label="Inner boom up">↑</button>
-                                                <button type="button" class="boom-jog-btn" aria-label="Inner boom down">↓</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Inner boom up"><img class="m3-panel-icon-img" src="img/arrow_up_20.png" alt="" /></button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Inner boom down"><img class="m3-panel-icon-img" src="img/arrow_down_20.png" alt="" /></button>
                                             </div>
                                         </div>
                                         <div class="boom-move-cell">
                                             <span class="boom-move-title">Boom Swing</span>
                                             <div class="boom-move-stack">
-                                                <button type="button" class="boom-jog-btn" aria-label="Boom swing">↖</button>
-                                                <button type="button" class="boom-jog-btn" aria-label="Boom swing">↘</button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom swing"><img class="m3-panel-icon-img" src="img/arrow_NW_20.png" alt="" /></button>
+                                                <button type="button" class="boom-jog-btn" aria-label="Boom swing"><img class="m3-panel-icon-img" src="img/arrow_SW_20.png" alt="" /></button>
                                             </div>
                                         </div>
                                         <div class="boom-move-cell boom-move-cell--fold">
@@ -3091,11 +3154,11 @@
                                                     <span class="axle-vgauge-num axle-vgauge-num--bottom">0</span>
                                                 </div>
                                                 <div class="axle-dpad" role="group" aria-label="Height and roll jog">
-                                                    <button type="button" class="axle-dpad-btn" data-area="up" aria-label="Raise machine">↑</button>
-                                                    <button type="button" class="axle-dpad-btn" data-area="left" aria-label="Roll left">↶</button>
-                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--auto" data-area="center" aria-pressed="true">Auto</button>
-                                                    <button type="button" class="axle-dpad-btn" data-area="right" aria-label="Roll right">↷</button>
-                                                    <button type="button" class="axle-dpad-btn" data-area="down" aria-label="Lower machine">↓</button>
+                                                    <button type="button" class="axle-dpad-btn" data-area="up" aria-label="Raise machine"><img class="m3-panel-icon-img" src="img/arrow_up_20.png" alt="" /></button>
+                                                    <button type="button" class="axle-dpad-btn" data-area="left" aria-label="Roll left"><img class="m3-panel-icon-img" src="img/arrow_top_left_20.png" alt="" /></button>
+                                                    <button type="button" class="axle-dpad-btn axle-dpad-btn--auto m3-auto-pill on" data-area="center" aria-pressed="true" onclick="toggleAxleHeightAuto(this)">Auto</button>
+                                                    <button type="button" class="axle-dpad-btn" data-area="right" aria-label="Roll right"><img class="m3-panel-icon-img" src="img/arrow_top_right_20.png" alt="" /></button>
+                                                    <button type="button" class="axle-dpad-btn" data-area="down" aria-label="Lower machine"><img class="m3-panel-icon-img" src="img/arrow_down_20.png" alt="" /></button>
                                                 </div>
                                                 <div class="axle-vgauge" aria-label="Height gauge right">
                                                     <span class="axle-vgauge-num axle-vgauge-num--top">0</span>
@@ -3113,9 +3176,9 @@
                                                 <div class="axle-steer-center"></div>
                                             </div>
                                             <div class="axle-steer-btns">
-                                                <button type="button" class="axle-dpad-btn" aria-label="Steer left">←</button>
+                                                <button type="button" class="axle-dpad-btn" aria-label="Steer left"><img class="m3-panel-icon-img" src="img/arrow_rev_20.png" alt="" /></button>
                                                 <button type="button" class="axle-dpad-btn axle-dpad-btn--wide" aria-label="Center steering">Center</button>
-                                                <button type="button" class="axle-dpad-btn" aria-label="Steer right">→</button>
+                                                <button type="button" class="axle-dpad-btn" aria-label="Steer right"><img class="m3-panel-icon-img" src="img/arrow_fwd_20.png" alt="" /></button>
                                             </div>
                                         </section>
                                         <section class="axle-panel axle-panel--drive hmi-panel" aria-label="Wheel drive">
@@ -3148,15 +3211,15 @@
 
                 <footer class="bottom-bar">
                     <div class="preset-group">
-                        <button type="button" class="preset-btn dig">Digger 1</button>
-                        <button type="button" class="preset-btn dig">Digger 2</button>
-                        <button type="button" class="preset-btn dig">Digger 3</button>
+                        <button type="button" class="preset-btn dig is-selected" onclick="selectPotatoPreset(this)">Digger 1</button>
+                        <button type="button" class="preset-btn dig" onclick="selectPotatoPreset(this)">Digger 2</button>
+                        <button type="button" class="preset-btn dig" onclick="selectPotatoPreset(this)">Digger 3</button>
                     </div>
                     <div class="preset-spacer"></div>
                     <div class="preset-group">
-                        <button type="button" class="preset-btn clean">CLEAN 1</button>
-                        <button type="button" class="preset-btn clean">CLEAN 2</button>
-                        <button type="button" class="preset-btn clean">CLEAN 3</button>
+                        <button type="button" class="preset-btn clean is-selected" onclick="selectPotatoPreset(this)">CLEAN 1</button>
+                        <button type="button" class="preset-btn clean" onclick="selectPotatoPreset(this)">CLEAN 2</button>
+                        <button type="button" class="preset-btn clean" onclick="selectPotatoPreset(this)">CLEAN 3</button>
                     </div>
                     <div class="bottom-bar-end">
                         <select id="jsUserSelect" class="js-user-select" aria-label="Joystick script user" title="Joystick script user">
@@ -3257,11 +3320,13 @@
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
             const name = btn.textContent.trim();
             btn.setAttribute('aria-label', `Auto mode: ${name}, ${on ? 'on' : 'off'}`);
+            scheduleSaveMockupState();
         }
 
         function toggleQuickBtn(btn) {
             const on = btn.classList.toggle('on');
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            scheduleSaveMockupState();
         }
 
         function chainsExclusiveGroup(btn) {
@@ -3272,11 +3337,13 @@
                 b.classList.toggle('on', on);
                 b.setAttribute('aria-pressed', on ? 'true' : 'false');
             });
+            scheduleSaveMockupState();
         }
 
         function toggleChainsAllAuto(btn) {
             var on = btn.classList.toggle('on');
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            scheduleSaveMockupState();
         }
 
         let diggerNosePsi = 0;
@@ -3285,11 +3352,13 @@
             diggerNosePsi = Math.max(0, Math.min(200, diggerNosePsi + delta));
             const el = document.getElementById('diggerNosePsi');
             if (el) el.textContent = diggerNosePsi + ' PSI';
+            scheduleSaveMockupState();
         }
 
         function toggleDiggerAuto(btn) {
             const on = btn.classList.toggle('on');
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            scheduleSaveMockupState();
         }
 
         function toggleDiggerSync(btn) {
@@ -3299,12 +3368,243 @@
             const on = cols.classList.contains('sync-active');
             btn.classList.toggle('on', on);
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            scheduleSaveMockupState();
         }
 
         var DIGGER_GAUGE_STEP = 2;
         var DIGGER_HOLD_DELAY_MS = 420;
         var DIGGER_HOLD_INTERVAL_MS = 120;
         var diggerHoldState = null;
+
+        /* --- Persisted mockup state (localStorage) --- */
+        var MOCKUP_STATE_STORAGE_KEY = 'spudnikHmiMockupState.v1.potato3d';
+        var mockupStateSaveTimer = null;
+        var mockupStateApplying = false;
+        var MOCKUP_GAUGE_IDS = ['humpGauge', 'depthGaugeLeft', 'depthGaugeRight'];
+
+        function scheduleSaveMockupState() {
+            if (mockupStateApplying) return;
+            if (mockupStateSaveTimer) clearTimeout(mockupStateSaveTimer);
+            mockupStateSaveTimer = setTimeout(function () {
+                mockupStateSaveTimer = null;
+                try {
+                    localStorage.setItem(MOCKUP_STATE_STORAGE_KEY, JSON.stringify(gatherMockupState()));
+                } catch (err) {}
+            }, 120);
+        }
+
+        function selectPotatoPreset(btn) {
+            var g = btn.closest('.preset-group');
+            if (!g) return;
+            g.querySelectorAll('.preset-btn').forEach(function (b) {
+                b.classList.toggle('is-selected', b === btn);
+            });
+            scheduleSaveMockupState();
+        }
+
+        function toggleRunBtn(btn) {
+            var on = btn.classList.toggle('on');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            scheduleSaveMockupState();
+        }
+
+        function toggleAxleHeightAuto(btn) {
+            var on = btn.classList.toggle('on');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            scheduleSaveMockupState();
+        }
+
+        function gatherMockupState() {
+            var s = { v: 1 };
+            s.diggerNosePsi = diggerNosePsi;
+            s.gauges = {};
+            MOCKUP_GAUGE_IDS.forEach(function (id) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                s.gauges[id] = {
+                    actual: parseFloat(el.dataset.actual) || 0,
+                    target: parseFloat(el.dataset.target) || 0
+                };
+            });
+            var cc = document.getElementById('diggerSyncCoulters');
+            var du = document.getElementById('diggerSyncDepthUpper');
+            s.syncCoulters = !!(cc && cc.classList.contains('sync-active'));
+            s.syncDepth = !!(du && du.classList.contains('sync-active'));
+            s.homeAuto = [];
+            document.querySelectorAll('#ctrl-tab-home .home-auto-toggles .auto-mode-toggle').forEach(function (b) {
+                s.homeAuto.push(b.classList.contains('on'));
+            });
+            s.diggerAuto = [];
+            document.querySelectorAll('#ctrl-tab-digger .digger-auto-btn').forEach(function (b) {
+                s.diggerAuto.push(b.classList.contains('on'));
+            });
+            var chainsAll = document.querySelector('#ctrl-tab-chains button[onclick*="toggleChainsAllAuto"]');
+            s.chainsAllAuto = !!(chainsAll && chainsAll.classList.contains('on'));
+            s.chainsExclusive = [];
+            document.querySelectorAll('#view-control [data-chains-exclusive]').forEach(function (g) {
+                var idx = 0;
+                var btns = g.querySelectorAll('button');
+                btns.forEach(function (b, bi) {
+                    if (b.classList.contains('on') || b.getAttribute('aria-pressed') === 'true') idx = bi;
+                });
+                s.chainsExclusive.push(idx);
+            });
+            s.presetDig = 0;
+            s.presetClean = 0;
+            var pgs = document.querySelectorAll('footer .preset-group');
+            if (pgs[0]) {
+                pgs[0].querySelectorAll('.preset-btn').forEach(function (b, i) {
+                    if (b.classList.contains('is-selected')) s.presetDig = i;
+                });
+            }
+            if (pgs[1]) {
+                pgs[1].querySelectorAll('.preset-btn').forEach(function (b, i) {
+                    if (b.classList.contains('is-selected')) s.presetClean = i;
+                });
+            }
+            var runBtn = document.getElementById('btnRunToggle');
+            s.runOn = !!(runBtn && runBtn.classList.contains('on'));
+            s.quick = [];
+            document.querySelectorAll('.quick-actions .quick-btn.quick-toggle').forEach(function (b) {
+                s.quick.push(b.classList.contains('on'));
+            });
+            var ax = document.querySelector('#ctrl-tab-axle .axle-dpad-btn--auto');
+            s.axleHeightAuto = !!(ax && (ax.classList.contains('on') || ax.getAttribute('aria-pressed') === 'true'));
+            return s;
+        }
+
+        function setDiggerGaugeAbsolute(gaugeEl, a, t) {
+            if (!gaugeEl) return;
+            a = Math.max(0, Math.min(100, Number(a)));
+            t = Math.max(0, Math.min(100, Number(t)));
+            if (Number.isNaN(a)) a = 0;
+            if (Number.isNaN(t)) t = 0;
+            gaugeEl.style.setProperty('--actual', String(a));
+            gaugeEl.style.setProperty('--target', String(t));
+            gaugeEl.dataset.actual = String(a);
+            gaugeEl.dataset.target = String(t);
+            var stack = gaugeEl.closest('.digger-gauge-stack');
+            if (stack) {
+                var act = stack.querySelector('[data-gauge-role="actual"]');
+                var tgt = stack.querySelector('[data-gauge-role="target"]');
+                if (act) act.textContent = String(Math.round(a));
+                if (tgt) tgt.textContent = String(Math.round(t));
+            }
+            gaugeEl.setAttribute('aria-valuenow', String(Math.round(a)));
+            gaugeEl.setAttribute('aria-valuetext', 'Actual ' + Math.round(a) + '%, target ' + Math.round(t) + '%.');
+        }
+
+        function setSyncPanelFromState(colsId, active) {
+            var cols = document.getElementById(colsId);
+            if (!cols) return;
+            var btn = cols.querySelector('.digger-sync-btn');
+            if (!btn) return;
+            if (active) cols.classList.add('sync-active');
+            else cols.classList.remove('sync-active');
+            btn.classList.toggle('on', !!active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+
+        function applyChainsExclusiveAtIndex(groupEl, index) {
+            var btns = groupEl.querySelectorAll('button');
+            if (!btns.length) return;
+            var idx = Math.max(0, Math.min(btns.length - 1, index | 0));
+            btns.forEach(function (b, bi) {
+                var on = bi === idx;
+                b.classList.toggle('on', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+        }
+
+        function applyMockupState(s) {
+            if (!s || s.v !== 1) return;
+            mockupStateApplying = true;
+            try {
+                if (typeof s.diggerNosePsi === 'number') {
+                    diggerNosePsi = Math.max(0, Math.min(200, s.diggerNosePsi));
+                    var noseEl = document.getElementById('diggerNosePsi');
+                    if (noseEl) noseEl.textContent = diggerNosePsi + ' PSI';
+                }
+                if (s.gauges) {
+                    MOCKUP_GAUGE_IDS.forEach(function (id) {
+                        if (!s.gauges[id]) return;
+                        var el = document.getElementById(id);
+                        if (!el) return;
+                        setDiggerGaugeAbsolute(el, s.gauges[id].actual, s.gauges[id].target);
+                    });
+                }
+                setSyncPanelFromState('diggerSyncCoulters', !!s.syncCoulters);
+                setSyncPanelFromState('diggerSyncDepthUpper', !!s.syncDepth);
+                var homeBtns = document.querySelectorAll('#ctrl-tab-home .home-auto-toggles .auto-mode-toggle');
+                if (s.homeAuto && s.homeAuto.length) {
+                    homeBtns.forEach(function (b, i) {
+                        if (i < s.homeAuto.length) {
+                            b.classList.toggle('on', !!s.homeAuto[i]);
+                            b.setAttribute('aria-pressed', s.homeAuto[i] ? 'true' : 'false');
+                            var nm = b.textContent.trim();
+                            b.setAttribute('aria-label', 'Auto mode: ' + nm + ', ' + (s.homeAuto[i] ? 'on' : 'off'));
+                        }
+                    });
+                }
+                var digBtns = document.querySelectorAll('#ctrl-tab-digger .digger-auto-btn');
+                if (s.diggerAuto && s.diggerAuto.length) {
+                    digBtns.forEach(function (b, i) {
+                        if (i < s.diggerAuto.length) {
+                            b.classList.toggle('on', !!s.diggerAuto[i]);
+                            b.setAttribute('aria-pressed', s.diggerAuto[i] ? 'true' : 'false');
+                        }
+                    });
+                }
+                var chainsAllBtn = document.querySelector('#ctrl-tab-chains button[onclick*="toggleChainsAllAuto"]');
+                if (chainsAllBtn) {
+                    chainsAllBtn.classList.toggle('on', !!s.chainsAllAuto);
+                    chainsAllBtn.setAttribute('aria-pressed', s.chainsAllAuto ? 'true' : 'false');
+                }
+                if (s.chainsExclusive && s.chainsExclusive.length) {
+                    var groups = document.querySelectorAll('#view-control [data-chains-exclusive]');
+                    groups.forEach(function (g, gi) {
+                        if (gi < s.chainsExclusive.length) applyChainsExclusiveAtIndex(g, s.chainsExclusive[gi]);
+                    });
+                }
+                var pgs = document.querySelectorAll('footer .preset-group');
+                if (pgs[0] && typeof s.presetDig === 'number') {
+                    var pb = pgs[0].querySelectorAll('.preset-btn')[s.presetDig];
+                    if (pb) selectPotatoPreset(pb);
+                }
+                if (pgs[1] && typeof s.presetClean === 'number') {
+                    var pb2 = pgs[1].querySelectorAll('.preset-btn')[s.presetClean];
+                    if (pb2) selectPotatoPreset(pb2);
+                }
+                var runBtn = document.getElementById('btnRunToggle');
+                if (runBtn && typeof s.runOn === 'boolean') {
+                    runBtn.classList.toggle('on', s.runOn);
+                    runBtn.setAttribute('aria-pressed', s.runOn ? 'true' : 'false');
+                }
+                if (s.quick && s.quick.length) {
+                    document.querySelectorAll('.quick-actions .quick-btn.quick-toggle').forEach(function (b, i) {
+                        if (i < s.quick.length) {
+                            b.classList.toggle('on', !!s.quick[i]);
+                            b.setAttribute('aria-pressed', s.quick[i] ? 'true' : 'false');
+                        }
+                    });
+                }
+                var ax = document.querySelector('#ctrl-tab-axle .axle-dpad-btn--auto');
+                if (ax && typeof s.axleHeightAuto === 'boolean') {
+                    ax.classList.toggle('on', s.axleHeightAuto);
+                    ax.setAttribute('aria-pressed', s.axleHeightAuto ? 'true' : 'false');
+                }
+            } finally {
+                mockupStateApplying = false;
+            }
+        }
+
+        function loadMockupState() {
+            try {
+                var raw = localStorage.getItem(MOCKUP_STATE_STORAGE_KEY);
+                if (!raw) return;
+                applyMockupState(JSON.parse(raw));
+            } catch (err) {}
+        }
 
         function diggerHoldEnd() {
             if (!diggerHoldState) return;
@@ -3359,6 +3659,7 @@
             }
             gaugeEl.setAttribute('aria-valuenow', String(Math.round(a)));
             gaugeEl.setAttribute('aria-valuetext', 'Actual ' + Math.round(a) + '%, target ' + Math.round(t) + '%.');
+            scheduleSaveMockupState();
         }
 
         function nudgeDiggerGaugeById(id, delta) {
@@ -3456,6 +3757,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+            loadMockupState();
             wireDiggerSyncPanel(document.getElementById('diggerSyncCoulters'));
             wireDiggerSyncPanel(document.getElementById('diggerSyncDepthUpper'));
             wireDiggerTabHoldRepeats();
