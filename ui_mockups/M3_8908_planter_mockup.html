@@ -3029,6 +3029,155 @@
             }
         }
 
+        #set-tab-telematics.set-tab-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 8px 10px 10px;
+            overflow-y: auto;
+        }
+
+        .tele-setup {
+            width: 100%;
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 8px 10px 10px;
+            background: #fff;
+            border-radius: var(--m3-radius-md);
+            color: #0d0d0d;
+        }
+
+        #view-settings .tele-setup.hmi-panel {
+            background: #fff;
+        }
+
+        .tele-setup__grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 12px;
+            align-items: stretch;
+        }
+
+        .tele-setup__panel {
+            border: 2px solid #37474f;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .tele-setup__head {
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: #fff;
+            background: #1a237e;
+        }
+
+        .tele-setup__body {
+            padding: 8px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .tele-setup-field {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(5rem, 1fr);
+            gap: 6px 8px;
+            align-items: center;
+        }
+
+        .tele-setup-field__label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #0d0d0d;
+            line-height: 1.2;
+        }
+
+        .tele-setup-input {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 28px;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 4px;
+            border: 1px solid #424242;
+            background: #fff;
+            color: #0d0d0d;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        .tele-setup-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .tele-setup-check input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-top: 1px;
+            flex-shrink: 0;
+            accent-color: #1a237e;
+        }
+
+        .tele-setup-check label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #212121;
+            line-height: 1.3;
+            cursor: pointer;
+        }
+
+        .tele-setup-status {
+            font-size: 11px;
+            font-weight: 700;
+            color: #37474f;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+            padding-top: 2px;
+            border-top: 1px solid #bdbdbd;
+            margin-top: 4px;
+        }
+
+        .tele-setup-status__val {
+            font-weight: 800;
+            color: #0d47a1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .tele-setup__btn {
+            margin-top: 4px;
+            align-self: flex-start;
+            min-height: 30px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            border: 2px solid #0d0d0d;
+            border-radius: 4px;
+            background: #eceff1;
+            color: #0d0d0d;
+            cursor: pointer;
+        }
+
+        #view-settings .tele-setup .tele-setup-input {
+            user-select: text;
+        }
+
+        @media (max-width: 720px) {
+            .tele-setup__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .help-panel {
             flex: 1;
             display: flex;
@@ -4741,7 +4890,103 @@
                             </div>
                         </div>
                         <div id="set-tab-telematics" class="set-tab-content">
-                            <p class="tab-placeholder">Telematics Setup</p>
+                            <div class="tele-setup hmi-panel" aria-label="Telematics setup">
+                                <div class="tele-setup__grid">
+                                    <section class="tele-setup__panel" aria-labelledby="tele-head-cell">
+                                        <h3 class="tele-setup__head" id="tele-head-cell">CELLULAR &amp; DATA</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="teleCellEnable" checked />
+                                                <label for="teleCellEnable">Enable cellular data</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-apn">APN</span>
+                                                <input type="text" class="tele-setup-input" value="hologram.io" aria-labelledby="tele-lbl-apn" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-pin">SIM PIN (if required)</span>
+                                                <input type="password" class="tele-setup-input" value="" placeholder="—" aria-labelledby="tele-lbl-pin" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-pos-int">Position log interval (s)</span>
+                                                <input type="text" inputmode="numeric" class="tele-setup-input" value="15" aria-labelledby="tele-lbl-pos-int" />
+                                            </div>
+                                            <div class="tele-setup-status" role="group" aria-label="Cellular status">
+                                                <span>Signal:</span> <span class="tele-setup-status__val">−82 dBm</span>
+                                                <span>Carrier:</span> <span class="tele-setup-status__val">LTE</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="tele-setup__panel" aria-labelledby="tele-head-cloud">
+                                        <h3 class="tele-setup__head" id="tele-head-cloud">CLOUD UPLOAD</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="teleCloudEnable" checked />
+                                                <label for="teleCloudEnable">Enable cloud work logs</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-machine-id">Machine ID</span>
+                                                <input type="text" class="tele-setup-input" value="8908-55-31" aria-labelledby="tele-lbl-machine-id" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-upload-int">Upload batch interval (min)</span>
+                                                <input type="text" inputmode="numeric" class="tele-setup-input" value="5" aria-labelledby="tele-lbl-upload-int" />
+                                            </div>
+                                            <div class="tele-setup-status" role="group" aria-label="Upload status">
+                                                <span>Last upload:</span> <span class="tele-setup-status__val">12:04 today</span>
+                                                <span>Queue:</span> <span class="tele-setup-status__val">0 pending</span>
+                                            </div>
+                                            <button type="button" class="tele-setup__btn">Sync now</button>
+                                        </div>
+                                    </section>
+                                    <section class="tele-setup__panel" aria-labelledby="tele-head-ntrip">
+                                        <h3 class="tele-setup__head" id="tele-head-ntrip">GNSS / NTRIP</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="teleNtripEnable" />
+                                                <label for="teleNtripEnable">Enable NTRIP corrections</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-caster">Caster host</span>
+                                                <input type="text" class="tele-setup-input" value="ntrip.example.net" aria-labelledby="tele-lbl-caster" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-mount">Mountpoint</span>
+                                                <input type="text" class="tele-setup-input" value="MNT_PLANTER_01" aria-labelledby="tele-lbl-mount" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-ntrip-user">User</span>
+                                                <input type="text" class="tele-setup-input" value="field_ops" aria-labelledby="tele-lbl-ntrip-user" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-ntrip-pass">Password</span>
+                                                <input type="password" class="tele-setup-input" value="" placeholder="••••••" aria-labelledby="tele-lbl-ntrip-pass" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="tele-setup__panel" aria-labelledby="tele-head-remote">
+                                        <h3 class="tele-setup__head" id="tele-head-remote">REMOTE &amp; DIAGNOSTICS</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="teleRemoteAllow" />
+                                                <label for="teleRemoteAllow">Allow remote support sessions</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="tele-lbl-remote-timeout">Session timeout (min)</span>
+                                                <input type="text" inputmode="numeric" class="tele-setup-input" value="30" aria-labelledby="tele-lbl-remote-timeout" />
+                                            </div>
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="teleDiagPush" checked />
+                                                <label for="teleDiagPush">Push diagnostic bundles on fault</label>
+                                            </div>
+                                            <div class="tele-setup-status" role="group" aria-label="Network identity">
+                                                <span>IMEI:</span> <span class="tele-setup-status__val">35…218421</span>
+                                                <span>FW:</span> <span class="tele-setup-status__val">LTE 2.1.4</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <nav class="tabs-container set-tabs">

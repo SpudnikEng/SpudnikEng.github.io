@@ -2155,23 +2155,148 @@
             color: var(--text-muted);
         }
 
+        .diag-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            background: #c4c4c4;
+        }
+
+        .diag-screen__header {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 8px 12px 6px;
+            background: #b8b8b8;
+            border-bottom: 2px solid #616161;
+        }
+
+        .diag-screen__nav {
+            min-width: 48px;
+            min-height: 44px;
+            padding: 0 10px;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1;
+            border: 2px solid #212121;
+            border-radius: 6px;
+            background: #eceff1;
+            color: #212121;
+            cursor: pointer;
+        }
+
+        .diag-screen__title {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: #0d0d0d;
+            text-align: center;
+        }
+
         .diag-row {
             flex: 1;
             display: flex;
-            gap: 20px;
-            padding: 20px;
+            gap: 14px;
+            padding: 12px 14px 14px;
             min-height: 0;
-            background-color: var(--bg-color);
+            overflow: hidden;
+            background: #c4c4c4;
         }
 
         .diag-half {
             flex: 1;
             display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            min-width: 0;
+            padding: 10px 10px 12px;
+            background: #d8d8d8;
+            border: 2px solid #424242;
+            border-radius: 8px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        }
+
+        .diag-panel__head {
+            margin: 0 0 10px;
+            font-size: 15px;
+            font-weight: 800;
+            text-align: center;
+            color: #0d0d0d;
+        }
+
+        .diag-panel__list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .diag-field {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border: 2px solid #c62828;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .diag-field__meta {
+            flex: 1;
+            min-width: 0;
+            padding: 6px 8px 7px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .diag-field__label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
+            color: #0d0d0d;
+            text-transform: uppercase;
+        }
+
+        .diag-field__wire {
+            font-size: 9px;
+            font-weight: 600;
+            line-height: 1.25;
+            color: #1565c0;
+        }
+
+        .diag-field__value-wrap {
+            display: flex;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-muted);
+            gap: 5px;
+            min-width: 5.75rem;
+            padding: 6px 10px;
+            background: #fff;
+            border-left: 1px solid rgba(0, 0, 0, 0.18);
+        }
+
+        .diag-field__value {
+            font-size: 13px;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: #0d0d0d;
+        }
+
+        .diag-field__unit {
+            font-size: 11px;
+            font-weight: 800;
+            color: #0d0d0d;
+            white-space: nowrap;
         }
 
         .settings-row {
@@ -2199,6 +2324,897 @@
 
         .set-tab-content.active {
             display: flex;
+        }
+
+        #set-tab-presets.set-tab-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 8px 10px 10px;
+            overflow-x: visible;
+            overflow-y: auto;
+        }
+
+        #set-tab-start-end-row.set-tab-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 8px 10px 10px;
+            overflow-x: visible;
+            overflow-y: auto;
+        }
+
+        .row-seq-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 42rem;
+        }
+
+        .row-seq-panel {
+            width: 100%;
+            padding: 10px 12px 12px;
+            background: #fff;
+            border-radius: var(--m3-radius-md);
+            color: #0d0d0d;
+        }
+
+        #view-settings .row-seq-panel.hmi-panel {
+            background: #fff;
+        }
+
+        .row-seq-panel__title {
+            margin: 0 0 8px;
+            font-size: 15px;
+            font-weight: 800;
+            text-align: left;
+            color: #0d0d0d;
+        }
+
+        .row-seq__table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .row-seq__th {
+            padding: 4px 6px 8px;
+            font-size: 11px;
+            font-weight: 800;
+            text-align: center;
+            color: #0d0d0d;
+            border-bottom: 2px solid #0d0d0d;
+        }
+
+        .row-seq__th--op {
+            width: 40%;
+            border-bottom-color: transparent;
+        }
+
+        .row-seq__label {
+            padding: 6px 8px 6px 0;
+            text-align: left;
+            font-weight: 800;
+            vertical-align: middle;
+            border-bottom: 1px solid #bdbdbd;
+        }
+
+        .row-seq__cell {
+            padding: 5px 6px;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid #bdbdbd;
+        }
+
+        .row-seq__delay,
+        .row-seq__duration-val {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .row-seq__input {
+            box-sizing: border-box;
+            width: 3.25rem;
+            min-height: 26px;
+            padding: 2px 4px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            border: 2px solid #0d0d0d;
+            border-radius: 3px;
+            background: #fff;
+            color: #0d0d0d;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        .row-seq__input--wide {
+            width: 3.75rem;
+        }
+
+        .row-seq__unit {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0d0d0d;
+            white-space: nowrap;
+        }
+
+        .row-seq__cell--dur .row-seq__check {
+            width: 18px;
+            height: 18px;
+            accent-color: #1a237e;
+            cursor: pointer;
+        }
+
+        #view-settings .row-seq__input {
+            user-select: text;
+        }
+
+        #set-tab-chains.set-tab-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 8px 10px 10px;
+            overflow-x: visible;
+            overflow-y: auto;
+        }
+
+        .chains-set-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            max-width: 28rem;
+        }
+
+        .chains-set-panel {
+            width: 100%;
+            padding: 10px 12px 12px;
+            background: #eceff1;
+            border-radius: var(--m3-radius-md);
+            color: #0d0d0d;
+        }
+
+        #view-settings .chains-set-panel.hmi-panel {
+            background: #eceff1;
+        }
+
+        .chains-set-section-title {
+            margin: 0 0 10px;
+            font-size: 14px;
+            font-weight: 800;
+            text-align: center;
+            color: #0d0d0d;
+        }
+
+        .chains-set__table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .chains-set__th {
+            padding: 5px 6px 7px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #0d0d0d;
+            border-bottom: 2px solid #0d0d0d;
+        }
+
+        .chains-set__th--chain {
+            text-align: left;
+            width: 46%;
+        }
+
+        .chains-set__th--num {
+            text-align: center;
+            width: 27%;
+        }
+
+        .chains-set__label {
+            padding: 5px 8px 5px 0;
+            text-align: left;
+            font-weight: 800;
+            vertical-align: middle;
+            border-bottom: 1px solid #9e9e9e;
+        }
+
+        .chains-set__cell {
+            padding: 4px 4px;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid #9e9e9e;
+        }
+
+        .chains-set__cell--empty {
+            min-height: 28px;
+            background: #e0e3e6;
+        }
+
+        .chains-set-min {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chains-set-min__row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 8px 10px;
+            align-items: center;
+        }
+
+        .chains-set-min__label {
+            font-size: 12px;
+            font-weight: 800;
+            color: #0d0d0d;
+        }
+
+        .chains-set__inline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+
+        .chains-set__inline--center {
+            justify-content: center;
+            width: 100%;
+        }
+
+        .chains-set__input {
+            box-sizing: border-box;
+            width: 3.5rem;
+            min-height: 26px;
+            padding: 2px 4px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            border: 2px solid #0d0d0d;
+            border-radius: 3px;
+            background: #fff;
+            color: #0d0d0d;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        .chains-set__input--wide {
+            width: 4rem;
+        }
+
+        .chains-set__unit {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0d0d0d;
+            white-space: nowrap;
+        }
+
+        #view-settings .chains-set__input {
+            user-select: text;
+        }
+
+        #set-tab-general.set-tab-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 8px 10px 10px;
+            overflow-x: visible;
+            overflow-y: auto;
+        }
+
+        .gen-set-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            max-width: 28rem;
+        }
+
+        .gen-set-panel {
+            width: 100%;
+            padding: 10px 12px 12px;
+            background: #eceff1;
+            border-radius: var(--m3-radius-md);
+            color: #0d0d0d;
+        }
+
+        #view-settings .gen-set-panel.hmi-panel {
+            background: #eceff1;
+        }
+
+        .gen-set-panel--beige {
+            background: #f0ebe3 !important;
+        }
+
+        #view-settings .gen-set-panel--beige.hmi-panel {
+            background: #f0ebe3;
+        }
+
+        .gen-set-section-title {
+            margin: 0 0 10px;
+            font-size: 14px;
+            font-weight: 800;
+            text-align: center;
+            color: #0d0d0d;
+        }
+
+        .gen-set-field-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px 12px;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .gen-set-field-row--fill-value {
+            grid-template-columns: auto minmax(0, 1fr);
+        }
+
+        .gen-set-field-row--fill-value .gen-set-input--text {
+            max-width: none;
+            width: 100%;
+        }
+
+        .gen-set-field-row + .gen-set-field-row {
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .gen-set-panel--beige .gen-set-field-row + .gen-set-field-row {
+            border-top-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .gen-set-field-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0d0d0d;
+            line-height: 1.25;
+        }
+
+        .gen-set-input {
+            box-sizing: border-box;
+            min-height: 28px;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: right;
+            border: 1px solid #0d0d0d;
+            border-radius: 3px;
+            background: #fff;
+            color: #0d0d0d;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        .gen-set-input--narrow {
+            width: 3.25rem;
+            text-align: center;
+        }
+
+        .gen-set-input--medium {
+            width: 4.25rem;
+            text-align: center;
+        }
+
+        .gen-set-input--wide {
+            width: 5.5rem;
+            text-align: center;
+        }
+
+        .gen-set-input--text {
+            width: 100%;
+            max-width: 16rem;
+            text-align: left;
+        }
+
+        .gen-set-inline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+
+        .gen-set-unit {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0d0d0d;
+            white-space: nowrap;
+        }
+
+        .gen-set-bright {
+            width: 100%;
+            max-width: 20rem;
+            margin: 0 auto;
+            padding: 10px 12px 12px;
+            background: #e0e0e0;
+            border: 1px solid #bdbdbd;
+            border-radius: 10px;
+            color: #0d0d0d;
+        }
+
+        .gen-set-bright__title {
+            margin: 0 0 10px;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: center;
+            color: #0d0d0d;
+        }
+
+        .gen-set-bright__row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .gen-set-bright__btn {
+            box-sizing: border-box;
+            min-height: 42px;
+            min-width: 52px;
+            padding: 0 12px;
+            font-family: 'Roboto', system-ui, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+            border: 2px solid #212121;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .gen-set-bright__btn--step {
+            background: #424242;
+            color: #fff;
+        }
+
+        .gen-set-bright__btn--auto {
+            min-width: 72px;
+            padding: 0 16px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            background: #2e7d32;
+            color: #fff;
+            border-color: #1b5e20;
+        }
+
+        .gen-set-mute-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 12px;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .gen-set-check {
+            width: 20px;
+            height: 20px;
+            accent-color: #0d0d0d;
+            cursor: pointer;
+        }
+
+        #view-settings .gen-set-input {
+            user-select: text;
+        }
+
+        #set-tab-joystick.set-tab-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 8px 10px 10px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+
+        .joy-map-wrap {
+            width: 100%;
+            max-width: 56rem;
+        }
+
+        .joy-map-panel {
+            padding: 8px 10px 10px;
+            background: #fff;
+            border-radius: var(--m3-radius-md);
+            color: #0d0d0d;
+        }
+
+        #view-settings .joy-map-panel.hmi-panel {
+            background: #fff;
+        }
+
+        .joy-map__table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .joy-map__th {
+            padding: 6px 8px 8px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #0d0d0d;
+            text-align: center;
+            border-bottom: 2px solid #0d0d0d;
+            background: #eceff1;
+        }
+
+        .joy-map__th--fn {
+            text-align: left;
+            width: 22%;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 11px;
+        }
+
+        .joy-map__fn {
+            padding: 5px 8px 5px 0;
+            text-align: left;
+            font-weight: 800;
+            vertical-align: middle;
+            border-bottom: 1px solid #bdbdbd;
+            white-space: nowrap;
+        }
+
+        .joy-map__cell {
+            padding: 4px 5px;
+            vertical-align: middle;
+            border-bottom: 1px solid #bdbdbd;
+            min-width: 10.5rem;
+        }
+
+        .joy-map__select {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 30px;
+            padding: 3px 5px;
+            font-size: 10px;
+            font-weight: 700;
+            border: 1px solid #424242;
+            border-radius: 4px;
+            background: #fff;
+            color: #0d0d0d;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        #view-settings .joy-map__select {
+            user-select: text;
+        }
+
+        .joy-map__title {
+            margin: 0 0 8px;
+            font-size: 14px;
+            font-weight: 800;
+            text-align: center;
+            color: #0d0d0d;
+        }
+
+        .preset-editor {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 6px 8px 8px;
+            background: #fff;
+            border-radius: var(--m3-radius-md);
+            color: #1a1c1e;
+        }
+
+        #view-settings .preset-editor.hmi-panel {
+            background: #fff;
+        }
+
+        .preset-editor__banks {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .preset-editor-bank-label {
+            margin: 0 0 4px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #37474f;
+        }
+
+        .preset-editor__stack {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px 10px;
+            align-items: stretch;
+        }
+
+        .preset-editor-section {
+            border: 2px solid var(--border-color);
+            border-radius: var(--m3-radius-sm);
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .preset-editor-section__title {
+            margin: 0;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: #fff;
+            background: #2d3135;
+        }
+
+        .preset-editor-section__body {
+            padding: 6px 8px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .preset-editor-name-row {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 6px 8px;
+            align-items: center;
+        }
+
+        .preset-editor-name-row label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #0d0d0d;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .preset-editor-name-input {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 28px;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: var(--m3-radius-sm);
+            border: 1px solid #424242;
+            background: #fff;
+            color: #0d0d0d;
+        }
+
+        .preset-editor-field {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 3.25rem 1.35rem;
+            gap: 4px 6px;
+            align-items: center;
+        }
+
+        .preset-editor-field--chain-mode {
+            grid-template-columns: minmax(0, 1fr) minmax(4.25rem, 1fr) 0;
+        }
+
+        .preset-editor-field--chain-mode .preset-editor-unit {
+            display: none;
+        }
+
+        .preset-editor-field__label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #0d0d0d;
+            line-height: 1.25;
+        }
+
+        .preset-editor-value {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 26px;
+            padding: 2px 4px;
+            font-size: 11px;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            text-align: center;
+            border-radius: var(--m3-radius-sm);
+            border: 1px solid #37474f;
+            background: #d6ebfa;
+            color: #7f1010;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        select.preset-editor-value-select {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 26px;
+            padding: 2px 4px;
+            font-size: 10px;
+            font-weight: 800;
+            text-align: center;
+            border-radius: var(--m3-radius-sm);
+            border: 1px solid #37474f;
+            background: #d6ebfa;
+            color: #7f1010;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        .preset-editor-unit {
+            font-size: 11px;
+            font-weight: 800;
+            color: #5d0f0f;
+            white-space: nowrap;
+        }
+
+        #view-settings .preset-editor .preset-editor-name-input,
+        #view-settings .preset-editor .preset-editor-value,
+        #view-settings .preset-editor .preset-editor-value-select {
+            user-select: text;
+        }
+
+        @media (max-width: 1020px) {
+            .preset-editor__stack {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .preset-editor__stack {
+                grid-template-columns: 1fr;
+            }
+            .preset-editor-field {
+                grid-template-columns: minmax(0, 1fr) 4rem 1.5rem;
+            }
+        }
+
+        #set-tab-telematics.set-tab-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 8px 10px 10px;
+            overflow-y: auto;
+        }
+
+        .tele-setup {
+            width: 100%;
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 8px 10px 10px;
+            background: #fff;
+            border-radius: var(--m3-radius-md);
+            color: #0d0d0d;
+        }
+
+        #view-settings .tele-setup.hmi-panel {
+            background: #fff;
+        }
+
+        .tele-setup__grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 12px;
+            align-items: stretch;
+        }
+
+        .tele-setup__panel {
+            border: 2px solid #37474f;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .tele-setup__head {
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: #fff;
+            background: #1a237e;
+        }
+
+        .tele-setup__body {
+            padding: 8px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .tele-setup-field {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(5rem, 1fr);
+            gap: 6px 8px;
+            align-items: center;
+        }
+
+        .tele-setup-field__label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #0d0d0d;
+            line-height: 1.2;
+        }
+
+        .tele-setup-input {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 28px;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 4px;
+            border: 1px solid #424242;
+            background: #fff;
+            color: #0d0d0d;
+            font-family: 'Roboto', system-ui, sans-serif;
+        }
+
+        .tele-setup-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .tele-setup-check input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-top: 1px;
+            flex-shrink: 0;
+            accent-color: #1a237e;
+        }
+
+        .tele-setup-check label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #212121;
+            line-height: 1.3;
+            cursor: pointer;
+        }
+
+        .tele-setup-status {
+            font-size: 11px;
+            font-weight: 700;
+            color: #37474f;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+            padding-top: 2px;
+            border-top: 1px solid #bdbdbd;
+            margin-top: 4px;
+        }
+
+        .tele-setup-status__val {
+            font-weight: 800;
+            color: #0d47a1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .tele-setup__btn {
+            margin-top: 4px;
+            align-self: flex-start;
+            min-height: 30px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            border: 2px solid #0d0d0d;
+            border-radius: 4px;
+            background: #eceff1;
+            color: #0d0d0d;
+            cursor: pointer;
+        }
+
+        #view-settings .tele-setup .tele-setup-input {
+            user-select: text;
+        }
+
+        @media (max-width: 720px) {
+            .tele-setup__grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .help-panel {
@@ -3433,17 +4449,17 @@
                 <footer class="bottom-bar">
                     <div class="preset-group">
                         <div class="m3-segmented" role="radiogroup" aria-label="Digger presets">
-                            <button type="button" class="m3-segment dig m3-segment--selected" role="radio" aria-checked="true" onclick="selectPresetSegment(this)">Digger 1</button>
-                            <button type="button" class="m3-segment dig" role="radio" aria-checked="false" onclick="selectPresetSegment(this)">Digger 2</button>
-                            <button type="button" class="m3-segment dig" role="radio" aria-checked="false" onclick="selectPresetSegment(this)">Digger 3</button>
+                            <button type="button" id="harvFooterPresetDig0" class="m3-segment dig m3-segment--selected" role="radio" aria-checked="true" data-harv-preset-dig="0" onclick="selectPresetSegment(this)">Digger 1</button>
+                            <button type="button" id="harvFooterPresetDig1" class="m3-segment dig" role="radio" aria-checked="false" data-harv-preset-dig="1" onclick="selectPresetSegment(this)">Digger 2</button>
+                            <button type="button" id="harvFooterPresetDig2" class="m3-segment dig" role="radio" aria-checked="false" data-harv-preset-dig="2" onclick="selectPresetSegment(this)">Digger 3</button>
                         </div>
                     </div>
                     <div class="preset-spacer"></div>
                     <div class="preset-group">
                         <div class="m3-segmented" role="radiogroup" aria-label="Clean presets">
-                            <button type="button" class="m3-segment clean m3-segment--selected" role="radio" aria-checked="true" onclick="selectPresetSegment(this)">Clean 1</button>
-                            <button type="button" class="m3-segment clean" role="radio" aria-checked="false" onclick="selectPresetSegment(this)">Clean 2</button>
-                            <button type="button" class="m3-segment clean" role="radio" aria-checked="false" onclick="selectPresetSegment(this)">Clean 3</button>
+                            <button type="button" id="harvFooterPresetClean0" class="m3-segment clean m3-segment--selected" role="radio" aria-checked="true" data-harv-preset-clean="0" onclick="selectPresetSegment(this)">Clean 1</button>
+                            <button type="button" id="harvFooterPresetClean1" class="m3-segment clean" role="radio" aria-checked="false" data-harv-preset-clean="1" onclick="selectPresetSegment(this)">Clean 2</button>
+                            <button type="button" id="harvFooterPresetClean2" class="m3-segment clean" role="radio" aria-checked="false" data-harv-preset-clean="2" onclick="selectPresetSegment(this)">Clean 3</button>
                         </div>
                     </div>
                     <div class="bottom-bar-end">
@@ -3458,40 +4474,961 @@
             </div>
 
             <div id="view-diagnostic" class="view">
-                <div class="diag-row">
-                    <div class="diag-half hmi-panel">Inputs</div>
-                    <div class="diag-half hmi-panel">Outputs</div>
+                <div class="diag-screen">
+                    <header class="diag-screen__header">
+                        <button type="button" class="diag-screen__nav" aria-label="Previous diagnostic group">&#8249;</button>
+                        <h1 class="diag-screen__title">1. Digger/Hump/Shakers</h1>
+                        <button type="button" class="diag-screen__nav" aria-label="Next diagnostic group">&#8250;</button>
+                    </header>
+                    <div class="diag-row">
+                        <section class="diag-half" aria-labelledby="diagInHead">
+                            <h2 class="diag-panel__head" id="diagInHead">Inputs</h2>
+                            <div class="diag-panel__list">
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Digger nose pos RH</div>
+                                        <div class="diag-field__wire">S4 In3 Pin13, Block4 Port5B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0.0</span>
+                                        <span class="diag-field__unit">mA</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Hump adjust pos</div>
+                                        <div class="diag-field__wire">S4 In3 Pin14, Block1 Port7A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0.0</span>
+                                        <span class="diag-field__unit">mA</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Diggernose prs B</div>
+                                        <div class="diag-field__wire">S4 In3 Pin22, Block1 Port1A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0.0</span>
+                                        <span class="diag-field__unit">mA</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Depthwheel pos RH</div>
+                                        <div class="diag-field__wire">S4X6 In Pin13, Block4 Port6B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0.0</span>
+                                        <span class="diag-field__unit">mA</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Depthwheel pos LH</div>
+                                        <div class="diag-field__wire">S4X6 In Pin14, Block7 Port5B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0.0</span>
+                                        <span class="diag-field__unit">mA</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="diag-half" aria-labelledby="diagOutHead">
+                            <h2 class="diag-panel__head" id="diagOutHead">Outputs</h2>
+                            <div class="diag-panel__list">
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Digger A RH</div>
+                                        <div class="diag-field__wire">S4 Out1 Pin1 (1T), Block1 Port3A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Digger B RH</div>
+                                        <div class="diag-field__wire">S4 Out1 Pin3 (2T), Block1 Port3B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Digger float RH</div>
+                                        <div class="diag-field__wire">S4 Out1 Pin7 (5T), Block1 Port8A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">Toggle</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Hump adjust A</div>
+                                        <div class="diag-field__wire">S4 Out1 Pin13 (9T), Block1 Port4A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Hump adjust B</div>
+                                        <div class="diag-field__wire">S4 Out1 Pin15 (10T), Block1 Port4B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Pri shaker</div>
+                                        <div class="diag-field__wire">S4 Out3 Pin3 (34T), Block1 Port2A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Sec shaker</div>
+                                        <div class="diag-field__wire">S4 Out3 Pin4 (35T), Block1 Port2B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Side elev shaker</div>
+                                        <div class="diag-field__wire">S4 Out3 Pin15 (42T), Block1 Port7B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Depthwheel A RH</div>
+                                        <div class="diag-field__wire">S4X6 Out Pin4 (3XT), Block4 Port1A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Depthwheel B RH</div>
+                                        <div class="diag-field__wire">S4X6 Out Pin6 (4XT), Block4 Port1B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Depthwheel A LH</div>
+                                        <div class="diag-field__wire">S4X6 Out Pin7 (5XT), Block5 Port1A</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                                <div class="diag-field">
+                                    <div class="diag-field__meta">
+                                        <div class="diag-field__label">Depthwheel B LH</div>
+                                        <div class="diag-field__wire">S4X6 Out Pin9 (6XT), Block5 Port1B</div>
+                                    </div>
+                                    <div class="diag-field__value-wrap">
+                                        <span class="diag-field__value">0</span>
+                                        <span class="diag-field__unit">PWM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
 
             <div id="view-settings" class="view">
                 <div class="settings-row">
                     <div class="set-workspace">
-                        <div id="set-tab-general" class="set-tab-content active">
-                            <p class="tab-placeholder">General Setup</p>
+                        <div id="set-tab-general" class="set-tab-content active" aria-label="General setup">
+                            <div class="gen-set-wrap">
+                                <section class="gen-set-panel hmi-panel" aria-labelledby="harvGenSerialTitle">
+                                    <h2 class="gen-set-section-title" id="harvGenSerialTitle">Machine</h2>
+                                    <div class="gen-set-field-row gen-set-field-row--fill-value">
+                                        <label class="gen-set-field-label" for="harvGenSerial">Serial number</label>
+                                        <input type="text" id="harvGenSerial" class="gen-set-input gen-set-input--text" value="7040-HV-01" maxlength="32" autocomplete="off" />
+                                    </div>
+                                </section>
+                                <section class="gen-set-panel gen-set-panel--beige hmi-panel" aria-labelledby="harvGenTableTitle">
+                                    <h2 class="gen-set-section-title" id="harvGenTableTitle">Table settings</h2>
+                                    <div class="gen-set-field-row">
+                                        <label class="gen-set-field-label" for="harvGenRevPress">Reversing roller pressure threshold</label>
+                                        <input type="text" id="harvGenRevPress" class="gen-set-input gen-set-input--wide" value="2000" inputmode="numeric" autocomplete="off" aria-label="Reversing roller pressure threshold" />
+                                    </div>
+                                    <div class="gen-set-field-row">
+                                        <label class="gen-set-field-label" for="harvGenRevDur">Reversing roller duration</label>
+                                        <span class="gen-set-inline">
+                                            <input type="text" id="harvGenRevDur" class="gen-set-input gen-set-input--narrow" value="2" inputmode="decimal" autocomplete="off" aria-label="Reversing roller duration (seconds)" />
+                                            <span class="gen-set-unit">sec</span>
+                                        </span>
+                                    </div>
+                                    <div class="gen-set-field-row">
+                                        <label class="gen-set-field-label" for="harvGenGapSafe">Gap safety position</label>
+                                        <input type="text" id="harvGenGapSafe" class="gen-set-input gen-set-input--medium" value="10" inputmode="numeric" autocomplete="off" aria-label="Gap safety position" />
+                                    </div>
+                                    <div class="gen-set-field-row">
+                                        <label class="gen-set-field-label" for="harvGenHeightSafe">Height safety position</label>
+                                        <input type="text" id="harvGenHeightSafe" class="gen-set-input gen-set-input--medium" value="10" inputmode="numeric" autocomplete="off" aria-label="Height safety position" />
+                                    </div>
+                                </section>
+                                <div class="gen-set-bright" role="group" aria-labelledby="harvGenBrightTitle">
+                                    <div class="gen-set-bright__title" id="harvGenBrightTitle">Display brightness</div>
+                                    <div class="gen-set-bright__row">
+                                        <button type="button" class="gen-set-bright__btn gen-set-bright__btn--step" aria-label="Decrease display brightness">−</button>
+                                        <button type="button" class="gen-set-bright__btn gen-set-bright__btn--auto" aria-pressed="true">Auto</button>
+                                        <button type="button" class="gen-set-bright__btn gen-set-bright__btn--step" aria-label="Increase display brightness">+</button>
+                                    </div>
+                                </div>
+                                <section class="gen-set-panel hmi-panel">
+                                    <div class="gen-set-mute-row">
+                                        <label class="gen-set-field-label" for="harvGenMuteAudio">Mute audio notifications</label>
+                                        <input type="checkbox" id="harvGenMuteAudio" class="gen-set-check" checked aria-label="Mute audio notifications" />
+                                    </div>
+                                </section>
+                            </div>
                         </div>
-                        <div id="set-tab-chains" class="set-tab-content">
-                            <p class="tab-placeholder">Chains Setup</p>
+                        <div id="set-tab-chains" class="set-tab-content" aria-label="Chains setup">
+                            <div class="chains-set-wrap">
+                                <section class="chains-set-panel hmi-panel" aria-label="Chain pitch and teeth">
+                                    <table class="chains-set__table">
+                                        <thead>
+                                            <tr>
+                                                <th class="chains-set__th chains-set__th--chain" scope="col">Chain</th>
+                                                <th class="chains-set__th chains-set__th--num" scope="col">Pitch</th>
+                                                <th class="chains-set__th chains-set__th--num" scope="col">Teeth</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Intake</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="50" inputmode="numeric" autocomplete="off" aria-label="Intake pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="11" inputmode="numeric" autocomplete="off" aria-label="Intake teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Primary</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Primary pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="12" inputmode="numeric" autocomplete="off" aria-label="Primary teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Secondary</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Secondary pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="10" inputmode="numeric" autocomplete="off" aria-label="Secondary teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Vine</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Vine pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="10" inputmode="numeric" autocomplete="off" aria-label="Vine teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Rear cross</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Rear cross pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="10" inputmode="numeric" autocomplete="off" aria-label="Rear cross teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Side elevator</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Side elevator pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="10" inputmode="numeric" autocomplete="off" aria-label="Side elevator teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Hopper elevator</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Hopper elevator pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="10" inputmode="numeric" autocomplete="off" aria-label="Hopper elevator teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Hopper floor</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Hopper floor pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="20" inputmode="numeric" autocomplete="off" aria-label="Hopper floor teeth" /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">Boom</th>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="45" inputmode="numeric" autocomplete="off" aria-label="Boom pitch" /></td>
+                                                <td class="chains-set__cell"><input type="text" class="chains-set__input" value="10" inputmode="numeric" autocomplete="off" aria-label="Boom teeth" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                                <section class="chains-set-panel hmi-panel" aria-labelledby="harvChainsMinSpdTitle">
+                                    <h2 class="chains-set-section-title" id="harvChainsMinSpdTitle">Minimum chain speed</h2>
+                                    <div class="chains-set-min">
+                                        <div class="chains-set-min__row">
+                                            <span class="chains-set-min__label" id="harvChainsLblFixedSpd">Fixed speed</span>
+                                            <span class="chains-set__inline">
+                                                <input type="text" id="harvChainsMinFixedFpm" class="chains-set__input chains-set__input--wide" value="128" inputmode="numeric" autocomplete="off" aria-labelledby="harvChainsLblFixedSpd" />
+                                                <span class="chains-set__unit">FPM</span>
+                                            </span>
+                                        </div>
+                                        <div class="chains-set-min__row">
+                                            <span class="chains-set-min__label" id="harvChainsLblGroundSpd">Ground speed</span>
+                                            <span class="chains-set__inline">
+                                                <input type="text" id="harvChainsMinGroundMph" class="chains-set__input chains-set__input--wide" value="1.2" inputmode="decimal" autocomplete="off" aria-labelledby="harvChainsLblGroundSpd" />
+                                                <span class="chains-set__unit">MPH</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="chains-set-panel hmi-panel" aria-labelledby="harvChainsHopperTitle">
+                                    <h2 class="chains-set-section-title" id="harvChainsHopperTitle">Hopper floor chain</h2>
+                                    <table class="chains-set__table">
+                                        <thead>
+                                            <tr>
+                                                <th class="chains-set__th chains-set__th--chain" scope="col"></th>
+                                                <th class="chains-set__th chains-set__th--num" scope="col">Speed</th>
+                                                <th class="chains-set__th chains-set__th--num" scope="col">Height</th>
+                                                <th class="chains-set__th chains-set__th--num" scope="col">Delay</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">H3</th>
+                                                <td class="chains-set__cell">
+                                                    <span class="chains-set__inline chains-set__inline--center">
+                                                        <input type="text" class="chains-set__input" value="1" inputmode="numeric" autocomplete="off" aria-label="Hopper floor H3 speed" />
+                                                        <span class="chains-set__unit">%</span>
+                                                    </span>
+                                                </td>
+                                                <td class="chains-set__cell">
+                                                    <span class="chains-set__inline chains-set__inline--center">
+                                                        <input type="text" class="chains-set__input" value="2" inputmode="numeric" autocomplete="off" aria-label="Hopper floor H3 height" />
+                                                        <span class="chains-set__unit">in</span>
+                                                    </span>
+                                                </td>
+                                                <td class="chains-set__cell">
+                                                    <span class="chains-set__inline chains-set__inline--center">
+                                                        <input type="text" class="chains-set__input" value="3" inputmode="numeric" autocomplete="off" aria-label="Hopper floor H3 delay" />
+                                                        <span class="chains-set__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">H2</th>
+                                                <td class="chains-set__cell">
+                                                    <span class="chains-set__inline chains-set__inline--center">
+                                                        <input type="text" class="chains-set__input" value="4" inputmode="numeric" autocomplete="off" aria-label="Hopper floor H2 speed" />
+                                                        <span class="chains-set__unit">%</span>
+                                                    </span>
+                                                </td>
+                                                <td class="chains-set__cell">
+                                                    <span class="chains-set__inline chains-set__inline--center">
+                                                        <input type="text" class="chains-set__input" value="5" inputmode="numeric" autocomplete="off" aria-label="Hopper floor H2 height" />
+                                                        <span class="chains-set__unit">in</span>
+                                                    </span>
+                                                </td>
+                                                <td class="chains-set__cell">
+                                                    <span class="chains-set__inline chains-set__inline--center">
+                                                        <input type="text" class="chains-set__input" value="6" inputmode="numeric" autocomplete="off" aria-label="Hopper floor H2 delay" />
+                                                        <span class="chains-set__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="chains-set__label" scope="row">H1</th>
+                                                <td class="chains-set__cell">
+                                                    <span class="chains-set__inline chains-set__inline--center">
+                                                        <input type="text" class="chains-set__input" value="7" inputmode="numeric" autocomplete="off" aria-label="Hopper floor H1 speed" />
+                                                        <span class="chains-set__unit">%</span>
+                                                    </span>
+                                                </td>
+                                                <td class="chains-set__cell chains-set__cell--empty" aria-label="Hopper floor H1 height (not used)"></td>
+                                                <td class="chains-set__cell chains-set__cell--empty" aria-label="Hopper floor H1 delay (not used)"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
                         </div>
-                        <div id="set-tab-joystick" class="set-tab-content">
-                            <p class="tab-placeholder">Joystick Setup</p>
+                        <div id="set-tab-joystick" class="set-tab-content" aria-label="Joystick assignment setup">
+                            <div class="joy-map-wrap">
+                                <section class="joy-map-panel hmi-panel" aria-labelledby="harvJoyMapTitle">
+                                    <h2 class="joy-map__title" id="harvJoyMapTitle">Joystick functions</h2>
+                                    <table class="joy-map__table">
+                                        <thead>
+                                            <tr>
+                                                <th class="joy-map__th joy-map__th--fn" scope="col">Function</th>
+                                                <th class="joy-map__th" scope="col">Config 1</th>
+                                                <th class="joy-map__th" scope="col">Config 2</th>
+                                                <th class="joy-map__th" scope="col">Config 3</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="harvJoyMapTbody"></tbody>
+                                    </table>
+                                </section>
+                            </div>
                         </div>
-                        <div id="set-tab-start-row" class="set-tab-content">
-                            <p class="tab-placeholder">Start Row Setup</p>
+                        <div id="set-tab-start-end-row" class="set-tab-content" aria-label="Start and end row sequence setup">
+                            <div class="row-seq-wrap">
+                                <section class="row-seq-panel hmi-panel" aria-labelledby="harvRowSeqStartTitle">
+                                    <h2 class="row-seq-panel__title" id="harvRowSeqStartTitle">Start row sequence</h2>
+                                    <table class="row-seq__table">
+                                        <thead>
+                                            <tr>
+                                                <th class="row-seq__th row-seq__th--op" scope="col"></th>
+                                                <th class="row-seq__th" scope="col">Start delay</th>
+                                                <th class="row-seq__th" scope="col">Duration/Enable</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Digger auto</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqStartDiggerDelay" class="row-seq__input" value="1.5" inputmode="decimal" autocomplete="off" aria-label="Digger auto start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <input type="checkbox" id="harvSeqStartDiggerEn" class="row-seq__check" checked aria-label="Digger auto duration or enable" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Coulters down</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqStartCoultersDelay" class="row-seq__input" value="0.2" inputmode="decimal" autocomplete="off" aria-label="Coulters down start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <span class="row-seq__duration-val">
+                                                        <input type="text" id="harvSeqStartCoultersDur" class="row-seq__input row-seq__input--wide" value="2.0" inputmode="decimal" autocomplete="off" aria-label="Coulters down duration (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Chains auto</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqStartChainsDelay" class="row-seq__input" value="0.1" inputmode="decimal" autocomplete="off" aria-label="Chains auto start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <input type="checkbox" id="harvSeqStartChainsEn" class="row-seq__check" checked aria-label="Chains auto duration or enable" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Steer center</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqStartSteerDelay" class="row-seq__input" value="0.3" inputmode="decimal" autocomplete="off" aria-label="Steer center start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <input type="checkbox" id="harvSeqStartSteerEn" class="row-seq__check" checked aria-label="Steer center duration or enable" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Depth wheel auto</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqStartDepthDelay" class="row-seq__input" value="0.4" inputmode="decimal" autocomplete="off" aria-label="Depth wheel auto start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <input type="checkbox" id="harvSeqStartDepthEn" class="row-seq__check" checked aria-label="Depth wheel auto duration or enable" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                                <section class="row-seq-panel hmi-panel" aria-labelledby="harvRowSeqEndTitle">
+                                    <h2 class="row-seq-panel__title" id="harvRowSeqEndTitle">End row sequence</h2>
+                                    <table class="row-seq__table">
+                                        <thead>
+                                            <tr>
+                                                <th class="row-seq__th row-seq__th--op" scope="col"></th>
+                                                <th class="row-seq__th" scope="col">Start delay</th>
+                                                <th class="row-seq__th" scope="col">Duration/Enable</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Digger up</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqEndDiggerUpDelay" class="row-seq__input" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Digger up start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <span class="row-seq__duration-val">
+                                                        <input type="text" id="harvSeqEndDiggerUpDur" class="row-seq__input row-seq__input--wide" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Digger up duration (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Digger down</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqEndDiggerDnDelay" class="row-seq__input" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Digger down start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <span class="row-seq__duration-val">
+                                                        <input type="text" id="harvSeqEndDiggerDnDur" class="row-seq__input row-seq__input--wide" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Digger down duration (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Coulters up</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqEndCoultersDelay" class="row-seq__input" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Coulters up start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <span class="row-seq__duration-val">
+                                                        <input type="text" id="harvSeqEndCoultersDur" class="row-seq__input row-seq__input--wide" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Coulters up duration (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Chains auto</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqEndChainsDelay" class="row-seq__input" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Chains auto start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <input type="checkbox" id="harvSeqEndChainsEn" class="row-seq__check" aria-label="Chains auto duration or enable" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="row-seq__label" scope="row">Depth wheel up</th>
+                                                <td class="row-seq__cell">
+                                                    <span class="row-seq__delay">
+                                                        <input type="text" id="harvSeqEndDepthUpDelay" class="row-seq__input" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Depth wheel up start delay (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                                <td class="row-seq__cell row-seq__cell--dur">
+                                                    <span class="row-seq__duration-val">
+                                                        <input type="text" id="harvSeqEndDepthUpDur" class="row-seq__input row-seq__input--wide" value="0.0" inputmode="decimal" autocomplete="off" aria-label="Depth wheel up duration (seconds)" />
+                                                        <span class="row-seq__unit">sec</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
                         </div>
-                        <div id="set-tab-end-row" class="set-tab-content">
-                            <p class="tab-placeholder">End Row Setup</p>
+                        <div id="set-tab-presets" class="set-tab-content">
+                            <div class="preset-editor hmi-panel" aria-label="Equipment presets">
+                                <div class="preset-editor__banks">
+                                    <div class="preset-editor-bank">
+                                        <div class="preset-editor-bank-label" id="harvPresetBankDigLabel">Digger presets</div>
+                                        <div class="preset-editor__stack" aria-labelledby="harvPresetBankDigLabel">
+                                    <section class="preset-editor-section" aria-labelledby="harvPresetSecTitle0">
+                                        <h3 class="preset-editor-section__title" id="harvPresetSecTitle0">Preset 1</h3>
+                                        <div class="preset-editor-section__body">
+                                            <div class="preset-editor-name-row">
+                                                <label for="harvPresetName0">Name</label>
+                                                <input type="text" id="harvPresetName0" class="preset-editor-name-input" maxlength="48" value="Digger 1" autocomplete="off" />
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP0LblGap">Gap</span>
+                                                <input type="text" class="preset-editor-value" value="6" aria-labelledby="harvP0LblGap" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP0LblHeight">Height</span>
+                                                <input type="text" class="preset-editor-value" value="7" aria-labelledby="harvP0LblHeight" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP0LblAngle">Angle</span>
+                                                <input type="text" class="preset-editor-value" value="45" aria-labelledby="harvP0LblAngle" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP0LblPinch">Pinch mode</span>
+                                                <input type="text" class="preset-editor-value" value="Auto" aria-labelledby="harvP0LblPinch" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP0LblSegRoller">Segment roller</span>
+                                                <input type="text" class="preset-editor-value" value="118" aria-labelledby="harvP0LblSegRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP0LblClodRoller">Clod roller</span>
+                                                <input type="text" class="preset-editor-value" value="96" aria-labelledby="harvP0LblClodRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP0LblXferRoller">Transfer roller</span>
+                                                <input type="text" class="preset-editor-value" value="88" aria-labelledby="harvP0LblXferRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="preset-editor-section" aria-labelledby="harvPresetSecTitle1">
+                                        <h3 class="preset-editor-section__title" id="harvPresetSecTitle1">Preset 2</h3>
+                                        <div class="preset-editor-section__body">
+                                            <div class="preset-editor-name-row">
+                                                <label for="harvPresetName1">Name</label>
+                                                <input type="text" id="harvPresetName1" class="preset-editor-name-input" maxlength="48" value="Digger 2" autocomplete="off" />
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP1LblGap">Gap</span>
+                                                <input type="text" class="preset-editor-value" value="5" aria-labelledby="harvP1LblGap" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP1LblHeight">Height</span>
+                                                <input type="text" class="preset-editor-value" value="6" aria-labelledby="harvP1LblHeight" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP1LblAngle">Angle</span>
+                                                <input type="text" class="preset-editor-value" value="42" aria-labelledby="harvP1LblAngle" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP1LblPinch">Pinch mode</span>
+                                                <input type="text" class="preset-editor-value" value="Manual" aria-labelledby="harvP1LblPinch" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP1LblSegRoller">Segment roller</span>
+                                                <input type="text" class="preset-editor-value" value="112" aria-labelledby="harvP1LblSegRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP1LblClodRoller">Clod roller</span>
+                                                <input type="text" class="preset-editor-value" value="91" aria-labelledby="harvP1LblClodRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP1LblXferRoller">Transfer roller</span>
+                                                <input type="text" class="preset-editor-value" value="84" aria-labelledby="harvP1LblXferRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="preset-editor-section" aria-labelledby="harvPresetSecTitle2">
+                                        <h3 class="preset-editor-section__title" id="harvPresetSecTitle2">Preset 3</h3>
+                                        <div class="preset-editor-section__body">
+                                            <div class="preset-editor-name-row">
+                                                <label for="harvPresetName2">Name</label>
+                                                <input type="text" id="harvPresetName2" class="preset-editor-name-input" maxlength="48" value="Digger 3" autocomplete="off" />
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP2LblGap">Gap</span>
+                                                <input type="text" class="preset-editor-value" value="7" aria-labelledby="harvP2LblGap" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP2LblHeight">Height</span>
+                                                <input type="text" class="preset-editor-value" value="8" aria-labelledby="harvP2LblHeight" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP2LblAngle">Angle</span>
+                                                <input type="text" class="preset-editor-value" value="48" aria-labelledby="harvP2LblAngle" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP2LblPinch">Pinch mode</span>
+                                                <input type="text" class="preset-editor-value" value="Auto" aria-labelledby="harvP2LblPinch" />
+                                                <span class="preset-editor-unit">—</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP2LblSegRoller">Segment roller</span>
+                                                <input type="text" class="preset-editor-value" value="124" aria-labelledby="harvP2LblSegRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP2LblClodRoller">Clod roller</span>
+                                                <input type="text" class="preset-editor-value" value="97" aria-labelledby="harvP2LblClodRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvP2LblXferRoller">Transfer roller</span>
+                                                <input type="text" class="preset-editor-value" value="91" aria-labelledby="harvP2LblXferRoller" />
+                                                <span class="preset-editor-unit">fpm</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                        </div>
+                                    </div>
+                                    <div class="preset-editor-bank">
+                                        <div class="preset-editor-bank-label" id="harvPresetBankCleanLabel">Clean presets</div>
+                                        <div class="preset-editor__stack" aria-labelledby="harvPresetBankCleanLabel">
+                                    <section class="preset-editor-section" aria-labelledby="harvCleanPresetSecTitle0">
+                                        <h3 class="preset-editor-section__title" id="harvCleanPresetSecTitle0">Preset 1</h3>
+                                        <div class="preset-editor-section__body">
+                                            <div class="preset-editor-name-row">
+                                                <label for="harvCleanPresetName0">Name</label>
+                                                <input type="text" id="harvCleanPresetName0" class="preset-editor-name-input" maxlength="48" value="Clean 1" autocomplete="off" />
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP0LblNose">Digger nose</span>
+                                                <input type="text" class="preset-editor-value" value="2120" aria-labelledby="harvCleanP0LblNose" />
+                                                <span class="preset-editor-unit">psi</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP0LblHump">Hump</span>
+                                                <input type="text" class="preset-editor-value" value="14" aria-labelledby="harvCleanP0LblHump" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP0LblDepthWheels">Depth wheels</span>
+                                                <input type="text" class="preset-editor-value" value="56" aria-labelledby="harvCleanP0LblDepthWheels" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field preset-editor-field--chain-mode">
+                                                <span class="preset-editor-field__label" id="harvCleanP0LblChain">Chain mode</span>
+                                                <select id="harvCleanP0Chain" class="preset-editor-value-select" aria-labelledby="harvCleanP0LblChain">
+                                                    <option value="ground" selected>Ground</option>
+                                                    <option value="fixed">Fixed</option>
+                                                </select>
+                                                <span class="preset-editor-unit"></span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP0LblPriShaker">Primary shakers</span>
+                                                <input type="text" class="preset-editor-value" value="72" aria-labelledby="harvCleanP0LblPriShaker" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP0LblSecShaker">Secondary shakers</span>
+                                                <input type="text" class="preset-editor-value" value="64" aria-labelledby="harvCleanP0LblSecShaker" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="preset-editor-section" aria-labelledby="harvCleanPresetSecTitle1">
+                                        <h3 class="preset-editor-section__title" id="harvCleanPresetSecTitle1">Preset 2</h3>
+                                        <div class="preset-editor-section__body">
+                                            <div class="preset-editor-name-row">
+                                                <label for="harvCleanPresetName1">Name</label>
+                                                <input type="text" id="harvCleanPresetName1" class="preset-editor-name-input" maxlength="48" value="Clean 2" autocomplete="off" />
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP1LblNose">Digger nose</span>
+                                                <input type="text" class="preset-editor-value" value="2050" aria-labelledby="harvCleanP1LblNose" />
+                                                <span class="preset-editor-unit">psi</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP1LblHump">Hump</span>
+                                                <input type="text" class="preset-editor-value" value="16" aria-labelledby="harvCleanP1LblHump" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP1LblDepthWheels">Depth wheels</span>
+                                                <input type="text" class="preset-editor-value" value="53" aria-labelledby="harvCleanP1LblDepthWheels" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field preset-editor-field--chain-mode">
+                                                <span class="preset-editor-field__label" id="harvCleanP1LblChain">Chain mode</span>
+                                                <select id="harvCleanP1Chain" class="preset-editor-value-select" aria-labelledby="harvCleanP1LblChain">
+                                                    <option value="ground">Ground</option>
+                                                    <option value="fixed" selected>Fixed</option>
+                                                </select>
+                                                <span class="preset-editor-unit"></span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP1LblPriShaker">Primary shakers</span>
+                                                <input type="text" class="preset-editor-value" value="69" aria-labelledby="harvCleanP1LblPriShaker" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP1LblSecShaker">Secondary shakers</span>
+                                                <input type="text" class="preset-editor-value" value="61" aria-labelledby="harvCleanP1LblSecShaker" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="preset-editor-section" aria-labelledby="harvCleanPresetSecTitle2">
+                                        <h3 class="preset-editor-section__title" id="harvCleanPresetSecTitle2">Preset 3</h3>
+                                        <div class="preset-editor-section__body">
+                                            <div class="preset-editor-name-row">
+                                                <label for="harvCleanPresetName2">Name</label>
+                                                <input type="text" id="harvCleanPresetName2" class="preset-editor-name-input" maxlength="48" value="Clean 3" autocomplete="off" />
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP2LblNose">Digger nose</span>
+                                                <input type="text" class="preset-editor-value" value="2180" aria-labelledby="harvCleanP2LblNose" />
+                                                <span class="preset-editor-unit">psi</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP2LblHump">Hump</span>
+                                                <input type="text" class="preset-editor-value" value="12" aria-labelledby="harvCleanP2LblHump" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP2LblDepthWheels">Depth wheels</span>
+                                                <input type="text" class="preset-editor-value" value="59" aria-labelledby="harvCleanP2LblDepthWheels" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field preset-editor-field--chain-mode">
+                                                <span class="preset-editor-field__label" id="harvCleanP2LblChain">Chain mode</span>
+                                                <select id="harvCleanP2Chain" class="preset-editor-value-select" aria-labelledby="harvCleanP2LblChain">
+                                                    <option value="ground" selected>Ground</option>
+                                                    <option value="fixed">Fixed</option>
+                                                </select>
+                                                <span class="preset-editor-unit"></span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP2LblPriShaker">Primary shakers</span>
+                                                <input type="text" class="preset-editor-value" value="74" aria-labelledby="harvCleanP2LblPriShaker" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                            <div class="preset-editor-field">
+                                                <span class="preset-editor-field__label" id="harvCleanP2LblSecShaker">Secondary shakers</span>
+                                                <input type="text" class="preset-editor-value" value="67" aria-labelledby="harvCleanP2LblSecShaker" />
+                                                <span class="preset-editor-unit">%</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="set-tab-telematics" class="set-tab-content">
-                            <p class="tab-placeholder">Telematics Setup</p>
+                            <div class="tele-setup hmi-panel" aria-label="Telematics setup">
+                                <div class="tele-setup__grid">
+                                    <section class="tele-setup__panel" aria-labelledby="harvTeleHeadCell">
+                                        <h3 class="tele-setup__head" id="harvTeleHeadCell">CELLULAR &amp; DATA</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="harvTeleCellEnable" checked />
+                                                <label for="harvTeleCellEnable">Enable cellular data</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblApn">APN</span>
+                                                <input type="text" class="tele-setup-input" value="hologram.io" aria-labelledby="harvTeleLblApn" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblPin">SIM PIN (if required)</span>
+                                                <input type="password" class="tele-setup-input" value="" placeholder="—" aria-labelledby="harvTeleLblPin" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblPosInt">Position log interval (s)</span>
+                                                <input type="text" inputmode="numeric" class="tele-setup-input" value="15" aria-labelledby="harvTeleLblPosInt" />
+                                            </div>
+                                            <div class="tele-setup-status" role="group" aria-label="Cellular status">
+                                                <span>Signal:</span> <span class="tele-setup-status__val">−82 dBm</span>
+                                                <span>Carrier:</span> <span class="tele-setup-status__val">LTE</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="tele-setup__panel" aria-labelledby="harvTeleHeadCloud">
+                                        <h3 class="tele-setup__head" id="harvTeleHeadCloud">CLOUD UPLOAD</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="harvTeleCloudEnable" checked />
+                                                <label for="harvTeleCloudEnable">Enable cloud work logs</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblMachineId">Machine ID</span>
+                                                <input type="text" class="tele-setup-input" value="7040-HV-01" aria-labelledby="harvTeleLblMachineId" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblUploadInt">Upload batch interval (min)</span>
+                                                <input type="text" inputmode="numeric" class="tele-setup-input" value="5" aria-labelledby="harvTeleLblUploadInt" />
+                                            </div>
+                                            <div class="tele-setup-status" role="group" aria-label="Upload status">
+                                                <span>Last upload:</span> <span class="tele-setup-status__val">12:04 today</span>
+                                                <span>Queue:</span> <span class="tele-setup-status__val">0 pending</span>
+                                            </div>
+                                            <button type="button" class="tele-setup__btn">Sync now</button>
+                                        </div>
+                                    </section>
+                                    <section class="tele-setup__panel" aria-labelledby="harvTeleHeadNtrip">
+                                        <h3 class="tele-setup__head" id="harvTeleHeadNtrip">GNSS / NTRIP</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="harvTeleNtripEnable" />
+                                                <label for="harvTeleNtripEnable">Enable NTRIP corrections</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblCaster">Caster host</span>
+                                                <input type="text" class="tele-setup-input" value="ntrip.example.net" aria-labelledby="harvTeleLblCaster" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblMount">Mountpoint</span>
+                                                <input type="text" class="tele-setup-input" value="MNT_HARVEST_01" aria-labelledby="harvTeleLblMount" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblNtripUser">User</span>
+                                                <input type="text" class="tele-setup-input" value="field_ops" aria-labelledby="harvTeleLblNtripUser" autocomplete="off" />
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblNtripPass">Password</span>
+                                                <input type="password" class="tele-setup-input" value="" placeholder="••••••" aria-labelledby="harvTeleLblNtripPass" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="tele-setup__panel" aria-labelledby="harvTeleHeadRemote">
+                                        <h3 class="tele-setup__head" id="harvTeleHeadRemote">REMOTE &amp; DIAGNOSTICS</h3>
+                                        <div class="tele-setup__body">
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="harvTeleRemoteAllow" />
+                                                <label for="harvTeleRemoteAllow">Allow remote support sessions</label>
+                                            </div>
+                                            <div class="tele-setup-field">
+                                                <span class="tele-setup-field__label" id="harvTeleLblRemoteTimeout">Session timeout (min)</span>
+                                                <input type="text" inputmode="numeric" class="tele-setup-input" value="30" aria-labelledby="harvTeleLblRemoteTimeout" />
+                                            </div>
+                                            <div class="tele-setup-check">
+                                                <input type="checkbox" id="harvTeleDiagPush" checked />
+                                                <label for="harvTeleDiagPush">Push diagnostic bundles on fault</label>
+                                            </div>
+                                            <div class="tele-setup-status" role="group" aria-label="Network identity">
+                                                <span>IMEI:</span> <span class="tele-setup-status__val">35…218421</span>
+                                                <span>FW:</span> <span class="tele-setup-status__val">LTE 2.1.4</span>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <nav class="tabs-container set-tabs">
                         <button type="button" class="tab-btn set-tab active" onclick="switchSetTab('general', this)">General</button>
                         <button type="button" class="tab-btn set-tab" onclick="switchSetTab('chains', this)">Chains</button>
                         <button type="button" class="tab-btn set-tab" onclick="switchSetTab('joystick', this)">Joystick</button>
-                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('start-row', this)">Start Row</button>
-                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('end-row', this)">End Row</button>
+                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('start-end-row', this)">Start / End row</button>
+                        <button type="button" class="tab-btn set-tab" onclick="switchSetTab('presets', this)">Presets</button>
                         <button type="button" class="tab-btn set-tab" onclick="switchSetTab('telematics', this)">Telematics</button>
                     </nav>
                 </div>
@@ -4496,11 +6433,246 @@
             }
         }
 
+        var HARV_PRESET_DIG_NAMES_STORAGE_KEY = 'spudnikHmiMockupPresetNames.v1.m3.harvester.dig';
+
+        function harvDefaultDigiPresetNames() {
+            return ['Digger 1', 'Digger 2', 'Digger 3'];
+        }
+
+        function loadHarvDigiPresetNamesFromStorage() {
+            try {
+                var raw = localStorage.getItem(HARV_PRESET_DIG_NAMES_STORAGE_KEY);
+                if (!raw) return harvDefaultDigiPresetNames();
+                var arr = JSON.parse(raw);
+                if (!Array.isArray(arr) || arr.length < 3) return harvDefaultDigiPresetNames();
+                var d = harvDefaultDigiPresetNames();
+                return [
+                    String(arr[0] != null && String(arr[0]).trim() ? arr[0] : d[0]),
+                    String(arr[1] != null && String(arr[1]).trim() ? arr[1] : d[1]),
+                    String(arr[2] != null && String(arr[2]).trim() ? arr[2] : d[2])
+                ];
+            } catch (_) {
+                return harvDefaultDigiPresetNames();
+            }
+        }
+
+        function saveHarvDigiPresetNamesToStorage(names) {
+            try {
+                localStorage.setItem(HARV_PRESET_DIG_NAMES_STORAGE_KEY, JSON.stringify(names.slice(0, 3)));
+            } catch (_) {}
+        }
+
+        function getHarvDigiPresetNameInputs() {
+            return [
+                document.getElementById('harvPresetName0'),
+                document.getElementById('harvPresetName1'),
+                document.getElementById('harvPresetName2')
+            ];
+        }
+
+        function getHarvDigiPresetFooterButtons() {
+            return [
+                document.getElementById('harvFooterPresetDig0'),
+                document.getElementById('harvFooterPresetDig1'),
+                document.getElementById('harvFooterPresetDig2')
+            ];
+        }
+
+        function readHarvDigiPresetNamesFromInputs() {
+            var d = harvDefaultDigiPresetNames();
+            return getHarvDigiPresetNameInputs().map(function (el, i) {
+                if (!el) return d[i];
+                var t = el.value.trim();
+                return t ? t : d[i];
+            });
+        }
+
+        function applyHarvDigiPresetNamesToUi(names) {
+            var inputs = getHarvDigiPresetNameInputs();
+            var btns = getHarvDigiPresetFooterButtons();
+            for (var i = 0; i < 3; i++) {
+                if (inputs[i]) inputs[i].value = names[i];
+                if (btns[i]) {
+                    btns[i].textContent = names[i];
+                    btns[i].setAttribute('aria-label', names[i]);
+                }
+            }
+        }
+
+        function persistHarvDigiPresetNamesFromInputs() {
+            var names = readHarvDigiPresetNamesFromInputs();
+            saveHarvDigiPresetNamesToStorage(names);
+            applyHarvDigiPresetNamesToUi(names);
+        }
+
+        function wireHarvDigiPresetNameEditors() {
+            getHarvDigiPresetNameInputs().forEach(function (inp) {
+                if (!inp) return;
+                inp.addEventListener('change', persistHarvDigiPresetNamesFromInputs);
+                inp.addEventListener('blur', persistHarvDigiPresetNamesFromInputs);
+            });
+        }
+
+        var HARV_PRESET_CLEAN_NAMES_STORAGE_KEY = 'spudnikHmiMockupPresetNames.v1.m3.harvester.clean';
+
+        function harvDefaultCleanPresetNames() {
+            return ['Clean 1', 'Clean 2', 'Clean 3'];
+        }
+
+        function loadHarvCleanPresetNamesFromStorage() {
+            try {
+                var raw = localStorage.getItem(HARV_PRESET_CLEAN_NAMES_STORAGE_KEY);
+                if (!raw) return harvDefaultCleanPresetNames();
+                var arr = JSON.parse(raw);
+                if (!Array.isArray(arr) || arr.length < 3) return harvDefaultCleanPresetNames();
+                var d = harvDefaultCleanPresetNames();
+                return [
+                    String(arr[0] != null && String(arr[0]).trim() ? arr[0] : d[0]),
+                    String(arr[1] != null && String(arr[1]).trim() ? arr[1] : d[1]),
+                    String(arr[2] != null && String(arr[2]).trim() ? arr[2] : d[2])
+                ];
+            } catch (_) {
+                return harvDefaultCleanPresetNames();
+            }
+        }
+
+        function saveHarvCleanPresetNamesToStorage(names) {
+            try {
+                localStorage.setItem(HARV_PRESET_CLEAN_NAMES_STORAGE_KEY, JSON.stringify(names.slice(0, 3)));
+            } catch (_) {}
+        }
+
+        function getHarvCleanPresetNameInputs() {
+            return [
+                document.getElementById('harvCleanPresetName0'),
+                document.getElementById('harvCleanPresetName1'),
+                document.getElementById('harvCleanPresetName2')
+            ];
+        }
+
+        function getHarvCleanPresetFooterButtons() {
+            return [
+                document.getElementById('harvFooterPresetClean0'),
+                document.getElementById('harvFooterPresetClean1'),
+                document.getElementById('harvFooterPresetClean2')
+            ];
+        }
+
+        function readHarvCleanPresetNamesFromInputs() {
+            var d = harvDefaultCleanPresetNames();
+            return getHarvCleanPresetNameInputs().map(function (el, i) {
+                if (!el) return d[i];
+                var t = el.value.trim();
+                return t ? t : d[i];
+            });
+        }
+
+        function applyHarvCleanPresetNamesToUi(names) {
+            var inputs = getHarvCleanPresetNameInputs();
+            var btns = getHarvCleanPresetFooterButtons();
+            for (var i = 0; i < 3; i++) {
+                if (inputs[i]) inputs[i].value = names[i];
+                if (btns[i]) {
+                    btns[i].textContent = names[i];
+                    btns[i].setAttribute('aria-label', names[i]);
+                }
+            }
+        }
+
+        function persistHarvCleanPresetNamesFromInputs() {
+            var names = readHarvCleanPresetNamesFromInputs();
+            saveHarvCleanPresetNamesToStorage(names);
+            applyHarvCleanPresetNamesToUi(names);
+        }
+
+        function wireHarvCleanPresetNameEditors() {
+            getHarvCleanPresetNameInputs().forEach(function (inp) {
+                if (!inp) return;
+                inp.addEventListener('change', persistHarvCleanPresetNamesFromInputs);
+                inp.addEventListener('blur', persistHarvCleanPresetNamesFromInputs);
+            });
+        }
+
+        var HARV_JOY_MAP_ROWS = [
+            { id: 'xAxisRight', label: 'X Axis Right' },
+            { id: 'xAxisLeft', label: 'X Axis Left' },
+            { id: 'yAxisForward', label: 'Y Axis Forward' },
+            { id: 'yAxisBackward', label: 'Y Axis Backward' },
+            { id: 'leftRockerUp', label: 'Left Rocker Up' },
+            { id: 'leftRockerDown', label: 'Left Rocker Down' },
+            { id: 'rightRockerUp', label: 'Right Rocker Up' },
+            { id: 'rightRockerDown', label: 'Right Rocker Down' },
+            { id: 'frontRockerRight', label: 'Front Rocker Right' },
+            { id: 'frontRockerLeft', label: 'Front Rocker Left' },
+            { id: 'frontButton', label: 'Front Button' },
+            { id: 'topCenter', label: 'Top Center' },
+            { id: 'bottomLeft', label: 'Bottom Left' },
+            { id: 'bottomRight', label: 'Bottom Right' },
+            { id: 'topLeft', label: 'Top Left' },
+            { id: 'topRight', label: 'Top Right' }
+        ];
+
+        var HARV_JOY_CONTROL_OPTIONS = [
+            { value: '', label: '— None —' },
+            { value: 'INNER_BOOM_UP', label: 'INNER BOOM UP' },
+            { value: 'INNER_BOOM_DOWN', label: 'INNER BOOM DOWN' },
+            { value: 'OUTER_BOOM_UP', label: 'OUTER BOOM UP' },
+            { value: 'OUTER_BOOM_DOWN', label: 'OUTER BOOM DOWN' },
+            { value: 'BOOM_SWING_FORWARD', label: 'BOOM SWING FORWARD' },
+            { value: 'BOOM_SWING_BACK', label: 'BOOM SWING BACK' },
+            { value: 'COULTERS_UP', label: 'COULTERS UP' },
+            { value: 'COULTERS_DOWN', label: 'COULTERS DOWN' },
+            { value: 'DIGGER_DEPTH_UP', label: 'DIGGER DEPTH UP' },
+            { value: 'DIGGER_DEPTH_DOWN', label: 'DIGGER DEPTH DOWN' },
+            { value: 'DIGGER_AUTO', label: 'DIGGER AUTO' },
+            { value: 'STEER_RIGHT', label: 'STEER RIGHT' },
+            { value: 'STEER_LEFT', label: 'STEER LEFT' },
+            { value: 'STEER_AUTO', label: 'STEER AUTO' },
+            { value: 'ROW_START', label: 'ROW START' },
+            { value: 'ROW_END', label: 'ROW END' }
+        ];
+
+        function buildHarvJoystickAssignmentTable() {
+            var tbody = document.getElementById('harvJoyMapTbody');
+            if (!tbody) return;
+            tbody.textContent = '';
+            HARV_JOY_MAP_ROWS.forEach(function (row) {
+                var tr = document.createElement('tr');
+                var th = document.createElement('th');
+                th.className = 'joy-map__fn';
+                th.scope = 'row';
+                th.textContent = row.label;
+                tr.appendChild(th);
+                for (var c = 1; c <= 3; c++) {
+                    var td = document.createElement('td');
+                    td.className = 'joy-map__cell';
+                    var sel = document.createElement('select');
+                    sel.className = 'joy-map__select';
+                    sel.id = 'harvJoyCfg' + c + '_' + row.id;
+                    sel.setAttribute('aria-label', row.label + ', config ' + c);
+                    HARV_JOY_CONTROL_OPTIONS.forEach(function (opt) {
+                        var o = document.createElement('option');
+                        o.value = opt.value;
+                        o.textContent = opt.label;
+                        sel.appendChild(o);
+                    });
+                    td.appendChild(sel);
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             loadMockupState();
             setM3BoomFoldedState(m3BoomFolded, { skipSave: true });
             syncTopBarBoomSpeedFromBoomDriveBtn();
             refreshChainsSpeedModeLabel();
+            applyHarvDigiPresetNamesToUi(loadHarvDigiPresetNamesFromStorage());
+            wireHarvDigiPresetNameEditors();
+            applyHarvCleanPresetNamesToUi(loadHarvCleanPresetNamesFromStorage());
+            wireHarvCleanPresetNameEditors();
+            buildHarvJoystickAssignmentTable();
             wireDiggerSyncPanel(document.getElementById('diggerSyncCoulters'));
             wireDiggerSyncPanel(document.getElementById('diggerSyncDepthUpper'));
             wireDiggerTabHoldRepeats();
