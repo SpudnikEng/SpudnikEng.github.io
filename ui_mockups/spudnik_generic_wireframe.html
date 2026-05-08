@@ -92,7 +92,7 @@
             justify-content: flex-end;
             align-items: center;
             padding-right: 20px;
-            gap: 15px;
+            gap: 10px;
             border: 1px solid #666;
         }
         select, button {
@@ -114,23 +114,66 @@
             width: 100px;
         }
 
+        /* Persistent mode tab group (replaces native <select>) */
+        .mode-tabs {
+            display: flex;
+            gap: 0;
+            height: 50px;
+            border: 2px solid #333;
+            background: #eee;
+        }
+        .mode-tab {
+            min-width: 64px;
+            height: 100%;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 14px;
+            background: #eee;
+            color: #333;
+            border: none;
+            border-right: 1px solid #333;
+            cursor: pointer;
+            position: relative;
+        }
+        .mode-tab:last-child { border-right: none; }
+        .mode-tab.active {
+            background: #333;
+            color: #fff;
+        }
+        .mode-tab .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #c0392b;
+            display: none;
+        }
+        .mode-tab.has-alert .badge { display: block; }
+
         /* --- Views Container --- */
         .view {
             display: none;
             flex-direction: column;
             flex: 1;
             width: 100%;
-            height: 710px; /* 800 - 90 */
+            height: 630px; /* 800 - 90 (top) - 80 (persistent alarm/actions row) */
         }
         .view.active {
             display: flex;
         }
 
-        /* Common Row 2 (80px) for Control, Diagnostic, Help */
+        /* Persistent Row 2 (80px) - Status/Alarm + Quick Actions, shown in all modes */
         .row-common-2 {
             height: 80px;
             display: flex;
             width: 100%;
+            flex-shrink: 0;
         }
         .row-common-2-left { width: 800px; }
         .row-common-2-right { width: 480px; }
@@ -184,7 +227,7 @@
 
         /* --- Settings Page --- */
         .set-row-2 {
-            height: 710px;
+            height: 630px; /* shrunk from 710 to share the persistent 80px alarm row */
             display: flex;
             width: 100%;
         }
@@ -279,29 +322,30 @@
             </div>
             <div class="top-right box">
                 <div class="box-label">Navigation & Run</div>
-                <select id="modeSelect" onchange="switchView(this.value)">
-                    <option value="control">Control</option>
-                    <option value="diagnostic">Diagnostic</option>
-                    <option value="settings">Settings</option>
-                    <option value="help">Help</option>
-                </select>
+                <div class="mode-tabs" role="tablist" aria-label="Top-level mode">
+                    <button type="button" class="mode-tab active" role="tab" aria-selected="true" data-view="control" onclick="switchView('control', this)">CTRL<span class="badge"></span></button>
+                    <button type="button" class="mode-tab" role="tab" aria-selected="false" data-view="diagnostic" onclick="switchView('diagnostic', this)">DIAG<span class="badge"></span></button>
+                    <button type="button" class="mode-tab" role="tab" aria-selected="false" data-view="settings" onclick="switchView('settings', this)">SET<span class="badge"></span></button>
+                    <button type="button" class="mode-tab" role="tab" aria-selected="false" data-view="help" onclick="switchView('help', this)">HELP<span class="badge"></span></button>
+                </div>
                 <button class="btn-run">RUN</button>
+            </div>
+        </div>
+
+        <!-- Persistent Row 2: 80px - Status / Alarm + Quick Actions, shared across all views -->
+        <div class="row-common-2">
+            <div class="row-common-2-left box" style="cursor:pointer;" title="Tap to open alarm history">
+                <div class="box-label">800px - Status / Alarm Messages (tap to expand)</div>
+                <h3>ALARM / MESSAGES AREA</h3>
+            </div>
+            <div class="row-common-2-right box">
+                <div class="box-label">480px - Quick Actions</div>
+                <p>[Action 1] [Action 2] [Action 3]</p>
             </div>
         </div>
 
         <!-- VIEW: CONTROL -->
         <div id="view-control" class="view active">
-            <!-- Row 2: 80px -->
-            <div class="row-common-2">
-                <div class="row-common-2-left box">
-                    <div class="box-label">800px - Status / Alarm Messages</div>
-                    <h3>ALARM / MESSAGES AREA</h3>
-                </div>
-                <div class="row-common-2-right box">
-                    <div class="box-label">480px - Quick Actions</div>
-                    <p>[Action 1] [Action 2] [Action 3]</p>
-                </div>
-            </div>
             <!-- Row 3: 520px -->
             <div class="ctrl-row-3">
                 <div class="ctrl-row-3-left box">
@@ -342,18 +386,7 @@
 
         <!-- VIEW: DIAGNOSTIC -->
         <div id="view-diagnostic" class="view">
-            <!-- Row 2: 80px -->
-            <div class="row-common-2">
-                <div class="row-common-2-left box">
-                    <div class="box-label">800px - Status / Alarm Messages</div>
-                    <h3>ALARM / MESSAGES AREA</h3>
-                </div>
-                <div class="row-common-2-right box">
-                    <div class="box-label">480px - Quick Actions</div>
-                    <p>[Action 1] [Action 2] [Action 3]</p>
-                </div>
-            </div>
-            <!-- Row 3: 630px -->
+            <!-- Row 3: 630px (alarm/actions row is now persistent above all views) -->
             <div class="diag-row-3">
                 <div class="diag-half box crossed">
                     <div class="box-label">640px - Input Specific Info</div>
@@ -368,7 +401,7 @@
 
         <!-- VIEW: SETTINGS -->
         <div id="view-settings" class="view">
-            <!-- Row 2: 710px -->
+            <!-- Row 2: 630px - alarm/actions row is now persistent above all views -->
             <div class="set-row-2">
                 <div class="set-row-2-left box">
                     <div class="box-label">1100px - Specific Setup Areas</div>
@@ -392,18 +425,7 @@
 
         <!-- VIEW: HELP -->
         <div id="view-help" class="view">
-            <!-- Row 2: 80px -->
-            <div class="row-common-2">
-                <div class="row-common-2-left box">
-                    <div class="box-label">800px - Status / Alarm Messages</div>
-                    <h3>ALARM / MESSAGES AREA</h3>
-                </div>
-                <div class="row-common-2-right box">
-                    <div class="box-label">480px - Quick Actions</div>
-                    <p>[Action 1] [Action 2] [Action 3]</p>
-                </div>
-            </div>
-            <!-- Row 3: 630px — Help tabs (same pattern as Settings) -->
+            <!-- Row 3: 630px — Help tabs (same pattern as Settings; alarm row is persistent above all views) -->
             <div class="help-main-row">
                 <div class="help-main-left box">
                     <div class="box-label">1100px - Help Documentation</div>
@@ -447,13 +469,15 @@
             element.classList.add('active');
         }
 
-        function switchView(viewName) {
-            // Hide all views
-            document.querySelectorAll('.view').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Show selected view
+        function switchView(viewName, btn) {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById('view-' + viewName).classList.add('active');
+            // Sync mode-tab pressed state
+            document.querySelectorAll('.mode-tab').forEach(el => {
+                const isActive = el.dataset.view === viewName;
+                el.classList.toggle('active', isActive);
+                el.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
         }
 
         // Auto-scale to fit window

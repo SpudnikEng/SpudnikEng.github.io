@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spudnik — Living Machine Wireframe (alternative paradigm)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0e0e0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .wf-container {
+            width: 1280px;
+            height: 800px;
+            background-color: #ffffff;
+            border: 2px solid #000;
+            display: grid;
+            grid-template-rows: 80px 1fr 96px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Generic Box style for wireframe look */
+        .box {
+            border: 1px solid #666;
+            position: relative;
+            background-color: #fcfcfc;
+        }
+
+        .box-label {
+            position: absolute;
+            top: 4px;
+            left: 6px;
+            font-size: 11px;
+            color: #888;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Wireframe crossed box helper */
+        .crossed {
+            background:
+                linear-gradient(to top left, transparent calc(50% - 1px), #ddd, transparent calc(50% + 1px)),
+                linear-gradient(to top right, transparent calc(50% - 1px), #ddd, transparent calc(50% + 1px));
+        }
+
+        button, select, input {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 14px;
+            border: 2px solid #333;
+            background: #eee;
+            color: #111;
+            cursor: pointer;
+            padding: 6px 10px;
+        }
+
+        button:hover, select:hover {
+            background: #ddd;
+        }
+
+        /* ============================================================
+           HUD (80px) — two stacked rows:
+             Row A (40px): identity (left)  |  KPI chips (right)
+             Row B (40px): phase strip      |  layer pills (right)
+           ============================================================ */
+        .hud {
+            display: grid;
+            grid-template-rows: 40px 40px;
+            border-bottom: 1px solid #666;
+            background: #fafafa;
+        }
+
+        .hud-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 14px;
+            border-bottom: 1px dashed #bbb;
+            position: relative;
+        }
+        .hud-row:last-child { border-bottom: none; }
+
+        .hud-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #222;
+        }
+        .hud-identity-logo {
+            border: 1px solid #999;
+            padding: 2px 8px;
+            font-weight: bold;
+            background: #eee;
+        }
+
+        .hud-kpis {
+            margin-left: auto;
+            display: flex;
+            gap: 6px;
+        }
+        .hud-kpi {
+            min-width: 84px;
+            padding: 2px 8px;
+            border: 1px solid #888;
+            background: #fff;
+            font-size: 11px;
+            line-height: 1.2;
+            cursor: pointer;
+        }
+        .hud-kpi:hover { background: #f0f0f0; }
+        .hud-kpi-label {
+            display: block;
+            font-size: 9px;
+            color: #777;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            letter-spacing: 0.04em;
+        }
+        .hud-kpi-value {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .hud-kpi-value.alarm { color: #b71c1c; }
+
+        .phase-strip {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        .phase-step {
+            padding: 4px 10px;
+            border: 1px solid #888;
+            background: #fff;
+            color: #444;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .phase-step.active {
+            background: #333;
+            color: #fff;
+            border-color: #333;
+        }
+        .phase-sep {
+            color: #888;
+            user-select: none;
+        }
+
+        .layer-pills {
+            display: flex;
+            gap: 0;
+            border: 2px solid #333;
+            background: #eee;
+            margin-left: auto;
+        }
+        .layer-pill {
+            min-width: 84px;
+            padding: 4px 10px;
+            border: none;
+            border-right: 1px solid #333;
+            background: #eee;
+            color: #333;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .layer-pill:last-child { border-right: none; }
+        .layer-pill.active {
+            background: #333;
+            color: #fff;
+        }
+
+        /* ============================================================
+           CANVAS (the "machine" — the entire interaction model)
+           ============================================================ */
+        .canvas-area {
+            position: relative;
+            border-bottom: 1px solid #666;
+            background: #f4f4f4;
+            overflow: hidden;
+        }
+
+        .canvas-stage {
+            position: absolute;
+            inset: 16px;
+            border: 1px dashed #999;
+            background: #fcfcfc;
+        }
+
+        /* Schematic placeholder (low-fi rendering of the machine) */
+        .machine-schematic {
+            position: absolute;
+            inset: 36px;
+            background:
+                linear-gradient(to top left, transparent calc(50% - 1px), #e8e8e8, transparent calc(50% + 1px)),
+                linear-gradient(to top right, transparent calc(50% - 1px), #e8e8e8, transparent calc(50% + 1px)),
+                #fcfcfc;
+            border: 1px solid #888;
+        }
+
+        .schematic-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #888;
+            font-size: 13px;
+            text-align: center;
+            font-family: sans-serif;
+            pointer-events: none;
+        }
+        .schematic-caption strong {
+            display: block;
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Hotspots laid out spatially over the schematic */
+        .hotspot {
+            position: absolute;
+            min-width: 90px;
+            padding: 8px 12px;
+            background: #fff;
+            border: 2px solid #444;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+            line-height: 1.2;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+            z-index: 3;
+        }
+        .hotspot:hover {
+            background: #e8e8e8;
+        }
+        .hotspot .hotspot-state {
+            display: block;
+            font-size: 10px;
+            font-weight: normal;
+            color: #666;
+            margin-top: 2px;
+            font-family: sans-serif;
+        }
+
+        /* ----- Layer-specific overlays applied by toggling .layer-* on .canvas-stage ----- */
+        /* Inspect (default): neutral; values shown */
+        /* Diagnose: hotspots get color tints by health */
+        .canvas-stage.layer-diagnose .hotspot[data-health="ok"]    { background: #d6f5d6; border-color: #2e7d32; }
+        .canvas-stage.layer-diagnose .hotspot[data-health="warn"]  { background: #fff4cc; border-color: #c89000; }
+        .canvas-stage.layer-diagnose .hotspot[data-health="error"] { background: #f9d6d2; border-color: #b71c1c; }
+        .canvas-stage.layer-diagnose .hotspot::after {
+            content: "HEALTH";
+            display: block;
+            font-size: 9px;
+            margin-top: 2px;
+            color: #222;
+            font-family: sans-serif;
+        }
+
+        /* Edit: pencil glyph appears on each hotspot */
+        .canvas-stage.layer-edit .hotspot::before {
+            content: "[edit]";
+            display: block;
+            font-size: 10px;
+            color: #555;
+            font-family: sans-serif;
+            margin-bottom: 2px;
+        }
+        .canvas-stage.layer-edit .hotspot { border-style: dashed; }
+
+        /* Help: ? glyph appears on each hotspot */
+        .canvas-stage.layer-help .hotspot::after {
+            content: "?";
+            display: inline-block;
+            margin-left: 6px;
+            width: 18px;
+            height: 18px;
+            line-height: 14px;
+            border: 2px solid #444;
+            border-radius: 50%;
+            font-size: 12px;
+            color: #444;
+            background: #fff;
+            font-family: sans-serif;
+        }
+
+        /* ----- Inspector sheet (right slide) ----- */
+        .inspector {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 360px;
+            background: #fff;
+            border-left: 2px solid #333;
+            transform: translateX(100%);
+            transition: transform 0.18s ease;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.12);
+        }
+        .inspector.open {
+            transform: translateX(0);
+        }
+        .inspector-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-bottom: 1px solid #666;
+            background: #f4f4f4;
+        }
+        .inspector-title {
+            flex: 1;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .inspector-mode {
+            font-size: 10px;
+            font-family: sans-serif;
+            color: #555;
+            background: #fff;
+            border: 1px solid #888;
+            padding: 2px 6px;
+        }
+        .inspector-close {
+            border: 1px solid #666;
+            background: #fff;
+            font-size: 14px;
+            line-height: 1;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inspector-body {
+            flex: 1;
+            padding: 12px 14px;
+            overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+        .inspector-body .row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #bbb;
+            padding: 6px 0;
+        }
+        .inspector-body .row span:first-child {
+            color: #555;
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+        .inspector-body .row span:last-child {
+            font-weight: bold;
+        }
+        .inspector-body input[type=number],
+        .inspector-body input[type=text] {
+            width: 90px;
+            text-align: right;
+            font-weight: bold;
+            background: #fff;
+            border: 2px solid #333;
+            padding: 2px 4px;
+        }
+        .inspector-help {
+            background: #f0f7ff;
+            border: 1px dashed #6699cc;
+            padding: 8px 10px;
+            margin-top: 10px;
+            font-size: 12px;
+            font-family: sans-serif;
+            color: #234;
+        }
+
+        /* ============================================================
+           CONTEXTUAL ACTION BAR (96px, bottom)
+           Buttons change with workflow phase. Includes a [PINNED] slot.
+           ============================================================ */
+        .action-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: #f4f4f4;
+            position: relative;
+        }
+
+        .action-bar-label {
+            position: absolute;
+            top: 4px;
+            left: 8px;
+            font-size: 10px;
+            color: #888;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .action-btn {
+            min-width: 140px;
+            min-height: 60px;
+            padding: 8px 14px;
+            font-size: 14px;
+            background: #eee;
+            border: 2px solid #333;
+            color: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.15;
+            text-align: center;
+            cursor: pointer;
+        }
+        .action-btn small {
+            display: block;
+            font-size: 10px;
+            font-weight: normal;
+            color: #555;
+            margin-top: 2px;
+            font-family: sans-serif;
+        }
+        .action-btn-primary {
+            background: #2e7d32;
+            color: #fff;
+            border-color: #1b5e20;
+        }
+        .action-btn-primary small { color: #d8f0d8; }
+        .action-btn-danger {
+            background: #c62828;
+            color: #fff;
+            border-color: #8e0000;
+        }
+        .action-btn-danger small { color: #fcd6d6; }
+
+        .pinned-slot {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px dashed #666;
+            padding: 6px;
+            background: #fff;
+        }
+        .pinned-slot-label {
+            font-size: 10px;
+            color: #888;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Floating command palette button */
+        .cmd-fab {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 64px;
+            min-height: 64px;
+            padding: 8px 14px;
+            background: #fff;
+            border: 3px solid #333;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            z-index: 6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        .cmd-fab small {
+            font-size: 9px;
+            color: #555;
+            font-family: sans-serif;
+            font-weight: normal;
+            margin-top: 2px;
+        }
+
+        /* Command palette overlay */
+        .cmd-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 120px;
+            z-index: 20;
+        }
+        .cmd-overlay.open { display: flex; }
+        .cmd-modal {
+            width: 560px;
+            background: #fff;
+            border: 2px solid #333;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        .cmd-modal-header {
+            display: flex;
+            gap: 8px;
+            padding: 10px 12px;
+            border-bottom: 1px solid #666;
+            background: #f4f4f4;
+        }
+        .cmd-input {
+            flex: 1;
+            font-size: 14px;
+            border: 2px solid #333;
+            background: #fff;
+            padding: 6px 10px;
+        }
+        .cmd-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        .cmd-item {
+            padding: 10px 14px;
+            border-bottom: 1px dashed #ccc;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .cmd-item:hover { background: #f0f0f0; }
+        .cmd-item span:last-child {
+            color: #888;
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+
+        /* Scaling helper (mirrors generic wireframe) */
+        .scale-wrapper { transform-origin: top left; }
+    </style>
+</head>
+<body>
+
+    <div class="wf-container scale-wrapper">
+
+        <!-- ===================== HUD (80px) ===================== -->
+        <header class="hud" aria-label="Heads-up display">
+            <div class="hud-row">
+                <div class="box-label">Identity</div>
+                <div class="hud-identity">
+                    <a href="equipment_ui_mockups.html" title="Back to Equipment UI Mockups" style="text-decoration:none;color:inherit;">
+                        <span class="hud-identity-logo">[LOGO]</span>
+                    </a>
+                    <span>SN: XXXXX | SW: vX.X</span>
+                    <span style="font-family:sans-serif;font-size:11px;color:#777;">&middot; Comms OK</span>
+                </div>
+                <div class="hud-kpis" role="group" aria-label="Top KPIs (tap to inspect)">
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('chains')">
+                        <span class="hud-kpi-label">Chain</span>
+                        <span class="hud-kpi-value">265 fpm</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('digger')">
+                        <span class="hud-kpi-label">Oil</span>
+                        <span class="hud-kpi-value">198&deg;F</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('axle')">
+                        <span class="hud-kpi-label">Speed</span>
+                        <span class="hud-kpi-value">3.4 mph</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="setLayer('diagnose')" title="2 active alarms">
+                        <span class="hud-kpi-label">Alarms</span>
+                        <span class="hud-kpi-value alarm">2</span>
+                    </button>
+                </div>
+            </div>
+            <div class="hud-row">
+                <div class="box-label">Workflow phase &amp; layer</div>
+                <div class="phase-strip" role="group" aria-label="Workflow phases">
+                    <button type="button" class="phase-step" data-phase="drive" onclick="setPhase('drive', this)">Drive</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step" data-phase="entry" onclick="setPhase('entry', this)">Field entry</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step active" data-phase="plant" onclick="setPhase('plant', this)">Plant: Row 12 / 48</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step" data-phase="headland" onclick="setPhase('headland', this)">Headland turn</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step" data-phase="end" onclick="setPhase('end', this)">End row</button>
+                </div>
+                <div class="layer-pills" role="tablist" aria-label="Active layer">
+                    <button type="button" class="layer-pill active" role="tab" aria-selected="true"  data-layer="inspect"  onclick="setLayer('inspect')">Inspect</button>
+                    <button type="button" class="layer-pill"        role="tab" aria-selected="false" data-layer="diagnose" onclick="setLayer('diagnose')">Diagnose</button>
+                    <button type="button" class="layer-pill"        role="tab" aria-selected="false" data-layer="edit"     onclick="setLayer('edit')">Edit</button>
+                    <button type="button" class="layer-pill"        role="tab" aria-selected="false" data-layer="help"     onclick="setLayer('help')">Help</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===================== CANVAS ===================== -->
+        <section class="canvas-area" aria-label="Living machine canvas">
+            <div class="box-label">Living machine canvas — tap any component to inspect</div>
+
+            <div id="canvasStage" class="canvas-stage layer-inspect">
+                <div class="machine-schematic">
+                    <div class="schematic-caption">
+                        <strong>Machine schematic</strong>
+                        Low-fi placeholder for the spatial 2.5D rendering of the machine.<br />
+                        Components below are positioned where they live on the equipment.
+                    </div>
+
+                    <!-- Hotspots positioned spatially over the machine -->
+                    <button type="button" class="hotspot" style="top: 18%; left: 18%;" data-component="cab" data-health="ok" onclick="openInspectorFor('cab')">
+                        Cab<span class="hotspot-state">Operator: J. Doe</span>
+                    </button>
+                    <button type="button" class="hotspot" style="top: 18%; left: 68%;" data-component="boom" data-health="warn" onclick="openInspectorFor('boom')">
+                        Boom<span class="hotspot-state">Folded</span>
+                    </button>
+                    <button type="button" class="hotspot" style="top: 46%; left: 28%;" data-component="table" data-health="ok" onclick="openInspectorFor('table')">
+                        Table<span class="hotspot-state">Pinch: ON</span>
+                    </button>
+                    <button type="button" class="hotspot" style="top: 46%; left: 56%;" data-component="chains" data-health="ok" onclick="openInspectorFor('chains')">
+                        Chains<span class="hotspot-state">265 fpm</span>
+                    </button>
+                    <button type="button" class="hotspot" style="top: 72%; left: 24%;" data-component="digger" data-health="warn" onclick="openInspectorFor('digger')">
+                        Digger<span class="hotspot-state">850 / 900 psi</span>
+                    </button>
+                    <button type="button" class="hotspot" style="top: 72%; left: 56%;" data-component="axle" data-health="error" onclick="openInspectorFor('axle')">
+                        Axle<span class="hotspot-state">Steer: 12&deg; L</span>
+                    </button>
+                </div>
+
+                <!-- Inspector slides in from right when a hotspot is tapped -->
+                <aside id="inspector" class="inspector" aria-label="Component inspector" aria-hidden="true">
+                    <div class="inspector-header">
+                        <div id="inspectorTitle" class="inspector-title">Inspector</div>
+                        <div id="inspectorMode" class="inspector-mode">INSPECT</div>
+                        <button type="button" class="inspector-close" aria-label="Close inspector" onclick="closeInspector()">&times;</button>
+                    </div>
+                    <div id="inspectorBody" class="inspector-body">
+                        Tap a component on the canvas to open its inspector here.
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Floating command palette button -->
+            <button type="button" class="cmd-fab" aria-label="Open command palette" onclick="openCmd()">
+                CMD
+                <small>palette</small>
+            </button>
+        </section>
+
+        <!-- ===================== CONTEXTUAL ACTION BAR (96px) ===================== -->
+        <footer class="action-bar" aria-label="Contextual actions for current workflow phase">
+            <div class="action-bar-label">Action bar &mdash; changes with workflow phase</div>
+            <div id="actionButtons" style="display:flex;gap:10px;align-items:center;">
+                <!-- populated by setPhase() -->
+            </div>
+            <div class="pinned-slot" title="User-pinned action — never moves">
+                <span class="pinned-slot-label">Pinned</span>
+                <button type="button" class="action-btn" style="min-width:120px;min-height:48px;font-size:12px;">Stop All<small>emergency</small></button>
+            </div>
+        </footer>
+
+        <!-- Command palette overlay -->
+        <div id="cmdOverlay" class="cmd-overlay" role="dialog" aria-modal="true" aria-label="Command palette" onclick="if(event.target===this)closeCmd()">
+            <div class="cmd-modal">
+                <div class="cmd-modal-header">
+                    <input id="cmdInput" type="text" class="cmd-input" placeholder="Type to find any action&hellip; e.g. 'chain speed 280'" oninput="filterCmd(this.value)" />
+                    <button type="button" onclick="closeCmd()">Close</button>
+                </div>
+                <ul id="cmdList" class="cmd-list">
+                    <li class="cmd-item" data-keywords="chain speed">
+                        <span>Set chain speed&hellip;</span><span>chain · speed</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="toolbar lower">
+                        <span>Lower toolbar</span><span>depth · planter</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="toolbar raise">
+                        <span>Raise toolbar</span><span>depth · planter</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="boom unfold">
+                        <span>Unfold boom</span><span>boom · harvester</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="night mode theme">
+                        <span>Toggle night mode</span><span>display</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="acknowledge alarms">
+                        <span>Acknowledge all alarms</span><span>alarm · safety</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="apply preset digger 1">
+                        <span>Apply preset: Soft Soil Dig</span><span>preset</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="diagnose digger">
+                        <span>Open diagnostic for Digger</span><span>diag · digger</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="record session">
+                        <span>Start session recording</span><span>telematics</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // Layer system: a single class on the canvas-stage drives all overlays
+        // ============================================================
+        function setLayer(layer) {
+            const stage = document.getElementById('canvasStage');
+            ['inspect', 'diagnose', 'edit', 'help'].forEach(l => stage.classList.remove('layer-' + l));
+            stage.classList.add('layer-' + layer);
+            document.querySelectorAll('.layer-pill').forEach(el => {
+                const isActive = el.dataset.layer === layer;
+                el.classList.toggle('active', isActive);
+                el.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+            // If inspector is open, refresh its body for the new layer
+            if (currentInspectorComponent) renderInspector(currentInspectorComponent);
+            // Update inspector mode label
+            const modeEl = document.getElementById('inspectorMode');
+            if (modeEl) modeEl.textContent = layer.toUpperCase();
+        }
+
+        // ============================================================
+        // Inspector sheet (right slide)
+        // ============================================================
+        let currentInspectorComponent = null;
+
+        const COMPONENT_DATA = {
+            cab: { title: 'Cab', rows: [['Operator', 'J. Doe'], ['Seat sensor', 'Occupied'], ['Hours', '1843']], help: 'Cab presence is required to engage drive systems.' },
+            boom: { title: 'Boom', rows: [['Fold state', 'Folded'], ['Drive', 'Off'], ['Speed', '0 fpm']], help: 'Boom must be unfolded before drive can be engaged. Use the Boom inspector edit layer to adjust speeds and limits.' },
+            table: { title: 'Table', rows: [['Pinch mode', 'On'], ['Gap', '12 mm'], ['Height', '180 mm'], ['Angle', '8°']], help: 'Table gap, height and angle define crop conveyance. Pinch mode reduces stones.' },
+            chains: { title: 'Chains', rows: [['Speed (master)', '265 fpm'], ['Mode', 'Fixed speed'], ['Primary shaker', '60 %'], ['Secondary shaker', '40 %']], help: 'Chains carry crop through the cleaning system. Master speed sets the reference for all per-row overrides.' },
+            digger: { title: 'Digger', rows: [['Nose pressure', '850 / 900 psi'], ['Coulters', 'Down'], ['Depth wheels', 'Auto']], help: 'Digger lifts crop from the soil. Nose target is held automatically when Auto is on.' },
+            axle: { title: 'Axle', rows: [['Steer', '12° L'], ['Wheel drive', '0 psi'], ['Height L / R', '20 / 22 in']], help: 'Axle steering corrects tracking. Auto holds straight-line position.' }
+        };
+
+        function openInspectorFor(component) {
+            currentInspectorComponent = component;
+            renderInspector(component);
+            const ins = document.getElementById('inspector');
+            ins.classList.add('open');
+            ins.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeInspector() {
+            const ins = document.getElementById('inspector');
+            ins.classList.remove('open');
+            ins.setAttribute('aria-hidden', 'true');
+            currentInspectorComponent = null;
+        }
+
+        function renderInspector(component) {
+            const data = COMPONENT_DATA[component] || { title: component, rows: [], help: '' };
+            const titleEl = document.getElementById('inspectorTitle');
+            const bodyEl = document.getElementById('inspectorBody');
+            const layer = (document.getElementById('canvasStage').className.match(/layer-(\w+)/) || [])[1] || 'inspect';
+            titleEl.textContent = data.title;
+
+            // Layer-specific contents inside the inspector
+            let html = '';
+            if (layer === 'inspect') {
+                data.rows.forEach(([k, v]) => {
+                    html += '<div class="row"><span>' + k + '</span><span>' + v + '</span></div>';
+                });
+            } else if (layer === 'diagnose') {
+                html += '<div class="row"><span>Health</span><span>OK / Warn / Error visualised on canvas</span></div>';
+                data.rows.forEach(([k, v]) => {
+                    html += '<div class="row"><span>' + k + '</span><span>' + v + ' &nbsp;<small style="color:#777;font-weight:normal;">(sensor OK)</small></span></div>';
+                });
+                html += '<div class="inspector-help"><strong>Diagnose:</strong> raw I/O and sensor health is overlaid on each component. Long-press for waveforms (mock).</div>';
+            } else if (layer === 'edit') {
+                data.rows.forEach(([k, v]) => {
+                    html += '<div class="row"><span>' + k + '</span><span><input type="text" value="' + v + '" /></span></div>';
+                });
+                html += '<div class="inspector-help"><strong>Edit:</strong> values become editable here when the Edit layer is active. No separate Settings mode needed.</div>';
+            } else if (layer === 'help') {
+                html += '<div class="inspector-help">' + (data.help || 'Help authored per component.') + '</div>';
+            }
+            bodyEl.innerHTML = html;
+        }
+
+        // ============================================================
+        // Workflow phase strip — drives the contextual action bar
+        // ============================================================
+        const PHASE_ACTIONS = {
+            drive: [
+                { label: 'Engage Field Mode', sub: 'enter the field' },
+                { label: 'Lower implement', sub: 'prep for entry' }
+            ],
+            entry: [
+                { label: 'Calibrate', sub: 'rapid cal' },
+                { label: 'Begin Plant', sub: 'start row 1', primary: true }
+            ],
+            plant: [
+                { label: 'Headland Turn', sub: 'pause planting' },
+                { label: 'Pause', sub: 'hold position' },
+                { label: 'Mark Skip', sub: 'flag this row' }
+            ],
+            headland: [
+                { label: 'Resume Plant', sub: 'next row', primary: true },
+                { label: 'Adjust Spacing', sub: 'opens inspector' }
+            ],
+            end: [
+                { label: 'Raise implement', sub: 'lift toolbar' },
+                { label: 'Save Session', sub: 'record stats' },
+                { label: 'Exit Field', sub: 'back to drive' }
+            ]
+        };
+
+        function setPhase(phase, btn) {
+            document.querySelectorAll('.phase-step').forEach(el => el.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const buttons = PHASE_ACTIONS[phase] || [];
+            const container = document.getElementById('actionButtons');
+            container.innerHTML = '';
+            buttons.forEach(spec => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'action-btn' + (spec.primary ? ' action-btn-primary' : '');
+                b.innerHTML = spec.label + (spec.sub ? '<small>' + spec.sub + '</small>' : '');
+                container.appendChild(b);
+            });
+        }
+
+        // ============================================================
+        // Command palette
+        // ============================================================
+        function openCmd() {
+            document.getElementById('cmdOverlay').classList.add('open');
+            const inp = document.getElementById('cmdInput');
+            inp.value = '';
+            filterCmd('');
+            setTimeout(() => inp.focus(), 0);
+        }
+        function closeCmd() {
+            document.getElementById('cmdOverlay').classList.remove('open');
+        }
+        function filterCmd(q) {
+            const needle = (q || '').toLowerCase();
+            document.querySelectorAll('#cmdList .cmd-item').forEach(li => {
+                const hay = (li.textContent + ' ' + (li.dataset.keywords || '')).toLowerCase();
+                li.style.display = hay.includes(needle) ? '' : 'none';
+            });
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeCmd();
+                if (currentInspectorComponent) closeInspector();
+            }
+        });
+
+        // ============================================================
+        // Initial state
+        // ============================================================
+        setPhase('plant', document.querySelector('.phase-step.active'));
+
+        // ============================================================
+        // Auto-scale to fit window (mirrors generic wireframe)
+        // ============================================================
+        function scaleFit() {
+            const container = document.querySelector('.wf-container');
+            const scaleX = window.innerWidth / 1280;
+            const scaleY = window.innerHeight / 800;
+            const scale = Math.min(scaleX, scaleY, 1);
+            container.style.transform = 'scale(' + scale + ')';
+            const scaledWidth = 1280 * scale;
+            const scaledHeight = 800 * scale;
+            container.style.position = 'absolute';
+            container.style.left = ((window.innerWidth - scaledWidth) / 2) + 'px';
+            container.style.top = ((window.innerHeight - scaledHeight) / 2) + 'px';
+        }
+        window.addEventListener('resize', scaleFit);
+        setTimeout(scaleFit, 50);
+    </script>
+</body>
+</html>

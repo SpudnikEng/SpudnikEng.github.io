@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6844 MultiSep — Living Machine HMI (mockup)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0e0e0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .wf-container {
+            width: 1280px;
+            height: 800px;
+            background-color: #ffffff;
+            border: 2px solid #000;
+            display: grid;
+            grid-template-rows: 80px 1fr 96px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box-label {
+            position: absolute;
+            top: 4px;
+            left: 6px;
+            font-size: 11px;
+            color: #888;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        button, select, input {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 14px;
+            border: 2px solid #333;
+            background: #eee;
+            color: #111;
+            cursor: pointer;
+            padding: 6px 10px;
+        }
+
+        button:hover, select:hover {
+            background: #ddd;
+        }
+
+        .hud {
+            display: grid;
+            grid-template-rows: 40px 40px;
+            border-bottom: 1px solid #666;
+            background: #fafafa;
+        }
+
+        .hud-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 14px;
+            border-bottom: 1px dashed #bbb;
+            position: relative;
+        }
+        .hud-row:last-child { border-bottom: none; }
+
+        .hud-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #222;
+        }
+        .hud-identity a.brand-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        .hud-identity .brand-logo {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
+
+        .hud-kpis {
+            margin-left: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 6px;
+            max-width: 720px;
+        }
+        .hud-kpi {
+            min-width: 76px;
+            padding: 2px 6px;
+            border: 1px solid #888;
+            background: #fff;
+            font-size: 11px;
+            line-height: 1.2;
+            cursor: pointer;
+        }
+        .hud-kpi:hover { background: #f0f0f0; }
+        .hud-kpi-label {
+            display: block;
+            font-size: 8px;
+            color: #777;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            letter-spacing: 0.04em;
+        }
+        .hud-kpi-value {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .hud-kpi-value.alarm { color: #b71c1c; }
+
+        .hud-run {
+            flex-shrink: 0;
+            min-width: 56px;
+            height: 40px;
+            padding: 4px 10px;
+            font-size: 12px;
+            background: #333;
+            color: #fff;
+            border-color: #111;
+        }
+        .hud-run:hover { background: #444; }
+
+        .phase-strip {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        .phase-step {
+            padding: 4px 10px;
+            border: 1px solid #888;
+            background: #fff;
+            color: #444;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .phase-step.active {
+            background: #333;
+            color: #fff;
+            border-color: #333;
+        }
+        .phase-sep {
+            color: #888;
+            user-select: none;
+        }
+
+        .layer-pills {
+            display: flex;
+            gap: 0;
+            border: 2px solid #333;
+            background: #eee;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .layer-pill {
+            min-width: 76px;
+            padding: 4px 8px;
+            border: none;
+            border-right: 1px solid #333;
+            background: #eee;
+            color: #333;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .layer-pill:last-child { border-right: none; }
+        .layer-pill.active {
+            background: #333;
+            color: #fff;
+        }
+
+        .canvas-area {
+            position: relative;
+            border-bottom: 1px solid #666;
+            background: #e0e0e0;
+            overflow: hidden;
+        }
+
+        .canvas-stage {
+            position: absolute;
+            inset: 16px;
+            border: 1px dashed #999;
+            background: #e0e0e0;
+        }
+
+        .machine-schematic {
+            position: absolute;
+            inset: 8px;
+            border: 1px solid #888;
+            background: #e0e0e0;
+            overflow: hidden;
+        }
+
+        .machine-photo-wrap {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .machine-photo-wrap img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            vertical-align: top;
+        }
+
+        .hotspot-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hotspot {
+            position: absolute;
+            left: var(--hx, 50%);
+            top: var(--hy, 50%);
+            transform: translate(-50%, -50%);
+            min-width: 88px;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #444;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center;
+            cursor: pointer;
+            line-height: 1.2;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+            z-index: 3;
+            pointer-events: auto;
+        }
+        .hotspot:hover {
+            background: #fff;
+            border-color: #111;
+        }
+        .hotspot .hotspot-state {
+            display: block;
+            font-size: 9px;
+            font-weight: normal;
+            color: #555;
+            margin-top: 2px;
+            font-family: sans-serif;
+        }
+
+        .canvas-stage.layer-diagnose .hotspot[data-health="ok"]    { background: rgba(214, 245, 214, 0.96); border-color: #2e7d32; }
+        .canvas-stage.layer-diagnose .hotspot[data-health="warn"]  { background: rgba(255, 244, 204, 0.96); border-color: #c89000; }
+        .canvas-stage.layer-diagnose .hotspot[data-health="error"] { background: rgba(249, 214, 210, 0.96); border-color: #b71c1c; }
+        .canvas-stage.layer-diagnose .hotspot::after {
+            content: "HEALTH";
+            display: block;
+            font-size: 8px;
+            margin-top: 2px;
+            color: #222;
+            font-family: sans-serif;
+        }
+
+        .canvas-stage.layer-edit .hotspot::before {
+            content: "[edit]";
+            display: block;
+            font-size: 9px;
+            color: #555;
+            font-family: sans-serif;
+            margin-bottom: 2px;
+        }
+        .canvas-stage.layer-edit .hotspot { border-style: dashed; }
+
+        .canvas-stage.layer-help .hotspot::after {
+            content: "?";
+            display: inline-block;
+            margin-left: 4px;
+            width: 16px;
+            height: 16px;
+            line-height: 12px;
+            border: 2px solid #444;
+            border-radius: 50%;
+            font-size: 11px;
+            color: #444;
+            background: #fff;
+            font-family: sans-serif;
+        }
+
+        .inspector {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 340px;
+            background: #fff;
+            border-left: 2px solid #333;
+            transform: translateX(100%);
+            transition: transform 0.18s ease;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.12);
+        }
+        .inspector.open {
+            transform: translateX(0);
+        }
+        .inspector-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-bottom: 1px solid #666;
+            background: #f4f4f4;
+        }
+        .inspector-title {
+            flex: 1;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .inspector-mode {
+            font-size: 10px;
+            font-family: sans-serif;
+            color: #555;
+            background: #fff;
+            border: 1px solid #888;
+            padding: 2px 6px;
+        }
+        .inspector-close {
+            border: 1px solid #666;
+            background: #fff;
+            font-size: 14px;
+            line-height: 1;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inspector-body {
+            flex: 1;
+            padding: 12px 14px;
+            overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+        .inspector-body .row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #bbb;
+            padding: 6px 0;
+        }
+        .inspector-body .row span:first-child {
+            color: #555;
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+        .inspector-body .row span:last-child {
+            font-weight: bold;
+        }
+        .inspector-body input[type=text] {
+            width: 90px;
+            text-align: right;
+            font-weight: bold;
+            background: #fff;
+            border: 2px solid #333;
+            padding: 2px 4px;
+        }
+        .inspector-help {
+            background: #f0f7ff;
+            border: 1px dashed #6699cc;
+            padding: 8px 10px;
+            margin-top: 10px;
+            font-size: 12px;
+            font-family: sans-serif;
+            color: #234;
+        }
+
+        .action-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: #f4f4f4;
+            position: relative;
+        }
+
+        .action-bar-label {
+            position: absolute;
+            top: 4px;
+            left: 8px;
+            font-size: 10px;
+            color: #888;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .action-btn {
+            min-width: 132px;
+            min-height: 58px;
+            padding: 8px 12px;
+            font-size: 13px;
+            background: #eee;
+            border: 2px solid #333;
+            color: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.15;
+            text-align: center;
+            cursor: pointer;
+        }
+        .action-btn small {
+            display: block;
+            font-size: 10px;
+            font-weight: normal;
+            color: #555;
+            margin-top: 2px;
+            font-family: sans-serif;
+        }
+        .action-btn-primary {
+            background: #2e7d32;
+            color: #fff;
+            border-color: #1b5e20;
+        }
+        .action-btn-primary small { color: #d8f0d8; }
+        .action-btn-danger {
+            background: #c62828;
+            color: #fff;
+            border-color: #8e0000;
+        }
+        .action-btn-danger small { color: #fcd6d6; }
+
+        .pinned-slot {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px dashed #666;
+            padding: 6px;
+            background: #fff;
+        }
+        .pinned-slot-label {
+            font-size: 10px;
+            color: #888;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .cmd-fab {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 64px;
+            min-height: 64px;
+            padding: 8px 14px;
+            background: #fff;
+            border: 3px solid #333;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            z-index: 6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        .cmd-fab small {
+            font-size: 9px;
+            color: #555;
+            font-family: sans-serif;
+            font-weight: normal;
+            margin-top: 2px;
+        }
+
+        .cmd-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 120px;
+            z-index: 20;
+        }
+        .cmd-overlay.open { display: flex; }
+        .cmd-modal {
+            width: 560px;
+            background: #fff;
+            border: 2px solid #333;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        .cmd-modal-header {
+            display: flex;
+            gap: 8px;
+            padding: 10px 12px;
+            border-bottom: 1px solid #666;
+            background: #f4f4f4;
+        }
+        .cmd-input {
+            flex: 1;
+            font-size: 14px;
+            border: 2px solid #333;
+            background: #fff;
+            padding: 6px 10px;
+        }
+        .cmd-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        .cmd-item {
+            padding: 10px 14px;
+            border-bottom: 1px dashed #ccc;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .cmd-item:hover { background: #f0f0f0; }
+        .cmd-item span:last-child {
+            color: #888;
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+
+        .scale-wrapper { transform-origin: top left; }
+    </style>
+</head>
+<body>
+
+    <div class="wf-container scale-wrapper">
+
+        <header class="hud" aria-label="Heads-up display">
+            <div class="hud-row">
+                <div class="box-label">Identity &amp; KPIs</div>
+                <div class="hud-identity">
+                    <a href="equipment_ui_mockups.html" class="brand-link" title="Back to Equipment UI Mockups">
+                        <img class="brand-logo" src="img/SpudnikLogo.svg" alt="Spudnik" width="206" height="50" />
+                    </a>
+                    <span>6844 MultiSep</span>
+                    <span>SN: 6844-55-28 | SW: v2.5.1</span>
+                    <span style="font-family:sans-serif;font-size:11px;color:#777;">&middot; GNSS fix</span>
+                </div>
+                <div class="hud-kpis" role="group" aria-label="Top KPIs (tap to inspect)">
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('chains')">
+                        <span class="hud-kpi-label">Chain</span>
+                        <span class="hud-kpi-value">265 fpm</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('cab')">
+                        <span class="hud-kpi-label">PTO</span>
+                        <span class="hud-kpi-value">535 rpm</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('boom')">
+                        <span class="hud-kpi-label">Boom</span>
+                        <span class="hud-kpi-value">0 fpm</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('digger')">
+                        <span class="hud-kpi-label">Oil</span>
+                        <span class="hud-kpi-value">198&deg;F</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="openInspectorFor('axle')">
+                        <span class="hud-kpi-label">Whl Drv</span>
+                        <span class="hud-kpi-value">0 psi</span>
+                    </button>
+                    <button type="button" class="hud-kpi" onclick="setLayer('diagnose')" title="Active alarms">
+                        <span class="hud-kpi-label">Alarms</span>
+                        <span class="hud-kpi-value alarm">1</span>
+                    </button>
+                </div>
+                <button type="button" class="hud-run" aria-pressed="false" title="Run / stop (mock)">RUN</button>
+            </div>
+            <div class="hud-row">
+                <div class="box-label">Workflow &amp; layer</div>
+                <div class="phase-strip" role="group" aria-label="Harvest workflow phases">
+                    <button type="button" class="phase-step" data-phase="transport" onclick="setPhase('transport', this)">Transport</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step" data-phase="entry" onclick="setPhase('entry', this)">Field entry</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step active" data-phase="harvest" onclick="setPhase('harvest', this)">Harvest: Row 12 / 48</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step" data-phase="headland" onclick="setPhase('headland', this)">Headland</button>
+                    <span class="phase-sep">&rsaquo;</span>
+                    <button type="button" class="phase-step" data-phase="unload" onclick="setPhase('unload', this)">Unload / exit</button>
+                </div>
+                <div class="layer-pills" role="tablist" aria-label="Active layer">
+                    <button type="button" class="layer-pill active" role="tab" aria-selected="true"  data-layer="inspect"  onclick="setLayer('inspect')">Inspect</button>
+                    <button type="button" class="layer-pill"        role="tab" aria-selected="false" data-layer="diagnose" onclick="setLayer('diagnose')">Diagnose</button>
+                    <button type="button" class="layer-pill"        role="tab" aria-selected="false" data-layer="edit"     onclick="setLayer('edit')">Edit</button>
+                    <button type="button" class="layer-pill"        role="tab" aria-selected="false" data-layer="help"     onclick="setLayer('help')">Help</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="canvas-area" aria-label="Living machine canvas — 6844 ISO view">
+            <div class="box-label">Canvas — ISO machine + spatial hotspots</div>
+
+            <div id="canvasStage" class="canvas-stage layer-inspect">
+                <div class="machine-schematic">
+                    <div class="machine-photo-wrap">
+                        <img src="img/6844_R_ISO_Front.png" alt="Spudnik 6844 MultiSep harvester, front isometric" />
+                    </div>
+                    <div class="hotspot-layer">
+                        <!-- Percent positions aligned with M3_harvester_mockup.html home hotspots -->
+                        <button type="button" class="hotspot" style="--hx: 16%; --hy: 60%;" data-component="axle" data-health="error" onclick="openInspectorFor('axle')">
+                            Axle<span class="hotspot-state">Steer 0&deg; &middot; Drv off</span>
+                        </button>
+                        <button type="button" class="hotspot" style="--hx: 46%; --hy: 26%;" data-component="table" data-health="ok" onclick="openInspectorFor('table')">
+                            Table<span class="hotspot-state">Pinch ON</span>
+                        </button>
+                        <button type="button" class="hotspot" style="--hx: 66%; --hy: 54%;" data-component="chains" data-health="ok" onclick="openInspectorFor('chains')">
+                            Chains<span class="hotspot-state">265 fpm</span>
+                        </button>
+                        <button type="button" class="hotspot" style="--hx: 48%; --hy: 74%;" data-component="digger" data-health="warn" onclick="openInspectorFor('digger')">
+                            Digger<span class="hotspot-state">Nose 850 / 900 psi</span>
+                        </button>
+                        <button type="button" class="hotspot" style="--hx: 84%; --hy: 22%;" data-component="boom" data-health="warn" onclick="openInspectorFor('boom')">
+                            Boom<span class="hotspot-state">Folded</span>
+                        </button>
+                        <button type="button" class="hotspot" style="--hx: 42%; --hy: 12%;" data-component="cab" data-health="ok" onclick="openInspectorFor('cab')">
+                            Cab<span class="hotspot-state">PTO 535 rpm</span>
+                        </button>
+                    </div>
+                </div>
+
+                <aside id="inspector" class="inspector" aria-label="Component inspector" aria-hidden="true">
+                    <div class="inspector-header">
+                        <div id="inspectorTitle" class="inspector-title">Inspector</div>
+                        <div id="inspectorMode" class="inspector-mode">INSPECT</div>
+                        <button type="button" class="inspector-close" aria-label="Close inspector" onclick="closeInspector()">&times;</button>
+                    </div>
+                    <div id="inspectorBody" class="inspector-body">
+                        Tap a hotspot or KPI to inspect.
+                    </div>
+                </aside>
+            </div>
+
+            <button type="button" class="cmd-fab" aria-label="Open command palette" onclick="openCmd()">
+                CMD
+                <small>palette</small>
+            </button>
+        </section>
+
+        <footer class="action-bar" aria-label="Contextual harvest actions">
+            <div class="action-bar-label">Action bar &mdash; harvest phase</div>
+            <div id="actionButtons" style="display:flex;gap:10px;align-items:center;"></div>
+            <div class="pinned-slot" title="Pinned action">
+                <span class="pinned-slot-label">Pinned</span>
+                <button type="button" class="action-btn action-btn-danger" style="min-width:120px;min-height:48px;font-size:12px;">Stop All<small>hydraulic + PTO</small></button>
+            </div>
+        </footer>
+
+        <div id="cmdOverlay" class="cmd-overlay" role="dialog" aria-modal="true" aria-label="Command palette" onclick="if(event.target===this)closeCmd()">
+            <div class="cmd-modal">
+                <div class="cmd-modal-header">
+                    <input id="cmdInput" type="text" class="cmd-input" placeholder="Search: chain, boom, digger, shaker, fold&hellip;" oninput="filterCmd(this.value)" />
+                    <button type="button" onclick="closeCmd()">Close</button>
+                </div>
+                <ul id="cmdList" class="cmd-list">
+                    <li class="cmd-item" data-keywords="chain speed fpm">
+                        <span>Set master chain speed&hellip;</span><span>chains</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="shaker primary secondary">
+                        <span>Set shaker split (primary / secondary)</span><span>chains</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="digger nose pressure">
+                        <span>Set digger nose pressure target</span><span>digger</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="boom unfold fold">
+                        <span>Unfold boom</span><span>boom · safety</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="boom fold">
+                        <span>Fold boom for transport</span><span>boom</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="table gap height angle">
+                        <span>Open table gap / height / angle</span><span>table</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="wheel drive axle">
+                        <span>Engage wheel drive</span><span>axle</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="preset digger clean">
+                        <span>Apply preset: Soft Soil Dig</span><span>preset</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="acknowledge alarm silence">
+                        <span>Acknowledge boom folded warning</span><span>alarm</span>
+                    </li>
+                    <li class="cmd-item" data-keywords="diagnose io digger">
+                        <span>Show I/O for digger nose pressure</span><span>diagnose</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function setLayer(layer) {
+            const stage = document.getElementById('canvasStage');
+            ['inspect', 'diagnose', 'edit', 'help'].forEach(l => stage.classList.remove('layer-' + l));
+            stage.classList.add('layer-' + layer);
+            document.querySelectorAll('.layer-pill').forEach(el => {
+                const isActive = el.dataset.layer === layer;
+                el.classList.toggle('active', isActive);
+                el.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+            if (currentInspectorComponent) renderInspector(currentInspectorComponent);
+            const modeEl = document.getElementById('inspectorMode');
+            if (modeEl) modeEl.textContent = layer.toUpperCase();
+        }
+
+        let currentInspectorComponent = null;
+
+        const COMPONENT_DATA = {
+            cab: {
+                title: 'Cab / PTO',
+                rows: [['Engine / PTO', 'Engaged'], ['PTO speed', '535 rpm'], ['Operator seat', 'Occupied'], ['Machine hours', '1843']],
+                help: '6844 cab: PTO drives the harvester. Verify personnel clear before engaging chains or digger hydraulics.'
+            },
+            boom: {
+                title: 'Boom',
+                rows: [['Fold state', 'Folded'], ['Boom drive', 'Off'], ['Boom speed', '0 fpm'], ['Tip height', 'Auto']],
+                help: 'Boom must be unfolded before boom drive or certain field modes. Fold for road transport.'
+            },
+            table: {
+                title: 'Table',
+                rows: [['Pinch mode', 'On'], ['Gap', '12 mm'], ['Height', '180 mm'], ['Angle', '8°']],
+                help: 'Table controls cleaning and crop flow onto the chains. Pinch mode helps reject stones.'
+            },
+            chains: {
+                title: 'Chains',
+                rows: [['Master speed', '265 fpm'], ['Speed mode', 'Fixed speed'], ['Primary shaker', '60 %'], ['Secondary shaker', '40 %']],
+                help: 'Chain speed is the backbone of throughput. Ground-speed mode ties chain speed to travel speed (mock).'
+            },
+            digger: {
+                title: 'Digger',
+                rows: [['Nose pressure (act / tgt)', '850 / 900 psi'], ['Coulters', 'Down'], ['Depth wheels', 'Auto'], ['Hump', 'Auto']],
+                help: 'Digger nose pressure follows terrain. Auto holds the target setpoint within gauge limits.'
+            },
+            axle: {
+                title: 'Axle / wheel drive',
+                rows: [['Steer position', 'Center'], ['Wheel drive', '0 psi'], ['Height L / R', '20 / 22 in'], ['Roll', '0°']],
+                help: 'Rear axle height and steer affect digger depth and tracking. Wheel drive assists in soft conditions.'
+            }
+        };
+
+        function openInspectorFor(component) {
+            currentInspectorComponent = component;
+            renderInspector(component);
+            const ins = document.getElementById('inspector');
+            ins.classList.add('open');
+            ins.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeInspector() {
+            const ins = document.getElementById('inspector');
+            ins.classList.remove('open');
+            ins.setAttribute('aria-hidden', 'true');
+            currentInspectorComponent = null;
+        }
+
+        function renderInspector(component) {
+            const data = COMPONENT_DATA[component] || { title: component, rows: [], help: '' };
+            const titleEl = document.getElementById('inspectorTitle');
+            const bodyEl = document.getElementById('inspectorBody');
+            const layer = (document.getElementById('canvasStage').className.match(/layer-(\w+)/) || [])[1] || 'inspect';
+            titleEl.textContent = data.title;
+
+            let html = '';
+            if (layer === 'inspect') {
+                data.rows.forEach(([k, v]) => {
+                    html += '<div class="row"><span>' + k + '</span><span>' + v + '</span></div>';
+                });
+            } else if (layer === 'diagnose') {
+                html += '<div class="row"><span>Subsystem</span><span>' + data.title + '</span></div>';
+                data.rows.forEach(([k, v]) => {
+                    html += '<div class="row"><span>' + k + '</span><span>' + v + ' <small style="color:#777;font-weight:normal;">(I/O OK)</small></span></div>';
+                });
+                html += '<div class="inspector-help"><strong>Diagnose:</strong> Sensor map and wiring references would appear here (mock).</div>';
+            } else if (layer === 'edit') {
+                data.rows.forEach(([k, v]) => {
+                    html += '<div class="row"><span>' + k + '</span><span><input type="text" value="' + v.replace(/"/g, '&quot;') + '" /></span></div>';
+                });
+                html += '<div class="inspector-help"><strong>Edit:</strong> Setpoints save to machine when confirmed (mock).</div>';
+            } else if (layer === 'help') {
+                html += '<div class="inspector-help">' + (data.help || '') + '</div>';
+            }
+            bodyEl.innerHTML = html;
+        }
+
+        const PHASE_ACTIONS = {
+            transport: [
+                { label: 'Verify boom folded', sub: 'road legal' },
+                { label: 'PTO disengage', sub: 'transport lock', primary: true }
+            ],
+            entry: [
+                { label: 'Unfold boom', sub: 'required for harvest' },
+                { label: 'Lower digger', sub: 'field depth', primary: true }
+            ],
+            harvest: [
+                { label: 'Headland turn', sub: 'pause dig + chains' },
+                { label: 'Pause harvest', sub: 'hold position' },
+                { label: 'Mark skip area', sub: 'GPS flag (mock)' }
+            ],
+            headland: [
+                { label: 'Resume harvest', sub: 'continue row', primary: true },
+                { label: 'Trim chain speed', sub: 'opens chains inspector' }
+            ],
+            unload: [
+                { label: 'Raise digger', sub: 'clear soil' },
+                { label: 'Stop &amp; save load', sub: 'ticket / stats' },
+                { label: 'Exit field', sub: 'back to transport' }
+            ]
+        };
+
+        function setPhase(phase, btn) {
+            document.querySelectorAll('.phase-step').forEach(el => el.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const buttons = PHASE_ACTIONS[phase] || [];
+            const container = document.getElementById('actionButtons');
+            container.innerHTML = '';
+            buttons.forEach(spec => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'action-btn' + (spec.primary ? ' action-btn-primary' : '');
+                b.innerHTML = spec.label + (spec.sub ? '<small>' + spec.sub + '</small>' : '');
+                container.appendChild(b);
+            });
+        }
+
+        function openCmd() {
+            document.getElementById('cmdOverlay').classList.add('open');
+            const inp = document.getElementById('cmdInput');
+            inp.value = '';
+            filterCmd('');
+            setTimeout(function () { inp.focus(); }, 0);
+        }
+        function closeCmd() {
+            document.getElementById('cmdOverlay').classList.remove('open');
+        }
+        function filterCmd(q) {
+            const needle = (q || '').toLowerCase();
+            document.querySelectorAll('#cmdList .cmd-item').forEach(function (li) {
+                const hay = (li.textContent + ' ' + (li.dataset.keywords || '')).toLowerCase();
+                li.style.display = hay.indexOf(needle) !== -1 ? '' : 'none';
+            });
+        }
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeCmd();
+                if (currentInspectorComponent) closeInspector();
+            }
+        });
+
+        setPhase('harvest', document.querySelector('.phase-step.active'));
+
+        function scaleFit() {
+            const container = document.querySelector('.wf-container');
+            const scaleX = window.innerWidth / 1280;
+            const scaleY = window.innerHeight / 800;
+            const scale = Math.min(scaleX, scaleY, 1);
+            container.style.transform = 'scale(' + scale + ')';
+            const scaledWidth = 1280 * scale;
+            const scaledHeight = 800 * scale;
+            container.style.position = 'absolute';
+            container.style.left = ((window.innerWidth - scaledWidth) / 2) + 'px';
+            container.style.top = ((window.innerHeight - scaledHeight) / 2) + 'px';
+        }
+        window.addEventListener('resize', scaleFit);
+        setTimeout(scaleFit, 50);
+    </script>
+</body>
+</html>
