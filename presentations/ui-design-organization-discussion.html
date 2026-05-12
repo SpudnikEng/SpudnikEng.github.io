@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>High-Level UI Design &amp; Organization — Discussion Deck</title>
+  <style>
+    :root {
+      --bg: #1a1d21;
+      --surface: #252a30;
+      --surface-2: #2f353d;
+      --ink: #e8eaed;
+      --muted: #9aa3ad;
+      --line: #3d4654;
+      --brand: #c62828;
+      --brand-soft: rgba(198, 40, 40, 0.15);
+      --accent: #1e88e5;
+      --ok: #43a047;
+      --warn: #fb8c00;
+      --discuss-bg: #1b2838;
+      --lens-op: #1565c0;
+      --lens-sales: #6a1b9a;
+      --lens-dev: #2e7d32;
+      --radius: 14px;
+      --font: "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: clamp(15px, 1.35vw, 18px);
+      line-height: 1.45;
+      overflow: hidden;
+    }
+
+    .deck {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      padding: clamp(16px, 3vh, 40px) clamp(20px, 4vw, 56px);
+      padding-bottom: clamp(100px, 14vh, 140px);
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      overflow: auto;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+      font-weight: 700;
+      margin: 0 0 0.5em;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    h2 {
+      font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+      font-weight: 650;
+      margin: 0 0 0.65em;
+      color: var(--brand);
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 1em 0 0.4em;
+      color: var(--ink);
+    }
+
+    p { margin: 0.5em 0; color: var(--muted); }
+    p strong, li strong { color: var(--ink); }
+
+    ul { margin: 0.35em 0 0.6em; padding-left: 1.25em; color: var(--muted); }
+    li { margin: 0.25em 0; }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: -0.25em;
+      margin-bottom: 1em;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--brand-soft);
+      color: #ff8a80;
+      padding: 0.35em 0.65em;
+      border-radius: 6px;
+      margin-bottom: 0.75em;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(12px, 2vw, 24px);
+      margin: 0.75em 0;
+    }
+
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .mockup-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.75em 0;
+    }
+
+    a.mockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      padding: 0.45em 0.75em;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    a.mockup:hover {
+      border-color: var(--accent);
+      background: rgba(30, 136, 229, 0.12);
+    }
+
+    .placeholder {
+      border: 2px dashed var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0.5em 0;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .lenses {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 1em 0;
+    }
+
+    @media (max-width: 900px) {
+      .lenses { grid-template-columns: 1fr; }
+    }
+
+    .lens {
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--line);
+      font-size: 0.88rem;
+    }
+
+    .lens.op { border-left: 4px solid var(--lens-op); }
+    .lens.sales { border-left: 4px solid var(--lens-sales); }
+    .lens.dev { border-left: 4px solid var(--lens-dev); }
+
+    .lens .label {
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35em;
+    }
+
+    .lens.op .label { color: #64b5f6; }
+    .lens.sales .label { color: #ce93d8; }
+    .lens.dev .label { color: #81c784; }
+
+    .lens p { margin: 0; font-size: 0.86rem; color: var(--muted); }
+
+    .discuss {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--discuss-bg);
+      border-top: 1px solid var(--line);
+      padding: 0.65rem clamp(16px, 3vw, 48px);
+      z-index: 50;
+    }
+
+    .discuss-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px 20px;
+      align-items: start;
+    }
+
+    .discuss-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--warn);
+      padding-top: 0.2em;
+    }
+
+    .discuss ul {
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.88rem;
+    }
+
+    .discuss li { margin: 0.2em 0; }
+
+    .toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px clamp(12px, 2vw, 24px);
+      background: rgba(26, 29, 33, 0.92);
+      border-bottom: 1px solid var(--line);
+      z-index: 60;
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar .progress {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .toolbar .controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .toolbar button {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 0.4em 0.75em;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: inherit;
+    }
+
+    .toolbar button:hover {
+      border-color: var(--muted);
+    }
+
+    .toolbar button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .slide-body {
+      padding-top: 48px;
+      flex: 1;
+    }
+
+    table.terms {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 0.75em 0;
+    }
+
+    table.terms th,
+    table.terms td {
+      border: 1px solid var(--line);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.terms th {
+      background: var(--surface-2);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    table.terms td.empty {
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 6px,
+        rgba(255,255,255,0.03) 6px,
+        rgba(255,255,255,0.03) 12px
+      );
+      min-height: 2.5em;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .flow-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 1em 0;
+      justify-content: center;
+    }
+
+    .flow-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      text-align: center;
+      max-width: 200px;
+    }
+
+    .flow-arrow {
+      color: var(--muted);
+      font-size: 1.25rem;
+    }
+
+    .exercise-options {
+      display: grid;
+      gap: 10px;
+      margin: 0.75em 0;
+    }
+
+    .exercise-options label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+
+    .exercise-options label:has(input:checked) {
+      border-color: var(--accent);
+      background: rgba(30, 136, 229, 0.1);
+    }
+
+    .exercise-options input {
+      margin-top: 4px;
+    }
+
+    #helpOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #helpOverlay.visible { display: flex; }
+
+    #helpOverlay .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      max-width: 420px;
+    }
+
+    #helpOverlay h3 { margin-top: 0; }
+
+    #helpOverlay kbd {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      padding: 0.15em 0.45em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    @media print {
+      html, body {
+        overflow: visible;
+        height: auto;
+        background: #fff;
+        color: #111;
+      }
+
+      .toolbar,
+      #helpOverlay {
+        display: none !important;
+      }
+
+      .discuss {
+        position: static;
+        border-top: 1px solid #ccc;
+        margin-top: 12px;
+        padding: 10px 0 0;
+        background: #f5f5f5;
+      }
+
+      .discuss-tag { color: #b45309; }
+
+      .discuss ul { color: #222; }
+
+      .slide {
+        display: flex !important;
+        page-break-after: always;
+        page-break-inside: avoid;
+        max-width: none;
+        padding: 1.2cm;
+        padding-bottom: 1.2cm;
+        min-height: auto;
+        border: 1px solid #ccc;
+        margin-bottom: 1cm;
+        overflow: visible;
+      }
+
+      .slide.active {
+        display: flex !important;
+      }
+
+      .slide-body { padding-top: 0; }
+
+      h1, h2, h3 { color: #111; }
+      p, li { color: #333; }
+
+      .card, .lens, .exercise-options label {
+        border-color: #bbb;
+        background: #f9f9f9;
+      }
+
+      a.mockup {
+        color: #0d47a1;
+        border-color: #bbb;
+      }
+
+      .placeholder {
+        border-color: #999;
+        color: #555;
+      }
+
+      @page { margin: 1cm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="toolbar no-print">
+      <span class="progress" id="progress">1 / 19</span>
+      <div class="controls">
+        <button type="button" id="btnPrev" aria-label="Previous slide">Prev</button>
+        <button type="button" id="btnNext" aria-label="Next slide">Next</button>
+        <button type="button" id="btnHelp" aria-label="Keyboard help">?</button>
+      </div>
+    </header>
+
+    <div id="helpOverlay" class="no-print" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="panel">
+        <h3 id="helpTitle">Navigation</h3>
+        <ul>
+          <li><kbd>→</kbd> or <kbd>Space</kbd> — next slide</li>
+          <li><kbd>←</kbd> — previous slide</li>
+          <li><kbd>Home</kbd> — first slide</li>
+          <li><kbd>End</kbd> — last slide</li>
+          <li><kbd>?</kbd> — toggle this help</li>
+          <li><kbd>Esc</kbd> — close help</li>
+        </ul>
+        <p style="font-size:0.85rem;margin-bottom:0">Print or save as PDF from the browser for a handout (one slide per page).</p>
+      </div>
+    </div>
+
+    <!-- 1 -->
+    <section class="slide active" data-slide="1" aria-label="Slide 1">
+      <div class="slide-body">
+        <span class="badge">Facilitated discussion</span>
+        <h1>High-Level UI Design &amp; Organization</h1>
+        <p class="subtitle">Potato harvester &amp; planter examples — operators, sales, and programmers in one room</p>
+        <div class="card">
+          <h3>Session contract</h3>
+          <ul>
+            <li><strong>Goal:</strong> align on how we <em>organize</em> HMIs (navigation, modes, depth) before debating individual buttons.</li>
+            <li><strong>Format:</strong> short framing slides + discussion. Use the <strong>Parking lot</strong> for topics that deserve a follow-up meeting.</li>
+            <li><strong>Parking lot</strong> (capture on a whiteboard or shared doc): <span style="border-bottom:1px dashed var(--muted); display:inline-block; min-width:12rem">&nbsp;</span></li>
+          </ul>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>What decision do we need to walk out of this room with today?</li>
+            <li>What is explicitly <em>out of scope</em> for this conversation?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-slide="2">
+      <div class="slide-body">
+        <h2>Agenda &amp; outcomes</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Agenda (about 45–60 minutes)</h3>
+            <ul>
+              <li>Shared vocabulary &amp; three “lenses”</li>
+              <li>Principles with <strong>harvester</strong> vs <strong>planter</strong> contrasts</li>
+              <li>Mockup links for live examples</li>
+              <li>Terminology bridge + short exercise</li>
+              <li>Close: decisions &amp; open questions</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Desired outcomes</h3>
+            <ul>
+              <li>Common words for layout, modes, alarms, and setup vs run</li>
+              <li>One or two concrete agreements on <strong>information hierarchy</strong></li>
+              <li>Clearer handoff from domain language to what programmers must model</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Which outcome matters most to your role right now?</li>
+            <li>Anything missing from the agenda?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" data-slide="3">
+      <div class="slide-body">
+        <h2>Why “high level” first?</h2>
+        <p><strong>Organization</strong> (information architecture, navigation, modes, what is primary vs secondary) is expensive to change late. Visual polish is comparatively cheap.</p>
+        <div class="grid-2">
+          <div class="card">
+            <h3>If we skip straight to controls…</h3>
+            <ul>
+              <li>Experts get screens that mirror the machine map, not the <strong>job</strong></li>
+              <li>Operators hunt for the one number that matters <em>right now</em></li>
+              <li>Programmers inherit ambiguous state boundaries</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>If we align on structure first…</h3>
+            <ul>
+              <li>Sales can train consistent “paths” through the UI</li>
+              <li>Operators build muscle memory across machines</li>
+              <li>Reuse (shell, patterns) becomes realistic across product lines</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Where have we paid the price for late structural changes?</li>
+            <li>What is one “organization” win we are already proud of?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide" data-slide="4">
+      <div class="slide-body">
+        <h2>Shared vocabulary</h2>
+        <div class="card">
+          <ul>
+            <li><strong>Information architecture (IA):</strong> how content is grouped, named, and reached (navigation), not individual widget styling.</li>
+            <li><strong>Primary task surface:</strong> the screen (or region) tuned to what the operator is doing <em>most of the time</em> in the field.</li>
+            <li><strong>Progressive disclosure:</strong> show essentials first; reveal depth (diagnostics, tuning) on demand.</li>
+            <li><strong>Affordance:</strong> what the control “looks like it does” — especially important under vibration and gloves.</li>
+            <li><strong>Mode:</strong> a machine or UI state that changes which actions are legal and what is shown (e.g. transport vs field, auto vs manual).</li>
+            <li><strong>Alarm vs warning vs status:</strong> urgency and required response differ — the UI should not flatten them into one color.</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Which term is most often misunderstood between departments?</li>
+            <li>Do we need a one-page glossary for customers?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" data-slide="5">
+      <div class="slide-body">
+        <h2>Three lenses → one UI contract</h2>
+        <p>Everyone touches the same HMI for different reasons. Design decisions should be defensible from all three angles.</p>
+        <div class="flow-diagram">
+          <div class="flow-box"><strong>Operator</strong><br />safety, glanceability, flow under load</div>
+          <span class="flow-arrow">+</span>
+          <div class="flow-box"><strong>Sales / setup</strong><br />language, training, setup order</div>
+          <span class="flow-arrow">+</span>
+          <div class="flow-box"><strong>Programmer</strong><br />states, boundaries, reuse</div>
+        </div>
+        <p style="text-align:center;font-size:1.1rem;margin-top:0.5em"><strong>→</strong> One documented UI contract (IA + modes + naming)</p>
+        <div class="lenses">
+          <div class="lens op">
+            <div class="label">Operator</div>
+            <p>“Can I see the problem and the next safe action without reading a manual?”</p>
+          </div>
+          <div class="lens sales">
+            <div class="label">Sales / setup</div>
+            <p>“Can I teach this in one cab ride using the same words the customer uses?”</p>
+          </div>
+          <div class="lens dev">
+            <div class="label">Programmer</div>
+            <p>“Can I implement this without guessing hidden states or duplicate sources of truth?”</p>
+          </div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>When have two lenses agreed but the third broke the design?</li>
+            <li>Who owns keeping the “UI contract” document current?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" data-slide="6">
+      <div class="slide-body">
+        <h2>Principle: task-first layout</h2>
+        <p>Structure around <strong>the job in the cab</strong> (dig / pick / transfer / unload for a harvester; populate / depth / sections / material for a planter), not a flat list of every subsystem.</p>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Harvester angle</h3>
+            <p>High rate of change; attention is split between field, machine noise, and display. Primary surface should answer: <strong>“Is the machine healthy and producing?”</strong> and <strong>“What do I adjust next?”</strong></p>
+          </div>
+          <div class="card">
+            <h3>Planter angle</h3>
+            <p>More setup and verification upfront. Primary surface in the field often answers: <strong>“Is each row doing what we agreed in setup?”</strong></p>
+          </div>
+        </div>
+        <div class="lenses">
+          <div class="lens op"><div class="label">Operator</div><p>Minimize navigation during the highest-stress minutes.</p></div>
+          <div class="lens sales"><div class="label">Sales / setup</div><p>Teach one “happy path” that matches the task story.</p></div>
+          <div class="lens dev"><div class="label">Programmer</div><p>Map screens to explicit machine states and transitions.</p></div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>What is the true “primary task” for each machine in the first hour of operation?</li>
+            <li>What secondary features keep creeping onto the main screen?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" data-slide="7">
+      <div class="slide-body">
+        <h2>Vignette: potato harvester</h2>
+        <p>Mental model: <strong>dig → pick → clean/sort → transfer → storage</strong>. Failures often demand a fast narrative: <em>where</em> in that chain, <em>what</em> changed, <em>what</em> to do next.</p>
+        <div class="mockup-links">
+          <a class="mockup" href="../ui_mockups/ChatGPT_harvester_mockup.html" target="_blank" rel="noopener">Open: task/state mockup</a>
+          <a class="mockup" href="../ui_mockups/potato_harvester_mockup.html" target="_blank" rel="noopener">Open: potato harvester mockup</a>
+          <a class="mockup" href="../ui_mockups/living_machine_harvester_mockup.html" target="_blank" rel="noopener">Open: living machine harvester</a>
+        </div>
+        <div class="placeholder">Placeholder for future screenshots — use live mockups during the meeting.</div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Open a mockup: does the hierarchy match the dig→pick→transfer story?</li>
+            <li>What is missing for “10-second diagnosis” when something goes wrong?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" data-slide="8">
+      <div class="slide-body">
+        <h2>Vignette: belt planter</h2>
+        <p>Mental model: <strong>rows / sections → rates &amp; populations → depth &amp; placement → material handling presets</strong>. More configuration is validated <em>before</em> full-speed operation.</p>
+        <div class="mockup-links">
+          <a class="mockup" href="../ui_mockups/M3_8908_planter_mockup.html" target="_blank" rel="noopener">Open: 8908 belt planter (M3-style)</a>
+        </div>
+        <div class="placeholder">Placeholder for future screenshots — compare density and “setup vs run” balance to harvester mockups.</div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Where should “setup” end and “run” begin in the UI, for training purposes?</li>
+            <li>Which planter parameters must never be buried two menus deep during the shift?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" data-slide="9">
+      <div class="slide-body">
+        <h2>Same principle, two machines</h2>
+        <p><strong>Principle:</strong> one <em>primary metric</em> (or small cluster) plus a <em>context strip</em> (status, mode, next risk).</p>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Harvester example</h3>
+            <p>Primary might emphasize <strong>throughput / loss / blockage risk</strong> — signals that change quickly and drive immediate response.</p>
+          </div>
+          <div class="card">
+            <h3>Planter example</h3>
+            <p>Primary might emphasize <strong>population / skip indicators / depth stability</strong> — slower drift, row-by-row meaning.</p>
+          </div>
+        </div>
+        <p>The <strong>shell</strong> (how you navigate, acknowledge alarms, see mode) can be shared; the <strong>hero region</strong> should respect different operator attention patterns.</p>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>What is the real primary metric for <em>your</em> customers on each machine?</li>
+            <li>Would forcing the same primary metric across both machines hurt usability?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" data-slide="10">
+      <div class="slide-body">
+        <h2>Modes &amp; safe boundaries</h2>
+        <p>When the machine or UI <strong>mode</strong> changes, the display should make that obvious: different actions are legal, different risks apply (transport vs field, manual valve control vs interlocks, etc.).</p>
+        <div class="lenses">
+          <div class="lens op"><div class="label">Operator</div><p>Never surprise me with available actions — mode changes should be loud and reversible where safe.</p></div>
+          <div class="lens sales"><div class="label">Sales / setup</div><p>Training scripts should name modes the same way the UI does.</p></div>
+          <div class="lens dev"><div class="label">Programmer</div><p>Illegal actions are disabled <em>and</em> explained when possible; state charts stay traceable.</p></div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>List the modes that must never be confused on each machine.</li>
+            <li>Where have we hidden mode in a small icon when it should dominate?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" data-slide="11">
+      <div class="slide-body">
+        <h2>Progressive disclosure</h2>
+        <p><strong>Run</strong> surfaces stay shallow. <strong>Diagnostics</strong> and <strong>expert tuning</strong> earn their depth — but emergency and safety-related paths must stay shallow <em>by design</em>.</p>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Harvester</h3>
+            <p>During a plug or sensor fault, depth is acceptable <em>after</em> the operator sees <strong>location + severity + suggested first step</strong>.</p>
+          </div>
+          <div class="card">
+            <h3>Planter</h3>
+            <p>Calibration wizards can be deep; mid-shift adjustments for one row should not require backing out of five menus.</p>
+          </div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>What is one thing we buried too deep on a current product?</li>
+            <li>What expert page is used often enough that it should be promoted?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" data-slide="12">
+      <div class="slide-body">
+        <h2>Consistent shell, flexible content</h2>
+        <p>Reuse buys training and implementation efficiency: shared placement for <strong>alarms</strong>, <strong>mode</strong>, <strong>navigation</strong>, and <strong>“home”</strong>. The <strong>center</strong> flexes for machine-specific tasks and metrics.</p>
+        <div class="mockup-links">
+          <a class="mockup" href="../ui_mockups/spudnik_generic_wireframe.html" target="_blank" rel="noopener">Open: generic wireframe</a>
+        </div>
+        <p>Deliberate <strong>exceptions</strong> should be documented (why this machine breaks the pattern).</p>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>What must be identical across harvester and planter for operator transfer?</li>
+            <li>What should intentionally <em>not</em> be shared?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" data-slide="13">
+      <div class="slide-body">
+        <h2>Alarms &amp; faults</h2>
+        <p>Operators rarely want an encyclopedia first — they want <strong>grouping</strong>, <strong>acknowledgment that sticks</strong>, and <strong>“fix next”</strong> guidance. Sales cares that training matches alarm text. Programmers need stable IDs and severity rules.</p>
+        <div class="lenses">
+          <div class="lens op"><div class="label">Operator</div><p>Can I tell new vs standing fault? Is silence informative or dangerous?</p></div>
+          <div class="lens sales"><div class="label">Sales / setup</div><p>Do customer-facing words match what appears on screen?</p></div>
+          <div class="lens dev"><div class="label">Programmer</div><p>Are alarm codes, help text, and PLC logic a single traceable chain?</p></div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>What do operators actually do first when the list has ten items?</li>
+            <li>How do we avoid “alarm fatigue” without hiding real risk?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" data-slide="14">
+      <div class="slide-body">
+        <h2>Setup vs runtime information architecture</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Setup / commissioning</h3>
+            <p>Wizards, checklists, and “done” states. Planter-heavy. Programmers need explicit entry/exit and persistence rules.</p>
+          </div>
+          <div class="card">
+            <h3>Runtime</h3>
+            <p>Dashboards, quick tweaks, alarm handling. Harvester often stresses continuous adjustment. Keep the path from run → safe stop → diagnosis obvious.</p>
+          </div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Do we use the same navigation entry for “setup” on both machines?</li>
+            <li>Where does runtime accidentally expose dangerous setup controls?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" data-slide="15">
+      <div class="slide-body">
+        <h2>Terminology bridge (fill in live)</h2>
+        <p>Complete as a group — captures customer language vs implementation naming.</p>
+        <table class="terms">
+          <thead>
+            <tr>
+              <th>Customer / operator term</th>
+              <th>What the UI should say</th>
+              <th>Internal / PLC or code name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="empty">(example row)</td>
+              <td class="empty"></td>
+              <td class="empty"></td>
+            </tr>
+            <tr>
+              <td class="empty"></td>
+              <td class="empty"></td>
+              <td class="empty"></td>
+            </tr>
+            <tr>
+              <td class="empty"></td>
+              <td class="empty"></td>
+              <td class="empty"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Pick one contentious name and resolve the three columns together.</li>
+            <li>Who publishes the canonical glossary after this meeting?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" data-slide="16">
+      <div class="slide-body">
+        <h2>Mockups to keep open</h2>
+        <p>Relative to this deck (works on GitHub Pages under <code>/presentations/</code>):</p>
+        <div class="card">
+          <h3>Harvester</h3>
+          <div class="mockup-links">
+            <a class="mockup" href="../ui_mockups/ChatGPT_harvester_mockup.html" target="_blank" rel="noopener">ChatGPT_harvester_mockup</a>
+            <a class="mockup" href="../ui_mockups/potato_harvester_mockup.html" target="_blank" rel="noopener">potato_harvester_mockup</a>
+            <a class="mockup" href="../ui_mockups/living_machine_harvester_mockup.html" target="_blank" rel="noopener">living_machine_harvester_mockup</a>
+          </div>
+          <h3>Planter</h3>
+          <div class="mockup-links">
+            <a class="mockup" href="../ui_mockups/M3_8908_planter_mockup.html" target="_blank" rel="noopener">M3_8908_planter_mockup</a>
+          </div>
+          <h3>Cross-machine pattern</h3>
+          <div class="mockup-links">
+            <a class="mockup" href="../ui_mockups/spudnik_generic_wireframe.html" target="_blank" rel="noopener">spudnik_generic_wireframe</a>
+          </div>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Split the group: half narrates harvester IA, half narrates planter IA, then swap.</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" data-slide="17">
+      <div class="slide-body">
+        <h2>Recap: principles checklist</h2>
+        <div class="card">
+          <ul>
+            <li>Task-first primary surface (job story, not subsystem map)</li>
+            <li>Harvester vs planter: same shell ideas, different hero metrics</li>
+            <li>Modes visible; illegal actions explained where feasible</li>
+            <li>Progressive disclosure without burying emergencies</li>
+            <li>Alarms: grouping, ack behavior, operator-first narrative</li>
+            <li>Setup vs runtime paths are intentionally different depths</li>
+            <li>Terminology bridge is maintained and owned</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>Strike any principle that does not fit our current reality — why?</li>
+            <li>Add one missing principle the team believes in.</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide" data-slide="18">
+      <div class="slide-body">
+        <h2>Facilitated exercise (no dependencies)</h2>
+        <p><strong>Scenario:</strong> Product management asks for “all advanced hydraulics on one screen so experts are happy.” Operators already complain about nighttime navigation.</p>
+        <p><strong>Question:</strong> How do we satisfy experts <em>without</em> breaking task-first layout? Pick the stance your table would document first.</p>
+        <div class="exercise-options">
+          <label>
+            <input type="radio" name="exercise" value="a" />
+            <span><strong>A.</strong> Dedicated “Expert” area behind a mode gate + time-out return to run surface.</span>
+          </label>
+          <label>
+            <input type="radio" name="exercise" value="b" />
+            <span><strong>B.</strong> Same screen, but strict primary/secondary regions with expert content collapsed by default.</span>
+          </label>
+          <label>
+            <input type="radio" name="exercise" value="c" />
+            <span><strong>C.</strong> Two UIs: a simplified “operator” profile and an “advanced” profile selected at login or by role.</span>
+          </label>
+        </div>
+        <p style="font-size:0.9rem">Votes are local only (not saved) — use for conversation starter.</p>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>For <strong>harvester</strong> vs <strong>planter</strong>, does your answer change? Why?</li>
+            <li>What spec bullet would programmers need to implement the chosen approach?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 19 -->
+    <section class="slide" data-slide="19">
+      <div class="slide-body">
+        <h2>Close: decisions &amp; follow-up</h2>
+        <div class="card">
+          <h3>Decisions log (capture three)</h3>
+          <ol>
+            <li class="empty" style="list-style-position:inside;min-height:1.5em;border-bottom:1px dashed var(--line);padding:0.25em 0"> </li>
+            <li class="empty" style="list-style-position:inside;min-height:1.5em;border-bottom:1px dashed var(--line);padding:0.25em 0"> </li>
+            <li class="empty" style="list-style-position:inside;min-height:1.5em;border-bottom:1px dashed var(--line);padding:0.25em 0"> </li>
+          </ol>
+          <h3>Open questions</h3>
+          <ul>
+            <li>Parking lot items to schedule: <span style="border-bottom:1px dashed var(--muted)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+            <li>Owner for UI contract / glossary updates: <span style="border-bottom:1px dashed var(--muted)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          </ul>
+        </div>
+        <p style="margin-top:1em">Thank you — use <kbd>?</kbd> anytime for keyboard help. Print this deck for a one-slide-per-page handout if needed.</p>
+      </div>
+      <footer class="discuss">
+        <div class="discuss-inner">
+          <span class="discuss-tag">Discuss</span>
+          <ul>
+            <li>What is the single most important follow-up meeting to schedule?</li>
+            <li>Does everyone know where the latest mockups live in the repo?</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var total = slides.length;
+      var idx = 0;
+      var progressEl = document.getElementById("progress");
+      var help = document.getElementById("helpOverlay");
+      var btnPrev = document.getElementById("btnPrev");
+      var btnNext = document.getElementById("btnNext");
+      var btnHelp = document.getElementById("btnHelp");
+
+      function show(i) {
+        if (i < 0) i = 0;
+        if (i >= total) i = total - 1;
+        idx = i;
+        slides.forEach(function (el, j) {
+          el.classList.toggle("active", j === idx);
+          el.setAttribute("aria-hidden", j === idx ? "false" : "true");
+        });
+        if (progressEl) progressEl.textContent = idx + 1 + " / " + total;
+        history.replaceState(null, "", "#" + (idx + 1));
+        var activeEl = slides[idx];
+        if (activeEl) activeEl.scrollTop = 0;
+      }
+
+      function next() { show(idx + 1); }
+      function prev() { show(idx - 1); }
+
+      function toggleHelp() {
+        help.classList.toggle("visible");
+      }
+
+      function parseHash() {
+        var m = /^#(\d+)$/.exec(location.hash);
+        if (m) {
+          var n = parseInt(m[1], 10);
+          if (!isNaN(n) && n >= 1 && n <= total) show(n - 1);
+        }
+      }
+
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      btnHelp.addEventListener("click", toggleHelp);
+      help.addEventListener("click", function (e) {
+        if (e.target === help) toggleHelp();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (help.classList.contains("visible")) {
+          if (e.key === "Escape" || e.key === "?") {
+            e.preventDefault();
+            toggleHelp();
+          }
+          return;
+        }
+        if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+          e.preventDefault();
+          toggleHelp();
+          return;
+        }
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+          e.preventDefault();
+          next();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          e.preventDefault();
+          prev();
+        } else if (e.key === "Home") {
+          e.preventDefault();
+          show(0);
+        } else if (e.key === "End") {
+          e.preventDefault();
+          show(total - 1);
+        }
+      });
+
+      window.addEventListener("hashchange", parseHash);
+      parseHash();
+      show(idx);
+    })();
+  </script>
+</body>
+</html>

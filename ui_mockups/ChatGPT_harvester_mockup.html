@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spudnik Harvester HMI — Task/State Layer Mockup</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eef3f7;
+      --surface-3: #dfe8ef;
+      --ink: #17212b;
+      --muted: #5d6b78;
+      --line: #ccd7df;
+      --brand: #b3261e;
+      --ok: #1b7f3a;
+      --warn: #b26a00;
+      --danger: #b3261e;
+      --info: #1f6feb;
+      --auto: #0b7285;
+      --manual: #6750a4;
+      --disabled: #8a97a3;
+      --shadow: 0 10px 28px rgba(23,33,43,.13);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --touch: 64px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #26313a;
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .screen {
+      width: 1280px;
+      height: 800px;
+      background: var(--bg);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,.35);
+      display: grid;
+      grid-template-rows: 86px 54px 1fr 88px;
+      position: relative;
+    }
+
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 250px 1fr 330px;
+      align-items: stretch;
+    }
+
+    .brand-block {
+      padding: 12px 18px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      gap: 5px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: .04em;
+      color: var(--brand);
+      font-size: 22px;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand), #6f120e);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+    }
+
+    .machine-meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .critical-values {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-right: 1px solid var(--line);
+    }
+
+    .metric {
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: center;
+      gap: 4px;
+    }
+
+    .metric:last-child { border-right: 0; }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .metric .value {
+      font-size: 24px;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .metric .unit {
+      color: var(--muted);
+      font-size: 13px;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+
+    .state-panel {
+      display: grid;
+      grid-template-columns: 1fr 112px;
+      align-items: stretch;
+    }
+
+    .state-readout {
+      padding: 12px 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .state-chip {
+      display: inline-flex;
+      align-items: center;
+      width: max-content;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #e4f3ea;
+      color: var(--ok);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      background: currentColor;
+    }
+
+    .state-sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+    }
+
+    .run-button {
+      margin: 12px;
+      border: 0;
+      border-radius: 18px;
+      background: var(--ok);
+      color: white;
+      font-size: 23px;
+      font-weight: 900;
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,.18);
+    }
+
+    .modebar {
+      background: #18242e;
+      color: white;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .mode-tabs,
+    .subsystem-tabs,
+    .task-rail,
+    .preset-rail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+    }
+
+    .tab,
+    .task-btn,
+    .preset-btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: inherit;
+      min-height: 36px;
+      padding: 0 16px;
+      font-weight: 800;
+      letter-spacing: .01em;
+      cursor: pointer;
+    }
+
+    .tab.active,
+    .task-btn.active {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .mode-note {
+      color: rgba(255,255,255,.72);
+      display: grid;
+      align-content: center;
+      padding-right: 16px;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .alarm-strip {
+      position: absolute;
+      top: 140px;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: #fff8e6;
+      border-top: 1px solid #ead59b;
+      border-bottom: 1px solid #ead59b;
+      display: grid;
+      grid-template-columns: 250px 1fr 250px;
+      align-items: center;
+      z-index: 4;
+    }
+
+    .alarm-sev {
+      color: var(--warn);
+      font-size: 15px;
+      font-weight: 900;
+      padding-left: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .alarm-main {
+      color: #5c4200;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .alarm-action {
+      justify-self: end;
+      margin-right: 14px;
+      border: 1px solid #d4ac39;
+      background: white;
+      color: #5c4200;
+      min-height: 34px;
+      border-radius: 999px;
+      padding: 0 14px;
+      font-weight: 850;
+    }
+
+    .content {
+      padding-top: 48px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .workspace {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 250px 1fr 310px;
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(23,33,43,.05);
+    }
+
+    .section-title {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin: 0;
+    }
+
+    .task-stack {
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .state-card {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      cursor: pointer;
+      display: grid;
+      gap: 5px;
+    }
+
+    .state-card.active {
+      border-color: var(--info);
+      outline: 3px solid rgba(31,111,235,.15);
+      background: #f5f9ff;
+    }
+
+    .state-card .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 900;
+    }
+
+    .state-card .desc {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .pill {
+      border-radius: 99px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .pill.ok { background: #e4f3ea; color: var(--ok); }
+    .pill.warn { background: #fff1d6; color: var(--warn); }
+    .pill.info { background: #e7f0ff; color: var(--info); }
+    .pill.manual { background: #efe8ff; color: var(--manual); }
+
+    .machine-map {
+      padding: 14px;
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr 118px;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .run-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 16px;
+    }
+
+    .run-header h1 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.05;
+    }
+
+    .run-header p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .mode-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .diagram-wrap {
+      background: linear-gradient(180deg, #f7fafc, #e9f0f5);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      position: relative;
+      overflow: hidden;
+      min-height: 265px;
+    }
+
+    .flow-line {
+      position: absolute;
+      left: 70px;
+      right: 80px;
+      top: 155px;
+      height: 14px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #94a3b8, #64748b);
+      opacity: .3;
+    }
+
+    .harvester-body {
+      position: absolute;
+      left: 115px;
+      right: 140px;
+      top: 95px;
+      height: 115px;
+      border: 5px solid #465766;
+      border-radius: 18px 34px 24px 18px;
+      background: rgba(255,255,255,.7);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.65);
+    }
+
+    .wheel {
+      position: absolute;
+      bottom: 32px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #26313a;
+      border: 8px solid #596876;
+    }
+
+    .wheel.one { left: 190px; }
+    .wheel.two { right: 205px; }
+
+    .boom-line {
+      position: absolute;
+      right: 46px;
+      top: 122px;
+      width: 190px;
+      height: 18px;
+      background: #5f6f7c;
+      border-radius: 99px;
+      transform: rotate(-18deg);
+      transform-origin: left center;
+    }
+
+    .hotspot {
+      position: absolute;
+      border: 2px solid var(--line);
+      background: rgba(255,255,255,.92);
+      border-radius: 18px;
+      padding: 9px 10px;
+      min-width: 132px;
+      box-shadow: 0 5px 18px rgba(23,33,43,.10);
+      cursor: pointer;
+    }
+
+    .hotspot:hover,
+    .hotspot.active {
+      border-color: var(--info);
+      outline: 4px solid rgba(31,111,235,.13);
+    }
+
+    .hotspot.warn {
+      border-color: #e3b44f;
+      background: #fff9ec;
+    }
+
+    .hotspot .name {
+      font-weight: 900;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hotspot .data {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+      display: grid;
+      gap: 2px;
+    }
+
+    .hs-digger { left: 34px; top: 164px; }
+    .hs-chains { left: 240px; top: 72px; }
+    .hs-table { left: 455px; top: 65px; }
+    .hs-boom { right: 34px; top: 55px; }
+    .hs-axle { right: 190px; bottom: 18px; }
+    .hs-hyd { left: 34px; top: 32px; }
+
+    .bottom-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .summary-tile {
+      border-radius: 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      padding: 11px;
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .summary-tile .top {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .summary-tile .big {
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 99px;
+      background: #d0dae2;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      background: #41586b;
+      border-radius: 99px;
+    }
+
+    .actions {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .action-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fff;
+      display: grid;
+      gap: 8px;
+    }
+
+    .action-card.primary {
+      border-color: rgba(178,106,0,.35);
+      background: #fff9ec;
+    }
+
+    .action-card .title {
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .action-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn {
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: var(--info);
+      color: white;
+      border-color: var(--info);
+    }
+
+    .btn.warn {
+      background: var(--warn);
+      color: white;
+      border-color: var(--warn);
+    }
+
+    .drawer {
+      position: absolute;
+      right: 332px;
+      top: 72px;
+      width: 365px;
+      max-height: 475px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      z-index: 5;
+      overflow: hidden;
+      display: none;
+    }
+
+    .drawer.open { display: block; }
+
+    .drawer-head {
+      padding: 14px 16px;
+      background: #f7fafc;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-title {
+      font-size: 20px;
+      font-weight: 950;
+    }
+
+    .close {
+      border: 0;
+      background: #e6edf3;
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .drawer-body {
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .adjust-row {
+      display: grid;
+      grid-template-columns: 1fr 54px 54px;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: var(--surface-2);
+      border-radius: 14px;
+    }
+
+    .adjust-row strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .adjust-row span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .round-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 24px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .page-view {
+      display: none;
+      height: 100%;
+      padding: 14px;
+      grid-template-rows: auto 1fr;
+      gap: 12px;
+    }
+
+    .page-view.active {
+      display: grid;
+    }
+
+    .legacy-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .legacy-title h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .legacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .legacy-panel {
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      overflow: auto;
+    }
+
+    .legacy-panel h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .control-line {
+      min-height: 52px;
+      border-radius: 14px;
+      background: var(--surface-2);
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-weight: 850;
+    }
+
+    .control-line small {
+      color: var(--muted);
+      display: block;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 470px;
+    }
+
+    .task-rail {
+      gap: 10px;
+    }
+
+    .task-btn {
+      background: var(--surface-2);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      min-height: 56px;
+      border-radius: 18px;
+      min-width: 106px;
+    }
+
+    .task-btn.active {
+      background: #18242e;
+      color: #fff;
+    }
+
+    .preset-rail {
+      justify-content: end;
+      border-left: 1px solid var(--line);
+    }
+
+    .preset-btn {
+      color: var(--ink);
+      background: #fff;
+      border-color: var(--line);
+      min-height: 50px;
+      border-radius: 14px;
+      min-width: 82px;
+    }
+
+    .preset-btn.modified {
+      border-color: var(--warn);
+      background: #fff8e6;
+    }
+
+    .night {
+      background: #1f2933;
+      color: #fff;
+      border-color: #1f2933;
+    }
+
+    .help-text {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="screen" aria-label="Spudnik harvester HMI mockup">
+    <header class="topbar">
+      <section class="brand-block">
+        <div class="brand-row"><div class="logo-mark">S</div> SPUDNIK</div>
+        <div class="machine-meta">6844-55-28 • SW v3.0 task/state concept</div>
+      </section>
+
+      <section class="critical-values">
+        <div class="metric"><div class="label">Chain Speed</div><div class="value">265<span class="unit">fpm</span></div></div>
+        <div class="metric"><div class="label">PTO Speed</div><div class="value">535<span class="unit">rpm</span></div></div>
+        <div class="metric"><div class="label">Boom Speed</div><div class="value">0<span class="unit">fpm</span></div></div>
+        <div class="metric"><div class="label">Oil Temp</div><div class="value">198<span class="unit">°F</span></div></div>
+        <div class="metric"><div class="label">Wheel Drive</div><div class="value">0<span class="unit">psi</span></div></div>
+      </section>
+
+      <section class="state-panel">
+        <div class="state-readout">
+          <div class="state-chip"><span class="dot"></span><span id="stateName">RUNNING</span></div>
+          <div class="state-sub" id="stateSub">Crop flow active. Boom drive disabled until unfolded.</div>
+        </div>
+        <button class="run-button">RUN</button>
+      </section>
+    </header>
+
+    <nav class="modebar">
+      <div class="mode-tabs" aria-label="Underlying page framework">
+        <button class="tab active" data-mode="control">Control</button>
+        <button class="tab" data-mode="diagnostic">Diagnostic</button>
+        <button class="tab" data-mode="settings">Settings</button>
+        <button class="tab" data-mode="help">Help</button>
+      </div>
+      <div class="mode-note">Primary run experience = task/state layer • subsystem pages remain underneath</div>
+    </nav>
+
+    <aside class="alarm-strip">
+      <div class="alarm-sev"><span class="dot"></span> WARNING</div>
+      <div class="alarm-main">Boom folded. Boom drive and fill elevator commands are locked out.</div>
+      <button class="alarm-action" data-open="Boom">Show recovery</button>
+    </aside>
+
+    <section class="content">
+      <div id="controlView" class="page-view active">
+        <div class="workspace">
+          <aside class="card task-stack">
+            <p class="section-title">Machine task state</p>
+            <div class="state-card active" data-state="Running" data-sub="Crop flow active. Boom drive disabled until unfolded.">
+              <div class="title">Running <span class="pill ok">active</span></div>
+              <div class="desc">Main operating view. Crop-flow diagram stays central; tap subsystem to adjust.</div>
+            </div>
+            <div class="state-card" data-state="Start Row" data-sub="Guided start-row sequence: digger, coulters, chains, steering, depth wheels.">
+              <div class="title">Start Row <span class="pill info">guided</span></div>
+              <div class="desc">Step through configured sequence and show timers/interlocks.</div>
+            </div>
+            <div class="state-card" data-state="End Row" data-sub="Guided end-row sequence: raise, clear crop, reset steering/depth.">
+              <div class="title">End Row <span class="pill info">guided</span></div>
+              <div class="desc">Expose only the actions needed to finish a row cleanly.</div>
+            </div>
+            <div class="state-card" data-state="Unload / Fill" data-sub="Boom, fill elevator, hopper floor, and truck communication controls.">
+              <div class="title">Unload / Fill <span class="pill warn">blocked</span></div>
+              <div class="desc">Focus on boom/fill functions and explain why unavailable.</div>
+            </div>
+            <div class="state-card" data-state="Fault Recovery" data-sub="Highest fault is shown with affected subsystem and direct recovery action.">
+              <div class="title">Fault Recovery <span class="pill warn">1 issue</span></div>
+              <div class="desc">Turn alarms into step-by-step operator guidance.</div>
+            </div>
+            <div class="state-card" data-state="Service" data-sub="Technician controls are available through underlying diagnostics/settings pages.">
+              <div class="title">Service <span class="pill manual">locked</span></div>
+              <div class="desc">Keeps advanced I/O, calibration, and tuning out of normal run flow.</div>
+            </div>
+          </aside>
+
+          <section class="card machine-map">
+            <div class="run-header">
+              <div>
+                <h1>Run Overview: Crop Flow + Machine State</h1>
+                <p>Spatial run screen sits on top of the existing subsystem page framework.</p>
+              </div>
+              <div class="mode-badges">
+                <span class="pill ok">chains auto</span>
+                <span class="pill ok">digger auto</span>
+                <span class="pill manual">boom manual</span>
+                <span class="pill warn">1 interlock</span>
+              </div>
+            </div>
+
+            <div class="diagram-wrap" aria-label="Harvester crop flow map">
+              <div class="flow-line"></div>
+              <div class="harvester-body"></div>
+              <div class="boom-line"></div>
+              <div class="wheel one"></div>
+              <div class="wheel two"></div>
+
+              <button class="hotspot hs-hyd" data-open="Hydraulics">
+                <div class="name">Hydraulics <span class="pill ok">ok</span></div>
+                <div class="data"><span>Oil 198°F</span><span>PTO 535 rpm</span></div>
+              </button>
+
+              <button class="hotspot hs-digger" data-open="Digger">
+                <div class="name">Digger <span class="pill ok">auto</span></div>
+                <div class="data"><span>Nose 0 psi</span><span>Hump 52%</span><span>Depth 70/65%</span></div>
+              </button>
+
+              <button class="hotspot hs-chains" data-open="Chains">
+                <div class="name">Chains <span class="pill ok">auto</span></div>
+                <div class="data"><span>Mode fixed speed</span><span>Intake 265 fpm</span></div>
+              </button>
+
+              <button class="hotspot hs-table" data-open="Table">
+                <div class="name">Table <span class="pill ok">ready</span></div>
+                <div class="data"><span>Gap 4 • Height 3</span><span>Angle 43%</span></div>
+              </button>
+
+              <button class="hotspot hs-boom warn active" data-open="Boom">
+                <div class="name">Boom <span class="pill warn">folded</span></div>
+                <div class="data"><span>Drive locked out</span><span>Unfold to operate</span></div>
+              </button>
+
+              <button class="hotspot hs-axle" data-open="Axle">
+                <div class="name">Axle <span class="pill ok">auto</span></div>
+                <div class="data"><span>Height 0%</span><span>Steering centered</span></div>
+              </button>
+            </div>
+
+            <div class="bottom-summary">
+              <div class="summary-tile">
+                <div class="top"><span>Digger load</span><span>light</span></div>
+                <div class="big">0 psi</div>
+                <div class="bar"><span style="width: 12%"></span></div>
+              </div>
+              <div class="summary-tile">
+                <div class="top"><span>Crop flow</span><span>steady</span></div>
+                <div class="big">265 fpm</div>
+                <div class="bar"><span style="width: 68%"></span></div>
+              </div>
+              <div class="summary-tile">
+                <div class="top"><span>Table</span><span>preset</span></div>
+                <div class="big">Clean 2*</div>
+                <div class="bar"><span style="width: 43%"></span></div>
+              </div>
+              <div class="summary-tile">
+                <div class="top"><span>Fill path</span><span>blocked</span></div>
+                <div class="big">Folded</div>
+                <div class="bar"><span style="width: 0%"></span></div>
+              </div>
+            </div>
+
+            <aside id="drawer" class="drawer open" aria-label="Subsystem adjustment drawer">
+              <div class="drawer-head">
+                <div>
+                  <div class="drawer-title" id="drawerTitle">Boom</div>
+                  <div class="help-text" id="drawerSubtitle">Context drawer launched from run map</div>
+                </div>
+                <button class="close" id="drawerClose">×</button>
+              </div>
+              <div class="drawer-body" id="drawerBody"></div>
+            </aside>
+          </section>
+
+          <aside class="card actions">
+            <p class="section-title">Next best actions</p>
+
+            <article class="action-card primary">
+              <div class="title">Recover boom operation</div>
+              <p>Boom is folded, so boom drive and fill elevator are unavailable. Hold Unfold until position sensor confirms open.</p>
+              <div class="btn-row">
+                <button class="btn warn">Hold Unfold</button>
+                <button class="btn">Why locked?</button>
+              </div>
+            </article>
+
+            <article class="action-card">
+              <div class="title">Start-row sequence ready</div>
+              <p>Uses configured delays for digger auto, coulters down, chains auto, steer center, and depth wheel auto.</p>
+              <button class="btn primary" data-state-jump="Start Row">Open Start Row</button>
+            </article>
+
+            <article class="action-card">
+              <div class="title">Preset modified</div>
+              <p>Clean 2 has unsaved changes: table angle and segment roller setpoint differ from stored preset.</p>
+              <div class="btn-row">
+                <button class="btn">Save</button>
+                <button class="btn">Restore</button>
+              </div>
+            </article>
+
+            <article class="action-card">
+              <div class="title">Underlying pages remain available</div>
+              <p>Subsystem tabs, diagnostics, settings, joystick mapping, telematics, and help still exist below the task layer.</p>
+            </article>
+          </aside>
+        </div>
+      </div>
+
+      <div id="diagnosticView" class="page-view">
+        <div class="legacy-title">
+          <h1>Diagnostic Framework</h1>
+          <div class="subsystem-tabs">
+            <button class="tab active">Digger</button><button class="tab">Chains</button><button class="tab">Table</button><button class="tab">Boom</button><button class="tab">Axle</button>
+          </div>
+        </div>
+        <div class="legacy-grid">
+          <section class="card legacy-panel">
+            <h2>Inputs</h2>
+            <div class="control-line"><div>Digger nose pos RH<small>S4 In3 Pin13, Block4 Port5B</small></div><strong>0.0 mA</strong></div>
+            <div class="control-line"><div>Hump adjust pos<small>S4 In3 Pin14, Block1 Port7A</small></div><strong>0.0 mA</strong></div>
+            <div class="control-line"><div>Depthwheel pos LH<small>S4X6 In Pin14, Block7 Port5B</small></div><strong>0.0 mA</strong></div>
+          </section>
+          <section class="card legacy-panel">
+            <h2>Outputs</h2>
+            <div class="control-line"><div>Digger A RH<small>S4 Out1 Pin1, Block1 Port3A</small></div><strong>0 PWM</strong></div>
+            <div class="control-line"><div>Hump adjust A<small>S4 Out1 Pin13, Block1 Port4A</small></div><strong>0 PWM</strong></div>
+            <div class="control-line"><div>Primary shaker<small>S4 Out3 Pin3, Block1 Port2A</small></div><strong>0 PWM</strong></div>
+          </section>
+          <section class="card legacy-panel">
+            <h2>State-layer diagnostic</h2>
+            <p class="help-text">The task/state layer can expose the same I/O as plain-language interlocks.</p>
+            <div class="control-line"><div>Boom drive unavailable<small>Cause: folded sensor active</small></div><span class="pill warn">blocked</span></div>
+            <div class="control-line"><div>Start row allowed<small>Cause: PTO speed valid, chains ready</small></div><span class="pill ok">ready</span></div>
+            <div class="control-line"><div>Table preset dirty<small>Cause: actual setpoint differs from Clean 2</small></div><span class="pill warn">modified</span></div>
+          </section>
+        </div>
+      </div>
+
+      <div id="settingsView" class="page-view">
+        <div class="legacy-title">
+          <h1>Settings Framework</h1>
+          <div class="subsystem-tabs">
+            <button class="tab active">General</button><button class="tab">Chains</button><button class="tab">Joystick</button><button class="tab">Start / End Row</button><button class="tab">Presets</button><button class="tab">Telematics</button>
+          </div>
+        </div>
+        <div class="legacy-grid">
+          <section class="card legacy-panel">
+            <h2>Start Row Sequence</h2>
+            <div class="control-line"><div>Digger auto<small>Start delay 0.5 sec</small></div><strong>enabled</strong></div>
+            <div class="control-line"><div>Coulters down<small>Duration 1.0 sec</small></div><strong>enabled</strong></div>
+            <div class="control-line"><div>Chains auto<small>Start delay 1.5 sec</small></div><strong>enabled</strong></div>
+            <div class="control-line"><div>Steer center<small>Start delay 2.0 sec</small></div><strong>enabled</strong></div>
+          </section>
+          <section class="card legacy-panel">
+            <h2>End Row Sequence</h2>
+            <div class="control-line"><div>Digger up<small>Start delay 0.0 sec</small></div><strong>enabled</strong></div>
+            <div class="control-line"><div>Coulters up<small>Start delay 0.5 sec</small></div><strong>enabled</strong></div>
+            <div class="control-line"><div>Depth wheel up<small>Start delay 1.0 sec</small></div><strong>enabled</strong></div>
+            <div class="control-line"><div>Chains auto<small>Clear crop delay</small></div><strong>enabled</strong></div>
+          </section>
+          <section class="card legacy-panel">
+            <h2>Task Layer Rules</h2>
+            <div class="control-line"><div>State selection<small>Bottom rail and task cards</small></div><strong>operator</strong></div>
+            <div class="control-line"><div>Disabled controls<small>Tap shows reason and recovery</small></div><strong>required</strong></div>
+            <div class="control-line"><div>Drawer edits<small>Tap subsystem hotspot to adjust</small></div><strong>enabled</strong></div>
+          </section>
+        </div>
+      </div>
+
+      <div id="helpView" class="page-view">
+        <div class="legacy-title">
+          <h1>Help Framework</h1>
+          <div class="subsystem-tabs">
+            <button class="tab active">Overview</button><button class="tab">Quickstart</button><button class="tab">Operating Procedures</button><button class="tab">I/O Chart</button><button class="tab">Wiring</button>
+          </div>
+        </div>
+        <div class="legacy-grid">
+          <section class="card legacy-panel">
+            <h2>Operator model</h2>
+            <p class="help-text">The operator begins from task state, not from a subsystem tab. The UI asks: what are we doing now?</p>
+            <div class="control-line"><div>Running<small>Watch crop flow and adjust subsystem drawers</small></div><span class="pill ok">primary</span></div>
+            <div class="control-line"><div>Start / End Row<small>Guided sequence screens</small></div><span class="pill info">guided</span></div>
+            <div class="control-line"><div>Fault Recovery<small>Alarm + affected subsystem + recovery action</small></div><span class="pill warn">guided</span></div>
+          </section>
+          <section class="card legacy-panel">
+            <h2>Subsystem model</h2>
+            <p class="help-text">The current page/subsystem structure remains the stable underlying framework.</p>
+            <div class="control-line"><div>Digger, Chains, Table, Boom, Axle<small>Still available for detailed control</small></div><strong>Control</strong></div>
+            <div class="control-line"><div>Inputs and outputs<small>Still available by subsystem</small></div><strong>Diagnostic</strong></div>
+            <div class="control-line"><div>Joystick, presets, telematics<small>Still available by settings group</small></div><strong>Settings</strong></div>
+          </section>
+          <section class="card legacy-panel">
+            <h2>Design intent</h2>
+            <p class="help-text">This mockup demonstrates a hybrid: the run screen is task/state driven, while technicians and expert users can still reach familiar subsystem pages.</p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <nav class="task-rail" aria-label="Task rail">
+        <button class="task-btn active" data-state-jump="Running">Run</button>
+        <button class="task-btn" data-state-jump="Start Row">Start Row</button>
+        <button class="task-btn" data-state-jump="End Row">End Row</button>
+        <button class="task-btn" data-state-jump="Unload / Fill">Unload</button>
+        <button class="task-btn" data-state-jump="Fault Recovery">Recover</button>
+        <button class="task-btn" data-mode-jump="diagnostic">Service</button>
+      </nav>
+      <nav class="preset-rail" aria-label="Presets and night mode">
+        <button class="preset-btn">Digger 1</button>
+        <button class="preset-btn modified">Clean 2*</button>
+        <button class="preset-btn">User 3</button>
+        <button class="preset-btn night">Night</button>
+      </nav>
+    </footer>
+  </main>
+
+  <script>
+    const drawerData = {
+      Digger: {
+        subtitle: "Digger controls remain available as a subsystem drawer.",
+        rows: [
+          ["Digger Nose", "0 psi • Auto"],
+          ["Hump", "52%"],
+          ["Coulters", "Sync L/R"],
+          ["Depth Wheels", "70% L • 65% R"]
+        ]
+      },
+      Chains: {
+        subtitle: "Chain page content shown contextually from crop-flow map.",
+        rows: [
+          ["Chain Mode", "Fixed speed"],
+          ["Intake", "100% • 265 fpm"],
+          ["Primary", "100% • 0 fpm actual"],
+          ["Secondary / Vine", "100% • 0 fpm actual"]
+        ]
+      },
+      Table: {
+        subtitle: "Cleaning table adjustments can be opened without leaving Run.",
+        rows: [
+          ["Gap", "4"],
+          ["Height", "3"],
+          ["Angle", "43%"],
+          ["Pinch Mode", "Off"],
+          ["Segment Rollers", "100%"],
+          ["Clod Rollers", "100%"],
+          ["Transfer Roller", "100%"]
+        ]
+      },
+      Boom: {
+        subtitle: "Interlock-aware controls explain unavailable actions.",
+        rows: [
+          ["Boom Fold", "Folded • hold Unfold"],
+          ["Boom In / Out", "Locked: folded"],
+          ["Outer Boom", "Locked: folded"],
+          ["Inner Boom", "Locked: folded"],
+          ["Boom Swing", "Locked: folded"],
+          ["Fill Elevator", "Locked: boom folded"]
+        ]
+      },
+      Axle: {
+        subtitle: "Machine position controls grouped by spatial subsystem.",
+        rows: [
+          ["Machine Height", "0%"],
+          ["Machine Roll", "0%"],
+          ["Steering", "Centered"],
+          ["Wheel Drive", "Off"]
+        ]
+      },
+      Hydraulics: {
+        subtitle: "Support systems shown only when they affect the current state.",
+        rows: [
+          ["PTO Speed", "535 rpm"],
+          ["Oil Temperature", "198°F"],
+          ["Wheel Drive Pressure", "0 psi"],
+          ["Hydraulic Enable", "On"]
+        ]
+      }
+    };
+
+    const views = {
+      control: document.getElementById("controlView"),
+      diagnostic: document.getElementById("diagnosticView"),
+      settings: document.getElementById("settingsView"),
+      help: document.getElementById("helpView")
+    };
+
+    const stateSubtext = {
+      "Running": "Crop flow active. Boom drive disabled until unfolded.",
+      "Start Row": "Guided start-row sequence: digger, coulters, chains, steering, depth wheels.",
+      "End Row": "Guided end-row sequence: raise, clear crop, reset steering/depth.",
+      "Unload / Fill": "Boom, fill elevator, hopper floor, and truck communication controls.",
+      "Fault Recovery": "Highest fault is shown with affected subsystem and direct recovery action.",
+      "Service": "Technician controls are available through underlying diagnostics/settings pages."
+    };
+
+    function openDrawer(name) {
+      const drawer = document.getElementById("drawer");
+      const title = document.getElementById("drawerTitle");
+      const subtitle = document.getElementById("drawerSubtitle");
+      const body = document.getElementById("drawerBody");
+      const data = drawerData[name] || drawerData.Boom;
+
+      title.textContent = name;
+      subtitle.textContent = data.subtitle;
+      body.innerHTML = data.rows.map(([label, value]) => `
+        <div class="adjust-row">
+          <div><strong>${label}</strong><span>${value}</span></div>
+          <button class="round-btn" aria-label="Decrease ${label}">−</button>
+          <button class="round-btn" aria-label="Increase ${label}">+</button>
+        </div>
+      `).join("") + `
+        <button class="btn primary">Open full ${name} page</button>
+      `;
+
+      document.querySelectorAll(".hotspot").forEach(btn => btn.classList.toggle("active", btn.dataset.open === name));
+      drawer.classList.add("open");
+    }
+
+    function setMode(mode) {
+      Object.entries(views).forEach(([key, el]) => el.classList.toggle("active", key === mode));
+      document.querySelectorAll(".mode-tabs .tab").forEach(tab => tab.classList.toggle("active", tab.dataset.mode === mode));
+    }
+
+    function setState(state) {
+      document.getElementById("stateName").textContent = state.toUpperCase();
+      document.getElementById("stateSub").textContent = stateSubtext[state] || "";
+      document.querySelectorAll(".state-card").forEach(card => card.classList.toggle("active", card.dataset.state === state));
+      document.querySelectorAll(".task-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.stateJump === state));
+      setMode("control");
+    }
+
+    document.querySelectorAll("[data-open]").forEach(btn => {
+      btn.addEventListener("click", () => openDrawer(btn.dataset.open));
+    });
+
+    document.querySelectorAll("[data-mode]").forEach(btn => {
+      btn.addEventListener("click", () => setMode(btn.dataset.mode));
+    });
+
+    document.querySelectorAll("[data-mode-jump]").forEach(btn => {
+      btn.addEventListener("click", () => setMode(btn.dataset.modeJump));
+    });
+
+    document.querySelectorAll("[data-state], [data-state-jump]").forEach(el => {
+      el.addEventListener("click", () => setState(el.dataset.state || el.dataset.stateJump));
+    });
+
+    document.getElementById("drawerClose").addEventListener("click", () => {
+      document.getElementById("drawer").classList.remove("open");
+      document.querySelectorAll(".hotspot").forEach(btn => btn.classList.remove("active"));
+    });
+
+    openDrawer("Boom");
+  </script>
+</body>
+</html>
